@@ -54,6 +54,11 @@ public abstract class MokkitEntity implements Entity {
     private @Getter final UUID uniqueId;
 
     /**
+     * Whether the entity is a server operator.
+     */
+    private @Getter @Setter boolean op;
+
+    /**
      * Constructor.
      *
      * @param server   The server this entity is in.
@@ -497,18 +502,6 @@ public abstract class MokkitEntity implements Entity {
 
     @Override
     public Set<PermissionAttachmentInfo> getEffectivePermissions() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public boolean isOp() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setOp(final boolean value) {
         // TODO
         throw new UnsupportedMockException();
     }
