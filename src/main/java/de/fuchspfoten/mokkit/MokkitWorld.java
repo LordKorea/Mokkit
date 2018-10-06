@@ -100,6 +100,32 @@ public class MokkitWorld implements World {
     }
 
     @Override
+    public void loadChunk(final int x, final int z) {
+        loadChunk(x, z, true);
+    }
+
+    @Override
+    public boolean loadChunk(final int x, final int z, final boolean generate) {
+        final ChunkCoordinate coord = new ChunkCoordinate(x, z);
+        if (loadedChunks.containsKey(coord)) {
+            return true;
+        }
+
+        // Create the chunk.
+        if (!generate) {
+            loadedChunks.put(coord, new MokkitChunk(this, x, z));
+        } else {
+            loadedChunks.put(coord, new MokkitSuperflatChunk(this, x, z));
+        }
+        return true;
+    }
+
+    @Override
+    public int getMaxHeight() {
+        return 256;
+    }
+
+    @Override
     public int getBlockTypeIdAt(final int x, final int y, final int z) {
         // TODO
         throw new UnsupportedMockException();
@@ -161,18 +187,6 @@ public class MokkitWorld implements World {
 
     @Override
     public boolean isChunkInUse(final int x, final int z) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void loadChunk(final int x, final int z) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public boolean loadChunk(final int x, final int z, final boolean generate) {
         // TODO
         throw new UnsupportedMockException();
     }
@@ -597,12 +611,6 @@ public class MokkitWorld implements World {
 
     @Override
     public double getHumidity(final int x, final int z) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public int getMaxHeight() {
         // TODO
         throw new UnsupportedMockException();
     }
