@@ -1,7 +1,7 @@
 # Acknowledgements
 
 This project links against the Spigot API which consists of the Bukkit API and patches made by countless developers and
-provides an incomplete implementation that may or may not work and follow the specifications.
+provides an incomplete implementation that may or may not work and may or may not follow the specifications of the API.
 
 https://hub.spigotmc.org/stash/projects/SPIGOT/
 
@@ -20,8 +20,11 @@ https://github.com/rzwitserloot/lombok/blob/master/LICENSE
 
 # License of Mokkit
 
-Mokkit Copyright (C) 2018 Kaworu, Fuchspfoten.de
+`Mokkit Copyright (C) 2018 Kaworu, Fuchspfoten.de`
 
+This program is licensed under the GNU GPLv3.
+
+```
                     GNU GENERAL PUBLIC LICENSE
                        Version 3, 29 June 2007
 
@@ -696,3 +699,4 @@ may consider it more useful to permit linking proprietary applications with
 the library.  If this is what you want to do, use the GNU Lesser General
 Public License instead of this License.  But first, please read
 <https://www.gnu.org/licenses/why-not-lgpl.html>.
+```
