@@ -711,12 +711,12 @@ public class MokkitServer implements Server {
     /**
      * Class for the control object.
      */
-    public final class Mokkit {
+    public class Mokkit {
 
         /**
-         * Private constructor to prevent outside instance creation.
+         * Protected constructor to prevent outside instance creation.
          */
-        private Mokkit() {
+        protected Mokkit() {
         }
 
         /**

@@ -22,9 +22,11 @@ import org.bukkit.conversations.Conversation;
 import org.bukkit.conversations.ConversationAbandonedEvent;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockDamageEvent;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.map.MapView;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scoreboard.Scoreboard;
@@ -936,7 +938,13 @@ public class MokkitPlayer extends MokkitHumanEntity implements Player {
     /**
      * Class for the control object.
      */
-    public final class Mokkit {
+    public class Mokkit extends MokkitLivingEntity.Mokkit {
+
+        /**
+         * Protected constructor to prevent outside instance creation.
+         */
+        protected Mokkit() {
+        }
 
         /**
          * Attempts to break the given block.

@@ -1,5 +1,6 @@
 package de.fuchspfoten.mokkit.entity;
 
+import de.fuchspfoten.mokkit.CancelledByEventException;
 import de.fuchspfoten.mokkit.MokkitServer;
 import de.fuchspfoten.mokkit.internal.exception.UnsupportedMockException;
 import org.bukkit.Location;
@@ -11,6 +12,8 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.inventory.EntityEquipment;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -25,6 +28,8 @@ import java.util.UUID;
  * @see org.bukkit.entity.LivingEntity
  */
 public abstract class MokkitLivingEntity extends MokkitEntity implements LivingEntity {
+
+    private final Mokkit mokkit = new Mokkit();
 
     /**
      * Constructor.
@@ -330,5 +335,57 @@ public abstract class MokkitLivingEntity extends MokkitEntity implements LivingE
     public <T extends Projectile> T launchProjectile(final Class<? extends T> projectile, final Vector velocity) {
         // TODO
         throw new UnsupportedMockException();
+    }
+
+    /**
+     * Get the control object.
+     *
+     * @return The control object.
+     */
+    public Mokkit mokkit() {
+        return mokkit;
+    }
+
+    /**
+     * Class for the control object.
+     */
+    public class Mokkit {
+
+        /**
+         * Protected constructor to prevent outside instance creation.
+         */
+        protected Mokkit() {
+        }
+
+        /**
+         * Attempts to attack a target.
+         *
+         * @param target The target.
+         * @param damageDone The damage that is to be done.
+         */
+        public void attackLiving(final LivingEntity target, final double damageDone) throws CancelledByEventException {
+            attackLiving(target, damageDone, EntityDamageEvent.DamageCause.ENTITY_ATTACK);
+        }
+
+        /**
+         * Attempts to attack a target.
+         *
+         * @param target The target.
+         * @param damageDone The damage that is to be done.
+         * @param cause The cause of the damage done.
+         */
+        public void attackLiving(final LivingEntity target, final double damageDone,
+                                 final EntityDamageEvent.DamageCause cause) throws CancelledByEventException {
+            // Attempt damaging the target.
+            final EntityDamageByEntityEvent event = new EntityDamageByEntityEvent(MokkitLivingEntity.this,
+                    target, cause, damageDone);
+            getServer().getPluginManager().callEvent(event);
+            if (event.isCancelled()) {
+                throw new CancelledByEventException(event);
+            }
+
+            // Damage the target.
+            target.damage(damageDone);
+        }
     }
 }

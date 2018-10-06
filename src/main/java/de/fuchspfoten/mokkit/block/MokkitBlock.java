@@ -47,9 +47,9 @@ public class MokkitBlock implements Block {
      * Constructor.
      *
      * @param world The world this block is in.
-     * @param x The x position of the block.
-     * @param y The y position of the block.
-     * @param z The z position of the block.
+     * @param x     The x position of the block.
+     * @param y     The y position of the block.
+     * @param z     The z position of the block.
      */
     public MokkitBlock(final World world, final int x, final int y, final int z) {
         this.world = world;
