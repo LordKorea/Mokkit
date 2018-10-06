@@ -16,12 +16,14 @@ import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.inventory.EntityEquipment;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -70,6 +72,30 @@ public abstract class MokkitLivingEntity extends MokkitEntity implements LivingE
     @Override
     public void resetMaxHealth() {
         maxHealth = defaultMaxHealth;
+    }
+
+    @Override
+    public void damage(final double amount) {
+        damage(amount, null);
+    }
+
+    @Override
+    public void damage(final double amount, final Entity source) {
+        // TODO what do we do with the source?
+        health -= amount;
+        if (isDead()) {
+            // TODO drops, exp
+            final EntityDeathEvent event = new EntityDeathEvent(this, Collections.emptyList(), 0);
+            getServer().getPluginManager().callEvent(event);
+
+            // Ensure cancelling isn't possible with tricks, either.
+            health = -1.0;
+        }
+    }
+
+    @Override
+    public boolean isDead() {
+        return health <= 0.0;
     }
 
     @Override
@@ -308,18 +334,6 @@ public abstract class MokkitLivingEntity extends MokkitEntity implements LivingE
 
     @Override
     public AttributeInstance getAttribute(final Attribute attribute) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void damage(final double amount) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void damage(final double amount, final Entity source) {
         // TODO
         throw new UnsupportedMockException();
     }

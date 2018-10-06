@@ -92,6 +92,11 @@ public abstract class MokkitEntity implements Entity {
     }
 
     @Override
+    public EntityType getType() {
+        throw new UnsupportedOperationException("subclasses must handle their entity type");
+    }
+
+    @Override
     public double getHeight() {
         // TODO
         throw new UnsupportedMockException();
@@ -273,12 +278,6 @@ public abstract class MokkitEntity implements Entity {
 
     @Override
     public void playEffect(final EntityEffect type) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public EntityType getType() {
         // TODO
         throw new UnsupportedMockException();
     }
