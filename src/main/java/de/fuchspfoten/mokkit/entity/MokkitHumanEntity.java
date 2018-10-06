@@ -3,6 +3,7 @@ package de.fuchspfoten.mokkit.entity;
 import de.fuchspfoten.mokkit.internal.exception.UnsupportedMockException;
 import de.fuchspfoten.mokkit.inventory.MokkitPlayerInventory;
 import lombok.Getter;
+import lombok.Setter;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -27,6 +28,11 @@ public abstract class MokkitHumanEntity extends MokkitLivingEntity implements Hu
      * The inventory of the human entity.
      */
     private @Getter final PlayerInventory inventory = new MokkitPlayerInventory();
+
+    /**
+     * The game mode of the human entity.
+     */
+    private @Getter @Setter GameMode gameMode = GameMode.SURVIVAL;
 
     /**
      * Constructor.
@@ -155,18 +161,6 @@ public abstract class MokkitHumanEntity extends MokkitLivingEntity implements Hu
 
     @Override
     public int getSleepTicks() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public GameMode getGameMode() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setGameMode(final GameMode mode) {
         // TODO
         throw new UnsupportedMockException();
     }
