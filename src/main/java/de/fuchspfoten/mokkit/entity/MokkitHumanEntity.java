@@ -1,5 +1,6 @@
 package de.fuchspfoten.mokkit.entity;
 
+import de.fuchspfoten.mokkit.MokkitServer;
 import de.fuchspfoten.mokkit.internal.exception.UnsupportedMockException;
 import de.fuchspfoten.mokkit.inventory.MokkitPlayerInventory;
 import lombok.Getter;
@@ -37,16 +38,23 @@ public abstract class MokkitHumanEntity extends MokkitLivingEntity implements Hu
     /**
      * Constructor.
      *
+     * @param server   The server this entity is in.
      * @param name     The name of the entity.
      * @param location The location the entity is at.
      * @param uuid     The UUID of the entity.
      */
-    public MokkitHumanEntity(final String name, final Location location, final UUID uuid) {
-        super(name, location, uuid);
+    public MokkitHumanEntity(final MokkitServer server, final String name, final Location location, final UUID uuid) {
+        super(server, name, location, uuid);
     }
 
     @Override
     public ItemStack getItemInHand() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void setItemInHand(final ItemStack item) {
         // TODO
         throw new UnsupportedMockException();
     }
@@ -113,12 +121,6 @@ public abstract class MokkitHumanEntity extends MokkitLivingEntity implements Hu
 
     @Override
     public void closeInventory() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setItemInHand(final ItemStack item) {
         // TODO
         throw new UnsupportedMockException();
     }

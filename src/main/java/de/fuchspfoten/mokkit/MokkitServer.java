@@ -757,8 +757,8 @@ public class MokkitServer implements Server {
             }
 
             // Create the player.
-            final MokkitPlayer player = new MokkitPlayer(name, new Location(getWorld("world"), 0, 0, 0),
-                    getUUIDForName(name));
+            final MokkitPlayer player = new MokkitPlayer(MokkitServer.this, name,
+                    new Location(getWorld("world"), 0, 0, 0), getUUIDForName(name));
             // TODO add the player somewhere.
 
             // Login.

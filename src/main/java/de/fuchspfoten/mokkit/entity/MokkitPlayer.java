@@ -1,6 +1,7 @@
 package de.fuchspfoten.mokkit.entity;
 
 import de.fuchspfoten.mokkit.CancelledByEventException;
+import de.fuchspfoten.mokkit.MokkitServer;
 import de.fuchspfoten.mokkit.internal.exception.UnsupportedMockException;
 import org.bukkit.Achievement;
 import org.bukkit.Effect;
@@ -46,12 +47,13 @@ public class MokkitPlayer extends MokkitHumanEntity implements Player {
     /**
      * Constructor.
      *
+     * @param server   The server this entity is in.
      * @param name     The name of the entity.
      * @param location The location the entity is at.
      * @param uuid     The UUID of the entity.
      */
-    public MokkitPlayer(final String name, final Location location, final UUID uuid) {
-        super(name, location, uuid);
+    public MokkitPlayer(final MokkitServer server, final String name, final Location location, final UUID uuid) {
+        super(server, name, location, uuid);
     }
 
     @Override

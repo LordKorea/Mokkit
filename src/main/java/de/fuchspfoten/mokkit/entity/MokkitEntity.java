@@ -1,11 +1,11 @@
 package de.fuchspfoten.mokkit.entity;
 
+import de.fuchspfoten.mokkit.MokkitServer;
 import de.fuchspfoten.mokkit.internal.exception.UnsupportedMockException;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.EntityEffect;
 import org.bukkit.Location;
-import org.bukkit.Server;
 import org.bukkit.World;
 import org.bukkit.block.PistonMoveReaction;
 import org.bukkit.entity.Entity;
@@ -27,6 +27,11 @@ import java.util.UUID;
  * @see org.bukkit.entity.Entity
  */
 public abstract class MokkitEntity implements Entity {
+
+    /**
+     * The server this entity is in.
+     */
+    private @Getter final MokkitServer server;
 
     /**
      * The name of the entity.
@@ -51,11 +56,13 @@ public abstract class MokkitEntity implements Entity {
     /**
      * Constructor.
      *
+     * @param server   The server this entity is in.
      * @param name     The name of the entity.
      * @param location The location the entity is at.
      * @param uniqueId The UUID of the entity.
      */
-    public MokkitEntity(final String name, final Location location, final UUID uniqueId) {
+    public MokkitEntity(final MokkitServer server, final String name, final Location location, final UUID uniqueId) {
+        this.server = server;
         this.name = name;
         this.location = location;
         this.uniqueId = uniqueId == null ? UUID.randomUUID() : uniqueId;
@@ -177,12 +184,6 @@ public abstract class MokkitEntity implements Entity {
 
     @Override
     public void sendMessage(final String[] messages) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public Server getServer() {
         // TODO
         throw new UnsupportedMockException();
     }

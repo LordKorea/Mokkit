@@ -31,37 +31,13 @@ public class MokkitPlayerInventory extends MokkitInventory implements PlayerInve
     }
 
     @Override
+    public void setItemInMainHand(final ItemStack item) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
     public ItemStack[] getArmorContents() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public ItemStack[] getExtraContents() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public ItemStack getHelmet() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public ItemStack getChestplate() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public ItemStack getLeggings() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public ItemStack getBoots() {
         // TODO
         throw new UnsupportedMockException();
     }
@@ -73,7 +49,19 @@ public class MokkitPlayerInventory extends MokkitInventory implements PlayerInve
     }
 
     @Override
+    public ItemStack[] getExtraContents() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
     public void setExtraContents(final ItemStack[] items) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public ItemStack getHelmet() {
         // TODO
         throw new UnsupportedMockException();
     }
@@ -85,7 +73,19 @@ public class MokkitPlayerInventory extends MokkitInventory implements PlayerInve
     }
 
     @Override
+    public ItemStack getChestplate() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
     public void setChestplate(final ItemStack chestplate) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public ItemStack getLeggings() {
         // TODO
         throw new UnsupportedMockException();
     }
@@ -97,13 +97,13 @@ public class MokkitPlayerInventory extends MokkitInventory implements PlayerInve
     }
 
     @Override
-    public void setBoots(final ItemStack boots) {
+    public ItemStack getBoots() {
         // TODO
         throw new UnsupportedMockException();
     }
 
     @Override
-    public void setItemInMainHand(final ItemStack item) {
+    public void setBoots(final ItemStack boots) {
         // TODO
         throw new UnsupportedMockException();
     }

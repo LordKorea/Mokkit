@@ -29,6 +29,12 @@ public class MokkitBlock implements Block {
     }
 
     @Override
+    public void setData(final byte data) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
     public Block getRelative(final int modX, final int modY, final int modZ) {
         // TODO
         throw new UnsupportedMockException();
@@ -48,6 +54,12 @@ public class MokkitBlock implements Block {
 
     @Override
     public Material getType() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void setType(final Material type) {
         // TODO
         throw new UnsupportedMockException();
     }
@@ -119,19 +131,7 @@ public class MokkitBlock implements Block {
     }
 
     @Override
-    public void setData(final byte data) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
     public void setData(final byte data, final boolean applyPhysics) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setType(final Material type) {
         // TODO
         throw new UnsupportedMockException();
     }

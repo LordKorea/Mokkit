@@ -39,8 +39,8 @@ public class MokkitChunk implements Chunk {
      * Constructor.
      *
      * @param world The world of the chunk.
-     * @param x The x position of the chunk.
-     * @param z The z position of the chunk.
+     * @param x     The x position of the chunk.
+     * @param z     The z position of the chunk.
      */
     public MokkitChunk(final World world, final int x, final int z) {
         this.world = world;
