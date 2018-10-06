@@ -11,6 +11,7 @@ import org.bukkit.block.PistonMoveReaction;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.EntityTeleportEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.metadata.MetadataValue;
 import org.bukkit.permissions.Permission;
@@ -41,7 +42,7 @@ public abstract class MokkitEntity implements Entity {
     /**
      * The location where the entity is at.
      */
-    private @Getter Location location;
+    protected @Getter Location location;
 
     /**
      * The velocity of the entity.
@@ -97,6 +98,34 @@ public abstract class MokkitEntity implements Entity {
     }
 
     @Override
+    public boolean teleport(final Location location) {
+        return teleport(location, PlayerTeleportEvent.TeleportCause.UNKNOWN);
+    }
+
+    @Override
+    public boolean teleport(final Location location, final PlayerTeleportEvent.TeleportCause cause) {
+        final EntityTeleportEvent tp = new EntityTeleportEvent(this, getLocation().clone(), location.clone());
+        getServer().getPluginManager().callEvent(tp);
+        if (tp.isCancelled()) {
+            return false;
+        }
+
+        // Perform the teleport.
+        this.location = tp.getTo().clone();
+        return true;
+    }
+
+    @Override
+    public boolean teleport(final Entity destination) {
+        return teleport(destination.getLocation(), PlayerTeleportEvent.TeleportCause.UNKNOWN);
+    }
+
+    @Override
+    public boolean teleport(final Entity destination, final PlayerTeleportEvent.TeleportCause cause) {
+        return teleport(destination.getLocation(), cause);
+    }
+
+    @Override
     public double getHeight() {
         // TODO
         throw new UnsupportedMockException();
@@ -110,30 +139,6 @@ public abstract class MokkitEntity implements Entity {
 
     @Override
     public boolean isOnGround() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public boolean teleport(final Location location) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public boolean teleport(final Location location, final PlayerTeleportEvent.TeleportCause cause) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public boolean teleport(final Entity destination) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public boolean teleport(final Entity destination, final PlayerTeleportEvent.TeleportCause cause) {
         // TODO
         throw new UnsupportedMockException();
     }

@@ -25,6 +25,7 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockDamageEvent;
+import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.map.MapView;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scoreboard.Scoreboard;
@@ -59,6 +60,20 @@ public class MokkitPlayer extends MokkitHumanEntity implements Player {
     @Override
     public EntityType getType() {
         return EntityType.PLAYER;
+    }
+
+    @Override
+    public boolean teleport(final Location location, final PlayerTeleportEvent.TeleportCause cause) {
+        final PlayerTeleportEvent tp = new PlayerTeleportEvent(this, getLocation().clone(), location.clone(),
+                cause);
+        getServer().getPluginManager().callEvent(tp);
+        if (tp.isCancelled()) {
+            return false;
+        }
+
+        // Perform the teleport.
+        this.location = tp.getTo().clone();
+        return true;
     }
 
     @Override
