@@ -4,6 +4,7 @@ import de.fuchspfoten.mokkit.CancelledByEventException;
 import de.fuchspfoten.mokkit.internal.exception.UnsupportedMockException;
 import org.bukkit.Achievement;
 import org.bukkit.Effect;
+import org.bukkit.GameMode;
 import org.bukkit.Instrument;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -21,6 +22,8 @@ import org.bukkit.conversations.ConversationAbandonedEvent;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
+import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockDamageEvent;
 import org.bukkit.map.MapView;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scoreboard.Scoreboard;
@@ -939,7 +942,23 @@ public class MokkitPlayer extends MokkitHumanEntity implements Player {
          * @param block The block.
          */
         public void breakBlock(final Block block) throws CancelledByEventException {
+            // Start damaging the block.
+            final BlockDamageEvent blockDamageEvent = new BlockDamageEvent(MokkitPlayer.this, block,
+                    getItemInHand(), getGameMode() == GameMode.CREATIVE);
+            getServer().getPluginManager().callEvent(blockDamageEvent);
+            if (blockDamageEvent.isCancelled()) {
+                throw new CancelledByEventException(blockDamageEvent);
+            }
 
+            // Break the block.
+            final BlockBreakEvent blockBreakEvent = new BlockBreakEvent(block, MokkitPlayer.this);
+            getServer().getPluginManager().callEvent(blockBreakEvent);
+            if (blockBreakEvent.isCancelled()) {
+                throw new CancelledByEventException(blockBreakEvent);
+            }
+
+            // Destroy the block.
+            block.setType(Material.AIR);
         }
     }
 }
