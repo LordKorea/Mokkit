@@ -373,7 +373,7 @@ public abstract class MokkitLivingEntity extends MokkitEntity implements LivingE
         /**
          * Attempts to attack a target.
          *
-         * @param target The target.
+         * @param target     The target.
          * @param damageDone The damage that is to be done.
          */
         public void attackLiving(final LivingEntity target, final double damageDone) throws CancelledByEventException {
@@ -383,9 +383,9 @@ public abstract class MokkitLivingEntity extends MokkitEntity implements LivingE
         /**
          * Attempts to attack a target.
          *
-         * @param target The target.
+         * @param target     The target.
          * @param damageDone The damage that is to be done.
-         * @param cause The cause of the damage done.
+         * @param cause      The cause of the damage done.
          */
         public void attackLiving(final LivingEntity target, final double damageDone,
                                  final EntityDamageEvent.DamageCause cause) throws CancelledByEventException {
