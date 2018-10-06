@@ -3,6 +3,8 @@ package de.fuchspfoten.mokkit.entity;
 import de.fuchspfoten.mokkit.CancelledByEventException;
 import de.fuchspfoten.mokkit.MokkitServer;
 import de.fuchspfoten.mokkit.internal.exception.UnsupportedMockException;
+import lombok.Getter;
+import lombok.Setter;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
@@ -29,6 +31,24 @@ import java.util.UUID;
  */
 public abstract class MokkitLivingEntity extends MokkitEntity implements LivingEntity {
 
+    /**
+     * The default max health.
+     */
+    private final double defaultMaxHealth;
+
+    /**
+     * The max health of the entity.
+     */
+    private @Getter @Setter double maxHealth;
+
+    /**
+     * The health of the entity.
+     */
+    private @Getter @Setter double health;
+
+    /**
+     * The control object.
+     */
     private final Mokkit mokkit = new Mokkit();
 
     /**
@@ -39,8 +59,17 @@ public abstract class MokkitLivingEntity extends MokkitEntity implements LivingE
      * @param location The location the entity is at.
      * @param uuid     The UUID of the entity.
      */
-    public MokkitLivingEntity(final MokkitServer server, final String name, final Location location, final UUID uuid) {
+    public MokkitLivingEntity(final MokkitServer server, final String name, final Location location, final UUID uuid,
+                              final double defaultMaxHealth) {
         super(server, name, location, uuid);
+        this.defaultMaxHealth = defaultMaxHealth;
+        maxHealth = defaultMaxHealth;
+        health = defaultMaxHealth;
+    }
+
+    @Override
+    public void resetMaxHealth() {
+        maxHealth = defaultMaxHealth;
     }
 
     @Override
@@ -291,36 +320,6 @@ public abstract class MokkitLivingEntity extends MokkitEntity implements LivingE
 
     @Override
     public void damage(final double amount, final Entity source) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public double getHealth() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setHealth(final double health) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public double getMaxHealth() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setMaxHealth(final double health) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void resetMaxHealth() {
         // TODO
         throw new UnsupportedMockException();
     }

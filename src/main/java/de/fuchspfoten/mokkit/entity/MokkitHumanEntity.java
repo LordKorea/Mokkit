@@ -44,7 +44,7 @@ public abstract class MokkitHumanEntity extends MokkitLivingEntity implements Hu
      * @param uuid     The UUID of the entity.
      */
     public MokkitHumanEntity(final MokkitServer server, final String name, final Location location, final UUID uuid) {
-        super(server, name, location, uuid);
+        super(server, name, location, uuid, 20.0);
     }
 
     @Override
