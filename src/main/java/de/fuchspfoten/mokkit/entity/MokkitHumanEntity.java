@@ -1,6 +1,8 @@
 package de.fuchspfoten.mokkit.entity;
 
 import de.fuchspfoten.mokkit.internal.exception.UnsupportedMockException;
+import de.fuchspfoten.mokkit.inventory.MokkitPlayerInventory;
+import lombok.Getter;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -22,6 +24,11 @@ import java.util.UUID;
 public abstract class MokkitHumanEntity extends MokkitLivingEntity implements HumanEntity {
 
     /**
+     * The inventory of the human entity.
+     */
+    private @Getter final PlayerInventory inventory = new MokkitPlayerInventory();
+
+    /**
      * Constructor.
      *
      * @param name     The name of the entity.
@@ -33,7 +40,7 @@ public abstract class MokkitHumanEntity extends MokkitLivingEntity implements Hu
     }
 
     @Override
-    public PlayerInventory getInventory() {
+    public ItemStack getItemInHand() {
         // TODO
         throw new UnsupportedMockException();
     }
@@ -100,12 +107,6 @@ public abstract class MokkitHumanEntity extends MokkitLivingEntity implements Hu
 
     @Override
     public void closeInventory() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public ItemStack getItemInHand() {
         // TODO
         throw new UnsupportedMockException();
     }

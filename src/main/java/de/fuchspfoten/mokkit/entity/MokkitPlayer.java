@@ -944,7 +944,7 @@ public class MokkitPlayer extends MokkitHumanEntity implements Player {
         public void breakBlock(final Block block) throws CancelledByEventException {
             // Start damaging the block.
             final BlockDamageEvent blockDamageEvent = new BlockDamageEvent(MokkitPlayer.this, block,
-                    getItemInHand(), getGameMode() == GameMode.CREATIVE);
+                    getInventory().getItemInMainHand(), getGameMode() == GameMode.CREATIVE);
             getServer().getPluginManager().callEvent(blockDamageEvent);
             if (blockDamageEvent.isCancelled()) {
                 throw new CancelledByEventException(blockDamageEvent);
