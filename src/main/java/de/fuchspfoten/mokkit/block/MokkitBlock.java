@@ -1,6 +1,7 @@
 package de.fuchspfoten.mokkit.block;
 
 import de.fuchspfoten.mokkit.internal.exception.UnsupportedMockException;
+import lombok.Getter;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -21,6 +22,57 @@ import java.util.List;
  * @see org.bukkit.block.Block
  */
 public class MokkitBlock implements Block {
+
+    /**
+     * The world this block is in.
+     */
+    private @Getter final World world;
+
+    /**
+     * The x position of the block.
+     */
+    private @Getter final int x;
+
+    /**
+     * The y position of the block.
+     */
+    private @Getter final int y;
+
+    /**
+     * The z position of the block.
+     */
+    private @Getter final int z;
+
+    /**
+     * Constructor.
+     *
+     * @param world The world this block is in.
+     * @param x The x position of the block.
+     * @param y The y position of the block.
+     * @param z The z position of the block.
+     */
+    public MokkitBlock(final World world, final int x, final int y, final int z) {
+        this.world = world;
+        this.x = x;
+        this.y = y;
+        this.z = z;
+    }
+
+    @Override
+    public Location getLocation() {
+        return new Location(world, x, y, z);
+    }
+
+    @Override
+    public Location getLocation(final Location loc) {
+        if (loc != null) {
+            loc.setWorld(world);
+            loc.setX(x);
+            loc.setY(y);
+            loc.setZ(z);
+        }
+        return loc;
+    }
 
     @Override
     public byte getData() {
@@ -84,42 +136,6 @@ public class MokkitBlock implements Block {
 
     @Override
     public byte getLightFromBlocks() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public World getWorld() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public int getX() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public int getY() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public int getZ() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public Location getLocation() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public Location getLocation(final Location loc) {
         // TODO
         throw new UnsupportedMockException();
     }

@@ -148,7 +148,7 @@ public class MokkitChunk implements Chunk {
      */
     protected Block createBlock(final int x, final int y, final int z) {
         // TODO create empty block.
-        return new MokkitBlock();
+        return new MokkitBlock(getWorld(), x + 16 * getX(), y, z + 16 * getZ());
     }
 
     /**

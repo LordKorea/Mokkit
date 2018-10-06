@@ -23,6 +23,6 @@ public class MokkitSuperflatChunk extends MokkitChunk {
     @Override
     protected Block createBlock(final int x, final int y, final int z) {
         // TODO create block for the given position.
-        return new MokkitBlock();
+        return new MokkitBlock(getWorld(), x + 16 * getX(), y, z + 16 * getZ());
     }
 }
