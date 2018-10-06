@@ -2,6 +2,7 @@ package de.fuchspfoten.mokkit.block;
 
 import de.fuchspfoten.mokkit.internal.exception.UnsupportedMockException;
 import lombok.Getter;
+import lombok.Setter;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -44,6 +45,11 @@ public class MokkitBlock implements Block {
     private @Getter final int z;
 
     /**
+     * The material of the block.
+     */
+    private @Getter @Setter Material type;
+
+    /**
      * Constructor.
      *
      * @param world The world this block is in.
@@ -56,6 +62,7 @@ public class MokkitBlock implements Block {
         this.x = x;
         this.y = y;
         this.z = z;
+        this.type = Material.AIR;
     }
 
     @Override
@@ -100,18 +107,6 @@ public class MokkitBlock implements Block {
 
     @Override
     public Block getRelative(final BlockFace face, final int distance) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public Material getType() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setType(final Material type) {
         // TODO
         throw new UnsupportedMockException();
     }
