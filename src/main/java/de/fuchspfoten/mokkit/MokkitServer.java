@@ -152,6 +152,16 @@ public class MokkitServer implements Server {
     }
 
     @Override
+    public OfflinePlayer getOfflinePlayer(final String name) {
+        return getOfflinePlayer(getUUIDForName(name));
+    }
+
+    @Override
+    public OfflinePlayer getOfflinePlayer(final UUID id) {
+        return new MokkitOfflinePlayer(id);
+    }
+
+    @Override
     public World getWorld(final UUID uid) {
         // TODO
         throw new UnsupportedMockException();
@@ -434,18 +444,6 @@ public class MokkitServer implements Server {
     }
 
     @Override
-    public OfflinePlayer getOfflinePlayer(final String name) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public OfflinePlayer getOfflinePlayer(final UUID id) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
     public Set<String> getIPBans() {
         // TODO
         throw new UnsupportedMockException();
@@ -709,6 +707,16 @@ public class MokkitServer implements Server {
     }
 
     /**
+     * Retrieves a UUID for the given name.
+     *
+     * @param name The name.
+     * @return The UUID.
+     */
+    private UUID getUUIDForName(final String name) {
+        return UUID.nameUUIDFromBytes(("Mokkit:" + name).getBytes());
+    }
+
+    /**
      * Class for the control object.
      */
     public class Mokkit {
@@ -779,16 +787,6 @@ public class MokkitServer implements Server {
 
             getLogger().info(String.format("Player joined: %1$s (%2$s)", name, getUUIDForName(name).toString()));
             return player;
-        }
-
-        /**
-         * Retrieves a UUID for the given name.
-         *
-         * @param name The name.
-         * @return The UUID.
-         */
-        private UUID getUUIDForName(final String name) {
-            return UUID.nameUUIDFromBytes(("Mokkit:" + name).getBytes());
         }
     }
 }
