@@ -15,9 +15,9 @@ public class MokkitMule extends MokkitChestedHorse implements Mule {
     /**
      * Constructor.
      *
-     * @param server           The server this entity is in.
-     * @param location         The location the entity is at.
-     * @param uuid             The UUID of the entity.
+     * @param server   The server this entity is in.
+     * @param location The location the entity is at.
+     * @param uuid     The UUID of the entity.
      */
     public MokkitMule(final MokkitServer server, final Location location, final UUID uuid) {
         super(server, "Mule", location, uuid, 15.0);

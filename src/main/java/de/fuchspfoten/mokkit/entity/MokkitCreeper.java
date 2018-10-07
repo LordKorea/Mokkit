@@ -16,9 +16,9 @@ public class MokkitCreeper extends MokkitMonster implements Creeper {
     /**
      * Constructor.
      *
-     * @param server           The server this entity is in.
-     * @param location         The location the entity is at.
-     * @param uuid             The UUID of the entity.
+     * @param server   The server this entity is in.
+     * @param location The location the entity is at.
+     * @param uuid     The UUID of the entity.
      */
     public MokkitCreeper(final MokkitServer server, final Location location, final UUID uuid) {
         super(server, "Creeper", location, uuid, 20.0);
@@ -42,25 +42,25 @@ public class MokkitCreeper extends MokkitMonster implements Creeper {
     }
 
     @Override
-    public void setMaxFuseTicks(final int ticks) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
     public int getMaxFuseTicks() {
         // TODO
         throw new UnsupportedMockException();
     }
 
     @Override
-    public void setExplosionRadius(final int radius) {
+    public void setMaxFuseTicks(final int ticks) {
         // TODO
         throw new UnsupportedMockException();
     }
 
     @Override
     public int getExplosionRadius() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void setExplosionRadius(final int radius) {
         // TODO
         throw new UnsupportedMockException();
     }
