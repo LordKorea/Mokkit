@@ -18,6 +18,7 @@ import de.fuchspfoten.mokkit.entity.MokkitSheep;
 import de.fuchspfoten.mokkit.entity.MokkitSkeleton;
 import de.fuchspfoten.mokkit.entity.MokkitSpider;
 import de.fuchspfoten.mokkit.entity.MokkitWitch;
+import de.fuchspfoten.mokkit.entity.MokkitWitherSkeleton;
 import de.fuchspfoten.mokkit.entity.MokkitWolf;
 import de.fuchspfoten.mokkit.internal.exception.UnsupportedMockException;
 import lombok.Getter;
@@ -230,6 +231,7 @@ public class MokkitWorld implements World {
             case SKELETON:
             case SPIDER:
             case WITCH:
+            case WITHER_SKELETON:
             case WOLF:
                 // Supported.
                 break;
@@ -242,7 +244,6 @@ public class MokkitWorld implements World {
             case DROPPED_ITEM:
             case EXPERIENCE_ORB:
             case AREA_EFFECT_CLOUD:
-            case WITHER_SKELETON:
             case STRAY:
             case EGG:
             case LEASH_HITCH:
@@ -367,6 +368,9 @@ public class MokkitWorld implements World {
                 break;
             case WITCH:
                 entity = (T) new MokkitWitch(server, location, UUID.randomUUID());
+                break;
+            case WITHER_SKELETON:
+                entity = (T) new MokkitWitherSkeleton(server, location, UUID.randomUUID());
                 break;
             case WOLF:
                 entity = (T) new MokkitWolf(server, location, UUID.randomUUID());
