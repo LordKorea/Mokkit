@@ -18,15 +18,18 @@ import org.bukkit.WeatherType;
 import org.bukkit.advancement.Advancement;
 import org.bukkit.advancement.AdvancementProgress;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
 import org.bukkit.block.BlockState;
 import org.bukkit.conversations.Conversation;
 import org.bukkit.conversations.ConversationAbandonedEvent;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Painting;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockDamageEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.hanging.HangingPlaceEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.map.MapView;
@@ -1046,6 +1049,30 @@ public class MokkitPlayer extends MokkitHumanEntity implements Player {
 
             // Finish placing by applying physics.
             placeState.update(true, true);
+        }
+
+        /**
+         * Attempts to place a painting.
+         *
+         * @param clicked The clicked block.
+         * @param clickedFace The clicked block face.
+         */
+        public Painting placePainting(final Block clicked,
+                                      final BlockFace clickedFace) throws CancelledByEventException {
+            // This event is strange: The painting is placed beforehand.
+            final Painting painting = getWorld().spawn(clicked.getRelative(clickedFace).getLocation(), Painting.class);
+
+            // Start placing.
+            final HangingPlaceEvent event = new HangingPlaceEvent(painting, MokkitPlayer.this, clicked,
+                    clickedFace);
+            getServer().getPluginManager().callEvent(event);
+            if (event.isCancelled()) {
+                // Remove the painting as if it never existed.
+                painting.remove();
+                throw new CancelledByEventException(event);
+            }
+
+            return painting;
         }
     }
 }

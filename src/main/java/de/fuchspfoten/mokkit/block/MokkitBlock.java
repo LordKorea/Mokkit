@@ -106,20 +106,18 @@ public class MokkitBlock implements Block {
 
     @Override
     public Block getRelative(final int modX, final int modY, final int modZ) {
-        // TODO
-        throw new UnsupportedMockException();
+        return world.getBlockAt(x + modX, y + modY, z + modZ);
     }
 
     @Override
     public Block getRelative(final BlockFace face) {
-        // TODO
-        throw new UnsupportedMockException();
+        return getRelative(face, 1);
     }
 
     @Override
     public Block getRelative(final BlockFace face, final int distance) {
-        // TODO
-        throw new UnsupportedMockException();
+        return getRelative(x + distance * face.getModX(), y + distance * face.getModY(),
+                z + distance * face.getModZ());
     }
 
     @Override
