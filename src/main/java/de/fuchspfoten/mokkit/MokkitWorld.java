@@ -23,6 +23,7 @@ import de.fuchspfoten.mokkit.entity.MokkitWitch;
 import de.fuchspfoten.mokkit.entity.MokkitWitherSkeleton;
 import de.fuchspfoten.mokkit.entity.MokkitWolf;
 import de.fuchspfoten.mokkit.entity.MokkitZombie;
+import de.fuchspfoten.mokkit.entity.MokkitZombieVillager;
 import de.fuchspfoten.mokkit.internal.exception.UnsupportedMockException;
 import lombok.Getter;
 import org.bukkit.BlockChangeDelegate;
@@ -239,6 +240,7 @@ public class MokkitWorld implements World {
             case WITHER_SKELETON:
             case WOLF:
             case ZOMBIE:
+            case ZOMBIE_VILLAGER:
                 // Supported.
                 break;
             case COMPLEX_PART:
@@ -268,7 +270,6 @@ public class MokkitWorld implements World {
             case SPECTRAL_ARROW:
             case SHULKER_BULLET:
             case DRAGON_FIREBALL:
-            case ZOMBIE_VILLAGER:
             case SKELETON_HORSE:
             case ZOMBIE_HORSE:
             case ARMOR_STAND:
@@ -386,6 +387,9 @@ public class MokkitWorld implements World {
                 break;
             case ZOMBIE:
                 entity = (T) new MokkitZombie(server, location, UUID.randomUUID());
+                break;
+            case ZOMBIE_VILLAGER:
+                entity = (T) new MokkitZombieVillager(server, location, UUID.randomUUID());
                 break;
             default:
                 throw new IllegalStateException("control flow must not reach this");
