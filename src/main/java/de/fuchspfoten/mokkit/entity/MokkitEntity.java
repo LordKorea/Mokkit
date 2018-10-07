@@ -149,6 +149,11 @@ public abstract class MokkitEntity implements Entity {
     }
 
     @Override
+    public void sendMessage(final String message) {
+        // Do nothing with the message.
+    }
+
+    @Override
     public double getHeight() {
         // TODO
         throw new UnsupportedMockException();
@@ -192,12 +197,6 @@ public abstract class MokkitEntity implements Entity {
 
     @Override
     public int getMaxFireTicks() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void sendMessage(final String message) {
         // TODO
         throw new UnsupportedMockException();
     }

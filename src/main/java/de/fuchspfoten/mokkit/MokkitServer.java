@@ -7,6 +7,7 @@ import de.fuchspfoten.mokkit.plugin.MokkitPluginManager;
 import de.fuchspfoten.mokkit.scheduler.MokkitBukkitScheduler;
 import lombok.Getter;
 import org.bukkit.BanList;
+import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.NamespacedKey;
@@ -56,6 +57,7 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -94,6 +96,11 @@ public class MokkitServer implements Server {
      * The worlds on the server.
      */
     private final Map<String, MokkitWorld> worlds = new HashMap<>();
+
+    /**
+     * The players on the server.
+     */
+    private final Set<MokkitPlayer> players = new HashSet<>();
 
     /**
      * The mokkit control object.
@@ -159,6 +166,15 @@ public class MokkitServer implements Server {
     @Override
     public OfflinePlayer getOfflinePlayer(final UUID id) {
         return new MokkitOfflinePlayer(id);
+    }
+
+    @Override
+    public int broadcastMessage(final String message) {
+        getLogger().info(ChatColor.stripColor(message));
+
+        // TODO permissions.
+        players.forEach(p -> p.sendMessage(message));
+        return players.size();
     }
 
     @Override
@@ -253,12 +269,6 @@ public class MokkitServer implements Server {
 
     @Override
     public void reloadWhitelist() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public int broadcastMessage(final String message) {
         // TODO
         throw new UnsupportedMockException();
     }
@@ -768,12 +778,14 @@ public class MokkitServer implements Server {
             final MokkitPlayer player = new MokkitPlayer(MokkitServer.this, name,
                     new Location(getWorld("world"), 0, 0, 0), getUUIDForName(name));
             MokkitWorld.updateWorldsForEntity(player);
+            players.add(player);
 
             // Login.
             final PlayerLoginEvent loginEvent = new PlayerLoginEvent(player, ipAddr.getHostAddress(), ipAddr);
             getPluginManager().callEvent(loginEvent);
             if (loginEvent.getResult() != PlayerLoginEvent.Result.ALLOWED) {
                 player.despawn();
+                players.remove(player);
 
                 getLogger().info(String.format("Disallowed login of %1$s (%2$s): %3$s (%4$s)", name,
                         getUUIDForName(name).toString(), loginEvent.getKickMessage(), loginEvent.getResult().name()));
@@ -784,7 +796,9 @@ public class MokkitServer implements Server {
             final PlayerJoinEvent joinEvent = new PlayerJoinEvent(player,
                     "§e" + player.getName() + " joined the game.");
             getPluginManager().callEvent(joinEvent);
-            // TODO use message and broadcast.
+            if (joinEvent.getJoinMessage() != null && !joinEvent.getJoinMessage().isEmpty()) {
+                broadcastMessage(joinEvent.getJoinMessage());
+            }
 
             getLogger().info(String.format("Player joined: %1$s (%2$s)", name, getUUIDForName(name).toString()));
             return player;
