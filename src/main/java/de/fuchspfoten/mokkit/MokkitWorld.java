@@ -1,6 +1,7 @@
 package de.fuchspfoten.mokkit;
 
 import de.fuchspfoten.mokkit.entity.MokkitPainting;
+import de.fuchspfoten.mokkit.entity.MokkitPig;
 import de.fuchspfoten.mokkit.internal.exception.UnsupportedMockException;
 import lombok.Getter;
 import org.bukkit.BlockChangeDelegate;
@@ -27,6 +28,7 @@ import org.bukkit.entity.Item;
 import org.bukkit.entity.LightningStrike;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Painting;
+import org.bukkit.entity.Pig;
 import org.bukkit.entity.Player;
 import org.bukkit.generator.BlockPopulator;
 import org.bukkit.generator.ChunkGenerator;
@@ -166,13 +168,14 @@ public class MokkitWorld implements World {
         // Determine whether we can spawn this type.
         switch (targetType) {
             case PAINTING:
+            case PIG:
                 // Supported.
                 break;
-            case LIGHTNING:
-            case WEATHER:
-            case PLAYER:
             case COMPLEX_PART:
+            case LIGHTNING:
+            case PLAYER:
             case UNKNOWN:
+            case WEATHER:
                 throw new IllegalArgumentException("can not spawn " + targetType.name());
             default:
                 // Not (yet) supported.
@@ -185,6 +188,10 @@ public class MokkitWorld implements World {
             case PAINTING:
                 assert clazz == Painting.class;
                 entity = (T) new MokkitPainting(server, location, UUID.randomUUID());
+                break;
+            case PIG:
+                assert clazz == Pig.class;
+                entity = (T) new MokkitPig(server, location, UUID.randomUUID());
                 break;
             default:
                 throw new IllegalStateException("control flow must not reach this");

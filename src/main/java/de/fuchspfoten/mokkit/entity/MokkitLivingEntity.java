@@ -60,6 +60,7 @@ public abstract class MokkitLivingEntity extends MokkitEntity implements LivingE
      * @param name     The name of the entity.
      * @param location The location the entity is at.
      * @param uuid     The UUID of the entity.
+     * @param defaultMaxHealth The default max health of the entity.
      */
     public MokkitLivingEntity(final MokkitServer server, final String name, final Location location, final UUID uuid,
                               final double defaultMaxHealth) {
