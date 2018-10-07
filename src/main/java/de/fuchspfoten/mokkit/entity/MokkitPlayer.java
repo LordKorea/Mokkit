@@ -27,6 +27,7 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Painting;
 import org.bukkit.entity.Player;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockDamageEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
@@ -34,6 +35,7 @@ import org.bukkit.event.hanging.HangingPlaceEvent;
 import org.bukkit.event.player.PlayerBucketEmptyEvent;
 import org.bukkit.event.player.PlayerBucketFillEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
@@ -1081,6 +1083,7 @@ public class MokkitPlayer extends MokkitHumanEntity implements Player {
             }
 
             // Filling buckets.
+            // TODO does this trigger a PlayerInteractEvent?
             if (usedItem != null && usedItem.getType() == Material.BUCKET) {
                 final Material targetBucket;
                 switch (block.getType()) {
@@ -1104,6 +1107,7 @@ public class MokkitPlayer extends MokkitHumanEntity implements Player {
             }
 
             // Emptying buckets.
+            // TODO does this trigger a PlayerInteractEvent?
             if (usedItem != null) {
                 final Block targetBlock = block.getRelative(clickedFace);
                 final Material targetLiquid;
@@ -1126,8 +1130,18 @@ public class MokkitPlayer extends MokkitHumanEntity implements Player {
                 }
             }
 
+            // Perform a PlayerInteractEvent.
+            final Action action =
+                    (block.getType() == Material.AIR) ? Action.RIGHT_CLICK_AIR : Action.RIGHT_CLICK_BLOCK;
+            final PlayerInteractEvent event = new PlayerInteractEvent(MokkitPlayer.this, action, usedItem, block,
+                    clickedFace, slot);
+            getServer().getPluginManager().callEvent(event);
+            if (event.isCancelled()) {
+                throw new CancelledByEventException(event);
+            }
+
             // TODO what else?
-            throw new UnsupportedMockException();
+            // throw new UnsupportedMockException();
         }
 
         /**
