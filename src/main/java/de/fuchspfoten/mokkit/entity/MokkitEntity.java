@@ -36,6 +36,11 @@ public abstract class MokkitEntity implements Entity {
     protected @Getter Location location;
 
     /**
+     * Whether or not the entity is despawned for some reason.
+     */
+    protected boolean despawned;
+
+    /**
      * The server this entity is in.
      */
     private @Getter final MokkitServer server;
@@ -64,11 +69,6 @@ public abstract class MokkitEntity implements Entity {
      * Whether the entity is dead.
      */
     private @Getter boolean dead;
-
-    /**
-     * Whether or not the entity is despawned for some reason.
-     */
-    protected boolean despawned;
 
     /**
      * Constructor.

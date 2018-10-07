@@ -31,6 +31,7 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockDamageEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.hanging.HangingPlaceEvent;
+import org.bukkit.event.player.PlayerBucketFillEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.inventory.EquipmentSlot;
@@ -1078,6 +1079,29 @@ public class MokkitPlayer extends MokkitHumanEntity implements Player {
                 }
             }
 
+            // Filling buckets.
+            if (usedItem != null && usedItem.getType() == Material.BUCKET) {
+                final Material targetBucket;
+                switch (block.getType()) {
+                    case WATER:
+                    case STATIONARY_WATER:
+                        targetBucket = Material.WATER_BUCKET;
+                        break;
+                    case LAVA:
+                    case STATIONARY_LAVA:
+                        targetBucket = Material.LAVA_BUCKET;
+                        break;
+                    default:
+                        targetBucket = null;
+                        break;
+                }
+
+                if (targetBucket != null) {
+                    fillBucket(block, new ItemStack(targetBucket));
+                    return;
+                }
+            }
+
             // TODO what else?
             throw new UnsupportedMockException();
         }
@@ -1135,6 +1159,27 @@ public class MokkitPlayer extends MokkitHumanEntity implements Player {
 
             // Finish placing by applying physics.
             placeState.update(true, true);
+        }
+
+        /**
+         * Attempts to fill a bucket.
+         *
+         * @param where      The liquid block.
+         * @param resultItem The bucket that is held after the event.
+         */
+        protected void fillBucket(final Block where, final ItemStack resultItem) throws CancelledByEventException {
+            final PlayerBucketFillEvent event = new PlayerBucketFillEvent(MokkitPlayer.this, where, BlockFace.SELF,
+                    Material.BUCKET, resultItem);
+            getServer().getPluginManager().callEvent(event);
+            if (event.isCancelled()) {
+                throw new CancelledByEventException(event);
+            }
+
+            // Remove the liquid.
+            where.setType(Material.AIR);
+
+            // Update the hand item.
+            setItemInHand(event.getItemStack());
         }
     }
 }
