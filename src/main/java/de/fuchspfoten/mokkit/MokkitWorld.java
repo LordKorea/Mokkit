@@ -1,7 +1,10 @@
 package de.fuchspfoten.mokkit;
 
+import de.fuchspfoten.mokkit.entity.MokkitCow;
+import de.fuchspfoten.mokkit.entity.MokkitOcelot;
 import de.fuchspfoten.mokkit.entity.MokkitPainting;
 import de.fuchspfoten.mokkit.entity.MokkitPig;
+import de.fuchspfoten.mokkit.entity.MokkitSheep;
 import de.fuchspfoten.mokkit.entity.MokkitWolf;
 import de.fuchspfoten.mokkit.internal.exception.UnsupportedMockException;
 import lombok.Getter;
@@ -23,15 +26,18 @@ import org.bukkit.WorldType;
 import org.bukkit.block.Biome;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Arrow;
+import org.bukkit.entity.Cow;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.FallingBlock;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.LightningStrike;
 import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Ocelot;
 import org.bukkit.entity.Painting;
 import org.bukkit.entity.Pig;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Sheep;
 import org.bukkit.entity.Wolf;
 import org.bukkit.generator.BlockPopulator;
 import org.bukkit.generator.ChunkGenerator;
@@ -199,8 +205,11 @@ public class MokkitWorld implements World {
 
         // Determine whether we can spawn this type.
         switch (targetType) {
+            case COW:
+            case OCELOT:
             case PAINTING:
             case PIG:
+            case SHEEP:
             case WOLF:
                 // Supported.
                 break;
@@ -218,6 +227,14 @@ public class MokkitWorld implements World {
         // Spawn the entity.
         final T entity;
         switch (targetType) {
+            case COW:
+                assert clazz == Cow.class;
+                entity = (T) new MokkitCow(server, location, UUID.randomUUID());
+                break;
+            case OCELOT:
+                assert clazz == Ocelot.class;
+                entity = (T) new MokkitOcelot(server, location, UUID.randomUUID());
+                break;
             case PAINTING:
                 assert clazz == Painting.class;
                 entity = (T) new MokkitPainting(server, location, UUID.randomUUID());
@@ -225,6 +242,10 @@ public class MokkitWorld implements World {
             case PIG:
                 assert clazz == Pig.class;
                 entity = (T) new MokkitPig(server, location, UUID.randomUUID());
+                break;
+            case SHEEP:
+                assert clazz == Sheep.class;
+                entity = (T) new MokkitSheep(server, location, UUID.randomUUID());
                 break;
             case WOLF:
                 assert clazz == Wolf.class;
