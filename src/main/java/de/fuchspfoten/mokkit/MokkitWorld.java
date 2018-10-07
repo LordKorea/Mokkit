@@ -5,6 +5,7 @@ import de.fuchspfoten.mokkit.entity.MokkitChicken;
 import de.fuchspfoten.mokkit.entity.MokkitCow;
 import de.fuchspfoten.mokkit.entity.MokkitEnderman;
 import de.fuchspfoten.mokkit.entity.MokkitEvoker;
+import de.fuchspfoten.mokkit.entity.MokkitGuardian;
 import de.fuchspfoten.mokkit.entity.MokkitLlama;
 import de.fuchspfoten.mokkit.entity.MokkitOcelot;
 import de.fuchspfoten.mokkit.entity.MokkitPainting;
@@ -214,6 +215,7 @@ public class MokkitWorld implements World {
             case COW:
             case ENDERMAN:
             case EVOKER:
+            case GUARDIAN:
             case LLAMA:
             case OCELOT:
             case PAINTING:
@@ -290,7 +292,6 @@ public class MokkitWorld implements World {
             case ENDER_DRAGON:
             case WITHER:
             case ENDERMITE:
-            case GUARDIAN:
             case SHULKER:
             case SQUID:
             case MUSHROOM_COW:
@@ -325,6 +326,9 @@ public class MokkitWorld implements World {
                 break;
             case EVOKER:
                 entity = (T) new MokkitEvoker(server, location, UUID.randomUUID());
+                break;
+            case GUARDIAN:
+                entity = (T) new MokkitGuardian(server, location, UUID.randomUUID());
                 break;
             case LLAMA:
                 entity = (T) new MokkitLlama(server, location, UUID.randomUUID());
