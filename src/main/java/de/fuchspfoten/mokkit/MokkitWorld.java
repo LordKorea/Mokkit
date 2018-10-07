@@ -3,6 +3,7 @@ package de.fuchspfoten.mokkit;
 import de.fuchspfoten.mokkit.entity.MokkitBat;
 import de.fuchspfoten.mokkit.entity.MokkitChicken;
 import de.fuchspfoten.mokkit.entity.MokkitCow;
+import de.fuchspfoten.mokkit.entity.MokkitEnderman;
 import de.fuchspfoten.mokkit.entity.MokkitEvoker;
 import de.fuchspfoten.mokkit.entity.MokkitLlama;
 import de.fuchspfoten.mokkit.entity.MokkitOcelot;
@@ -211,6 +212,7 @@ public class MokkitWorld implements World {
             case BAT:
             case CHICKEN:
             case COW:
+            case ENDERMAN:
             case EVOKER:
             case LLAMA:
             case OCELOT:
@@ -231,7 +233,76 @@ public class MokkitWorld implements World {
             case UNKNOWN:
             case WEATHER:
                 throw new IllegalArgumentException("can not spawn " + targetType.name());
-            default:
+            case DROPPED_ITEM:
+            case EXPERIENCE_ORB:
+            case AREA_EFFECT_CLOUD:
+            case ELDER_GUARDIAN:
+            case WITHER_SKELETON:
+            case STRAY:
+            case EGG:
+            case LEASH_HITCH:
+            case ARROW:
+            case SNOWBALL:
+            case FIREBALL:
+            case SMALL_FIREBALL:
+            case ENDER_PEARL:
+            case ENDER_SIGNAL:
+            case SPLASH_POTION:
+            case THROWN_EXP_BOTTLE:
+            case ITEM_FRAME:
+            case WITHER_SKULL:
+            case PRIMED_TNT:
+            case FALLING_BLOCK:
+            case FIREWORK:
+            case HUSK:
+            case SPECTRAL_ARROW:
+            case SHULKER_BULLET:
+            case DRAGON_FIREBALL:
+            case ZOMBIE_VILLAGER:
+            case SKELETON_HORSE:
+            case ZOMBIE_HORSE:
+            case ARMOR_STAND:
+            case DONKEY:
+            case MULE:
+            case EVOKER_FANGS:
+            case VEX:
+            case VINDICATOR:
+            case ILLUSIONER:
+            case MINECART_COMMAND:
+            case BOAT:
+            case MINECART:
+            case MINECART_CHEST:
+            case MINECART_FURNACE:
+            case MINECART_TNT:
+            case MINECART_HOPPER:
+            case MINECART_MOB_SPAWNER:
+            case CREEPER:
+            case SKELETON:
+            case GIANT:
+            case ZOMBIE:
+            case SLIME:
+            case GHAST:
+            case PIG_ZOMBIE:
+            case CAVE_SPIDER:
+            case SILVERFISH:
+            case BLAZE:
+            case MAGMA_CUBE:
+            case ENDER_DRAGON:
+            case WITHER:
+            case ENDERMITE:
+            case GUARDIAN:
+            case SHULKER:
+            case SQUID:
+            case MUSHROOM_COW:
+            case SNOWMAN:
+            case IRON_GOLEM:
+            case HORSE:
+            case LLAMA_SPIT:
+            case VILLAGER:
+            case ENDER_CRYSTAL:
+            case LINGERING_POTION:
+            case FISHING_HOOK:
+            case TIPPED_ARROW:
                 // Not (yet) supported.
                 throw new UnsupportedMockException();
         }
@@ -248,6 +319,9 @@ public class MokkitWorld implements World {
                 break;
             case COW:
                 entity = (T) new MokkitCow(server, location, UUID.randomUUID());
+                break;
+            case ENDERMAN:
+                entity = (T) new MokkitEnderman(server, location, UUID.randomUUID());
                 break;
             case EVOKER:
                 entity = (T) new MokkitEvoker(server, location, UUID.randomUUID());
