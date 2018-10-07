@@ -12,6 +12,7 @@ import de.fuchspfoten.mokkit.entity.MokkitPig;
 import de.fuchspfoten.mokkit.entity.MokkitPolarBear;
 import de.fuchspfoten.mokkit.entity.MokkitRabbit;
 import de.fuchspfoten.mokkit.entity.MokkitSheep;
+import de.fuchspfoten.mokkit.entity.MokkitSpider;
 import de.fuchspfoten.mokkit.entity.MokkitWolf;
 import de.fuchspfoten.mokkit.internal.exception.UnsupportedMockException;
 import lombok.Getter;
@@ -52,6 +53,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.entity.PolarBear;
 import org.bukkit.entity.Rabbit;
 import org.bukkit.entity.Sheep;
+import org.bukkit.entity.Spider;
 import org.bukkit.entity.Wolf;
 import org.bukkit.generator.BlockPopulator;
 import org.bukkit.generator.ChunkGenerator;
@@ -231,6 +233,7 @@ public class MokkitWorld implements World {
             case POLAR_BEAR:
             case RABBIT:
             case SHEEP:
+            case SPIDER:
             case WOLF:
                 // Supported.
                 break;
@@ -291,6 +294,10 @@ public class MokkitWorld implements World {
             case SHEEP:
                 assert clazz == Sheep.class;
                 entity = (T) new MokkitSheep(server, location, UUID.randomUUID());
+                break;
+            case SPIDER:
+                assert clazz == Spider.class;
+                entity = (T) new MokkitSpider(server, location, UUID.randomUUID());
                 break;
             case RABBIT:
                 assert clazz == Rabbit.class;
