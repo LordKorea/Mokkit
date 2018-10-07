@@ -19,6 +19,7 @@ import de.fuchspfoten.mokkit.entity.MokkitOcelot;
 import de.fuchspfoten.mokkit.entity.MokkitPainting;
 import de.fuchspfoten.mokkit.entity.MokkitParrot;
 import de.fuchspfoten.mokkit.entity.MokkitPig;
+import de.fuchspfoten.mokkit.entity.MokkitPigZombie;
 import de.fuchspfoten.mokkit.entity.MokkitPolarBear;
 import de.fuchspfoten.mokkit.entity.MokkitRabbit;
 import de.fuchspfoten.mokkit.entity.MokkitSheep;
@@ -247,6 +248,7 @@ public class MokkitWorld implements World {
             case PAINTING:
             case PARROT:
             case PIG:
+            case PIG_ZOMBIE:
             case POLAR_BEAR:
             case RABBIT:
             case SHEEP:
@@ -302,7 +304,6 @@ public class MokkitWorld implements World {
             case MINECART_TNT:
             case MINECART_HOPPER:
             case MINECART_MOB_SPAWNER:
-            case PIG_ZOMBIE:
             case CAVE_SPIDER:
             case SILVERFISH:
             case BLAZE:
@@ -386,6 +387,9 @@ public class MokkitWorld implements World {
                 break;
             case PIG:
                 entity = (T) new MokkitPig(server, location, UUID.randomUUID());
+                break;
+            case PIG_ZOMBIE:
+                entity = (T) new MokkitPigZombie(server, location, UUID.randomUUID());
                 break;
             case POLAR_BEAR:
                 entity = (T) new MokkitPolarBear(server, location, UUID.randomUUID());
