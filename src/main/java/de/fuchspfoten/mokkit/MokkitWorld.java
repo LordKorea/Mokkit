@@ -22,6 +22,7 @@ import de.fuchspfoten.mokkit.entity.MokkitSkeleton;
 import de.fuchspfoten.mokkit.entity.MokkitSkeletonHorse;
 import de.fuchspfoten.mokkit.entity.MokkitSpider;
 import de.fuchspfoten.mokkit.entity.MokkitStray;
+import de.fuchspfoten.mokkit.entity.MokkitVex;
 import de.fuchspfoten.mokkit.entity.MokkitWitch;
 import de.fuchspfoten.mokkit.entity.MokkitWitherSkeleton;
 import de.fuchspfoten.mokkit.entity.MokkitWolf;
@@ -243,6 +244,7 @@ public class MokkitWorld implements World {
             case SKELETON_HORSE:
             case SPIDER:
             case STRAY:
+            case VEX:
             case WITCH:
             case WITHER_SKELETON:
             case WOLF:
@@ -280,7 +282,6 @@ public class MokkitWorld implements World {
             case DRAGON_FIREBALL:
             case ARMOR_STAND:
             case EVOKER_FANGS:
-            case VEX:
             case VINDICATOR:
             case ILLUSIONER:
             case MINECART_COMMAND:
@@ -388,6 +389,9 @@ public class MokkitWorld implements World {
                 break;
             case RABBIT:
                 entity = (T) new MokkitRabbit(server, location, UUID.randomUUID());
+                break;
+            case VEX:
+                entity = (T) new MokkitVex(server, location, UUID.randomUUID());
                 break;
             case WITCH:
                 entity = (T) new MokkitWitch(server, location, UUID.randomUUID());
