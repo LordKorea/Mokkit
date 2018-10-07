@@ -1,5 +1,6 @@
 package de.fuchspfoten.mokkit;
 
+import de.fuchspfoten.mokkit.entity.MokkitBat;
 import de.fuchspfoten.mokkit.entity.MokkitChicken;
 import de.fuchspfoten.mokkit.entity.MokkitCow;
 import de.fuchspfoten.mokkit.entity.MokkitLlama;
@@ -30,6 +31,7 @@ import org.bukkit.WorldType;
 import org.bukkit.block.Biome;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Arrow;
+import org.bukkit.entity.Bat;
 import org.bukkit.entity.Chicken;
 import org.bukkit.entity.Cow;
 import org.bukkit.entity.Entity;
@@ -213,6 +215,7 @@ public class MokkitWorld implements World {
 
         // Determine whether we can spawn this type.
         switch (targetType) {
+            case BAT:
             case CHICKEN:
             case COW:
             case LLAMA:
@@ -239,6 +242,10 @@ public class MokkitWorld implements World {
         // Spawn the entity.
         final T entity;
         switch (targetType) {
+            case BAT:
+                assert clazz == Bat.class;
+                entity = (T) new MokkitBat(server, location, UUID.randomUUID());
+                break;
             case CHICKEN:
                 assert clazz == Chicken.class;
                 entity = (T) new MokkitChicken(server, location, UUID.randomUUID());
