@@ -18,6 +18,7 @@ import org.bukkit.WeatherType;
 import org.bukkit.advancement.Advancement;
 import org.bukkit.advancement.AdvancementProgress;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockState;
 import org.bukkit.conversations.Conversation;
 import org.bukkit.conversations.ConversationAbandonedEvent;
 import org.bukkit.entity.Entity;
@@ -25,8 +26,11 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockDamageEvent;
+import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.map.MapView;
+import org.bukkit.material.MaterialData;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scoreboard.Scoreboard;
 
@@ -987,6 +991,61 @@ public class MokkitPlayer extends MokkitHumanEntity implements Player {
 
             // Destroy the block.
             block.setType(Material.AIR);
+        }
+
+        /**
+         * Attempts to place a block.
+         *
+         * @param where Where to place something.
+         * @param what  What to place.
+         */
+        public void placeBlock(final Block where, final MaterialData what) throws CancelledByEventException {
+            placeBlock(where, what, where, EquipmentSlot.HAND);
+        }
+
+        /**
+         * Attempts to place a block.
+         *
+         * @param where   Where to place something.
+         * @param what    What to place.
+         * @param clicked The block that was clicked by the player for placing.
+         */
+        public void placeBlock(final Block where, final MaterialData what,
+                               final Block clicked) throws CancelledByEventException {
+            placeBlock(where, what, clicked, EquipmentSlot.HAND);
+        }
+
+        /**
+         * Attempts to place a block.
+         *
+         * @param where   Where to place something.
+         * @param what    What to place.
+         * @param clicked The block that was clicked by the player for placing.
+         * @param hand    The hand that contained the placed block.
+         */
+        public void placeBlock(final Block where, final MaterialData what, final Block clicked,
+                               final EquipmentSlot hand) throws CancelledByEventException {
+            // Take a snapshot of the block before.
+            final BlockState beforeState = where.getState();
+            final BlockState eventState = where.getState();
+
+            // This event is strange: The block is placed beforehand.
+            final BlockState placeState = where.getState();
+            placeState.setData(what);
+            placeState.update(true, false);
+
+            // Start placing.
+            final BlockPlaceEvent blockPlaceEvent = new BlockPlaceEvent(where, eventState, clicked, getItemInHand(),
+                    MokkitPlayer.this, true, hand);
+            getServer().getPluginManager().callEvent(blockPlaceEvent);
+            if (blockPlaceEvent.isCancelled() || !blockPlaceEvent.canBuild()) {
+                // Reset the block.
+                beforeState.update(true, false);
+                throw new CancelledByEventException(blockPlaceEvent);
+            }
+
+            // Finish placing by applying physics.
+            placeState.update(true, true);
         }
     }
 }

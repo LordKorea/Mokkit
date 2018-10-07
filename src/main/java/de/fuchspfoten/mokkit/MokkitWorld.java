@@ -56,7 +56,7 @@ public class MokkitWorld implements World {
     /**
      * The loaded chunks of the world.
      */
-    private final Map<ChunkCoordinate, Chunk> loadedChunks = new HashMap<>();
+    private final Map<MokkitChunkCoordinate, Chunk> loadedChunks = new HashMap<>();
 
     /**
      * Constructor.
@@ -87,7 +87,7 @@ public class MokkitWorld implements World {
 
     @Override
     public Chunk getChunkAt(final int x, final int z) {
-        final ChunkCoordinate coord = new ChunkCoordinate(x, z);
+        final MokkitChunkCoordinate coord = new MokkitChunkCoordinate(x, z);
         if (!loadedChunks.containsKey(coord)) {
             loadChunk(coord.getX(), coord.getZ());
         }
@@ -106,7 +106,7 @@ public class MokkitWorld implements World {
 
     @Override
     public boolean loadChunk(final int x, final int z, final boolean generate) {
-        final ChunkCoordinate coord = new ChunkCoordinate(x, z);
+        final MokkitChunkCoordinate coord = new MokkitChunkCoordinate(x, z);
         if (loadedChunks.containsKey(coord)) {
             return true;
         }
@@ -852,7 +852,8 @@ public class MokkitWorld implements World {
 
     @Override
     public <T> void spawnParticle(final Particle particle, final double x, final double y, final double z,
-                                  final int count, final double offsetX, final double offsetY, final double offsetZ, final T data) {
+                                  final int count, final double offsetX, final double offsetY, final double offsetZ,
+                                  final T data) {
         // TODO
         throw new UnsupportedMockException();
     }

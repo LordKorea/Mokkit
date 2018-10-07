@@ -49,8 +49,7 @@ public abstract class MokkitHumanEntity extends MokkitLivingEntity implements Hu
 
     @Override
     public ItemStack getItemInHand() {
-        // TODO
-        throw new UnsupportedMockException();
+        return getInventory().getItemInMainHand();
     }
 
     @Override

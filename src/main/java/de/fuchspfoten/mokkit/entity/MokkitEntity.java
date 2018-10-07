@@ -30,20 +30,17 @@ import java.util.UUID;
 public abstract class MokkitEntity implements Entity {
 
     /**
+     * The location where the entity is at.
+     */
+    protected @Getter Location location;
+    /**
      * The server this entity is in.
      */
     private @Getter final MokkitServer server;
-
     /**
      * The name of the entity.
      */
     private @Getter final String name;
-
-    /**
-     * The location where the entity is at.
-     */
-    protected @Getter Location location;
-
     /**
      * The velocity of the entity.
      */

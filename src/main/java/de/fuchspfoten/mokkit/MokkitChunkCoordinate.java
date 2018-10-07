@@ -11,7 +11,7 @@ import lombok.ToString;
 @RequiredArgsConstructor
 @ToString
 @EqualsAndHashCode
-public class ChunkCoordinate {
+public class MokkitChunkCoordinate {
 
     /**
      * The x coordinate.

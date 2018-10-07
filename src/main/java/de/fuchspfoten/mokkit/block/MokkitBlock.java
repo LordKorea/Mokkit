@@ -50,6 +50,11 @@ public class MokkitBlock implements Block {
     private @Getter @Setter Material type;
 
     /**
+     * The data byte of the block.
+     */
+    private @Getter @Setter byte data;
+
+    /**
      * Constructor.
      *
      * @param world The world this block is in.
@@ -63,6 +68,7 @@ public class MokkitBlock implements Block {
         this.y = y;
         this.z = z;
         this.type = Material.AIR;
+        this.data = 0;
     }
 
     @Override
@@ -82,15 +88,20 @@ public class MokkitBlock implements Block {
     }
 
     @Override
-    public byte getData() {
-        // TODO
-        throw new UnsupportedMockException();
+    public BlockState getState() {
+        return new MokkitBlockState(this);
     }
 
     @Override
-    public void setData(final byte data) {
-        // TODO
-        throw new UnsupportedMockException();
+    public boolean setTypeIdAndData(final int type, final byte data, final boolean applyPhysics) {
+        final Material typeBefore = this.type;
+        final byte dataBefore = this.data;
+
+        this.type = Material.getMaterial(type);
+        this.data = data;
+        // TODO applyPhysics
+
+        return typeBefore != this.type || dataBefore != data;
     }
 
     @Override
@@ -166,19 +177,7 @@ public class MokkitBlock implements Block {
     }
 
     @Override
-    public boolean setTypeIdAndData(final int type, final byte data, final boolean applyPhysics) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
     public BlockFace getFace(final Block block) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public BlockState getState() {
         // TODO
         throw new UnsupportedMockException();
     }
