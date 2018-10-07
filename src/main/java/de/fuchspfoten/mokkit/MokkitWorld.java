@@ -1,5 +1,6 @@
 package de.fuchspfoten.mokkit;
 
+import de.fuchspfoten.mokkit.entity.MokkitPainting;
 import de.fuchspfoten.mokkit.internal.exception.UnsupportedMockException;
 import lombok.Getter;
 import org.bukkit.BlockChangeDelegate;
@@ -25,6 +26,7 @@ import org.bukkit.entity.FallingBlock;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.LightningStrike;
 import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Painting;
 import org.bukkit.entity.Player;
 import org.bukkit.generator.BlockPopulator;
 import org.bukkit.generator.ChunkGenerator;
@@ -49,6 +51,11 @@ import java.util.UUID;
 public class MokkitWorld implements World {
 
     /**
+     * The server this world is in.
+     */
+    private final MokkitServer server;
+
+    /**
      * The name of the world.
      */
     private @Getter final String name;
@@ -63,7 +70,8 @@ public class MokkitWorld implements World {
      *
      * @param name The name of the world.
      */
-    public MokkitWorld(final String name) {
+    public MokkitWorld(final MokkitServer server, final String name) {
+        this.server = server;
         this.name = name;
     }
 
@@ -123,6 +131,70 @@ public class MokkitWorld implements World {
     @Override
     public int getMaxHeight() {
         return 256;
+    }
+
+    @Override
+    public Entity spawnEntity(final Location loc, final EntityType type) {
+        return spawn(loc, type.getEntityClass());
+    }
+
+    @Override
+    public <T extends Entity> T spawn(final Location location, final Class<T> clazz) throws IllegalArgumentException {
+        return spawn(location, clazz, t -> {});
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public <T extends Entity> T spawn(final Location location, final Class<T> clazz,
+                                      final Consumer<T> function) throws IllegalArgumentException {
+        if (location == null || clazz == null || function == null) {
+            throw new IllegalArgumentException("location or class null");
+        }
+
+        // Determine the entity type.
+        EntityType targetType = null;
+        for (final EntityType possible : EntityType.values()) {
+            if (possible.getEntityClass() == clazz) {
+                targetType = possible;
+                break;
+            }
+        }
+        if (targetType == null) {
+            throw new IllegalArgumentException("can not find entity for class: " + clazz.getName());
+        }
+
+        // Determine whether we can spawn this type.
+        switch (targetType) {
+            case PAINTING:
+                // Supported.
+                break;
+            case LIGHTNING:
+            case WEATHER:
+            case PLAYER:
+            case COMPLEX_PART:
+            case UNKNOWN:
+                throw new IllegalArgumentException("can not spawn " + targetType.name());
+            default:
+                // Not (yet) supported.
+                throw new UnsupportedMockException();
+        }
+
+        // Spawn the entity.
+        final T entity;
+        switch (targetType) {
+            case PAINTING:
+                assert clazz == Painting.class;
+                entity = (T) new MokkitPainting(server, location, UUID.randomUUID());
+                break;
+            default:
+                throw new IllegalStateException("control flow must not reach this");
+        }
+
+        // Invoke the callback.
+        function.accept(entity);
+
+        // TODO add to world.
+        return entity;
     }
 
     @Override
@@ -272,12 +344,6 @@ public class MokkitWorld implements World {
 
     @Override
     public boolean generateTree(final Location loc, final TreeType type, final BlockChangeDelegate delegate) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public Entity spawnEntity(final Location loc, final EntityType type) {
         // TODO
         throw new UnsupportedMockException();
     }
@@ -504,19 +570,6 @@ public class MokkitWorld implements World {
 
     @Override
     public List<BlockPopulator> getPopulators() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public <T extends Entity> T spawn(final Location location, final Class<T> clazz) throws IllegalArgumentException {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public <T extends Entity> T spawn(final Location location, final Class<T> clazz,
-                                      final Consumer<T> function) throws IllegalArgumentException {
         // TODO
         throw new UnsupportedMockException();
     }

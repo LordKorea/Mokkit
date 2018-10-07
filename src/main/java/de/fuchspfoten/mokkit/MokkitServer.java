@@ -136,7 +136,7 @@ public class MokkitServer implements Server {
 
     @Override
     public MokkitWorld createWorld(final WorldCreator creator) {
-        final MokkitWorld world = new MokkitWorld(creator.name());
+        final MokkitWorld world = new MokkitWorld(this, creator.name());
         worlds.put(creator.name(), world);
         return world;
     }
