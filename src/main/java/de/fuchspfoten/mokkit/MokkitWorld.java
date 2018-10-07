@@ -2,6 +2,7 @@ package de.fuchspfoten.mokkit;
 
 import de.fuchspfoten.mokkit.entity.MokkitChicken;
 import de.fuchspfoten.mokkit.entity.MokkitCow;
+import de.fuchspfoten.mokkit.entity.MokkitLlama;
 import de.fuchspfoten.mokkit.entity.MokkitOcelot;
 import de.fuchspfoten.mokkit.entity.MokkitPainting;
 import de.fuchspfoten.mokkit.entity.MokkitPig;
@@ -37,6 +38,7 @@ import org.bukkit.entity.FallingBlock;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.LightningStrike;
 import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Llama;
 import org.bukkit.entity.Ocelot;
 import org.bukkit.entity.Painting;
 import org.bukkit.entity.Pig;
@@ -213,6 +215,7 @@ public class MokkitWorld implements World {
         switch (targetType) {
             case CHICKEN:
             case COW:
+            case LLAMA:
             case OCELOT:
             case PAINTING:
             case PIG:
@@ -243,6 +246,10 @@ public class MokkitWorld implements World {
             case COW:
                 assert clazz == Cow.class;
                 entity = (T) new MokkitCow(server, location, UUID.randomUUID());
+                break;
+            case LLAMA:
+                assert clazz == Llama.class;
+                entity = (T) new MokkitLlama(server, location, UUID.randomUUID());
                 break;
             case OCELOT:
                 assert clazz == Ocelot.class;
