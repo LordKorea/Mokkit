@@ -16,9 +16,9 @@ public class MokkitBat extends MokkitAmbient implements Bat {
     /**
      * Constructor.
      *
-     * @param server           The server this entity is in.
-     * @param location         The location the entity is at.
-     * @param uuid             The UUID of the entity.
+     * @param server   The server this entity is in.
+     * @param location The location the entity is at.
+     * @param uuid     The UUID of the entity.
      */
     public MokkitBat(final MokkitServer server, final Location location, final UUID uuid) {
         super(server, "Bat", location, uuid, 6.0);

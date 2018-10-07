@@ -4,14 +4,14 @@ import de.fuchspfoten.mokkit.MokkitServer;
 import de.fuchspfoten.mokkit.internal.exception.UnsupportedMockException;
 import org.bukkit.Location;
 import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Rabbit;
+import org.bukkit.entity.Evoker;
 
 import java.util.UUID;
 
 /**
- * @see org.bukkit.entity.Rabbit
+ * @see org.bukkit.entity.Evoker
  */
-public class MokkitRabbit extends MokkitAnimals implements Rabbit {
+public class MokkitEvoker extends MokkitSpellcaster implements Evoker {
 
     /**
      * Constructor.
@@ -20,23 +20,23 @@ public class MokkitRabbit extends MokkitAnimals implements Rabbit {
      * @param location The location the entity is at.
      * @param uuid     The UUID of the entity.
      */
-    public MokkitRabbit(final MokkitServer server, final Location location, final UUID uuid) {
-        super(server, "Rabbit", location, uuid, 3.0);
+    public MokkitEvoker(final MokkitServer server, final Location location, final UUID uuid) {
+        super(server, "Evoker", location, uuid, 24.0);
     }
 
     @Override
     public EntityType getType() {
-        return EntityType.RABBIT;
+        return EntityType.EVOKER;
     }
 
     @Override
-    public Type getRabbitType() {
+    public Evoker.Spell getCurrentSpell() {
         // TODO
         throw new UnsupportedMockException();
     }
 
     @Override
-    public void setRabbitType(final Type type) {
+    public void setCurrentSpell(final Evoker.Spell spell) {
         // TODO
         throw new UnsupportedMockException();
     }
