@@ -7,6 +7,7 @@ import de.fuchspfoten.mokkit.entity.MokkitEvoker;
 import de.fuchspfoten.mokkit.entity.MokkitLlama;
 import de.fuchspfoten.mokkit.entity.MokkitOcelot;
 import de.fuchspfoten.mokkit.entity.MokkitPainting;
+import de.fuchspfoten.mokkit.entity.MokkitParrot;
 import de.fuchspfoten.mokkit.entity.MokkitPig;
 import de.fuchspfoten.mokkit.entity.MokkitPolarBear;
 import de.fuchspfoten.mokkit.entity.MokkitRabbit;
@@ -45,6 +46,7 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Llama;
 import org.bukkit.entity.Ocelot;
 import org.bukkit.entity.Painting;
+import org.bukkit.entity.Parrot;
 import org.bukkit.entity.Pig;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.PolarBear;
@@ -224,6 +226,7 @@ public class MokkitWorld implements World {
             case LLAMA:
             case OCELOT:
             case PAINTING:
+            case PARROT:
             case PIG:
             case POLAR_BEAR:
             case RABBIT:
@@ -272,6 +275,10 @@ public class MokkitWorld implements World {
             case PAINTING:
                 assert clazz == Painting.class;
                 entity = (T) new MokkitPainting(server, location, UUID.randomUUID());
+                break;
+            case PARROT:
+                assert clazz == Parrot.class;
+                entity = (T) new MokkitParrot(server, location, UUID.randomUUID());
                 break;
             case PIG:
                 assert clazz == Pig.class;
