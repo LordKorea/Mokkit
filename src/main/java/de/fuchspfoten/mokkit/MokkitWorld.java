@@ -2,6 +2,7 @@ package de.fuchspfoten.mokkit;
 
 import de.fuchspfoten.mokkit.entity.MokkitPainting;
 import de.fuchspfoten.mokkit.entity.MokkitPig;
+import de.fuchspfoten.mokkit.entity.MokkitWolf;
 import de.fuchspfoten.mokkit.internal.exception.UnsupportedMockException;
 import lombok.Getter;
 import org.bukkit.BlockChangeDelegate;
@@ -31,6 +32,7 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Painting;
 import org.bukkit.entity.Pig;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Wolf;
 import org.bukkit.generator.BlockPopulator;
 import org.bukkit.generator.ChunkGenerator;
 import org.bukkit.inventory.ItemStack;
@@ -199,6 +201,7 @@ public class MokkitWorld implements World {
         switch (targetType) {
             case PAINTING:
             case PIG:
+            case WOLF:
                 // Supported.
                 break;
             case COMPLEX_PART:
@@ -222,6 +225,10 @@ public class MokkitWorld implements World {
             case PIG:
                 assert clazz == Pig.class;
                 entity = (T) new MokkitPig(server, location, UUID.randomUUID());
+                break;
+            case WOLF:
+                assert clazz == Wolf.class;
+                entity = (T) new MokkitWolf(server, location, UUID.randomUUID());
                 break;
             default:
                 throw new IllegalStateException("control flow must not reach this");

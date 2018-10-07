@@ -4,6 +4,7 @@ import de.fuchspfoten.mokkit.MokkitServer;
 import de.fuchspfoten.mokkit.internal.exception.UnsupportedMockException;
 import org.bukkit.Art;
 import org.bukkit.Location;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Painting;
 
 import java.util.UUID;
@@ -22,6 +23,11 @@ public class MokkitPainting extends MokkitHanging implements Painting {
      */
     public MokkitPainting(final MokkitServer server, final Location location, final UUID uniqueId) {
         super(server, "Painting", location, uniqueId);
+    }
+
+    @Override
+    public EntityType getType() {
+        return EntityType.PAINTING;
     }
 
     @Override

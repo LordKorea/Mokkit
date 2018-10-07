@@ -1,7 +1,8 @@
 package de.fuchspfoten.mokkit.entity;
 
 import de.fuchspfoten.mokkit.MokkitServer;
-import de.fuchspfoten.mokkit.internal.exception.UnsupportedMockException;
+import lombok.Getter;
+import lombok.Setter;
 import org.bukkit.Location;
 import org.bukkit.entity.Creature;
 import org.bukkit.entity.LivingEntity;
@@ -12,6 +13,11 @@ import java.util.UUID;
  * @see org.bukkit.entity.Creature
  */
 public abstract class MokkitCreature extends MokkitLivingEntity implements Creature {
+
+    /**
+     * The target of this entity.
+     */
+    private @Getter @Setter LivingEntity target;
 
     /**
      * Constructor.
@@ -25,17 +31,5 @@ public abstract class MokkitCreature extends MokkitLivingEntity implements Creat
     public MokkitCreature(final MokkitServer server, final String name, final Location location, final UUID uuid,
                           final double defaultMaxHealth) {
         super(server, name, location, uuid, defaultMaxHealth);
-    }
-
-    @Override
-    public LivingEntity getTarget() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setTarget(final LivingEntity target) {
-        // TODO
-        throw new UnsupportedMockException();
     }
 }

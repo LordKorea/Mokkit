@@ -3,6 +3,7 @@ package de.fuchspfoten.mokkit.entity;
 import de.fuchspfoten.mokkit.MokkitServer;
 import de.fuchspfoten.mokkit.internal.exception.UnsupportedMockException;
 import org.bukkit.Location;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Pig;
 
 import java.util.UUID;
@@ -21,6 +22,11 @@ public class MokkitPig extends MokkitAnimals implements Pig {
      */
     public MokkitPig(final MokkitServer server, final Location location, final UUID uuid) {
         super(server, "Pig", location, uuid, 10.0);
+    }
+
+    @Override
+    public EntityType getType() {
+        return EntityType.PIG;
     }
 
     @Override
