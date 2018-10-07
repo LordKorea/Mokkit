@@ -31,6 +31,7 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockDamageEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.hanging.HangingPlaceEvent;
+import org.bukkit.event.player.PlayerBucketEmptyEvent;
 import org.bukkit.event.player.PlayerBucketFillEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
@@ -1097,7 +1098,30 @@ public class MokkitPlayer extends MokkitHumanEntity implements Player {
                 }
 
                 if (targetBucket != null) {
-                    fillBucket(block, new ItemStack(targetBucket));
+                    fillBucket(block, new ItemStack(targetBucket), slot);
+                    return;
+                }
+            }
+
+            // Emptying buckets.
+            if (usedItem != null) {
+                final Block targetBlock = block.getRelative(clickedFace);
+                final Material targetLiquid;
+                switch (usedItem.getType()) {
+                    case WATER_BUCKET:
+                        targetLiquid = Material.WATER;
+                        break;
+                    case LAVA_BUCKET:
+                        targetLiquid = Material.LAVA;
+                        break;
+                    default:
+                        targetLiquid = null;
+                        break;
+                }
+
+                // TODO replacing grass etc.
+                if (targetLiquid != null && targetBlock.getType() == Material.AIR) {
+                    emptyBucket(targetBlock, block, clickedFace, usedItem.getType(), targetLiquid, slot);
                     return;
                 }
             }
@@ -1166,8 +1190,10 @@ public class MokkitPlayer extends MokkitHumanEntity implements Player {
          *
          * @param where      The liquid block.
          * @param resultItem The bucket that is held after the event.
+         * @param hand       The used hand.
          */
-        protected void fillBucket(final Block where, final ItemStack resultItem) throws CancelledByEventException {
+        protected void fillBucket(final Block where, final ItemStack resultItem,
+                                  final EquipmentSlot hand) throws CancelledByEventException {
             final PlayerBucketFillEvent event = new PlayerBucketFillEvent(MokkitPlayer.this, where, BlockFace.SELF,
                     Material.BUCKET, resultItem);
             getServer().getPluginManager().callEvent(event);
@@ -1179,7 +1205,42 @@ public class MokkitPlayer extends MokkitHumanEntity implements Player {
             where.setType(Material.AIR);
 
             // Update the hand item.
-            setItemInHand(event.getItemStack());
+            if (hand == EquipmentSlot.HAND) {
+                getInventory().setItemInMainHand(event.getItemStack());
+            } else {
+                getInventory().setItemInOffHand(event.getItemStack());
+            }
+        }
+
+        /**
+         * Attempts to empty a bucket.
+         *
+         * @param where       Where the bucket is to be emptied.
+         * @param clicked     The clicked block.
+         * @param clickedFace The clicked block face.
+         * @param bucket      The used bucket.
+         * @param liquid      The liquid that is to be placed.
+         * @param hand        The hand that was used.
+         */
+        protected void emptyBucket(final Block where, final Block clicked, final BlockFace clickedFace,
+                                   final Material bucket, final Material liquid,
+                                   final EquipmentSlot hand) throws CancelledByEventException {
+            final PlayerBucketEmptyEvent event = new PlayerBucketEmptyEvent(MokkitPlayer.this, clicked,
+                    clickedFace, bucket, new ItemStack(Material.BUCKET));
+            getServer().getPluginManager().callEvent(event);
+            if (event.isCancelled()) {
+                throw new CancelledByEventException(event);
+            }
+
+            // Place the liquid.
+            where.setType(liquid);
+
+            // Update the hand item.
+            if (hand == EquipmentSlot.HAND) {
+                getInventory().setItemInMainHand(event.getItemStack());
+            } else {
+                getInventory().setItemInOffHand(event.getItemStack());
+            }
         }
     }
 }
