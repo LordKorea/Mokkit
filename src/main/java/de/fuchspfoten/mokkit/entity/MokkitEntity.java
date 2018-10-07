@@ -33,14 +33,17 @@ public abstract class MokkitEntity implements Entity {
      * The location where the entity is at.
      */
     protected @Getter Location location;
+
     /**
      * The server this entity is in.
      */
     private @Getter final MokkitServer server;
+
     /**
      * The name of the entity.
      */
     private @Getter final String name;
+
     /**
      * The velocity of the entity.
      */
@@ -55,6 +58,11 @@ public abstract class MokkitEntity implements Entity {
      * Whether the entity is a server operator.
      */
     private @Getter @Setter boolean op;
+
+    /**
+     * Whether the entity is dead.
+     */
+    private @Getter boolean dead;
 
     /**
      * Constructor.
@@ -123,6 +131,12 @@ public abstract class MokkitEntity implements Entity {
     }
 
     @Override
+    public void remove() {
+        dead = true;
+        // TODO remove from world
+    }
+
+    @Override
     public double getHeight() {
         // TODO
         throw new UnsupportedMockException();
@@ -166,18 +180,6 @@ public abstract class MokkitEntity implements Entity {
 
     @Override
     public int getMaxFireTicks() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void remove() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public boolean isDead() {
         // TODO
         throw new UnsupportedMockException();
     }

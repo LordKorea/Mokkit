@@ -28,13 +28,13 @@ public class MokkitCreature extends MokkitLivingEntity implements Creature {
     }
 
     @Override
-    public void setTarget(final LivingEntity target) {
+    public LivingEntity getTarget() {
         // TODO
         throw new UnsupportedMockException();
     }
 
     @Override
-    public LivingEntity getTarget() {
+    public void setTarget(final LivingEntity target) {
         // TODO
         throw new UnsupportedMockException();
     }

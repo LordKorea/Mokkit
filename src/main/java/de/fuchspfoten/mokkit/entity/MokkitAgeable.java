@@ -39,13 +39,13 @@ public class MokkitAgeable extends MokkitCreature implements Ageable {
     }
 
     @Override
-    public void setAgeLock(final boolean lock) {
+    public boolean getAgeLock() {
         // TODO
         throw new UnsupportedMockException();
     }
 
     @Override
-    public boolean getAgeLock() {
+    public void setAgeLock(final boolean lock) {
         // TODO
         throw new UnsupportedMockException();
     }

@@ -11,12 +11,15 @@ import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.Hanging;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
+import org.bukkit.event.hanging.HangingBreakByEntityEvent;
+import org.bukkit.event.hanging.HangingBreakEvent;
 import org.bukkit.inventory.EntityEquipment;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -56,10 +59,10 @@ public abstract class MokkitLivingEntity extends MokkitEntity implements LivingE
     /**
      * Constructor.
      *
-     * @param server   The server this entity is in.
-     * @param name     The name of the entity.
-     * @param location The location the entity is at.
-     * @param uuid     The UUID of the entity.
+     * @param server           The server this entity is in.
+     * @param name             The name of the entity.
+     * @param location         The location the entity is at.
+     * @param uuid             The UUID of the entity.
      * @param defaultMaxHealth The default max health of the entity.
      */
     public MokkitLivingEntity(final MokkitServer server, final String name, final Location location, final UUID uuid,
@@ -92,11 +95,6 @@ public abstract class MokkitLivingEntity extends MokkitEntity implements LivingE
             // Ensure cancelling isn't possible with tricks, either.
             health = -1.0;
         }
-    }
-
-    @Override
-    public boolean isDead() {
-        return health <= 0.0;
     }
 
     @Override
@@ -400,6 +398,34 @@ public abstract class MokkitLivingEntity extends MokkitEntity implements LivingE
 
             // Damage the target.
             target.damage(damageDone);
+        }
+
+        /**
+         * Damages an entity. If the entity has health, the damage done is 1 damage point.
+         *
+         * @param target The target.
+         */
+        public void damageEntity(final Entity target) throws CancelledByEventException {
+            if (target instanceof LivingEntity) {
+                attackLiving((LivingEntity) target, 1.0, EntityDamageEvent.DamageCause.ENTITY_ATTACK);
+                return;
+            }
+
+            // Hanging objects.
+            if (target instanceof Hanging) {
+                final HangingBreakByEntityEvent event = new HangingBreakByEntityEvent((Hanging) target,
+                        MokkitLivingEntity.this, HangingBreakEvent.RemoveCause.ENTITY);
+                getServer().getPluginManager().callEvent(event);
+                if (event.isCancelled()) {
+                    throw new CancelledByEventException(event);
+                }
+
+                // Remove the target.
+                target.remove();
+                return;
+            }
+
+            throw new UnsupportedMockException();
         }
     }
 }

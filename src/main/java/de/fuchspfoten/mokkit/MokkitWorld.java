@@ -142,7 +142,8 @@ public class MokkitWorld implements World {
 
     @Override
     public <T extends Entity> T spawn(final Location location, final Class<T> clazz) throws IllegalArgumentException {
-        return spawn(location, clazz, t -> {});
+        return spawn(location, clazz, t -> {
+        });
     }
 
     @SuppressWarnings("unchecked")
@@ -151,6 +152,9 @@ public class MokkitWorld implements World {
                                       final Consumer<T> function) throws IllegalArgumentException {
         if (location == null || clazz == null || function == null) {
             throw new IllegalArgumentException("location or class null");
+        }
+        if (location.getWorld() != this) {
+            throw new IllegalArgumentException("attempting to spawn in conflicting worlds");
         }
 
         // Determine the entity type.
