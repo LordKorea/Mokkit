@@ -21,8 +21,11 @@ public class MokkitPlayerInventory extends MokkitInventory implements PlayerInve
      * Constructor.
      */
     public MokkitPlayerInventory() {
-        // 4 Rows, Offhand, Armor, Crafting Grid.
-        super(9 * 4 + 1 + 4 + 5);
+        // Hotbar: 0..8.
+        // Items: 9..35.
+        // Armor: 36..39.
+        // Off Hand: 40.
+        super(9 + 3*9 + 4 + 1);
     }
 
     @Override
@@ -32,8 +35,12 @@ public class MokkitPlayerInventory extends MokkitInventory implements PlayerInve
 
     @Override
     public void setItemInMainHand(final ItemStack item) {
-        // TODO
-        throw new UnsupportedMockException();
+        setItem(getHeldItemSlot(), item);
+    }
+
+    @Override
+    public ItemStack getItemInOffHand() {
+        return getItem(40);
     }
 
     @Override
@@ -104,12 +111,6 @@ public class MokkitPlayerInventory extends MokkitInventory implements PlayerInve
 
     @Override
     public void setBoots(final ItemStack boots) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public ItemStack getItemInOffHand() {
         // TODO
         throw new UnsupportedMockException();
     }

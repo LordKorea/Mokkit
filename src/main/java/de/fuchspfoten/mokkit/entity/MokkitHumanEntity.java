@@ -54,8 +54,7 @@ public abstract class MokkitHumanEntity extends MokkitLivingEntity implements Hu
 
     @Override
     public void setItemInHand(final ItemStack item) {
-        // TODO
-        throw new UnsupportedMockException();
+        getInventory().setItemInMainHand(item);
     }
 
     @Override
@@ -206,5 +205,18 @@ public abstract class MokkitHumanEntity extends MokkitLivingEntity implements Hu
     public void setShoulderEntityRight(final Entity entity) {
         // TODO
         throw new UnsupportedMockException();
+    }
+
+    /**
+     * Consumes an item from the main hand.
+     */
+    protected void consumeItemInMainHand() {
+        final ItemStack nextItem = getInventory().getItemInMainHand();
+        if (nextItem.getAmount() == 1) {
+            getInventory().setItemInMainHand(null);
+        } else {
+            nextItem.setAmount(nextItem.getAmount() - 1);
+            getInventory().setItemInMainHand(nextItem);
+        }
     }
 }

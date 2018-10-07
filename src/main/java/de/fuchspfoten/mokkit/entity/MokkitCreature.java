@@ -11,7 +11,7 @@ import java.util.UUID;
 /**
  * @see org.bukkit.entity.Creature
  */
-public class MokkitCreature extends MokkitLivingEntity implements Creature {
+public abstract class MokkitCreature extends MokkitLivingEntity implements Creature {
 
     /**
      * Constructor.

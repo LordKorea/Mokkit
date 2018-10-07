@@ -30,8 +30,10 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockDamageEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.hanging.HangingPlaceEvent;
+import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.inventory.EquipmentSlot;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.map.MapView;
 import org.bukkit.material.MaterialData;
 import org.bukkit.plugin.Plugin;
@@ -994,28 +996,103 @@ public class MokkitPlayer extends MokkitHumanEntity implements Player {
 
             // Destroy the block.
             block.setType(Material.AIR);
+
+            // TODO: durability of tools.
         }
 
         /**
-         * Attempts to place a block.
+         * Attempts to interact with an entity.
          *
-         * @param where Where to place something.
-         * @param what  What to place.
+         * @param who The entity.
          */
-        public void placeBlock(final Block where, final MaterialData what) throws CancelledByEventException {
-            placeBlock(where, what, where, EquipmentSlot.HAND);
+        public void interactWith(final Entity who) throws CancelledByEventException {
+            interactWith(who, EquipmentSlot.HAND);
         }
 
         /**
-         * Attempts to place a block.
+         * Attempts to interact with an entity.
          *
-         * @param where   Where to place something.
-         * @param what    What to place.
-         * @param clicked The block that was clicked by the player for placing.
+         * @param who  The entity.
+         * @param hand The hand that is used for interacting.
          */
-        public void placeBlock(final Block where, final MaterialData what,
-                               final Block clicked) throws CancelledByEventException {
-            placeBlock(where, what, clicked, EquipmentSlot.HAND);
+        public void interactWith(final Entity who, final EquipmentSlot hand) throws CancelledByEventException {
+            final PlayerInteractEntityEvent event = new PlayerInteractEntityEvent(MokkitPlayer.this, who, hand);
+            getServer().getPluginManager().callEvent(event);
+            if (event.isCancelled()) {
+                throw new CancelledByEventException(event);
+            }
+
+            // TODO use hand?
+        }
+
+        /**
+         * Attempts to simulate a right click on a block.
+         *
+         * @param block The block.
+         */
+        public void rightClickBlock(final Block block, final BlockFace clickedFace) {
+            if (getInventory().getItemInMainHand() != null && getInventory().getItemInOffHand() != null) {
+                throw new UnsupportedMockException();
+            }
+
+            // Determine the hand and the item that is used.
+            final EquipmentSlot slot;
+            final ItemStack usedItem;
+            if (getInventory().getItemInOffHand() == null) {
+                slot = EquipmentSlot.HAND;
+                usedItem = getInventory().getItemInMainHand();
+            } else {
+                slot = EquipmentSlot.OFF_HAND;
+                usedItem = getInventory().getItemInOffHand();
+            }
+
+            // Block placing.
+            // TODO does this trigger a PlayerInteractEvent?
+            if (usedItem != null && usedItem.getType().isBlock()) {
+                final Block targetBlock = block.getRelative(clickedFace);
+                // TODO replacing grass etc.
+                if (targetBlock.getType() == Material.AIR) {
+                    placeBlock(targetBlock, usedItem.getData(), block, slot);
+                    consumeItemInMainHand();
+                    return;
+                }
+            }
+
+            // Painting placing.
+            // TODO does this trigger a PlayerInteractEvent?
+            if (usedItem != null && usedItem.getType() == Material.PAINTING) {
+                final Block targetBlock = block.getRelative(clickedFace);
+                if (targetBlock.getType() == Material.AIR) {
+                    placePainting(block, clickedFace);
+                    consumeItemInMainHand();
+                    return;
+                }
+            }
+
+            // TODO what else?
+            throw new UnsupportedMockException();
+        }
+
+        /**
+         * Attempts to place a painting.
+         *
+         * @param clicked     The clicked block.
+         * @param clickedFace The clicked block face.
+         */
+        protected void placePainting(final Block clicked,
+                                     final BlockFace clickedFace) throws CancelledByEventException {
+            // This event is strange: The painting is placed beforehand.
+            final Painting painting = getWorld().spawn(clicked.getRelative(clickedFace).getLocation(), Painting.class);
+
+            // Start placing.
+            final HangingPlaceEvent event = new HangingPlaceEvent(painting, MokkitPlayer.this, clicked,
+                    clickedFace);
+            getServer().getPluginManager().callEvent(event);
+            if (event.isCancelled()) {
+                // Remove the painting as if it never existed.
+                painting.remove();
+                throw new CancelledByEventException(event);
+            }
         }
 
         /**
@@ -1026,8 +1103,8 @@ public class MokkitPlayer extends MokkitHumanEntity implements Player {
          * @param clicked The block that was clicked by the player for placing.
          * @param hand    The hand that contained the placed block.
          */
-        public void placeBlock(final Block where, final MaterialData what, final Block clicked,
-                               final EquipmentSlot hand) throws CancelledByEventException {
+        protected void placeBlock(final Block where, final MaterialData what, final Block clicked,
+                                  final EquipmentSlot hand) throws CancelledByEventException {
             // Take a snapshot of the block before.
             final BlockState beforeState = where.getState();
             final BlockState eventState = where.getState();
@@ -1049,30 +1126,6 @@ public class MokkitPlayer extends MokkitHumanEntity implements Player {
 
             // Finish placing by applying physics.
             placeState.update(true, true);
-        }
-
-        /**
-         * Attempts to place a painting.
-         *
-         * @param clicked The clicked block.
-         * @param clickedFace The clicked block face.
-         */
-        public Painting placePainting(final Block clicked,
-                                      final BlockFace clickedFace) throws CancelledByEventException {
-            // This event is strange: The painting is placed beforehand.
-            final Painting painting = getWorld().spawn(clicked.getRelative(clickedFace).getLocation(), Painting.class);
-
-            // Start placing.
-            final HangingPlaceEvent event = new HangingPlaceEvent(painting, MokkitPlayer.this, clicked,
-                    clickedFace);
-            getServer().getPluginManager().callEvent(event);
-            if (event.isCancelled()) {
-                // Remove the painting as if it never existed.
-                painting.remove();
-                throw new CancelledByEventException(event);
-            }
-
-            return painting;
         }
     }
 }

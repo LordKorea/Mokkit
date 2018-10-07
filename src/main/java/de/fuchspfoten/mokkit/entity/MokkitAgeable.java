@@ -10,7 +10,7 @@ import java.util.UUID;
 /**
  * @see org.bukkit.entity.Ageable
  */
-public class MokkitAgeable extends MokkitCreature implements Ageable {
+public abstract class MokkitAgeable extends MokkitCreature implements Ageable {
 
     /**
      * Constructor.

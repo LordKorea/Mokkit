@@ -116,8 +116,8 @@ public class MokkitBlock implements Block {
 
     @Override
     public Block getRelative(final BlockFace face, final int distance) {
-        return getRelative(x + distance * face.getModX(), y + distance * face.getModY(),
-                z + distance * face.getModZ());
+        return getRelative(distance * face.getModX(), distance * face.getModY(),
+                distance * face.getModZ());
     }
 
     @Override
