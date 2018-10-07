@@ -2,6 +2,7 @@ package de.fuchspfoten.mokkit.entity;
 
 import de.fuchspfoten.mokkit.CancelledByEventException;
 import de.fuchspfoten.mokkit.MokkitServer;
+import de.fuchspfoten.mokkit.MokkitWorld;
 import de.fuchspfoten.mokkit.internal.exception.UnsupportedMockException;
 import org.bukkit.Achievement;
 import org.bukkit.Effect;
@@ -951,6 +952,14 @@ public class MokkitPlayer extends MokkitHumanEntity implements Player {
     public Player.Spigot spigot() {
         // TODO
         throw new UnsupportedMockException();
+    }
+
+    /**
+     * Despawns this player.
+     */
+    public void despawn() {
+        despawned = true;
+        MokkitWorld.updateWorldsForEntity(this);
     }
 
     /**

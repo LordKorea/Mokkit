@@ -1,6 +1,7 @@
 package de.fuchspfoten.mokkit.entity;
 
 import de.fuchspfoten.mokkit.MokkitServer;
+import de.fuchspfoten.mokkit.MokkitWorld;
 import de.fuchspfoten.mokkit.internal.exception.UnsupportedMockException;
 import lombok.Getter;
 import lombok.Setter;
@@ -65,6 +66,11 @@ public abstract class MokkitEntity implements Entity {
     private @Getter boolean dead;
 
     /**
+     * Whether or not the entity is despawned for some reason.
+     */
+    protected boolean despawned;
+
+    /**
      * Constructor.
      *
      * @param server   The server this entity is in.
@@ -117,6 +123,7 @@ public abstract class MokkitEntity implements Entity {
 
         // Perform the teleport.
         this.location = tp.getTo().clone();
+        MokkitWorld.updateWorldsForEntity(this);
         return true;
     }
 
@@ -133,7 +140,12 @@ public abstract class MokkitEntity implements Entity {
     @Override
     public void remove() {
         dead = true;
-        // TODO remove from world
+        MokkitWorld.updateWorldsForEntity(this);
+    }
+
+    @Override
+    public boolean isValid() {
+        return !despawned && !isDead();
     }
 
     @Override
@@ -180,12 +192,6 @@ public abstract class MokkitEntity implements Entity {
 
     @Override
     public int getMaxFireTicks() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public boolean isValid() {
         // TODO
         throw new UnsupportedMockException();
     }

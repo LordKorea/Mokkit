@@ -5,6 +5,7 @@ import de.fuchspfoten.mokkit.entity.MokkitPig;
 import de.fuchspfoten.mokkit.internal.exception.UnsupportedMockException;
 import lombok.Getter;
 import org.bukkit.BlockChangeDelegate;
+import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.ChunkSnapshot;
 import org.bukkit.Difficulty;
@@ -42,15 +43,35 @@ import org.bukkit.util.Vector;
 import java.io.File;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 /**
  * @see org.bukkit.World
  */
 public class MokkitWorld implements World {
+
+    /**
+     * Updates the worlds for the given entity. Adds the entity to the correct world and removes it from all others.
+     *
+     * @param entity The entity.
+     */
+    public static void updateWorldsForEntity(final Entity entity) {
+        for (final World world : Bukkit.getWorlds()) {
+            assert world instanceof MokkitWorld;
+            final MokkitWorld mWorld = (MokkitWorld) world;
+            if (mWorld == entity.getWorld() && entity.isValid()) {
+                mWorld.entities.add(entity);
+            } else {
+                mWorld.entities.remove(entity);
+            }
+        }
+    }
 
     /**
      * The server this world is in.
@@ -66,6 +87,11 @@ public class MokkitWorld implements World {
      * The loaded chunks of the world.
      */
     private final Map<MokkitChunkCoordinate, Chunk> loadedChunks = new HashMap<>();
+
+    /**
+     * The entities in the world.
+     */
+    private final Set<Entity> entities = new HashSet<>();
 
     /**
      * Constructor.
@@ -204,8 +230,40 @@ public class MokkitWorld implements World {
         // Invoke the callback.
         function.accept(entity);
 
-        // TODO add to world.
+        // Add to the world.
+        entities.add(entity);
+
         return entity;
+    }
+
+    @SafeVarargs
+    @Override
+    public final <T extends Entity> Collection<T> getEntitiesByClass(final Class<T>... classes) {
+        final List<T> results = new LinkedList<>();
+        for (final Class<T> clazz : classes) {
+            results.addAll(getEntitiesByClass(clazz));
+        }
+        return results;
+    }
+
+    @Override
+    public <T extends Entity> Collection<T> getEntitiesByClass(final Class<T> cls) {
+        return entities.stream()
+                .filter(e -> cls.isAssignableFrom(e.getClass()))
+                .map(cls::cast)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public Collection<Entity> getEntitiesByClasses(final Class<?>... classes) {
+        final List<Entity> results = new LinkedList<>();
+        for (final Class<?> clazz : classes) {
+            if (Entity.class.isAssignableFrom(clazz)) {
+                //noinspection unchecked clazz must extend Entity.
+                results.addAll(getEntitiesByClass((Class<? extends Entity>) clazz));
+            }
+        }
+        return results;
     }
 
     @Override
@@ -379,25 +437,6 @@ public class MokkitWorld implements World {
 
     @Override
     public List<LivingEntity> getLivingEntities() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @SafeVarargs
-    @Override
-    public final <T extends Entity> Collection<T> getEntitiesByClass(final Class<T>... classes) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public <T extends Entity> Collection<T> getEntitiesByClass(final Class<T> cls) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public Collection<Entity> getEntitiesByClasses(final Class<?>... classes) {
         // TODO
         throw new UnsupportedMockException();
     }

@@ -767,13 +767,14 @@ public class MokkitServer implements Server {
             // Create the player.
             final MokkitPlayer player = new MokkitPlayer(MokkitServer.this, name,
                     new Location(getWorld("world"), 0, 0, 0), getUUIDForName(name));
-            // TODO add the player somewhere.
+            MokkitWorld.updateWorldsForEntity(player);
 
             // Login.
             final PlayerLoginEvent loginEvent = new PlayerLoginEvent(player, ipAddr.getHostAddress(), ipAddr);
             getPluginManager().callEvent(loginEvent);
             if (loginEvent.getResult() != PlayerLoginEvent.Result.ALLOWED) {
-                // TODO remove the player somewhere.
+                player.despawn();
+
                 getLogger().info(String.format("Disallowed login of %1$s (%2$s): %3$s (%4$s)", name,
                         getUUIDForName(name).toString(), loginEvent.getKickMessage(), loginEvent.getResult().name()));
                 throw new CancelledByEventException(loginEvent);
