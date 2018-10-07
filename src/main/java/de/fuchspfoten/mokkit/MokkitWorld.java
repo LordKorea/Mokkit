@@ -13,6 +13,7 @@ import de.fuchspfoten.mokkit.entity.MokkitPolarBear;
 import de.fuchspfoten.mokkit.entity.MokkitRabbit;
 import de.fuchspfoten.mokkit.entity.MokkitSheep;
 import de.fuchspfoten.mokkit.entity.MokkitSpider;
+import de.fuchspfoten.mokkit.entity.MokkitWitch;
 import de.fuchspfoten.mokkit.entity.MokkitWolf;
 import de.fuchspfoten.mokkit.internal.exception.UnsupportedMockException;
 import lombok.Getter;
@@ -34,27 +35,13 @@ import org.bukkit.WorldType;
 import org.bukkit.block.Biome;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Arrow;
-import org.bukkit.entity.Bat;
-import org.bukkit.entity.Chicken;
-import org.bukkit.entity.Cow;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Evoker;
 import org.bukkit.entity.FallingBlock;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.LightningStrike;
 import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Llama;
-import org.bukkit.entity.Ocelot;
-import org.bukkit.entity.Painting;
-import org.bukkit.entity.Parrot;
-import org.bukkit.entity.Pig;
 import org.bukkit.entity.Player;
-import org.bukkit.entity.PolarBear;
-import org.bukkit.entity.Rabbit;
-import org.bukkit.entity.Sheep;
-import org.bukkit.entity.Spider;
-import org.bukkit.entity.Wolf;
 import org.bukkit.generator.BlockPopulator;
 import org.bukkit.generator.ChunkGenerator;
 import org.bukkit.inventory.ItemStack;
@@ -234,6 +221,7 @@ public class MokkitWorld implements World {
             case RABBIT:
             case SHEEP:
             case SPIDER:
+            case WITCH:
             case WOLF:
                 // Supported.
                 break;
@@ -249,62 +237,52 @@ public class MokkitWorld implements World {
         }
 
         // Spawn the entity.
+        assert clazz == targetType.getEntityClass();
         final T entity;
         switch (targetType) {
             case BAT:
-                assert clazz == Bat.class;
                 entity = (T) new MokkitBat(server, location, UUID.randomUUID());
                 break;
             case CHICKEN:
-                assert clazz == Chicken.class;
                 entity = (T) new MokkitChicken(server, location, UUID.randomUUID());
                 break;
             case COW:
-                assert clazz == Cow.class;
                 entity = (T) new MokkitCow(server, location, UUID.randomUUID());
                 break;
             case EVOKER:
-                assert clazz == Evoker.class;
                 entity = (T) new MokkitEvoker(server, location, UUID.randomUUID());
                 break;
             case LLAMA:
-                assert clazz == Llama.class;
                 entity = (T) new MokkitLlama(server, location, UUID.randomUUID());
                 break;
             case OCELOT:
-                assert clazz == Ocelot.class;
                 entity = (T) new MokkitOcelot(server, location, UUID.randomUUID());
                 break;
             case PAINTING:
-                assert clazz == Painting.class;
                 entity = (T) new MokkitPainting(server, location, UUID.randomUUID());
                 break;
             case PARROT:
-                assert clazz == Parrot.class;
                 entity = (T) new MokkitParrot(server, location, UUID.randomUUID());
                 break;
             case PIG:
-                assert clazz == Pig.class;
                 entity = (T) new MokkitPig(server, location, UUID.randomUUID());
                 break;
             case POLAR_BEAR:
-                assert clazz == PolarBear.class;
                 entity = (T) new MokkitPolarBear(server, location, UUID.randomUUID());
                 break;
             case SHEEP:
-                assert clazz == Sheep.class;
                 entity = (T) new MokkitSheep(server, location, UUID.randomUUID());
                 break;
             case SPIDER:
-                assert clazz == Spider.class;
                 entity = (T) new MokkitSpider(server, location, UUID.randomUUID());
                 break;
             case RABBIT:
-                assert clazz == Rabbit.class;
                 entity = (T) new MokkitRabbit(server, location, UUID.randomUUID());
                 break;
+            case WITCH:
+                entity = (T) new MokkitWitch(server, location, UUID.randomUUID());
+                break;
             case WOLF:
-                assert clazz == Wolf.class;
                 entity = (T) new MokkitWolf(server, location, UUID.randomUUID());
                 break;
             default:
