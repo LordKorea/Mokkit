@@ -17,9 +17,9 @@ public class MokkitSlime extends MokkitLivingEntity implements Slime {
     /**
      * Constructor.
      *
-     * @param server           The server this entity is in.
-     * @param location         The location the entity is at.
-     * @param uuid             The UUID of the entity.
+     * @param server   The server this entity is in.
+     * @param location The location the entity is at.
+     * @param uuid     The UUID of the entity.
      */
     public MokkitSlime(final MokkitServer server, final Location location, final UUID uuid) {
         super(server, "Slime", location, uuid, 1.0);
@@ -43,13 +43,13 @@ public class MokkitSlime extends MokkitLivingEntity implements Slime {
     }
 
     @Override
-    public void setTarget(final LivingEntity target) {
+    public LivingEntity getTarget() {
         // TODO
         throw new UnsupportedMockException();
     }
 
     @Override
-    public LivingEntity getTarget() {
+    public void setTarget(final LivingEntity target) {
         // TODO
         throw new UnsupportedMockException();
     }
