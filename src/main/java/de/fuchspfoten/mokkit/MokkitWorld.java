@@ -3,6 +3,7 @@ package de.fuchspfoten.mokkit;
 import de.fuchspfoten.mokkit.entity.MokkitBat;
 import de.fuchspfoten.mokkit.entity.MokkitChicken;
 import de.fuchspfoten.mokkit.entity.MokkitCow;
+import de.fuchspfoten.mokkit.entity.MokkitCreeper;
 import de.fuchspfoten.mokkit.entity.MokkitDonkey;
 import de.fuchspfoten.mokkit.entity.MokkitElderGuardian;
 import de.fuchspfoten.mokkit.entity.MokkitEnderman;
@@ -227,6 +228,7 @@ public class MokkitWorld implements World {
             case BAT:
             case CHICKEN:
             case COW:
+            case CREEPER:
             case DONKEY:
             case ELDER_GUARDIAN:
             case ENDERMAN:
@@ -294,7 +296,6 @@ public class MokkitWorld implements World {
             case MINECART_TNT:
             case MINECART_HOPPER:
             case MINECART_MOB_SPAWNER:
-            case CREEPER:
             case GIANT:
             case SLIME:
             case GHAST:
@@ -334,6 +335,9 @@ public class MokkitWorld implements World {
                 break;
             case COW:
                 entity = (T) new MokkitCow(server, location, UUID.randomUUID());
+                break;
+            case CREEPER:
+                entity = (T) new MokkitCreeper(server, location, UUID.randomUUID());
                 break;
             case DONKEY:
                 entity = (T) new MokkitDonkey(server, location, UUID.randomUUID());
