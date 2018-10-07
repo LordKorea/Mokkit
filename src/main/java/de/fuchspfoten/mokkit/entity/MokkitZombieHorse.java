@@ -3,14 +3,14 @@ package de.fuchspfoten.mokkit.entity;
 import de.fuchspfoten.mokkit.MokkitServer;
 import org.bukkit.Location;
 import org.bukkit.entity.EntityType;
-import org.bukkit.entity.SkeletonHorse;
+import org.bukkit.entity.ZombieHorse;
 
 import java.util.UUID;
 
 /**
- * @see org.bukkit.entity.SkeletonHorse
+ * @see org.bukkit.entity.ZombieHorse
  */
-public class MokkitSkeletonHorse extends MokkitAbstractHorse implements SkeletonHorse {
+public class MokkitZombieHorse extends MokkitAbstractHorse implements ZombieHorse {
 
     /**
      * Constructor.
@@ -19,12 +19,12 @@ public class MokkitSkeletonHorse extends MokkitAbstractHorse implements Skeleton
      * @param location The location the entity is at.
      * @param uuid     The UUID of the entity.
      */
-    public MokkitSkeletonHorse(final MokkitServer server, final Location location, final UUID uuid) {
-        super(server, "SkeletonHorse", location, uuid, 15.0);
+    public MokkitZombieHorse(final MokkitServer server, final Location location, final UUID uuid) {
+        super(server, "ZombieHorse", location, uuid, 15.0);
     }
 
     @Override
     public EntityType getType() {
-        return EntityType.SKELETON_HORSE;
+        return EntityType.ZOMBIE_HORSE;
     }
 }

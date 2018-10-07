@@ -2,15 +2,15 @@ package de.fuchspfoten.mokkit.entity;
 
 import de.fuchspfoten.mokkit.MokkitServer;
 import org.bukkit.Location;
+import org.bukkit.entity.Donkey;
 import org.bukkit.entity.EntityType;
-import org.bukkit.entity.SkeletonHorse;
 
 import java.util.UUID;
 
 /**
- * @see org.bukkit.entity.SkeletonHorse
+ * @see org.bukkit.entity.Donkey
  */
-public class MokkitSkeletonHorse extends MokkitAbstractHorse implements SkeletonHorse {
+public class MokkitDonkey extends MokkitChestedHorse implements Donkey {
 
     /**
      * Constructor.
@@ -19,12 +19,12 @@ public class MokkitSkeletonHorse extends MokkitAbstractHorse implements Skeleton
      * @param location The location the entity is at.
      * @param uuid     The UUID of the entity.
      */
-    public MokkitSkeletonHorse(final MokkitServer server, final Location location, final UUID uuid) {
-        super(server, "SkeletonHorse", location, uuid, 15.0);
+    public MokkitDonkey(final MokkitServer server, final Location location, final UUID uuid) {
+        super(server, "Donkey", location, uuid, 15.0);
     }
 
     @Override
     public EntityType getType() {
-        return EntityType.SKELETON_HORSE;
+        return EntityType.DONKEY;
     }
 }

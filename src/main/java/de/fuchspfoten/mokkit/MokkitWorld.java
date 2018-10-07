@@ -3,6 +3,7 @@ package de.fuchspfoten.mokkit;
 import de.fuchspfoten.mokkit.entity.MokkitBat;
 import de.fuchspfoten.mokkit.entity.MokkitChicken;
 import de.fuchspfoten.mokkit.entity.MokkitCow;
+import de.fuchspfoten.mokkit.entity.MokkitDonkey;
 import de.fuchspfoten.mokkit.entity.MokkitElderGuardian;
 import de.fuchspfoten.mokkit.entity.MokkitEnderman;
 import de.fuchspfoten.mokkit.entity.MokkitEvoker;
@@ -24,6 +25,7 @@ import de.fuchspfoten.mokkit.entity.MokkitWitch;
 import de.fuchspfoten.mokkit.entity.MokkitWitherSkeleton;
 import de.fuchspfoten.mokkit.entity.MokkitWolf;
 import de.fuchspfoten.mokkit.entity.MokkitZombie;
+import de.fuchspfoten.mokkit.entity.MokkitZombieHorse;
 import de.fuchspfoten.mokkit.entity.MokkitZombieVillager;
 import de.fuchspfoten.mokkit.internal.exception.UnsupportedMockException;
 import lombok.Getter;
@@ -221,6 +223,7 @@ public class MokkitWorld implements World {
             case BAT:
             case CHICKEN:
             case COW:
+            case DONKEY:
             case ELDER_GUARDIAN:
             case ENDERMAN:
             case EVOKER:
@@ -242,6 +245,7 @@ public class MokkitWorld implements World {
             case WITHER_SKELETON:
             case WOLF:
             case ZOMBIE:
+            case ZOMBIE_HORSE:
             case ZOMBIE_VILLAGER:
                 // Supported.
                 break;
@@ -272,9 +276,7 @@ public class MokkitWorld implements World {
             case SPECTRAL_ARROW:
             case SHULKER_BULLET:
             case DRAGON_FIREBALL:
-            case ZOMBIE_HORSE:
             case ARMOR_STAND:
-            case DONKEY:
             case MULE:
             case EVOKER_FANGS:
             case VEX:
@@ -328,6 +330,9 @@ public class MokkitWorld implements World {
                 break;
             case COW:
                 entity = (T) new MokkitCow(server, location, UUID.randomUUID());
+                break;
+            case DONKEY:
+                entity = (T) new MokkitDonkey(server, location, UUID.randomUUID());
                 break;
             case ELDER_GUARDIAN:
                 entity = (T) new MokkitElderGuardian(server, location, UUID.randomUUID());
@@ -391,6 +396,9 @@ public class MokkitWorld implements World {
                 break;
             case ZOMBIE:
                 entity = (T) new MokkitZombie(server, location, UUID.randomUUID());
+                break;
+            case ZOMBIE_HORSE:
+                entity = (T) new MokkitZombieHorse(server, location, UUID.randomUUID());
                 break;
             case ZOMBIE_VILLAGER:
                 entity = (T) new MokkitZombieVillager(server, location, UUID.randomUUID());
