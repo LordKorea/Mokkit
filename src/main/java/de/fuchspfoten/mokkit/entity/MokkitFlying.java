@@ -9,7 +9,7 @@ import java.util.UUID;
 /**
  * @see org.bukkit.entity.Flying
  */
-public class MokkitFlying extends MokkitLivingEntity implements Flying {
+public abstract class MokkitFlying extends MokkitLivingEntity implements Flying {
 
     /**
      * Constructor.

@@ -9,7 +9,7 @@ import java.util.UUID;
 /**
  * @see org.bukkit.entity.Monster
  */
-public class MokkitMonster extends MokkitCreature implements Monster {
+public abstract class MokkitMonster extends MokkitCreature implements Monster {
 
     /**
      * Constructor.

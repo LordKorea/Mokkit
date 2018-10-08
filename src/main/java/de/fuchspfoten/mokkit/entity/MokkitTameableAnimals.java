@@ -12,7 +12,7 @@ import java.util.UUID;
  * @see org.bukkit.entity.Animals
  * @see org.bukkit.entity.Tameable
  */
-public class MokkitTameableAnimals extends MokkitAnimals implements Tameable {
+public abstract class MokkitTameableAnimals extends MokkitAnimals implements Tameable {
 
     /**
      * Constructor.

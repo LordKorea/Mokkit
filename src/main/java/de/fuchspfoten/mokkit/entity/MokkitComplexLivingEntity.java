@@ -3,14 +3,16 @@ package de.fuchspfoten.mokkit.entity;
 import de.fuchspfoten.mokkit.MokkitServer;
 import de.fuchspfoten.mokkit.internal.exception.UnsupportedMockException;
 import org.bukkit.Location;
-import org.bukkit.entity.Spellcaster;
+import org.bukkit.entity.ComplexEntityPart;
+import org.bukkit.entity.ComplexLivingEntity;
 
+import java.util.Set;
 import java.util.UUID;
 
 /**
- * @see org.bukkit.entity.Spellcaster
+ * @see org.bukkit.entity.ComplexLivingEntity
  */
-public abstract class MokkitSpellcaster extends MokkitIllager implements Spellcaster {
+public abstract class MokkitComplexLivingEntity extends MokkitLivingEntity implements ComplexLivingEntity {
 
     /**
      * Constructor.
@@ -21,19 +23,13 @@ public abstract class MokkitSpellcaster extends MokkitIllager implements Spellca
      * @param uuid             The UUID of the entity.
      * @param defaultMaxHealth The default max health of the entity.
      */
-    public MokkitSpellcaster(final MokkitServer server, final String name, final Location location, final UUID uuid,
-                             final double defaultMaxHealth) {
+    public MokkitComplexLivingEntity(final MokkitServer server, final String name, final Location location,
+                                     final UUID uuid, final double defaultMaxHealth) {
         super(server, name, location, uuid, defaultMaxHealth);
     }
 
     @Override
-    public Spell getSpell() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setSpell(final Spell spell) {
+    public Set<ComplexEntityPart> getParts() {
         // TODO
         throw new UnsupportedMockException();
     }
