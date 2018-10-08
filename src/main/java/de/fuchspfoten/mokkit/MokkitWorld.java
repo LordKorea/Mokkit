@@ -94,6 +94,51 @@ import java.util.stream.Collectors;
 public class MokkitWorld implements World {
 
     /**
+     * The spawnable entities.
+     */
+    private static final Map<EntityType, Class<? extends MokkitEntity>> spawnableEntities =
+            new EnumMap<>(EntityType.class);
+
+    static {
+        spawnableEntities.put(EntityType.BAT, MokkitBat.class);
+        spawnableEntities.put(EntityType.CHICKEN, MokkitChicken.class);
+        spawnableEntities.put(EntityType.COW, MokkitCow.class);
+        spawnableEntities.put(EntityType.CREEPER, MokkitCreeper.class);
+        spawnableEntities.put(EntityType.DONKEY, MokkitDonkey.class);
+        spawnableEntities.put(EntityType.ELDER_GUARDIAN, MokkitElderGuardian.class);
+        spawnableEntities.put(EntityType.ENDERMAN, MokkitEnderman.class);
+        spawnableEntities.put(EntityType.EVOKER, MokkitEvoker.class);
+        spawnableEntities.put(EntityType.GHAST, MokkitGhast.class);
+        spawnableEntities.put(EntityType.GIANT, MokkitGiant.class);
+        spawnableEntities.put(EntityType.GUARDIAN, MokkitGuardian.class);
+        spawnableEntities.put(EntityType.HUSK, MokkitHusk.class);
+        spawnableEntities.put(EntityType.ILLUSIONER, MokkitIllusioner.class);
+        spawnableEntities.put(EntityType.LLAMA, MokkitLlama.class);
+        spawnableEntities.put(EntityType.MULE, MokkitMule.class);
+        spawnableEntities.put(EntityType.OCELOT, MokkitOcelot.class);
+        spawnableEntities.put(EntityType.PAINTING, MokkitPainting.class);
+        spawnableEntities.put(EntityType.PARROT, MokkitParrot.class);
+        spawnableEntities.put(EntityType.PIG, MokkitPig.class);
+        spawnableEntities.put(EntityType.PIG_ZOMBIE, MokkitPigZombie.class);
+        spawnableEntities.put(EntityType.POLAR_BEAR, MokkitPolarBear.class);
+        spawnableEntities.put(EntityType.RABBIT, MokkitRabbit.class);
+        spawnableEntities.put(EntityType.SHEEP, MokkitSheep.class);
+        spawnableEntities.put(EntityType.SKELETON, MokkitSkeleton.class);
+        spawnableEntities.put(EntityType.SKELETON_HORSE, MokkitSkeletonHorse.class);
+        spawnableEntities.put(EntityType.SLIME, MokkitSlime.class);
+        spawnableEntities.put(EntityType.SPIDER, MokkitSpider.class);
+        spawnableEntities.put(EntityType.STRAY, MokkitStray.class);
+        spawnableEntities.put(EntityType.VEX, MokkitVex.class);
+        spawnableEntities.put(EntityType.VINDICATOR, MokkitVindicator.class);
+        spawnableEntities.put(EntityType.WITCH, MokkitWitch.class);
+        spawnableEntities.put(EntityType.WITHER_SKELETON, MokkitWitherSkeleton.class);
+        spawnableEntities.put(EntityType.WOLF, MokkitWolf.class);
+        spawnableEntities.put(EntityType.ZOMBIE, MokkitZombie.class);
+        spawnableEntities.put(EntityType.ZOMBIE_HORSE, MokkitZombieHorse.class);
+        spawnableEntities.put(EntityType.ZOMBIE_VILLAGER, MokkitZombieVillager.class);
+    }
+
+    /**
      * Updates the worlds for the given entity. Adds the entity to the correct world and removes it from all others.
      *
      * @param entity The entity.
@@ -241,44 +286,7 @@ public class MokkitWorld implements World {
         }
 
         // Determine the spawnable entities.
-        final Map<EntityType, Class<? extends MokkitEntity>> spawnable = new EnumMap<>(EntityType.class);
-        spawnable.put(EntityType.BAT, MokkitBat.class);
-        spawnable.put(EntityType.CHICKEN, MokkitChicken.class);
-        spawnable.put(EntityType.COW, MokkitCow.class);
-        spawnable.put(EntityType.CREEPER, MokkitCreeper.class);
-        spawnable.put(EntityType.DONKEY, MokkitDonkey.class);
-        spawnable.put(EntityType.ELDER_GUARDIAN, MokkitElderGuardian.class);
-        spawnable.put(EntityType.ENDERMAN, MokkitEnderman.class);
-        spawnable.put(EntityType.EVOKER, MokkitEvoker.class);
-        spawnable.put(EntityType.GHAST, MokkitGhast.class);
-        spawnable.put(EntityType.GIANT, MokkitGiant.class);
-        spawnable.put(EntityType.GUARDIAN, MokkitGuardian.class);
-        spawnable.put(EntityType.HUSK, MokkitHusk.class);
-        spawnable.put(EntityType.ILLUSIONER, MokkitIllusioner.class);
-        spawnable.put(EntityType.LLAMA, MokkitLlama.class);
-        spawnable.put(EntityType.MULE, MokkitMule.class);
-        spawnable.put(EntityType.OCELOT, MokkitOcelot.class);
-        spawnable.put(EntityType.PAINTING, MokkitPainting.class);
-        spawnable.put(EntityType.PARROT, MokkitParrot.class);
-        spawnable.put(EntityType.PIG, MokkitPig.class);
-        spawnable.put(EntityType.PIG_ZOMBIE, MokkitPigZombie.class);
-        spawnable.put(EntityType.POLAR_BEAR, MokkitPolarBear.class);
-        spawnable.put(EntityType.RABBIT, MokkitRabbit.class);
-        spawnable.put(EntityType.SHEEP, MokkitSheep.class);
-        spawnable.put(EntityType.SKELETON, MokkitSkeleton.class);
-        spawnable.put(EntityType.SKELETON_HORSE, MokkitSkeletonHorse.class);
-        spawnable.put(EntityType.SLIME, MokkitSlime.class);
-        spawnable.put(EntityType.SPIDER, MokkitSpider.class);
-        spawnable.put(EntityType.STRAY, MokkitStray.class);
-        spawnable.put(EntityType.VEX, MokkitVex.class);
-        spawnable.put(EntityType.VINDICATOR, MokkitVindicator.class);
-        spawnable.put(EntityType.WITCH, MokkitWitch.class);
-        spawnable.put(EntityType.WITHER_SKELETON, MokkitWitherSkeleton.class);
-        spawnable.put(EntityType.WOLF, MokkitWolf.class);
-        spawnable.put(EntityType.ZOMBIE, MokkitZombie.class);
-        spawnable.put(EntityType.ZOMBIE_HORSE, MokkitZombieHorse.class);
-        spawnable.put(EntityType.ZOMBIE_VILLAGER, MokkitZombieVillager.class);
-        if (!spawnable.containsKey(targetType)) {
+        if (!spawnableEntities.containsKey(targetType)) {
             throw new UnsupportedMockException();
         }
 
@@ -339,7 +347,7 @@ public class MokkitWorld implements World {
         // }
 
         // Spawn the entity.
-        final Class<? extends MokkitEntity> toSpawn = spawnable.get(targetType);
+        final Class<? extends MokkitEntity> toSpawn = spawnableEntities.get(targetType);
         final T entity;
         try {
             entity = (T) toSpawn.getConstructor(MokkitServer.class, Location.class, UUID.class).newInstance(server,
