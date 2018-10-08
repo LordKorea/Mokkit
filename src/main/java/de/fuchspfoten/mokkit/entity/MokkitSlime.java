@@ -35,7 +35,7 @@ public class MokkitSlime extends MokkitLivingEntity implements Slime {
      * @param defaultMaxHealth The default max health of the entity.
      */
     protected MokkitSlime(final MokkitServer server, final String name, final Location location, final UUID uuid,
-                           final double defaultMaxHealth) {
+                          final double defaultMaxHealth) {
         super(server, name, location, uuid, defaultMaxHealth);
     }
 

@@ -37,6 +37,7 @@ import de.fuchspfoten.mokkit.entity.MokkitStray;
 import de.fuchspfoten.mokkit.entity.MokkitVex;
 import de.fuchspfoten.mokkit.entity.MokkitVindicator;
 import de.fuchspfoten.mokkit.entity.MokkitWitch;
+import de.fuchspfoten.mokkit.entity.MokkitWither;
 import de.fuchspfoten.mokkit.entity.MokkitWitherSkeleton;
 import de.fuchspfoten.mokkit.entity.MokkitWolf;
 import de.fuchspfoten.mokkit.entity.MokkitZombie;
@@ -141,6 +142,7 @@ public class MokkitWorld implements World {
         spawnableEntities.put(EntityType.VEX, MokkitVex.class);
         spawnableEntities.put(EntityType.VINDICATOR, MokkitVindicator.class);
         spawnableEntities.put(EntityType.WITCH, MokkitWitch.class);
+        spawnableEntities.put(EntityType.WITHER, MokkitWither.class);
         spawnableEntities.put(EntityType.WITHER_SKELETON, MokkitWitherSkeleton.class);
         spawnableEntities.put(EntityType.WOLF, MokkitWolf.class);
         spawnableEntities.put(EntityType.ZOMBIE, MokkitZombie.class);
@@ -333,7 +335,6 @@ public class MokkitWorld implements World {
             case MINECART_TNT:
             case MINECART_HOPPER:
             case MINECART_MOB_SPAWNER:
-            case WITHER:
             case ENDERMITE:
             case SHULKER:
             case SQUID:

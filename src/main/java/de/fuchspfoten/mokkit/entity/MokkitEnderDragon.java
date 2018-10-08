@@ -16,9 +16,9 @@ public class MokkitEnderDragon extends MokkitComplexLivingEntity implements Ende
     /**
      * Constructor.
      *
-     * @param server           The server this entity is in.
-     * @param location         The location the entity is at.
-     * @param uuid             The UUID of the entity.
+     * @param server   The server this entity is in.
+     * @param location The location the entity is at.
+     * @param uuid     The UUID of the entity.
      */
     public MokkitEnderDragon(final MokkitServer server, final Location location, final UUID uuid) {
         super(server, "EnderDragon", location, uuid, 200.0);
