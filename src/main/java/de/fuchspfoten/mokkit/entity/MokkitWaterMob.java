@@ -2,14 +2,14 @@ package de.fuchspfoten.mokkit.entity;
 
 import de.fuchspfoten.mokkit.MokkitServer;
 import org.bukkit.Location;
-import org.bukkit.entity.Golem;
+import org.bukkit.entity.WaterMob;
 
 import java.util.UUID;
 
 /**
- * @see org.bukkit.entity.Golem
+ * @see org.bukkit.entity.WaterMob
  */
-public abstract class MokkitGolem extends MokkitCreature implements Golem {
+public abstract class MokkitWaterMob extends MokkitLivingEntity implements WaterMob {
 
     /**
      * Constructor.
@@ -20,8 +20,8 @@ public abstract class MokkitGolem extends MokkitCreature implements Golem {
      * @param uuid             The UUID of the entity.
      * @param defaultMaxHealth The default max health of the entity.
      */
-    public MokkitGolem(final MokkitServer server, final String name, final Location location, final UUID uuid,
-                       final double defaultMaxHealth) {
+    public MokkitWaterMob(final MokkitServer server, final String name, final Location location, final UUID uuid,
+                          final double defaultMaxHealth) {
         super(server, name, location, uuid, defaultMaxHealth);
     }
 }
