@@ -1,6 +1,7 @@
 package de.fuchspfoten.mokkit;
 
 import de.fuchspfoten.mokkit.entity.MokkitBat;
+import de.fuchspfoten.mokkit.entity.MokkitCaveSpider;
 import de.fuchspfoten.mokkit.entity.MokkitChicken;
 import de.fuchspfoten.mokkit.entity.MokkitCow;
 import de.fuchspfoten.mokkit.entity.MokkitCreeper;
@@ -101,6 +102,7 @@ public class MokkitWorld implements World {
 
     static {
         spawnableEntities.put(EntityType.BAT, MokkitBat.class);
+        spawnableEntities.put(EntityType.CAVE_SPIDER, MokkitCaveSpider.class);
         spawnableEntities.put(EntityType.CHICKEN, MokkitChicken.class);
         spawnableEntities.put(EntityType.COW, MokkitCow.class);
         spawnableEntities.put(EntityType.CREEPER, MokkitCreeper.class);
@@ -323,7 +325,6 @@ public class MokkitWorld implements World {
             case MINECART_TNT:
             case MINECART_HOPPER:
             case MINECART_MOB_SPAWNER:
-            case CAVE_SPIDER:
             case SILVERFISH:
             case BLAZE:
             case MAGMA_CUBE:
