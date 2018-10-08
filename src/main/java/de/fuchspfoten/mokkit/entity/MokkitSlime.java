@@ -25,6 +25,20 @@ public class MokkitSlime extends MokkitLivingEntity implements Slime {
         super(server, "Slime", location, uuid, 1.0);
     }
 
+    /**
+     * Constructor.
+     *
+     * @param server           The server this entity is in.
+     * @param name             The name of the entity.
+     * @param location         The location the entity is at.
+     * @param uuid             The UUID of the entity.
+     * @param defaultMaxHealth The default max health of the entity.
+     */
+    protected MokkitSlime(final MokkitServer server, final String name, final Location location, final UUID uuid,
+                           final double defaultMaxHealth) {
+        super(server, name, location, uuid, defaultMaxHealth);
+    }
+
     @Override
     public EntityType getType() {
         return EntityType.SLIME;
