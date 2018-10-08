@@ -2,15 +2,15 @@ package de.fuchspfoten.mokkit.entity;
 
 import de.fuchspfoten.mokkit.MokkitServer;
 import org.bukkit.Location;
+import org.bukkit.entity.Endermite;
 import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Wither;
 
 import java.util.UUID;
 
 /**
- * @see org.bukkit.entity.Wither
+ * @see org.bukkit.entity.Endermite
  */
-public class MokkitWither extends MokkitMonster implements Wither {
+public class MokkitEndermite extends MokkitMonster implements Endermite {
 
     /**
      * Constructor.
@@ -19,12 +19,12 @@ public class MokkitWither extends MokkitMonster implements Wither {
      * @param location The location the entity is at.
      * @param uuid     The UUID of the entity.
      */
-    public MokkitWither(final MokkitServer server, final Location location, final UUID uuid) {
-        super(server, "Wither", location, uuid, 300.0);
+    public MokkitEndermite(final MokkitServer server, final Location location, final UUID uuid) {
+        super(server, "Endermite", location, uuid, 8.0);
     }
 
     @Override
     public EntityType getType() {
-        return EntityType.WITHER;
+        return EntityType.ENDERMITE;
     }
 }
