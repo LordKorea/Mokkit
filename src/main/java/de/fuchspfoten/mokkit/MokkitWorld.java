@@ -7,6 +7,7 @@ import de.fuchspfoten.mokkit.entity.MokkitCreeper;
 import de.fuchspfoten.mokkit.entity.MokkitDonkey;
 import de.fuchspfoten.mokkit.entity.MokkitElderGuardian;
 import de.fuchspfoten.mokkit.entity.MokkitEnderman;
+import de.fuchspfoten.mokkit.entity.MokkitEntity;
 import de.fuchspfoten.mokkit.entity.MokkitEvoker;
 import de.fuchspfoten.mokkit.entity.MokkitGhast;
 import de.fuchspfoten.mokkit.entity.MokkitGiant;
@@ -36,6 +37,7 @@ import de.fuchspfoten.mokkit.entity.MokkitWolf;
 import de.fuchspfoten.mokkit.entity.MokkitZombie;
 import de.fuchspfoten.mokkit.entity.MokkitZombieHorse;
 import de.fuchspfoten.mokkit.entity.MokkitZombieVillager;
+import de.fuchspfoten.mokkit.internal.exception.InternalException;
 import de.fuchspfoten.mokkit.internal.exception.UnsupportedMockException;
 import lombok.Getter;
 import org.bukkit.BlockChangeDelegate;
@@ -73,7 +75,10 @@ import org.bukkit.util.Consumer;
 import org.bukkit.util.Vector;
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.EnumMap;
+import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -227,53 +232,59 @@ public class MokkitWorld implements World {
             throw new IllegalArgumentException("can not find entity for class: " + clazz.getName());
         }
 
+        // Block illegal entity types.
+        final Set<EntityType> illegal = EnumSet.noneOf(EntityType.class);
+        illegal.addAll(Arrays.asList(EntityType.COMPLEX_PART, EntityType.LIGHTNING, EntityType.PLAYER,
+                EntityType.UNKNOWN, EntityType.WEATHER));
+        if (illegal.contains(targetType)) {
+            throw new IllegalArgumentException("can not spawn " + targetType.name());
+        }
+
+        // Determine the spawnable entities.
+        final Map<EntityType, Class<? extends MokkitEntity>> spawnable = new EnumMap<>(EntityType.class);
+        spawnable.put(EntityType.BAT, MokkitBat.class);
+        spawnable.put(EntityType.CHICKEN, MokkitChicken.class);
+        spawnable.put(EntityType.COW, MokkitCow.class);
+        spawnable.put(EntityType.CREEPER, MokkitCreeper.class);
+        spawnable.put(EntityType.DONKEY, MokkitDonkey.class);
+        spawnable.put(EntityType.ELDER_GUARDIAN, MokkitElderGuardian.class);
+        spawnable.put(EntityType.ENDERMAN, MokkitEnderman.class);
+        spawnable.put(EntityType.EVOKER, MokkitEvoker.class);
+        spawnable.put(EntityType.GHAST, MokkitGhast.class);
+        spawnable.put(EntityType.GIANT, MokkitGiant.class);
+        spawnable.put(EntityType.GUARDIAN, MokkitGuardian.class);
+        spawnable.put(EntityType.HUSK, MokkitHusk.class);
+        spawnable.put(EntityType.ILLUSIONER, MokkitIllusioner.class);
+        spawnable.put(EntityType.LLAMA, MokkitLlama.class);
+        spawnable.put(EntityType.MULE, MokkitMule.class);
+        spawnable.put(EntityType.OCELOT, MokkitOcelot.class);
+        spawnable.put(EntityType.PAINTING, MokkitPainting.class);
+        spawnable.put(EntityType.PARROT, MokkitParrot.class);
+        spawnable.put(EntityType.PIG, MokkitPig.class);
+        spawnable.put(EntityType.PIG_ZOMBIE, MokkitPigZombie.class);
+        spawnable.put(EntityType.POLAR_BEAR, MokkitPolarBear.class);
+        spawnable.put(EntityType.RABBIT, MokkitRabbit.class);
+        spawnable.put(EntityType.SHEEP, MokkitSheep.class);
+        spawnable.put(EntityType.SKELETON, MokkitSkeleton.class);
+        spawnable.put(EntityType.SKELETON_HORSE, MokkitSkeletonHorse.class);
+        spawnable.put(EntityType.SLIME, MokkitSlime.class);
+        spawnable.put(EntityType.SPIDER, MokkitSpider.class);
+        spawnable.put(EntityType.STRAY, MokkitStray.class);
+        spawnable.put(EntityType.VEX, MokkitVex.class);
+        spawnable.put(EntityType.VINDICATOR, MokkitVindicator.class);
+        spawnable.put(EntityType.WITCH, MokkitWitch.class);
+        spawnable.put(EntityType.WITHER_SKELETON, MokkitWitherSkeleton.class);
+        spawnable.put(EntityType.WOLF, MokkitWolf.class);
+        spawnable.put(EntityType.ZOMBIE, MokkitZombie.class);
+        spawnable.put(EntityType.ZOMBIE_HORSE, MokkitZombieHorse.class);
+        spawnable.put(EntityType.ZOMBIE_VILLAGER, MokkitZombieVillager.class);
+        if (!spawnable.containsKey(targetType)) {
+            throw new UnsupportedMockException();
+        }
+
         // Determine whether we can spawn this type.
-        switch (targetType) {
-            case BAT:
-            case CHICKEN:
-            case COW:
-            case CREEPER:
-            case DONKEY:
-            case ELDER_GUARDIAN:
-            case ENDERMAN:
-            case EVOKER:
-            case GHAST:
-            case GIANT:
-            case GUARDIAN:
-            case HUSK:
-            case ILLUSIONER:
-            case LLAMA:
-            case MULE:
-            case OCELOT:
-            case PAINTING:
-            case PARROT:
-            case PIG:
-            case PIG_ZOMBIE:
-            case POLAR_BEAR:
-            case RABBIT:
-            case SHEEP:
-            case SKELETON:
-            case SKELETON_HORSE:
-            case SLIME:
-            case SPIDER:
-            case STRAY:
-            case VEX:
-            case VINDICATOR:
-            case WITCH:
-            case WITHER_SKELETON:
-            case WOLF:
-            case ZOMBIE:
-            case ZOMBIE_HORSE:
-            case ZOMBIE_VILLAGER:
-                // Supported.
-                break;
-            case COMPLEX_PART:
-            case LIGHTNING:
-            case PLAYER:
-            case UNKNOWN:
-            case WEATHER:
-                throw new IllegalArgumentException("can not spawn " + targetType.name());
-            case DROPPED_ITEM:
+        // switch (targetType) {
+            /*case DROPPED_ITEM:
             case EXPERIENCE_ORB:
             case AREA_EFFECT_CLOUD:
             case EGG:
@@ -324,123 +335,17 @@ public class MokkitWorld implements World {
             case FISHING_HOOK:
             case TIPPED_ARROW:
                 // Not (yet) supported.
-                throw new UnsupportedMockException();
-        }
+                throw new UnsupportedMockException();*/
+        // }
 
         // Spawn the entity.
-        assert clazz == targetType.getEntityClass();
+        final Class<? extends MokkitEntity> toSpawn = spawnable.get(targetType);
         final T entity;
-        switch (targetType) {
-            case BAT:
-                entity = (T) new MokkitBat(server, location, UUID.randomUUID());
-                break;
-            case CHICKEN:
-                entity = (T) new MokkitChicken(server, location, UUID.randomUUID());
-                break;
-            case COW:
-                entity = (T) new MokkitCow(server, location, UUID.randomUUID());
-                break;
-            case CREEPER:
-                entity = (T) new MokkitCreeper(server, location, UUID.randomUUID());
-                break;
-            case DONKEY:
-                entity = (T) new MokkitDonkey(server, location, UUID.randomUUID());
-                break;
-            case ELDER_GUARDIAN:
-                entity = (T) new MokkitElderGuardian(server, location, UUID.randomUUID());
-                break;
-            case ENDERMAN:
-                entity = (T) new MokkitEnderman(server, location, UUID.randomUUID());
-                break;
-            case EVOKER:
-                entity = (T) new MokkitEvoker(server, location, UUID.randomUUID());
-                break;
-            case GHAST:
-                entity = (T) new MokkitGhast(server, location, UUID.randomUUID());
-                break;
-            case GIANT:
-                entity = (T) new MokkitGiant(server, location, UUID.randomUUID());
-                break;
-            case GUARDIAN:
-                entity = (T) new MokkitGuardian(server, location, UUID.randomUUID());
-                break;
-            case HUSK:
-                entity = (T) new MokkitHusk(server, location, UUID.randomUUID());
-                break;
-            case ILLUSIONER:
-                entity = (T) new MokkitIllusioner(server, location, UUID.randomUUID());
-                break;
-            case LLAMA:
-                entity = (T) new MokkitLlama(server, location, UUID.randomUUID());
-                break;
-            case MULE:
-                entity = (T) new MokkitMule(server, location, UUID.randomUUID());
-                break;
-            case OCELOT:
-                entity = (T) new MokkitOcelot(server, location, UUID.randomUUID());
-                break;
-            case PAINTING:
-                entity = (T) new MokkitPainting(server, location, UUID.randomUUID());
-                break;
-            case PARROT:
-                entity = (T) new MokkitParrot(server, location, UUID.randomUUID());
-                break;
-            case PIG:
-                entity = (T) new MokkitPig(server, location, UUID.randomUUID());
-                break;
-            case PIG_ZOMBIE:
-                entity = (T) new MokkitPigZombie(server, location, UUID.randomUUID());
-                break;
-            case POLAR_BEAR:
-                entity = (T) new MokkitPolarBear(server, location, UUID.randomUUID());
-                break;
-            case SHEEP:
-                entity = (T) new MokkitSheep(server, location, UUID.randomUUID());
-                break;
-            case SKELETON:
-                entity = (T) new MokkitSkeleton(server, location, UUID.randomUUID());
-                break;
-            case SKELETON_HORSE:
-                entity = (T) new MokkitSkeletonHorse(server, location, UUID.randomUUID());
-                break;
-            case SLIME:
-                entity = (T) new MokkitSlime(server, location, UUID.randomUUID());
-                break;
-            case SPIDER:
-                entity = (T) new MokkitSpider(server, location, UUID.randomUUID());
-                break;
-            case STRAY:
-                entity = (T) new MokkitStray(server, location, UUID.randomUUID());
-                break;
-            case RABBIT:
-                entity = (T) new MokkitRabbit(server, location, UUID.randomUUID());
-                break;
-            case VEX:
-                entity = (T) new MokkitVex(server, location, UUID.randomUUID());
-                break;
-            case VINDICATOR:
-                entity = (T) new MokkitVindicator(server, location, UUID.randomUUID());
-                break;
-            case WITCH:
-                entity = (T) new MokkitWitch(server, location, UUID.randomUUID());
-                break;
-            case WITHER_SKELETON:
-                entity = (T) new MokkitWitherSkeleton(server, location, UUID.randomUUID());
-                break;
-            case WOLF:
-                entity = (T) new MokkitWolf(server, location, UUID.randomUUID());
-                break;
-            case ZOMBIE:
-                entity = (T) new MokkitZombie(server, location, UUID.randomUUID());
-                break;
-            case ZOMBIE_HORSE:
-                entity = (T) new MokkitZombieHorse(server, location, UUID.randomUUID());
-                break;
-            case ZOMBIE_VILLAGER:
-                entity = (T) new MokkitZombieVillager(server, location, UUID.randomUUID());
-                break;
-            default:
-                throw new IllegalStateException("control flow must not reach this");
+        try {
+            entity = (T) toSpawn.getConstructor(MokkitServer.class, Location.class, UUID.class).newInstance(server,
+                    location, UUID.randomUUID());
+        } catch (final ReflectiveOperationException ex) {
+            throw new InternalException("can not create entity", ex);
         }
 
         // Invoke the callback.
