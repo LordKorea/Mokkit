@@ -4,6 +4,7 @@ import de.fuchspfoten.mokkit.entity.MokkitEntity;
 import de.fuchspfoten.mokkit.entity.hanging.MokkitItemFrame;
 import de.fuchspfoten.mokkit.entity.hanging.MokkitLeashHitch;
 import de.fuchspfoten.mokkit.entity.hanging.MokkitPainting;
+import de.fuchspfoten.mokkit.entity.living.MokkitArmorStand;
 import de.fuchspfoten.mokkit.entity.living.animal.MokkitBat;
 import de.fuchspfoten.mokkit.entity.living.animal.MokkitChicken;
 import de.fuchspfoten.mokkit.entity.living.animal.MokkitCow;
@@ -124,6 +125,7 @@ public class MokkitWorld implements World {
             new EnumMap<>(EntityType.class);
 
     static {
+        spawnableEntities.put(EntityType.ARMOR_STAND, MokkitArmorStand.class);
         spawnableEntities.put(EntityType.BAT, MokkitBat.class);
         spawnableEntities.put(EntityType.BLAZE, MokkitBlaze.class);
         spawnableEntities.put(EntityType.CAVE_SPIDER, MokkitCaveSpider.class);
@@ -351,7 +353,6 @@ public class MokkitWorld implements World {
             case FIREWORK:
             case SPECTRAL_ARROW:
             case SHULKER_BULLET:
-            case ARMOR_STAND:
             case EVOKER_FANGS:
             case MINECART_COMMAND:
             case BOAT:
