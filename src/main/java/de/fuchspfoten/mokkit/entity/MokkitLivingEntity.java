@@ -13,6 +13,7 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Fireball;
 import org.bukkit.entity.Hanging;
+import org.bukkit.entity.LargeFireball;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
@@ -435,9 +436,11 @@ public abstract class MokkitLivingEntity extends MokkitEntity implements LivingE
                     throw new CancelledByEventException(event);
                 }
 
-                // Deflect the fireball.
-                final Vector newVelo = target.getLocation().toVector().subtract(getLocation().toVector());
-                target.setVelocity(newVelo.normalize().multiply(target.getVelocity().length()));
+                // Deflect the fireball if it is a large fireball.
+                if (target instanceof LargeFireball) {
+                    final Vector newVelo = target.getLocation().toVector().subtract(getLocation().toVector());
+                    target.setVelocity(newVelo.normalize().multiply(target.getVelocity().length()));
+                }
                 return;
             }
 
