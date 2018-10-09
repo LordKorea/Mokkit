@@ -7,6 +7,7 @@ import de.fuchspfoten.mokkit.entity.MokkitChicken;
 import de.fuchspfoten.mokkit.entity.MokkitCow;
 import de.fuchspfoten.mokkit.entity.MokkitCreeper;
 import de.fuchspfoten.mokkit.entity.MokkitDonkey;
+import de.fuchspfoten.mokkit.entity.MokkitDragonFireball;
 import de.fuchspfoten.mokkit.entity.MokkitElderGuardian;
 import de.fuchspfoten.mokkit.entity.MokkitEnderDragon;
 import de.fuchspfoten.mokkit.entity.MokkitEnderman;
@@ -130,6 +131,7 @@ public class MokkitWorld implements World {
         spawnableEntities.put(EntityType.COW, MokkitCow.class);
         spawnableEntities.put(EntityType.CREEPER, MokkitCreeper.class);
         spawnableEntities.put(EntityType.DONKEY, MokkitDonkey.class);
+        spawnableEntities.put(EntityType.DRAGON_FIREBALL, MokkitDragonFireball.class);
         spawnableEntities.put(EntityType.ELDER_GUARDIAN, MokkitElderGuardian.class);
         spawnableEntities.put(EntityType.ENDER_DRAGON, MokkitEnderDragon.class);
         spawnableEntities.put(EntityType.ENDERMAN, MokkitEnderman.class);
@@ -349,7 +351,6 @@ public class MokkitWorld implements World {
             case FIREWORK:
             case SPECTRAL_ARROW:
             case SHULKER_BULLET:
-            case DRAGON_FIREBALL:
             case ARMOR_STAND:
             case EVOKER_FANGS:
             case MINECART_COMMAND:
