@@ -20,6 +20,7 @@ import de.fuchspfoten.mokkit.entity.MokkitHorse;
 import de.fuchspfoten.mokkit.entity.MokkitHusk;
 import de.fuchspfoten.mokkit.entity.MokkitIllusioner;
 import de.fuchspfoten.mokkit.entity.MokkitIronGolem;
+import de.fuchspfoten.mokkit.entity.MokkitItemFrame;
 import de.fuchspfoten.mokkit.entity.MokkitLargeFireball;
 import de.fuchspfoten.mokkit.entity.MokkitLeashHitch;
 import de.fuchspfoten.mokkit.entity.MokkitLlama;
@@ -142,6 +143,7 @@ public class MokkitWorld implements World {
         spawnableEntities.put(EntityType.HUSK, MokkitHusk.class);
         spawnableEntities.put(EntityType.ILLUSIONER, MokkitIllusioner.class);
         spawnableEntities.put(EntityType.IRON_GOLEM, MokkitIronGolem.class);
+        spawnableEntities.put(EntityType.ITEM_FRAME, MokkitItemFrame.class);
         spawnableEntities.put(EntityType.LEASH_HITCH, MokkitLeashHitch.class);
         spawnableEntities.put(EntityType.LLAMA, MokkitLlama.class);
         spawnableEntities.put(EntityType.MAGMA_CUBE, MokkitMagmaCube.class);
@@ -341,7 +343,6 @@ public class MokkitWorld implements World {
             case ENDER_SIGNAL:
             case SPLASH_POTION:
             case THROWN_EXP_BOTTLE:
-            case ITEM_FRAME:
             case WITHER_SKULL:
             case PRIMED_TNT:
             case FALLING_BLOCK:
