@@ -8,10 +8,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.CreatureSpawnEvent;
-import org.bukkit.event.entity.EntitySpawnEvent;
-import org.bukkit.event.entity.ItemSpawnEvent;
-import org.bukkit.event.entity.ProjectileLaunchEvent;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.UUID;
@@ -56,24 +53,9 @@ public class DebugPlugin extends JavaPlugin implements Listener {
     }
 
     @EventHandler(priority = EventPriority.MONITOR)
-    public void onCreatureSpawn(final CreatureSpawnEvent event) {
-        report("CreatureSpawn: %1$s because %2$s", event.getEntity().getType().name(),
-                event.getSpawnReason().name());
-    }
-
-    @EventHandler(priority = EventPriority.MONITOR)
-    public void onItemSpawn(final ItemSpawnEvent event) {
-        report("ItemSpawn: %1$s", event.getEntity().getType().name());
-    }
-
-    @EventHandler(priority = EventPriority.MONITOR)
-    public void onEntitySpawn(final EntitySpawnEvent event) {
-        report("EntitySpawn: %1$s", event.getEntity().getType().name());
-    }
-
-    @EventHandler(priority = EventPriority.MONITOR)
-    public void onProjectileLaunch(final ProjectileLaunchEvent event) {
-        report("ProjectileLaunchEvent: %1$s", event.getEntity().getType().name());
+    public void onEntityDamageByEntity(final EntityDamageByEntityEvent event) {
+        report("%1$s -> %2$s (%3$f)", event.getDamager().getType().name(), event.getEntity().getType().name(),
+                event.getDamage());
     }
 
     /**

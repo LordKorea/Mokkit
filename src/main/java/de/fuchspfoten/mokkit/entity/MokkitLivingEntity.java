@@ -11,6 +11,7 @@ import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.Fireball;
 import org.bukkit.entity.Hanging;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -422,6 +423,21 @@ public abstract class MokkitLivingEntity extends MokkitEntity implements LivingE
 
                 // Remove the target.
                 target.remove();
+                return;
+            }
+
+            // Deflecting fireballs.
+            if (target instanceof Fireball) {
+                final EntityDamageByEntityEvent event = new EntityDamageByEntityEvent(MokkitLivingEntity.this,
+                        target, EntityDamageEvent.DamageCause.ENTITY_ATTACK, 1.0);
+                getServer().getPluginManager().callEvent(event);
+                if (event.isCancelled()) {
+                    throw new CancelledByEventException(event);
+                }
+
+                // Deflect the fireball.
+                final Vector newVelo = target.getLocation().toVector().subtract(getLocation().toVector());
+                target.setVelocity(newVelo.normalize().multiply(target.getVelocity().length()));
                 return;
             }
 

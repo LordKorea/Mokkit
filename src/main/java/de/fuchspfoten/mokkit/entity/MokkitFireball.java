@@ -23,6 +23,7 @@ public abstract class MokkitFireball extends MokkitProjectile implements Firebal
      */
     public MokkitFireball(final MokkitServer server, final String name, final Location location, final UUID uniqueId) {
         super(server, name, location, uniqueId);
+        setVelocity(new Vector(1.0, 0.0, 0.0));
     }
 
     @Override

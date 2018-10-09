@@ -20,6 +20,7 @@ import de.fuchspfoten.mokkit.entity.MokkitHorse;
 import de.fuchspfoten.mokkit.entity.MokkitHusk;
 import de.fuchspfoten.mokkit.entity.MokkitIllusioner;
 import de.fuchspfoten.mokkit.entity.MokkitIronGolem;
+import de.fuchspfoten.mokkit.entity.MokkitLargeFireball;
 import de.fuchspfoten.mokkit.entity.MokkitLeashHitch;
 import de.fuchspfoten.mokkit.entity.MokkitLlama;
 import de.fuchspfoten.mokkit.entity.MokkitMagmaCube;
@@ -80,6 +81,11 @@ import org.bukkit.entity.Item;
 import org.bukkit.entity.LightningStrike;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Projectile;
+import org.bukkit.event.entity.CreatureSpawnEvent;
+import org.bukkit.event.entity.EntitySpawnEvent;
+import org.bukkit.event.entity.ItemSpawnEvent;
+import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.generator.BlockPopulator;
 import org.bukkit.generator.ChunkGenerator;
 import org.bukkit.inventory.ItemStack;
@@ -127,6 +133,7 @@ public class MokkitWorld implements World {
         spawnableEntities.put(EntityType.ENDERMAN, MokkitEnderman.class);
         spawnableEntities.put(EntityType.ENDERMITE, MokkitEndermite.class);
         spawnableEntities.put(EntityType.EVOKER, MokkitEvoker.class);
+        spawnableEntities.put(EntityType.FIREBALL, MokkitLargeFireball.class);
         spawnableEntities.put(EntityType.GHAST, MokkitGhast.class);
         spawnableEntities.put(EntityType.GIANT, MokkitGiant.class);
         spawnableEntities.put(EntityType.GUARDIAN, MokkitGuardian.class);
@@ -326,7 +333,6 @@ public class MokkitWorld implements World {
             case EXPERIENCE_ORB:
             case AREA_EFFECT_CLOUD:
             case EGG:
-            case LEASH_HITCH:
             case ARROW:
             case SNOWBALL:
             case FIREBALL:
@@ -370,6 +376,34 @@ public class MokkitWorld implements World {
                     location, UUID.randomUUID());
         } catch (final ReflectiveOperationException ex) {
             throw new InternalException("can not create entity", ex);
+        }
+
+        // TODO SpawnerSpawnEvent? Spawn reasons?
+        if (entity instanceof Item) {
+            final ItemSpawnEvent event = new ItemSpawnEvent((Item) entity);
+            server.getPluginManager().callEvent(event);
+            if (event.isCancelled()) {
+                throw new IllegalArgumentException("can not spawn entity due to cancelled ItemSpawnEvent");
+            }
+        } else if (entity instanceof LivingEntity) {
+            final CreatureSpawnEvent event = new CreatureSpawnEvent((LivingEntity) entity,
+                    CreatureSpawnEvent.SpawnReason.CUSTOM);
+            server.getPluginManager().callEvent(event);
+            if (event.isCancelled()) {
+                throw new IllegalArgumentException("can not spawn entity due to cancelled CreatureSpawnEvent");
+            }
+        } else if (entity instanceof Projectile) {
+            final ProjectileLaunchEvent event = new ProjectileLaunchEvent(entity);
+            server.getPluginManager().callEvent(event);
+            if (event.isCancelled()) {
+                throw new IllegalArgumentException("can not spawn entity due to cancelled ProjectileLaunchEvent");
+            }
+        } else {
+            final EntitySpawnEvent event = new EntitySpawnEvent(entity);
+            server.getPluginManager().callEvent(event);
+            if (event.isCancelled()) {
+                throw new IllegalArgumentException("can not spawn entity due to cancelled EntitySpawnEvent");
+            }
         }
 
         // Invoke the callback.
