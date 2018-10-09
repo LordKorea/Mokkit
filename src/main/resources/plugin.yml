@@ -1,0 +1,10 @@
+name: Mokkit
+author: Kaworu
+version: 0.1.0
+description: Debugging & Inspection plugin for developing Mokkit
+
+main: de.fuchspfoten.mokkit.internal.debug.DebugPlugin
+
+commands:
+  mokkit:
+    description: Debugging utilities
