@@ -1,6 +1,6 @@
 package de.fuchspfoten.mokkit;
 
-import de.fuchspfoten.mokkit.entity.MokkitPlayer;
+import de.fuchspfoten.mokkit.entity.living.human.MokkitPlayer;
 import de.fuchspfoten.mokkit.internal.exception.InternalException;
 import de.fuchspfoten.mokkit.internal.exception.UnsupportedMockException;
 import de.fuchspfoten.mokkit.plugin.MokkitPluginManager;
