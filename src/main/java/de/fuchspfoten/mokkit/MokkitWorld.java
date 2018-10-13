@@ -58,6 +58,7 @@ import de.fuchspfoten.mokkit.entity.misc.MokkitEnderCrystal;
 import de.fuchspfoten.mokkit.entity.projectile.fireball.MokkitDragonFireball;
 import de.fuchspfoten.mokkit.entity.projectile.fireball.MokkitLargeFireball;
 import de.fuchspfoten.mokkit.entity.projectile.fireball.MokkitSmallFireball;
+import de.fuchspfoten.mokkit.entity.vehicle.MokkitBoat;
 import de.fuchspfoten.mokkit.internal.exception.InternalException;
 import de.fuchspfoten.mokkit.internal.exception.UnsupportedMockException;
 import lombok.Getter;
@@ -87,10 +88,12 @@ import org.bukkit.entity.LightningStrike;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
+import org.bukkit.entity.Vehicle;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.EntitySpawnEvent;
 import org.bukkit.event.entity.ItemSpawnEvent;
 import org.bukkit.event.entity.ProjectileLaunchEvent;
+import org.bukkit.event.vehicle.VehicleCreateEvent;
 import org.bukkit.generator.BlockPopulator;
 import org.bukkit.generator.ChunkGenerator;
 import org.bukkit.inventory.ItemStack;
@@ -129,6 +132,7 @@ public class MokkitWorld implements World {
         spawnableEntities.put(EntityType.ARMOR_STAND, MokkitArmorStand.class);
         spawnableEntities.put(EntityType.BAT, MokkitBat.class);
         spawnableEntities.put(EntityType.BLAZE, MokkitBlaze.class);
+        spawnableEntities.put(EntityType.BOAT, MokkitBoat.class);
         spawnableEntities.put(EntityType.CAVE_SPIDER, MokkitCaveSpider.class);
         spawnableEntities.put(EntityType.CHICKEN, MokkitChicken.class);
         spawnableEntities.put(EntityType.COW, MokkitCow.class);
@@ -357,13 +361,14 @@ public class MokkitWorld implements World {
             case SHULKER_BULLET:
             case EVOKER_FANGS:
             case MINECART_COMMAND:
-            case BOAT:
+
             case MINECART:
             case MINECART_CHEST:
             case MINECART_FURNACE:
             case MINECART_TNT:
             case MINECART_HOPPER:
             case MINECART_MOB_SPAWNER:
+
             case LLAMA_SPIT:
             case LINGERING_POTION:
             case FISHING_HOOK:
@@ -401,6 +406,12 @@ public class MokkitWorld implements World {
             server.getPluginManager().callEvent(event);
             if (event.isCancelled()) {
                 throw new IllegalArgumentException("can not spawn entity due to cancelled ProjectileLaunchEvent");
+            }
+        } else if (entity instanceof Vehicle) {
+            final VehicleCreateEvent event = new VehicleCreateEvent((Vehicle) entity);
+            server.getPluginManager().callEvent(event);
+            if (event.isCancelled()) {
+                throw new IllegalArgumentException("can not spawn entity due to cancelled VehicleCreateEvent");
             }
         } else {
             final EntitySpawnEvent event = new EntitySpawnEvent(entity);
