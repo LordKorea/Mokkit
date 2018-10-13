@@ -1,5 +1,6 @@
 package de.fuchspfoten.mokkit.entity;
 
+import de.fuchspfoten.mokkit.CancelledByEventException;
 import de.fuchspfoten.mokkit.MokkitServer;
 import de.fuchspfoten.mokkit.MokkitWorld;
 import de.fuchspfoten.mokkit.internal.exception.UnsupportedMockException;
@@ -11,6 +12,8 @@ import org.bukkit.World;
 import org.bukkit.block.PistonMoveReaction;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.LivingEntity;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityTeleportEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
@@ -83,6 +86,25 @@ public abstract class MokkitEntity implements Entity {
         this.name = name;
         this.location = location;
         this.uniqueId = uniqueId == null ? UUID.randomUUID() : uniqueId;
+    }
+
+    /**
+     * Called when this entity is damaged.
+     * <p>
+     * This method is part of the control interface and throws {@link CancelledByEventException}s when events are
+     * cancelled.
+     *
+     * @param damager The damaging entity.
+     * @return The actual damage.
+     */
+    public double onDamaged(final LivingEntity damager, final double damage) {
+        final EntityDamageByEntityEvent event = new EntityDamageByEntityEvent(damager, this,
+                EntityDamageEvent.DamageCause.ENTITY_ATTACK, damage);
+        getServer().getPluginManager().callEvent(event);
+        if (event.isCancelled()) {
+            throw new CancelledByEventException(event);
+        }
+        return event.getDamage();
     }
 
     @Override

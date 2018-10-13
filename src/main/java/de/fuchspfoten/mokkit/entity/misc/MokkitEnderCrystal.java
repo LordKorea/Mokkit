@@ -1,12 +1,16 @@
 package de.fuchspfoten.mokkit.entity.misc;
 
+import de.fuchspfoten.mokkit.CancelledByEventException;
 import de.fuchspfoten.mokkit.MokkitServer;
 import de.fuchspfoten.mokkit.entity.MokkitEntity;
 import de.fuchspfoten.mokkit.internal.exception.UnsupportedMockException;
 import org.bukkit.Location;
 import org.bukkit.entity.EnderCrystal;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.LivingEntity;
+import org.bukkit.event.entity.EntityExplodeEvent;
 
+import java.util.ArrayList;
 import java.util.UUID;
 
 /**
@@ -28,6 +32,27 @@ public class MokkitEnderCrystal extends MokkitEntity implements EnderCrystal {
     @Override
     public EntityType getType() {
         return EntityType.ENDER_CRYSTAL;
+    }
+
+    @Override
+    public double onDamaged(final LivingEntity damager, final double damage) {
+        final double dmg = super.onDamaged(damager, damage);
+
+        // TODO: Explosion blocks and strength.
+        final EntityExplodeEvent explosionEvent = new EntityExplodeEvent(this, getLocation(), new ArrayList<>(),
+                0.0f);
+        getServer().getPluginManager().callEvent(explosionEvent);
+        if (explosionEvent.isCancelled()) {
+            throw new CancelledByEventException(explosionEvent);
+        }
+
+        // Remove the target.
+        remove();
+
+        // Perform the explosion.
+        // TODO perform the explosion.
+
+        return dmg;
     }
 
     @Override

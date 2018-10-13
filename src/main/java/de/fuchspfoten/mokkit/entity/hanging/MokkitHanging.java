@@ -1,11 +1,15 @@
 package de.fuchspfoten.mokkit.entity.hanging;
 
+import de.fuchspfoten.mokkit.CancelledByEventException;
 import de.fuchspfoten.mokkit.MokkitServer;
 import de.fuchspfoten.mokkit.entity.MokkitEntity;
 import de.fuchspfoten.mokkit.internal.exception.UnsupportedMockException;
 import org.bukkit.Location;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Hanging;
+import org.bukkit.entity.LivingEntity;
+import org.bukkit.event.hanging.HangingBreakByEntityEvent;
+import org.bukkit.event.hanging.HangingBreakEvent;
 
 import java.util.UUID;
 
@@ -24,6 +28,21 @@ public abstract class MokkitHanging extends MokkitEntity implements Hanging {
      */
     public MokkitHanging(final MokkitServer server, final String name, final Location location, final UUID uniqueId) {
         super(server, name, location, uniqueId);
+    }
+
+    @Override
+    public double onDamaged(final LivingEntity damager, final double damage) {
+        final HangingBreakByEntityEvent event = new HangingBreakByEntityEvent(this, damager,
+                HangingBreakEvent.RemoveCause.ENTITY);
+        getServer().getPluginManager().callEvent(event);
+        if (event.isCancelled()) {
+            throw new CancelledByEventException(event);
+        }
+
+        // TODO drop?
+        remove();
+
+        return 1.0;
     }
 
     @Override
