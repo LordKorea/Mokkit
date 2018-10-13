@@ -60,6 +60,7 @@ import de.fuchspfoten.mokkit.entity.projectile.fireball.MokkitLargeFireball;
 import de.fuchspfoten.mokkit.entity.projectile.fireball.MokkitSmallFireball;
 import de.fuchspfoten.mokkit.entity.vehicle.MokkitBoat;
 import de.fuchspfoten.mokkit.entity.vehicle.minecart.MokkitCommandMinecart;
+import de.fuchspfoten.mokkit.entity.vehicle.minecart.MokkitExplosiveMinecart;
 import de.fuchspfoten.mokkit.entity.vehicle.minecart.MokkitPoweredMinecart;
 import de.fuchspfoten.mokkit.entity.vehicle.minecart.MokkitRideableMinecart;
 import de.fuchspfoten.mokkit.entity.vehicle.minecart.MokkitStorageMinecart;
@@ -165,6 +166,7 @@ public class MokkitWorld implements World {
         spawnableEntities.put(EntityType.MINECART_CHEST, MokkitStorageMinecart.class);
         spawnableEntities.put(EntityType.MINECART_COMMAND, MokkitCommandMinecart.class);
         spawnableEntities.put(EntityType.MINECART_FURNACE, MokkitPoweredMinecart.class);
+        spawnableEntities.put(EntityType.MINECART_TNT, MokkitExplosiveMinecart.class);
         spawnableEntities.put(EntityType.MULE, MokkitMule.class);
         spawnableEntities.put(EntityType.MUSHROOM_COW, MokkitMushroomCow.class);
         spawnableEntities.put(EntityType.OCELOT, MokkitOcelot.class);
@@ -369,7 +371,6 @@ public class MokkitWorld implements World {
             case SHULKER_BULLET:
             case EVOKER_FANGS:
 
-            case MINECART_TNT:
             case MINECART_HOPPER:
             case MINECART_MOB_SPAWNER:
 
