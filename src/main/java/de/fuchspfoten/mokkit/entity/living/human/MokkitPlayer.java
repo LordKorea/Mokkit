@@ -92,6 +92,11 @@ public class MokkitPlayer extends MokkitHumanEntity implements Player {
     }
 
     @Override
+    public boolean isOnline() {
+        return true;
+    }
+
+    @Override
     public String getDisplayName() {
         // TODO
         throw new UnsupportedMockException();
@@ -605,12 +610,6 @@ public class MokkitPlayer extends MokkitHumanEntity implements Player {
 
     @Override
     public void setFoodLevel(final int value) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public boolean isOnline() {
         // TODO
         throw new UnsupportedMockException();
     }

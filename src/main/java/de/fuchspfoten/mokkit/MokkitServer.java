@@ -56,6 +56,7 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -178,13 +179,17 @@ public class MokkitServer implements Server {
     }
 
     @Override
-    public World getWorld(final UUID uid) {
-        // TODO
-        throw new UnsupportedMockException();
+    public Collection<? extends Player> getOnlinePlayers() {
+        return Collections.unmodifiableCollection(players);
     }
 
     @Override
-    public Collection<? extends Player> getOnlinePlayers() {
+    public Player getPlayer(final UUID id) {
+        return players.stream().filter(p -> p.getUniqueId().equals(id)).findAny().orElse(null);
+    }
+
+    @Override
+    public World getWorld(final UUID uid) {
         // TODO
         throw new UnsupportedMockException();
     }
@@ -317,12 +322,6 @@ public class MokkitServer implements Server {
 
     @Override
     public List<Player> matchPlayer(final String name) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public Player getPlayer(final UUID id) {
         // TODO
         throw new UnsupportedMockException();
     }

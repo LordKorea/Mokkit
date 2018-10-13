@@ -2,6 +2,7 @@ package de.fuchspfoten.mokkit;
 
 import de.fuchspfoten.mokkit.internal.exception.UnsupportedMockException;
 import lombok.Getter;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
@@ -30,8 +31,7 @@ public class MokkitOfflinePlayer implements OfflinePlayer {
 
     @Override
     public boolean isOnline() {
-        // TODO
-        throw new UnsupportedMockException();
+        return Bukkit.getPlayer(getUniqueId()) != null;
     }
 
     @Override
