@@ -59,6 +59,7 @@ import de.fuchspfoten.mokkit.entity.projectile.fireball.MokkitDragonFireball;
 import de.fuchspfoten.mokkit.entity.projectile.fireball.MokkitLargeFireball;
 import de.fuchspfoten.mokkit.entity.projectile.fireball.MokkitSmallFireball;
 import de.fuchspfoten.mokkit.entity.vehicle.MokkitBoat;
+import de.fuchspfoten.mokkit.entity.vehicle.minecart.MokkitRideableMinecart;
 import de.fuchspfoten.mokkit.internal.exception.InternalException;
 import de.fuchspfoten.mokkit.internal.exception.UnsupportedMockException;
 import lombok.Getter;
@@ -157,6 +158,7 @@ public class MokkitWorld implements World {
         spawnableEntities.put(EntityType.LEASH_HITCH, MokkitLeashHitch.class);
         spawnableEntities.put(EntityType.LLAMA, MokkitLlama.class);
         spawnableEntities.put(EntityType.MAGMA_CUBE, MokkitMagmaCube.class);
+        spawnableEntities.put(EntityType.MINECART, MokkitRideableMinecart.class);
         spawnableEntities.put(EntityType.MULE, MokkitMule.class);
         spawnableEntities.put(EntityType.MUSHROOM_COW, MokkitMushroomCow.class);
         spawnableEntities.put(EntityType.OCELOT, MokkitOcelot.class);
@@ -362,7 +364,6 @@ public class MokkitWorld implements World {
             case EVOKER_FANGS:
             case MINECART_COMMAND:
 
-            case MINECART:
             case MINECART_CHEST:
             case MINECART_FURNACE:
             case MINECART_TNT:
