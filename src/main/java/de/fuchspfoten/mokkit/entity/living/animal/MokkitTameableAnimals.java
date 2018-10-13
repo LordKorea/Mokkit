@@ -1,9 +1,10 @@
 package de.fuchspfoten.mokkit.entity.living.animal;
 
 import de.fuchspfoten.mokkit.MokkitServer;
-import de.fuchspfoten.mokkit.internal.exception.UnsupportedMockException;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.AnimalTamer;
+import org.bukkit.entity.Player;
 import org.bukkit.entity.Tameable;
 
 import java.util.UUID;
@@ -13,6 +14,11 @@ import java.util.UUID;
  * @see org.bukkit.entity.Tameable
  */
 public abstract class MokkitTameableAnimals extends MokkitAnimals implements Tameable {
+
+    /**
+     * The UUID of the tameable owner.
+     */
+    private UUID ownerUUID;
 
     /**
      * Constructor.
@@ -30,25 +36,31 @@ public abstract class MokkitTameableAnimals extends MokkitAnimals implements Tam
 
     @Override
     public boolean isTamed() {
-        // TODO
-        throw new UnsupportedMockException();
+        return ownerUUID != null;
     }
 
     @Override
     public void setTamed(final boolean tame) {
-        // TODO
-        throw new UnsupportedMockException();
+        if (!isTamed()) {
+            ownerUUID = UUID.randomUUID();
+        }
     }
 
     @Override
     public AnimalTamer getOwner() {
-        // TODO
-        throw new UnsupportedMockException();
+        if (!isTamed()) {
+            return null;
+        }
+
+        final Player onlineOwner = Bukkit.getPlayer(ownerUUID);
+        if (onlineOwner == null || !onlineOwner.isOnline()) {
+            return Bukkit.getOfflinePlayer(ownerUUID);
+        }
+        return onlineOwner;
     }
 
     @Override
     public void setOwner(final AnimalTamer tamer) {
-        // TODO
-        throw new UnsupportedMockException();
+        ownerUUID = tamer.getUniqueId();
     }
 }
