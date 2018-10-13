@@ -54,6 +54,7 @@ import de.fuchspfoten.mokkit.entity.living.monster.MokkitWitherSkeleton;
 import de.fuchspfoten.mokkit.entity.living.monster.MokkitZombie;
 import de.fuchspfoten.mokkit.entity.living.monster.MokkitZombieVillager;
 import de.fuchspfoten.mokkit.entity.living.water.MokkitSquid;
+import de.fuchspfoten.mokkit.entity.misc.MokkitEnderCrystal;
 import de.fuchspfoten.mokkit.entity.projectile.fireball.MokkitDragonFireball;
 import de.fuchspfoten.mokkit.entity.projectile.fireball.MokkitLargeFireball;
 import de.fuchspfoten.mokkit.entity.projectile.fireball.MokkitSmallFireball;
@@ -135,6 +136,7 @@ public class MokkitWorld implements World {
         spawnableEntities.put(EntityType.DONKEY, MokkitDonkey.class);
         spawnableEntities.put(EntityType.DRAGON_FIREBALL, MokkitDragonFireball.class);
         spawnableEntities.put(EntityType.ELDER_GUARDIAN, MokkitElderGuardian.class);
+        spawnableEntities.put(EntityType.ENDER_CRYSTAL, MokkitEnderCrystal.class);
         spawnableEntities.put(EntityType.ENDER_DRAGON, MokkitEnderDragon.class);
         spawnableEntities.put(EntityType.ENDERMAN, MokkitEnderman.class);
         spawnableEntities.put(EntityType.ENDERMITE, MokkitEndermite.class);
@@ -363,7 +365,6 @@ public class MokkitWorld implements World {
             case MINECART_HOPPER:
             case MINECART_MOB_SPAWNER:
             case LLAMA_SPIT:
-            case ENDER_CRYSTAL:
             case LINGERING_POTION:
             case FISHING_HOOK:
             case TIPPED_ARROW:

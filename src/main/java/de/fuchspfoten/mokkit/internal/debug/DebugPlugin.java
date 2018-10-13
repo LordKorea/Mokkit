@@ -9,6 +9,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDeathEvent;
+import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.UUID;
@@ -56,6 +58,16 @@ public class DebugPlugin extends JavaPlugin implements Listener {
     public void onEntityDamageByEntity(final EntityDamageByEntityEvent event) {
         report("%1$s -> %2$s (%3$f)", event.getDamager().getType().name(), event.getEntity().getType().name(),
                 event.getDamage());
+    }
+
+    @EventHandler(priority = EventPriority.MONITOR)
+    public void onEntityDeath(final EntityDeathEvent event) {
+        report("%1$s dies", event.getEntity().getType().name());
+    }
+
+    @EventHandler(priority = EventPriority.MONITOR)
+    public void onEntityExplode(final EntityExplodeEvent event) {
+        report("%1$s explodes", event.getEntity().getType().name());
     }
 
     /**

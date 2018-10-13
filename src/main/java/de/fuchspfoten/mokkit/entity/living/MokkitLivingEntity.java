@@ -11,6 +11,7 @@ import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.block.Block;
+import org.bukkit.entity.EnderCrystal;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Fireball;
 import org.bukkit.entity.Hanging;
@@ -21,6 +22,7 @@ import org.bukkit.entity.Projectile;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
+import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.hanging.HangingBreakByEntityEvent;
 import org.bukkit.event.hanging.HangingBreakEvent;
 import org.bukkit.inventory.EntityEquipment;
@@ -28,6 +30,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -424,6 +427,7 @@ public abstract class MokkitLivingEntity extends MokkitEntity implements LivingE
                 }
 
                 // Remove the target.
+                // TODO drop?
                 target.remove();
                 return;
             }
@@ -442,6 +446,32 @@ public abstract class MokkitLivingEntity extends MokkitEntity implements LivingE
                     final Vector newVelo = target.getLocation().toVector().subtract(getLocation().toVector());
                     target.setVelocity(newVelo.normalize().multiply(target.getVelocity().length()));
                 }
+                return;
+            }
+
+            // Exploding ender crystals.
+            if (target instanceof EnderCrystal) {
+                final EntityDamageByEntityEvent damageEvent = new EntityDamageByEntityEvent(
+                        MokkitLivingEntity.this, target, EntityDamageEvent.DamageCause.ENTITY_ATTACK,
+                        1.0);
+                getServer().getPluginManager().callEvent(damageEvent);
+                if (damageEvent.isCancelled()) {
+                    throw new CancelledByEventException(damageEvent);
+                }
+
+                // TODO: Explosion blocks and strength.
+                final EntityExplodeEvent explosionEvent = new EntityExplodeEvent(target, target.getLocation(),
+                        new ArrayList<>(), 0.0f);
+                getServer().getPluginManager().callEvent(explosionEvent);
+                if (explosionEvent.isCancelled()) {
+                    throw new CancelledByEventException(explosionEvent);
+                }
+
+                // Remove the target.
+                target.remove();
+
+                // Perform the explosion.
+                // TODO perform the explosion.
                 return;
             }
 
