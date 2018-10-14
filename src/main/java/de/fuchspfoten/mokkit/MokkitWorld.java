@@ -55,6 +55,9 @@ import de.fuchspfoten.mokkit.entity.living.monster.MokkitZombie;
 import de.fuchspfoten.mokkit.entity.living.monster.MokkitZombieVillager;
 import de.fuchspfoten.mokkit.entity.living.water.MokkitSquid;
 import de.fuchspfoten.mokkit.entity.misc.MokkitEnderCrystal;
+import de.fuchspfoten.mokkit.entity.projectile.arrow.MokkitArrow;
+import de.fuchspfoten.mokkit.entity.projectile.arrow.MokkitSpectralArrow;
+import de.fuchspfoten.mokkit.entity.projectile.arrow.MokkitTippedArrow;
 import de.fuchspfoten.mokkit.entity.projectile.fireball.MokkitDragonFireball;
 import de.fuchspfoten.mokkit.entity.projectile.fireball.MokkitLargeFireball;
 import de.fuchspfoten.mokkit.entity.projectile.fireball.MokkitSmallFireball;
@@ -137,6 +140,7 @@ public class MokkitWorld implements World {
 
     static {
         spawnableEntities.put(EntityType.ARMOR_STAND, MokkitArmorStand.class);
+        spawnableEntities.put(EntityType.ARROW, MokkitArrow.class);
         spawnableEntities.put(EntityType.BAT, MokkitBat.class);
         spawnableEntities.put(EntityType.BLAZE, MokkitBlaze.class);
         spawnableEntities.put(EntityType.BOAT, MokkitBoat.class);
@@ -188,9 +192,11 @@ public class MokkitWorld implements World {
         spawnableEntities.put(EntityType.SLIME, MokkitSlime.class);
         spawnableEntities.put(EntityType.SMALL_FIREBALL, MokkitSmallFireball.class);
         spawnableEntities.put(EntityType.SNOWMAN, MokkitSnowman.class);
+        spawnableEntities.put(EntityType.SPECTRAL_ARROW, MokkitSpectralArrow.class);
         spawnableEntities.put(EntityType.SPIDER, MokkitSpider.class);
         spawnableEntities.put(EntityType.SQUID, MokkitSquid.class);
         spawnableEntities.put(EntityType.STRAY, MokkitStray.class);
+        spawnableEntities.put(EntityType.TIPPED_ARROW, MokkitTippedArrow.class);
         spawnableEntities.put(EntityType.VEX, MokkitVex.class);
         spawnableEntities.put(EntityType.VILLAGER, MokkitVillager.class);
         spawnableEntities.put(EntityType.VINDICATOR, MokkitVindicator.class);
@@ -361,7 +367,6 @@ public class MokkitWorld implements World {
             case EXPERIENCE_ORB:
             case AREA_EFFECT_CLOUD:
             case EGG:
-            case ARROW:
             case SNOWBALL:
             case ENDER_PEARL:
             case ENDER_SIGNAL:
@@ -464,6 +469,20 @@ public class MokkitWorld implements World {
             }
         }
         return results;
+    }
+
+    @Override
+    public Arrow spawnArrow(final Location location, final Vector direction, final float speed, final float spread) {
+        return spawnArrow(location, direction, speed, spread, Arrow.class);
+    }
+
+    @Override
+    public <T extends Arrow> T spawnArrow(final Location location, final Vector direction, final float speed,
+                                          final float spread, final Class<T> clazz) {
+        return spawn(location, clazz, arrow -> {
+            arrow.setVelocity(direction.normalize().multiply(speed));
+            // TODO spread?
+        });
     }
 
     @Override
@@ -588,19 +607,6 @@ public class MokkitWorld implements World {
 
     @Override
     public Item dropItemNaturally(final Location location, final ItemStack item) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public Arrow spawnArrow(final Location location, final Vector direction, final float speed, final float spread) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public <T extends Arrow> T spawnArrow(final Location location, final Vector direction, final float speed,
-                                          final float spread, final Class<T> clazz) {
         // TODO
         throw new UnsupportedMockException();
     }

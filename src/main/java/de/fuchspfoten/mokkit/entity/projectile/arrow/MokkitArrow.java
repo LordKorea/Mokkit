@@ -8,6 +8,7 @@ import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
 
 import java.util.UUID;
 
@@ -42,6 +43,11 @@ public class MokkitArrow extends MokkitProjectile implements Arrow {
      */
     protected MokkitArrow(final MokkitServer server, final String name, final Location location, final UUID uniqueId) {
         super(server, name, location, uniqueId);
+    }
+
+    @Override
+    public EntityType getType() {
+        return EntityType.ARROW;
     }
 
     @Override
