@@ -606,8 +606,9 @@ public class MokkitServer implements Server {
 
     @Override
     public boolean isPrimaryThread() {
-        // TODO
-        throw new UnsupportedMockException();
+        // We're running single-threaded.
+        // TODO thread emulation?
+        return true;
     }
 
     @Override

@@ -578,5 +578,27 @@ public abstract class MokkitEntity implements Entity {
             }
             return receivedMessages.get(receivedMessages.size() - 1);
         }
+
+        /**
+         * Clears the chat log for this entity.
+         */
+        public void clearChatLog() {
+            receivedMessages.clear();
+        }
+
+        /**
+         * Checks whether or not the player received a message that contains the given string.
+         *
+         * @param content The string.
+         * @return Whether the player has such a message.
+         */
+        public boolean hasMessageLike(final String content) {
+            for (final String msg : receivedMessages) {
+                if (msg.contains(content)) {
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 }

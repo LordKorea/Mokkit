@@ -49,8 +49,10 @@ public class MokkitOfflinePlayer implements OfflinePlayer {
 
     @Override
     public String getName() {
-        // TODO
-        throw new UnsupportedMockException();
+        if (isOnline()) {
+            return getPlayer().getName();
+        }
+        return null;
     }
 
     @Override
