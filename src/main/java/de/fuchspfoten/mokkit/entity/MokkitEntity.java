@@ -23,6 +23,7 @@ import org.bukkit.permissions.PermissionAttachmentInfo;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.util.Vector;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -71,6 +72,16 @@ public abstract class MokkitEntity implements Entity {
      * Whether the entity is dead.
      */
     private @Getter boolean dead;
+
+    /**
+     * The messages this entity received.
+     */
+    private final List<String> receivedMessages = new ArrayList<>();
+
+    /**
+     * The control object.
+     */
+    private final Mokkit mokkit = new Mokkit();
 
     /**
      * Constructor.
@@ -476,15 +487,20 @@ public abstract class MokkitEntity implements Entity {
         throw new UnsupportedMockException();
     }
 
-    @Override
-    public void sendMessage(final String message) {
-        // Do nothing with the message.
+    /**
+     * Getter for the control object.
+     *
+     * @return The control object.
+     */
+    public Mokkit mokkit() {
+        return mokkit;
     }
 
     @Override
     public void sendMessage(final String[] messages) {
-        // TODO
-        throw new UnsupportedMockException();
+        for (final String message : messages) {
+            sendMessage(message);
+        }
     }
 
     @Override
@@ -538,5 +554,29 @@ public abstract class MokkitEntity implements Entity {
     @Override
     public boolean teleport(final Entity destination, final PlayerTeleportEvent.TeleportCause cause) {
         return teleport(destination.getLocation(), cause);
+    }
+
+    @Override
+    public void sendMessage(final String message) {
+        // Store the message.
+        receivedMessages.add(message);
+    }
+
+    /**
+     * Control object class.
+     */
+    public class Mokkit {
+
+        /**
+         * Get the last received message.
+         *
+         * @return The last received message.
+         */
+        public String getLastReceivedMessage() {
+            if (receivedMessages.isEmpty()) {
+                return null;
+            }
+            return receivedMessages.get(receivedMessages.size() - 1);
+        }
     }
 }

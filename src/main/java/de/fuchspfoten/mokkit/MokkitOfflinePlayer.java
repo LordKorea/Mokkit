@@ -55,8 +55,10 @@ public class MokkitOfflinePlayer implements OfflinePlayer {
 
     @Override
     public Player getPlayer() {
-        // TODO
-        throw new UnsupportedMockException();
+        if (isOnline()) {
+            return Bukkit.getPlayer(getUniqueId());
+        }
+        return null;
     }
 
     @Override

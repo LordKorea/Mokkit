@@ -359,7 +359,7 @@ public abstract class MokkitLivingEntity extends MokkitEntity implements LivingE
     /**
      * Class for the control object.
      */
-    public class Mokkit {
+    public class Mokkit extends MokkitEntity.Mokkit {
 
         /**
          * Protected constructor to prevent outside instance creation.

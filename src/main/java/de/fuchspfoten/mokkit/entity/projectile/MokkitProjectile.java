@@ -65,7 +65,7 @@ public abstract class MokkitProjectile extends MokkitEntity implements Projectil
     /**
      * Class for the control object.
      */
-    public class Mokkit {
+    public class Mokkit extends MokkitEntity.Mokkit {
 
         /**
          * Lets the projectile hit a target.
