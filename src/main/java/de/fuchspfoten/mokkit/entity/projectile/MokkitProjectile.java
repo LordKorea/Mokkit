@@ -3,6 +3,8 @@ package de.fuchspfoten.mokkit.entity.projectile;
 import de.fuchspfoten.mokkit.MokkitServer;
 import de.fuchspfoten.mokkit.entity.MokkitEntity;
 import de.fuchspfoten.mokkit.internal.exception.UnsupportedMockException;
+import lombok.Getter;
+import lombok.Setter;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Projectile;
@@ -22,6 +24,11 @@ public abstract class MokkitProjectile extends MokkitEntity implements Projectil
     private final Mokkit mokkit = new Mokkit();
 
     /**
+     * The shooter of this projectile.
+     */
+    private @Getter @Setter ProjectileSource shooter;
+
+    /**
      * Constructor.
      *
      * @param server   The server this entity is in.
@@ -32,18 +39,6 @@ public abstract class MokkitProjectile extends MokkitEntity implements Projectil
     public MokkitProjectile(final MokkitServer server, final String name, final Location location,
                             final UUID uniqueId) {
         super(server, name, location, uniqueId);
-    }
-
-    @Override
-    public ProjectileSource getShooter() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setShooter(final ProjectileSource source) {
-        // TODO
-        throw new UnsupportedMockException();
     }
 
     @Override

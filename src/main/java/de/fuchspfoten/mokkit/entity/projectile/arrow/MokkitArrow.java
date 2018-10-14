@@ -9,6 +9,7 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.LivingEntity;
 
 import java.util.UUID;
 
@@ -119,7 +120,10 @@ public class MokkitArrow extends MokkitProjectile implements Arrow {
             super.hitTarget(target);
 
             // TODO how much damage?
-            ((MokkitEntity) target).onDamaged(MokkitArrow.this, 1.0);
+            final double resultDamage = ((MokkitEntity) target).onDamaged(MokkitArrow.this, 1.0);
+            if (target instanceof LivingEntity) {
+                ((LivingEntity) target).damage(resultDamage);
+            }
 
             // The arrow is now in the player, no longer an entity.
             // TODO confirm this?
