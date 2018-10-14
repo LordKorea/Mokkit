@@ -35,7 +35,7 @@ public abstract class MokkitEntity implements Entity {
     /**
      * The location where the entity is at.
      */
-    protected @Getter Location location;
+    protected Location location;
 
     /**
      * Whether or not the entity is despawned for some reason.
@@ -104,6 +104,11 @@ public abstract class MokkitEntity implements Entity {
             throw new CancelledByEventException(event);
         }
         return event.getDamage();
+    }
+
+    @Override
+    public Location getLocation() {
+        return getLocation(new Location(null, 0, 0, 0));
     }
 
     @Override
