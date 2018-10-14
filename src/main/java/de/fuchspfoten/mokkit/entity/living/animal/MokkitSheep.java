@@ -26,6 +26,18 @@ public class MokkitSheep extends MokkitAnimals implements Sheep {
     }
 
     @Override
+    public DyeColor getColor() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void setColor(final DyeColor color) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
     public EntityType getType() {
         return EntityType.SHEEP;
     }
@@ -38,18 +50,6 @@ public class MokkitSheep extends MokkitAnimals implements Sheep {
 
     @Override
     public void setSheared(final boolean flag) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public DyeColor getColor() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setColor(final DyeColor color) {
         // TODO
         throw new UnsupportedMockException();
     }

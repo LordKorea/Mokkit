@@ -29,22 +29,7 @@ public class MokkitPlayerInventory extends MokkitInventory implements PlayerInve
     }
 
     @Override
-    public ItemStack getItemInMainHand() {
-        return getItem(getHeldItemSlot());
-    }
-
-    @Override
-    public void setItemInMainHand(final ItemStack item) {
-        setItem(getHeldItemSlot(), item);
-    }
-
-    @Override
-    public ItemStack getItemInOffHand() {
-        return getItem(40);
-    }
-
-    @Override
-    public void setItemInOffHand(final ItemStack item) {
+    public int clear(final int id, final int data) {
         // TODO
         throw new UnsupportedMockException();
     }
@@ -57,6 +42,30 @@ public class MokkitPlayerInventory extends MokkitInventory implements PlayerInve
 
     @Override
     public void setArmorContents(final ItemStack[] items) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public ItemStack getBoots() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void setBoots(final ItemStack boots) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public ItemStack getChestplate() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void setChestplate(final ItemStack chestplate) {
         // TODO
         throw new UnsupportedMockException();
     }
@@ -86,37 +95,7 @@ public class MokkitPlayerInventory extends MokkitInventory implements PlayerInve
     }
 
     @Override
-    public ItemStack getChestplate() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setChestplate(final ItemStack chestplate) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public ItemStack getLeggings() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setLeggings(final ItemStack leggings) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public ItemStack getBoots() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setBoots(final ItemStack boots) {
+    public HumanEntity getHolder() {
         // TODO
         throw new UnsupportedMockException();
     }
@@ -134,13 +113,34 @@ public class MokkitPlayerInventory extends MokkitInventory implements PlayerInve
     }
 
     @Override
-    public int clear(final int id, final int data) {
+    public ItemStack getItemInMainHand() {
+        return getItem(getHeldItemSlot());
+    }
+
+    @Override
+    public void setItemInMainHand(final ItemStack item) {
+        setItem(getHeldItemSlot(), item);
+    }
+
+    @Override
+    public ItemStack getItemInOffHand() {
+        return getItem(40);
+    }
+
+    @Override
+    public void setItemInOffHand(final ItemStack item) {
         // TODO
         throw new UnsupportedMockException();
     }
 
     @Override
-    public HumanEntity getHolder() {
+    public ItemStack getLeggings() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void setLeggings(final ItemStack leggings) {
         // TODO
         throw new UnsupportedMockException();
     }

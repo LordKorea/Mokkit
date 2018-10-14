@@ -41,6 +41,48 @@ public class MokkitBlockState implements BlockState {
     }
 
     @Override
+    public Chunk getChunk() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public byte getLightLevel() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public Location getLocation() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public Location getLocation(final Location loc) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public List<MetadataValue> getMetadata(final String metadataKey) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public byte getRawData() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void setRawData(final byte data) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
     public Material getType() {
         // TODO
         throw new UnsupportedMockException();
@@ -54,12 +96,6 @@ public class MokkitBlockState implements BlockState {
 
     @Override
     public int getTypeId() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public byte getLightLevel() {
         // TODO
         throw new UnsupportedMockException();
     }
@@ -89,19 +125,24 @@ public class MokkitBlockState implements BlockState {
     }
 
     @Override
-    public Location getLocation() {
+    public boolean hasMetadata(final String metadataKey) {
         // TODO
         throw new UnsupportedMockException();
     }
 
     @Override
-    public Location getLocation(final Location loc) {
+    public boolean isPlaced() {
+        return block != null;
+    }
+
+    @Override
+    public void removeMetadata(final String metadataKey, final Plugin owningPlugin) {
         // TODO
         throw new UnsupportedMockException();
     }
 
     @Override
-    public Chunk getChunk() {
+    public void setMetadata(final String metadataKey, final MetadataValue newMetadataValue) {
         // TODO
         throw new UnsupportedMockException();
     }
@@ -137,46 +178,5 @@ public class MokkitBlockState implements BlockState {
         // Update the block.
         block.setTypeIdAndData(data.getItemType().getId(), data.getData(), applyPhysics);
         return true;
-    }
-
-    @Override
-    public boolean isPlaced() {
-        return block != null;
-    }
-
-    @Override
-    public byte getRawData() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setRawData(final byte data) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setMetadata(final String metadataKey, final MetadataValue newMetadataValue) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public List<MetadataValue> getMetadata(final String metadataKey) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public boolean hasMetadata(final String metadataKey) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void removeMetadata(final String metadataKey, final Plugin owningPlugin) {
-        // TODO
-        throw new UnsupportedMockException();
     }
 }

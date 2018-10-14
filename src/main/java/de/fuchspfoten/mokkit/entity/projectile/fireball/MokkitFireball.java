@@ -52,13 +52,13 @@ public abstract class MokkitFireball extends MokkitProjectile implements Firebal
     }
 
     @Override
-    public void setIsIncendiary(final boolean isIncendiary) {
+    public boolean isIncendiary() {
         // TODO
         throw new UnsupportedMockException();
     }
 
     @Override
-    public boolean isIncendiary() {
+    public void setIsIncendiary(final boolean isIncendiary) {
         // TODO
         throw new UnsupportedMockException();
     }

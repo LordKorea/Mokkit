@@ -26,13 +26,13 @@ public class MokkitStorageMinecart extends MokkitMinecart implements StorageMine
     }
 
     @Override
-    public EntityType getType() {
-        return EntityType.MINECART_CHEST;
-    }
-
-    @Override
     public Inventory getInventory() {
         // TODO
         throw new UnsupportedMockException();
+    }
+
+    @Override
+    public EntityType getType() {
+        return EntityType.MINECART_CHEST;
     }
 }

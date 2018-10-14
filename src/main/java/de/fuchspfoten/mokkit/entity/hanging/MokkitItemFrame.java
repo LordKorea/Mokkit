@@ -27,11 +27,6 @@ public class MokkitItemFrame extends MokkitHanging implements ItemFrame {
     }
 
     @Override
-    public EntityType getType() {
-        return EntityType.ITEM_FRAME;
-    }
-
-    @Override
     public ItemStack getItem() {
         // TODO
         throw new UnsupportedMockException();
@@ -53,5 +48,10 @@ public class MokkitItemFrame extends MokkitHanging implements ItemFrame {
     public void setRotation(final Rotation rotation) throws IllegalArgumentException {
         // TODO
         throw new UnsupportedMockException();
+    }
+
+    @Override
+    public EntityType getType() {
+        return EntityType.ITEM_FRAME;
     }
 }

@@ -25,11 +25,6 @@ public class MokkitPigZombie extends MokkitZombie implements PigZombie {
     }
 
     @Override
-    public EntityType getType() {
-        return EntityType.PIG_ZOMBIE;
-    }
-
-    @Override
     public int getAnger() {
         // TODO
         throw new UnsupportedMockException();
@@ -39,6 +34,11 @@ public class MokkitPigZombie extends MokkitZombie implements PigZombie {
     public void setAnger(final int level) {
         // TODO
         throw new UnsupportedMockException();
+    }
+
+    @Override
+    public EntityType getType() {
+        return EntityType.PIG_ZOMBIE;
     }
 
     @Override

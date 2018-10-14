@@ -30,36 +30,7 @@ public class MokkitOfflinePlayer implements OfflinePlayer {
     }
 
     @Override
-    public boolean isOnline() {
-        return Bukkit.getPlayer(getUniqueId()) != null;
-    }
-
-    @Override
-    public String getName() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public boolean isBanned() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public boolean isWhitelisted() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setWhitelisted(final boolean value) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public Player getPlayer() {
+    public Location getBedSpawnLocation() {
         // TODO
         throw new UnsupportedMockException();
     }
@@ -77,21 +48,32 @@ public class MokkitOfflinePlayer implements OfflinePlayer {
     }
 
     @Override
+    public String getName() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public Player getPlayer() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
     public boolean hasPlayedBefore() {
         // TODO
         throw new UnsupportedMockException();
     }
 
     @Override
-    public Location getBedSpawnLocation() {
+    public boolean isBanned() {
         // TODO
         throw new UnsupportedMockException();
     }
 
     @Override
-    public Map<String, Object> serialize() {
-        // TODO
-        throw new UnsupportedMockException();
+    public boolean isOnline() {
+        return Bukkit.getPlayer(getUniqueId()) != null;
     }
 
     @Override
@@ -102,6 +84,24 @@ public class MokkitOfflinePlayer implements OfflinePlayer {
 
     @Override
     public void setOp(final boolean value) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public boolean isWhitelisted() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void setWhitelisted(final boolean value) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public Map<String, Object> serialize() {
         // TODO
         throw new UnsupportedMockException();
     }

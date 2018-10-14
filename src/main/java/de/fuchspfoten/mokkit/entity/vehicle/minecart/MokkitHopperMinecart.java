@@ -26,6 +26,12 @@ public class MokkitHopperMinecart extends MokkitMinecart implements HopperMineca
     }
 
     @Override
+    public Inventory getInventory() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
     public EntityType getType() {
         return EntityType.MINECART_HOPPER;
     }
@@ -38,12 +44,6 @@ public class MokkitHopperMinecart extends MokkitMinecart implements HopperMineca
 
     @Override
     public void setEnabled(final boolean enabled) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public Inventory getInventory() {
         // TODO
         throw new UnsupportedMockException();
     }

@@ -49,13 +49,15 @@ public abstract class MokkitHumanEntity extends MokkitLivingEntity implements Hu
     }
 
     @Override
-    public ItemStack getItemInHand() {
-        return getInventory().getItemInMainHand();
+    public void closeInventory() {
+        // TODO
+        throw new UnsupportedMockException();
     }
 
     @Override
-    public void setItemInHand(final ItemStack item) {
-        getInventory().setItemInMainHand(item);
+    public int getCooldown(final Material material) {
+        // TODO
+        throw new UnsupportedMockException();
     }
 
     @Override
@@ -65,63 +67,19 @@ public abstract class MokkitHumanEntity extends MokkitLivingEntity implements Hu
     }
 
     @Override
-    public MainHand getMainHand() {
+    public int getExpToLevel() {
         // TODO
         throw new UnsupportedMockException();
     }
 
     @Override
-    public boolean setWindowProperty(final InventoryView.Property prop, final int value) {
-        // TODO
-        throw new UnsupportedMockException();
+    public ItemStack getItemInHand() {
+        return getInventory().getItemInMainHand();
     }
 
     @Override
-    public InventoryView getOpenInventory() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public InventoryView openInventory(final Inventory inventory) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public InventoryView openWorkbench(final Location location, final boolean force) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public InventoryView openEnchanting(final Location location, final boolean force) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void openInventory(final InventoryView inventory) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public InventoryView openMerchant(final Villager trader, final boolean force) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public InventoryView openMerchant(final Merchant merchant, final boolean force) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void closeInventory() {
-        // TODO
-        throw new UnsupportedMockException();
+    public void setItemInHand(final ItemStack item) {
+        getInventory().setItemInMainHand(item);
     }
 
     @Override
@@ -137,49 +95,13 @@ public abstract class MokkitHumanEntity extends MokkitLivingEntity implements Hu
     }
 
     @Override
-    public boolean hasCooldown(final Material material) {
+    public MainHand getMainHand() {
         // TODO
         throw new UnsupportedMockException();
     }
 
     @Override
-    public int getCooldown(final Material material) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setCooldown(final Material material, final int ticks) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public boolean isSleeping() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public int getSleepTicks() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public boolean isBlocking() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public boolean isHandRaised() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public int getExpToLevel() {
+    public InventoryView getOpenInventory() {
         // TODO
         throw new UnsupportedMockException();
     }
@@ -204,6 +126,84 @@ public abstract class MokkitHumanEntity extends MokkitLivingEntity implements Hu
 
     @Override
     public void setShoulderEntityRight(final Entity entity) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public int getSleepTicks() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public boolean hasCooldown(final Material material) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public boolean isBlocking() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public boolean isHandRaised() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public boolean isSleeping() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public InventoryView openEnchanting(final Location location, final boolean force) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public InventoryView openInventory(final Inventory inventory) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void openInventory(final InventoryView inventory) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public InventoryView openMerchant(final Villager trader, final boolean force) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public InventoryView openMerchant(final Merchant merchant, final boolean force) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public InventoryView openWorkbench(final Location location, final boolean force) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void setCooldown(final Material material, final int ticks) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public boolean setWindowProperty(final InventoryView.Property prop, final int value) {
         // TODO
         throw new UnsupportedMockException();
     }

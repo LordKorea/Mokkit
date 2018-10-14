@@ -31,6 +31,18 @@ public abstract class MokkitHanging extends MokkitEntity implements Hanging {
     }
 
     @Override
+    public BlockFace getAttachedFace() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public BlockFace getFacing() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
     public double onDamaged(final Entity damager, final double damage) {
         final HangingBreakByEntityEvent event = new HangingBreakByEntityEvent(this, damager,
                 HangingBreakEvent.RemoveCause.ENTITY);
@@ -46,25 +58,13 @@ public abstract class MokkitHanging extends MokkitEntity implements Hanging {
     }
 
     @Override
-    public boolean setFacingDirection(final BlockFace face, final boolean force) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public BlockFace getAttachedFace() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
     public void setFacingDirection(final BlockFace face) {
         // TODO
         throw new UnsupportedMockException();
     }
 
     @Override
-    public BlockFace getFacing() {
+    public boolean setFacingDirection(final BlockFace face, final boolean force) {
         // TODO
         throw new UnsupportedMockException();
     }

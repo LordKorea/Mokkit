@@ -40,42 +40,6 @@ public abstract class MokkitMinecart extends MokkitVehicle implements Minecart {
     }
 
     @Override
-    public double getMaxSpeed() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setMaxSpeed(final double speed) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public boolean isSlowWhenEmpty() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setSlowWhenEmpty(final boolean slow) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public Vector getFlyingVelocityMod() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setFlyingVelocityMod(final Vector flying) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
     public Vector getDerailedVelocityMod() {
         // TODO
         throw new UnsupportedMockException();
@@ -107,6 +71,42 @@ public abstract class MokkitMinecart extends MokkitVehicle implements Minecart {
 
     @Override
     public void setDisplayBlockOffset(final int offset) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public Vector getFlyingVelocityMod() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void setFlyingVelocityMod(final Vector flying) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public double getMaxSpeed() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void setMaxSpeed(final double speed) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public boolean isSlowWhenEmpty() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void setSlowWhenEmpty(final boolean slow) {
         // TODO
         throw new UnsupportedMockException();
     }

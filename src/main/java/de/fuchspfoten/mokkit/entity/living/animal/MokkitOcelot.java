@@ -25,11 +25,6 @@ public class MokkitOcelot extends MokkitTameableAnimals implements Ocelot {
     }
 
     @Override
-    public EntityType getType() {
-        return EntityType.OCELOT;
-    }
-
-    @Override
     public Type getCatType() {
         // TODO
         throw new UnsupportedMockException();
@@ -39,6 +34,11 @@ public class MokkitOcelot extends MokkitTameableAnimals implements Ocelot {
     public void setCatType(final Type type) {
         // TODO
         throw new UnsupportedMockException();
+    }
+
+    @Override
+    public EntityType getType() {
+        return EntityType.OCELOT;
     }
 
     @Override

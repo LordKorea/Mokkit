@@ -103,6 +103,12 @@ public class MokkitChunk implements Chunk {
     }
 
     @Override
+    public boolean isSlimeChunk() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
     public boolean load(final boolean generate) {
         // TODO
         throw new UnsupportedMockException();
@@ -128,12 +134,6 @@ public class MokkitChunk implements Chunk {
 
     @Override
     public boolean unload() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public boolean isSlimeChunk() {
         // TODO
         throw new UnsupportedMockException();
     }

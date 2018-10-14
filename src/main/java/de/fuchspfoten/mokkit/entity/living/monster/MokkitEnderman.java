@@ -26,11 +26,6 @@ public class MokkitEnderman extends MokkitMonster implements Enderman {
     }
 
     @Override
-    public EntityType getType() {
-        return EntityType.ENDERMAN;
-    }
-
-    @Override
     public MaterialData getCarriedMaterial() {
         // TODO
         throw new UnsupportedMockException();
@@ -40,5 +35,10 @@ public class MokkitEnderman extends MokkitMonster implements Enderman {
     public void setCarriedMaterial(final MaterialData material) {
         // TODO
         throw new UnsupportedMockException();
+    }
+
+    @Override
+    public EntityType getType() {
+        return EntityType.ENDERMAN;
     }
 }

@@ -30,8 +30,21 @@ public class MokkitVillager extends MokkitAgeable implements Villager {
     }
 
     @Override
-    public EntityType getType() {
-        return EntityType.VILLAGER;
+    public Career getCareer() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void setCareer(final Career career) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public Inventory getInventory() {
+        // TODO
+        throw new UnsupportedMockException();
     }
 
     @Override
@@ -47,37 +60,13 @@ public class MokkitVillager extends MokkitAgeable implements Villager {
     }
 
     @Override
-    public Career getCareer() {
+    public MerchantRecipe getRecipe(final int i) throws IndexOutOfBoundsException {
         // TODO
         throw new UnsupportedMockException();
     }
 
     @Override
-    public void setCareer(final Career career) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setCareer(final Career career, final boolean resetTrades) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public Inventory getInventory() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public int getRiches() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setRiches(final int riches) {
+    public int getRecipeCount() {
         // TODO
         throw new UnsupportedMockException();
     }
@@ -95,21 +84,26 @@ public class MokkitVillager extends MokkitAgeable implements Villager {
     }
 
     @Override
-    public MerchantRecipe getRecipe(final int i) throws IndexOutOfBoundsException {
+    public int getRiches() {
         // TODO
         throw new UnsupportedMockException();
     }
 
     @Override
-    public void setRecipe(final int i, final MerchantRecipe recipe) throws IndexOutOfBoundsException {
+    public void setRiches(final int riches) {
         // TODO
         throw new UnsupportedMockException();
     }
 
     @Override
-    public int getRecipeCount() {
+    public HumanEntity getTrader() {
         // TODO
         throw new UnsupportedMockException();
+    }
+
+    @Override
+    public EntityType getType() {
+        return EntityType.VILLAGER;
     }
 
     @Override
@@ -119,7 +113,13 @@ public class MokkitVillager extends MokkitAgeable implements Villager {
     }
 
     @Override
-    public HumanEntity getTrader() {
+    public void setCareer(final Career career, final boolean resetTrades) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void setRecipe(final int i, final MerchantRecipe recipe) throws IndexOutOfBoundsException {
         // TODO
         throw new UnsupportedMockException();
     }

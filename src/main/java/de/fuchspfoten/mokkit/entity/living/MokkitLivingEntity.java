@@ -72,8 +72,21 @@ public abstract class MokkitLivingEntity extends MokkitEntity implements LivingE
     }
 
     @Override
-    public void resetMaxHealth() {
-        maxHealth = defaultMaxHealth;
+    public boolean addPotionEffect(final PotionEffect effect) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public boolean addPotionEffect(final PotionEffect effect, final boolean force) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public boolean addPotionEffects(final Collection<PotionEffect> effects) {
+        // TODO
+        throw new UnsupportedMockException();
     }
 
     @Override
@@ -96,6 +109,36 @@ public abstract class MokkitLivingEntity extends MokkitEntity implements LivingE
     }
 
     @Override
+    public Collection<PotionEffect> getActivePotionEffects() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public AttributeInstance getAttribute(final Attribute attribute) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public boolean getCanPickupItems() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void setCanPickupItems(final boolean pickup) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public EntityEquipment getEquipment() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
     public double getEyeHeight() {
         // TODO
         throw new UnsupportedMockException();
@@ -114,13 +157,19 @@ public abstract class MokkitLivingEntity extends MokkitEntity implements LivingE
     }
 
     @Override
-    public List<Block> getLineOfSight(final Set<Material> transparent, final int maxDistance) {
+    public Player getKiller() {
         // TODO
         throw new UnsupportedMockException();
     }
 
     @Override
-    public Block getTargetBlock(final Set<Material> transparent, final int maxDistance) {
+    public double getLastDamage() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void setLastDamage(final double damage) {
         // TODO
         throw new UnsupportedMockException();
     }
@@ -132,13 +181,13 @@ public abstract class MokkitLivingEntity extends MokkitEntity implements LivingE
     }
 
     @Override
-    public int getRemainingAir() {
+    public Entity getLeashHolder() throws IllegalStateException {
         // TODO
         throw new UnsupportedMockException();
     }
 
     @Override
-    public void setRemainingAir(final int ticks) {
+    public List<Block> getLineOfSight(final Set<Material> transparent, final int maxDistance) {
         // TODO
         throw new UnsupportedMockException();
     }
@@ -168,18 +217,6 @@ public abstract class MokkitLivingEntity extends MokkitEntity implements LivingE
     }
 
     @Override
-    public double getLastDamage() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setLastDamage(final double damage) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
     public int getNoDamageTicks() {
         // TODO
         throw new UnsupportedMockException();
@@ -192,55 +229,19 @@ public abstract class MokkitLivingEntity extends MokkitEntity implements LivingE
     }
 
     @Override
-    public Player getKiller() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public boolean addPotionEffect(final PotionEffect effect) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public boolean addPotionEffect(final PotionEffect effect, final boolean force) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public boolean addPotionEffects(final Collection<PotionEffect> effects) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public boolean hasPotionEffect(final PotionEffectType type) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
     public PotionEffect getPotionEffect(final PotionEffectType type) {
         // TODO
         throw new UnsupportedMockException();
     }
 
     @Override
-    public void removePotionEffect(final PotionEffectType type) {
+    public int getRemainingAir() {
         // TODO
         throw new UnsupportedMockException();
     }
 
     @Override
-    public Collection<PotionEffect> getActivePotionEffects() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public boolean hasLineOfSight(final Entity other) {
+    public void setRemainingAir(final int ticks) {
         // TODO
         throw new UnsupportedMockException();
     }
@@ -258,61 +259,25 @@ public abstract class MokkitLivingEntity extends MokkitEntity implements LivingE
     }
 
     @Override
-    public EntityEquipment getEquipment() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public boolean getCanPickupItems() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setCanPickupItems(final boolean pickup) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public boolean isLeashed() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public Entity getLeashHolder() throws IllegalStateException {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public boolean setLeashHolder(final Entity holder) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public boolean isGliding() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setGliding(final boolean gliding) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setAI(final boolean ai) {
+    public Block getTargetBlock(final Set<Material> transparent, final int maxDistance) {
         // TODO
         throw new UnsupportedMockException();
     }
 
     @Override
     public boolean hasAI() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public boolean hasLineOfSight(final Entity other) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public boolean hasPotionEffect(final PotionEffectType type) {
         // TODO
         throw new UnsupportedMockException();
     }
@@ -330,7 +295,19 @@ public abstract class MokkitLivingEntity extends MokkitEntity implements LivingE
     }
 
     @Override
-    public AttributeInstance getAttribute(final Attribute attribute) {
+    public boolean isGliding() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void setGliding(final boolean gliding) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public boolean isLeashed() {
         // TODO
         throw new UnsupportedMockException();
     }
@@ -354,6 +331,29 @@ public abstract class MokkitLivingEntity extends MokkitEntity implements LivingE
      */
     public Mokkit mokkit() {
         return mokkit;
+    }
+
+    @Override
+    public void removePotionEffect(final PotionEffectType type) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void resetMaxHealth() {
+        maxHealth = defaultMaxHealth;
+    }
+
+    @Override
+    public void setAI(final boolean ai) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public boolean setLeashHolder(final Entity holder) {
+        // TODO
+        throw new UnsupportedMockException();
     }
 
     /**

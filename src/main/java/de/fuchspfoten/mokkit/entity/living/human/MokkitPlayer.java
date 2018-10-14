@@ -73,49 +73,125 @@ public class MokkitPlayer extends MokkitHumanEntity implements Player {
     }
 
     @Override
-    public EntityType getType() {
-        return EntityType.PLAYER;
-    }
-
-    @Override
-    public boolean teleport(final Location location, final PlayerTeleportEvent.TeleportCause cause) {
-        final PlayerTeleportEvent tp = new PlayerTeleportEvent(this, getLocation().clone(), location.clone(),
-                cause);
-        getServer().getPluginManager().callEvent(tp);
-        if (tp.isCancelled()) {
-            return false;
-        }
-
-        // Perform the teleport.
-        this.location = tp.getTo().clone();
-        return true;
-    }
-
-    @Override
-    public boolean isOnline() {
-        return true;
-    }
-
-    @Override
-    public String getDisplayName() {
+    public void abandonConversation(final Conversation conversation) {
         // TODO
         throw new UnsupportedMockException();
     }
 
     @Override
-    public void setDisplayName(final String name) {
+    public void abandonConversation(final Conversation conversation, final ConversationAbandonedEvent details) {
         // TODO
         throw new UnsupportedMockException();
     }
 
     @Override
-    public String getPlayerListName() {
+    public void acceptConversationInput(final String input) {
         // TODO
         throw new UnsupportedMockException();
     }
 
     @Override
-    public void setPlayerListName(final String name) {
+    public void awardAchievement(final Achievement achievement) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public boolean beginConversation(final Conversation conversation) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public boolean canSee(final Player player) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void chat(final String msg) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void decrementStatistic(final Statistic statistic) throws IllegalArgumentException {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void decrementStatistic(final Statistic statistic, final int amount) throws IllegalArgumentException {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void decrementStatistic(final Statistic statistic, final Material material) throws IllegalArgumentException {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void decrementStatistic(final Statistic statistic, final Material material,
+                                   final int amount) throws IllegalArgumentException {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void decrementStatistic(final Statistic statistic,
+                                   final EntityType entityType) throws IllegalArgumentException {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void decrementStatistic(final Statistic statistic, final EntityType entityType, final int amount) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    /**
+     * Despawns this player.
+     */
+    public void despawn() {
+        despawned = true;
+        MokkitWorld.updateWorldsForEntity(this);
+    }
+
+    @Override
+    public InetSocketAddress getAddress() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public AdvancementProgress getAdvancementProgress(final Advancement advancement) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public boolean getAllowFlight() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void setAllowFlight(final boolean flight) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public Location getBedSpawnLocation() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void setBedSpawnLocation(final Location location) {
         // TODO
         throw new UnsupportedMockException();
     }
@@ -133,7 +209,315 @@ public class MokkitPlayer extends MokkitHumanEntity implements Player {
     }
 
     @Override
-    public InetSocketAddress getAddress() {
+    public String getDisplayName() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void setDisplayName(final String name) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public float getExhaustion() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void setExhaustion(final float value) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public float getExp() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void setExp(final float exp) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public long getFirstPlayed() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public float getFlySpeed() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void setFlySpeed(final float value) throws IllegalArgumentException {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public int getFoodLevel() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void setFoodLevel(final int value) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public double getHealthScale() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void setHealthScale(final double scale) throws IllegalArgumentException {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public long getLastPlayed() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public int getLevel() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void setLevel(final int level) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public Set<String> getListeningPluginChannels() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public String getLocale() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public Player getPlayer() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public String getPlayerListName() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void setPlayerListName(final String name) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public long getPlayerTime() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public long getPlayerTimeOffset() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public WeatherType getPlayerWeather() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void setPlayerWeather(final WeatherType type) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public float getSaturation() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void setSaturation(final float value) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public Scoreboard getScoreboard() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void setScoreboard(final Scoreboard scoreboard) throws IllegalArgumentException, IllegalStateException {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public Entity getSpectatorTarget() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void setSpectatorTarget(final Entity entity) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public int getStatistic(final Statistic statistic) throws IllegalArgumentException {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public int getStatistic(final Statistic statistic, final Material material) throws IllegalArgumentException {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public int getStatistic(final Statistic statistic, final EntityType entityType) throws IllegalArgumentException {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public int getTotalExperience() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void setTotalExperience(final int exp) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public EntityType getType() {
+        return EntityType.PLAYER;
+    }
+
+    @Override
+    public float getWalkSpeed() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void setWalkSpeed(final float value) throws IllegalArgumentException {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void giveExp(final int amount) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void giveExpLevels(final int amount) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public boolean hasAchievement(final Achievement achievement) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public boolean hasPlayedBefore() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void hidePlayer(final Player player) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void hidePlayer(final Plugin plugin, final Player player) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void incrementStatistic(final Statistic statistic) throws IllegalArgumentException {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void incrementStatistic(final Statistic statistic, final int amount) throws IllegalArgumentException {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void incrementStatistic(final Statistic statistic, final Material material) throws IllegalArgumentException {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void incrementStatistic(final Statistic statistic, final Material material,
+                                   final int amount) throws IllegalArgumentException {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void incrementStatistic(final Statistic statistic,
+                                   final EntityType entityType) throws IllegalArgumentException {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void incrementStatistic(final Statistic statistic, final EntityType entityType,
+                                   final int amount) throws IllegalArgumentException {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public boolean isBanned() {
         // TODO
         throw new UnsupportedMockException();
     }
@@ -145,49 +529,48 @@ public class MokkitPlayer extends MokkitHumanEntity implements Player {
     }
 
     @Override
-    public void acceptConversationInput(final String input) {
+    public boolean isFlying() {
         // TODO
         throw new UnsupportedMockException();
     }
 
     @Override
-    public boolean beginConversation(final Conversation conversation) {
+    public void setFlying(final boolean value) {
         // TODO
         throw new UnsupportedMockException();
     }
 
     @Override
-    public void abandonConversation(final Conversation conversation) {
+    public boolean isHealthScaled() {
         // TODO
         throw new UnsupportedMockException();
     }
 
     @Override
-    public void abandonConversation(final Conversation conversation, final ConversationAbandonedEvent details) {
+    public void setHealthScaled(final boolean scale) {
         // TODO
         throw new UnsupportedMockException();
     }
 
     @Override
-    public void sendRawMessage(final String message) {
+    public boolean isOnline() {
+        return true;
+    }
+
+    @Override
+    public boolean isPlayerTimeRelative() {
         // TODO
         throw new UnsupportedMockException();
     }
 
     @Override
-    public void kickPlayer(final String message) {
+    public boolean isSleepingIgnored() {
         // TODO
         throw new UnsupportedMockException();
     }
 
     @Override
-    public void chat(final String msg) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public boolean performCommand(final String command) {
+    public void setSleepingIgnored(final boolean isSleeping) {
         // TODO
         throw new UnsupportedMockException();
     }
@@ -217,7 +600,19 @@ public class MokkitPlayer extends MokkitHumanEntity implements Player {
     }
 
     @Override
-    public void saveData() {
+    public boolean isWhitelisted() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void setWhitelisted(final boolean value) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void kickPlayer(final String message) {
         // TODO
         throw new UnsupportedMockException();
     }
@@ -228,14 +623,29 @@ public class MokkitPlayer extends MokkitHumanEntity implements Player {
         throw new UnsupportedMockException();
     }
 
+    /**
+     * Get the control object.
+     *
+     * @return The control object.
+     */
+    public Mokkit mokkit() {
+        return mokkit;
+    }
+
     @Override
-    public boolean isSleepingIgnored() {
+    public boolean performCommand(final String command) {
         // TODO
         throw new UnsupportedMockException();
     }
 
     @Override
-    public void setSleepingIgnored(final boolean isSleeping) {
+    public void playEffect(final Location loc, final Effect effect, final int data) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public <T> void playEffect(final Location loc, final Effect effect, final T data) {
         // TODO
         throw new UnsupportedMockException();
     }
@@ -279,229 +689,7 @@ public class MokkitPlayer extends MokkitHumanEntity implements Player {
     }
 
     @Override
-    public void stopSound(final Sound sound) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void stopSound(final String sound) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void stopSound(final Sound sound, final SoundCategory category) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void stopSound(final String sound, final SoundCategory category) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void playEffect(final Location loc, final Effect effect, final int data) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public <T> void playEffect(final Location loc, final Effect effect, final T data) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void sendBlockChange(final Location loc, final Material material, final byte data) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public boolean sendChunkChange(final Location loc, final int sx, final int sy, final int sz, final byte[] data) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void sendBlockChange(final Location loc, final int material, final byte data) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void sendSignChange(final Location loc, final String[] lines) throws IllegalArgumentException {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void sendMap(final MapView map) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void updateInventory() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void awardAchievement(final Achievement achievement) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
     public void removeAchievement(final Achievement achievement) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public boolean hasAchievement(final Achievement achievement) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void incrementStatistic(final Statistic statistic) throws IllegalArgumentException {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void decrementStatistic(final Statistic statistic) throws IllegalArgumentException {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void incrementStatistic(final Statistic statistic, final int amount) throws IllegalArgumentException {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void decrementStatistic(final Statistic statistic, final int amount) throws IllegalArgumentException {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setStatistic(final Statistic statistic, final int newValue) throws IllegalArgumentException {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public int getStatistic(final Statistic statistic) throws IllegalArgumentException {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void incrementStatistic(final Statistic statistic, final Material material) throws IllegalArgumentException {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void decrementStatistic(final Statistic statistic, final Material material) throws IllegalArgumentException {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public int getStatistic(final Statistic statistic, final Material material) throws IllegalArgumentException {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void incrementStatistic(final Statistic statistic, final Material material,
-                                   final int amount) throws IllegalArgumentException {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void decrementStatistic(final Statistic statistic, final Material material,
-                                   final int amount) throws IllegalArgumentException {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setStatistic(final Statistic statistic, final Material material,
-                             final int newValue) throws IllegalArgumentException {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void incrementStatistic(final Statistic statistic,
-                                   final EntityType entityType) throws IllegalArgumentException {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void decrementStatistic(final Statistic statistic,
-                                   final EntityType entityType) throws IllegalArgumentException {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public int getStatistic(final Statistic statistic, final EntityType entityType) throws IllegalArgumentException {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void incrementStatistic(final Statistic statistic, final EntityType entityType,
-                                   final int amount) throws IllegalArgumentException {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void decrementStatistic(final Statistic statistic, final EntityType entityType, final int amount) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setStatistic(final Statistic statistic, final EntityType entityType, final int newValue) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setPlayerTime(final long time, final boolean relative) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public long getPlayerTime() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public long getPlayerTimeOffset() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public boolean isPlayerTimeRelative() {
         // TODO
         throw new UnsupportedMockException();
     }
@@ -513,307 +701,61 @@ public class MokkitPlayer extends MokkitHumanEntity implements Player {
     }
 
     @Override
-    public WeatherType getPlayerWeather() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setPlayerWeather(final WeatherType type) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
     public void resetPlayerWeather() {
         // TODO
         throw new UnsupportedMockException();
     }
 
     @Override
-    public void giveExp(final int amount) {
+    public void resetTitle() {
         // TODO
         throw new UnsupportedMockException();
     }
 
     @Override
-    public void giveExpLevels(final int amount) {
+    public void saveData() {
         // TODO
         throw new UnsupportedMockException();
     }
 
     @Override
-    public float getExp() {
+    public void sendBlockChange(final Location loc, final Material material, final byte data) {
         // TODO
         throw new UnsupportedMockException();
     }
 
     @Override
-    public void setExp(final float exp) {
+    public void sendBlockChange(final Location loc, final int material, final byte data) {
         // TODO
         throw new UnsupportedMockException();
     }
 
     @Override
-    public int getLevel() {
+    public boolean sendChunkChange(final Location loc, final int sx, final int sy, final int sz, final byte[] data) {
         // TODO
         throw new UnsupportedMockException();
     }
 
     @Override
-    public void setLevel(final int level) {
+    public void sendMap(final MapView map) {
         // TODO
         throw new UnsupportedMockException();
     }
 
     @Override
-    public int getTotalExperience() {
+    public void sendPluginMessage(final Plugin source, final String channel, final byte[] message) {
         // TODO
         throw new UnsupportedMockException();
     }
 
     @Override
-    public void setTotalExperience(final int exp) {
+    public void sendRawMessage(final String message) {
         // TODO
         throw new UnsupportedMockException();
     }
 
     @Override
-    public float getExhaustion() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setExhaustion(final float value) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public float getSaturation() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setSaturation(final float value) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public int getFoodLevel() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setFoodLevel(final int value) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public boolean isBanned() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public boolean isWhitelisted() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setWhitelisted(final boolean value) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public Player getPlayer() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public long getFirstPlayed() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public long getLastPlayed() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public boolean hasPlayedBefore() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public Location getBedSpawnLocation() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setBedSpawnLocation(final Location location) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setBedSpawnLocation(final Location location, final boolean force) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public boolean getAllowFlight() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setAllowFlight(final boolean flight) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void hidePlayer(final Player player) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void hidePlayer(final Plugin plugin, final Player player) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void showPlayer(final Player player) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void showPlayer(final Plugin plugin, final Player player) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public boolean canSee(final Player player) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public boolean isFlying() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setFlying(final boolean value) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public float getFlySpeed() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setFlySpeed(final float value) throws IllegalArgumentException {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public float getWalkSpeed() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setWalkSpeed(final float value) throws IllegalArgumentException {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setTexturePack(final String url) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setResourcePack(final String url) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setResourcePack(final String url, final byte[] hash) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public Scoreboard getScoreboard() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setScoreboard(final Scoreboard scoreboard) throws IllegalArgumentException, IllegalStateException {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public boolean isHealthScaled() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setHealthScaled(final boolean scale) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public double getHealthScale() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setHealthScale(final double scale) throws IllegalArgumentException {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public Entity getSpectatorTarget() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setSpectatorTarget(final Entity entity) {
+    public void sendSignChange(final Location loc, final String[] lines) throws IllegalArgumentException {
         // TODO
         throw new UnsupportedMockException();
     }
@@ -832,7 +774,68 @@ public class MokkitPlayer extends MokkitHumanEntity implements Player {
     }
 
     @Override
-    public void resetTitle() {
+    public Map<String, Object> serialize() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void setBedSpawnLocation(final Location location, final boolean force) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void setPlayerTime(final long time, final boolean relative) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void setResourcePack(final String url) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void setResourcePack(final String url, final byte[] hash) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void setStatistic(final Statistic statistic, final int newValue) throws IllegalArgumentException {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void setStatistic(final Statistic statistic, final Material material,
+                             final int newValue) throws IllegalArgumentException {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void setStatistic(final Statistic statistic, final EntityType entityType, final int newValue) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void setTexturePack(final String url) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void showPlayer(final Player player) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void showPlayer(final Plugin plugin, final Player player) {
         // TODO
         throw new UnsupportedMockException();
     }
@@ -923,56 +926,53 @@ public class MokkitPlayer extends MokkitHumanEntity implements Player {
     }
 
     @Override
-    public AdvancementProgress getAdvancementProgress(final Advancement advancement) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public String getLocale() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public Map<String, Object> serialize() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void sendPluginMessage(final Plugin source, final String channel, final byte[] message) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public Set<String> getListeningPluginChannels() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
     public Player.Spigot spigot() {
         // TODO
         throw new UnsupportedMockException();
     }
 
-    /**
-     * Despawns this player.
-     */
-    public void despawn() {
-        despawned = true;
-        MokkitWorld.updateWorldsForEntity(this);
+    @Override
+    public void stopSound(final Sound sound) {
+        // TODO
+        throw new UnsupportedMockException();
     }
 
-    /**
-     * Get the control object.
-     *
-     * @return The control object.
-     */
-    public Mokkit mokkit() {
-        return mokkit;
+    @Override
+    public void stopSound(final String sound) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void stopSound(final Sound sound, final SoundCategory category) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void stopSound(final String sound, final SoundCategory category) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public boolean teleport(final Location location, final PlayerTeleportEvent.TeleportCause cause) {
+        final PlayerTeleportEvent tp = new PlayerTeleportEvent(this, getLocation().clone(), location.clone(),
+                cause);
+        getServer().getPluginManager().callEvent(tp);
+        if (tp.isCancelled()) {
+            return false;
+        }
+
+        // Perform the teleport.
+        this.location = tp.getTo().clone();
+        return true;
+    }
+
+    @Override
+    public void updateInventory() {
+        // TODO
+        throw new UnsupportedMockException();
     }
 
     /**
@@ -1145,24 +1145,60 @@ public class MokkitPlayer extends MokkitHumanEntity implements Player {
         }
 
         /**
-         * Attempts to place a painting.
+         * Attempts to empty a bucket.
          *
+         * @param where       Where the bucket is to be emptied.
          * @param clicked     The clicked block.
          * @param clickedFace The clicked block face.
+         * @param bucket      The used bucket.
+         * @param liquid      The liquid that is to be placed.
+         * @param hand        The hand that was used.
          */
-        protected void placePainting(final Block clicked,
-                                     final BlockFace clickedFace) throws CancelledByEventException {
-            // This event is strange: The painting is placed beforehand.
-            final Painting painting = getWorld().spawn(clicked.getRelative(clickedFace).getLocation(), Painting.class);
-
-            // Start placing.
-            final HangingPlaceEvent event = new HangingPlaceEvent(painting, MokkitPlayer.this, clicked,
-                    clickedFace);
+        protected void emptyBucket(final Block where, final Block clicked, final BlockFace clickedFace,
+                                   final Material bucket, final Material liquid,
+                                   final EquipmentSlot hand) throws CancelledByEventException {
+            final PlayerBucketEmptyEvent event = new PlayerBucketEmptyEvent(MokkitPlayer.this, clicked,
+                    clickedFace, bucket, new ItemStack(Material.BUCKET));
             getServer().getPluginManager().callEvent(event);
             if (event.isCancelled()) {
-                // Remove the painting as if it never existed.
-                painting.remove();
                 throw new CancelledByEventException(event);
+            }
+
+            // Place the liquid.
+            where.setType(liquid);
+
+            // Update the hand item.
+            if (hand == EquipmentSlot.HAND) {
+                getInventory().setItemInMainHand(event.getItemStack());
+            } else {
+                getInventory().setItemInOffHand(event.getItemStack());
+            }
+        }
+
+        /**
+         * Attempts to fill a bucket.
+         *
+         * @param where      The liquid block.
+         * @param resultItem The bucket that is held after the event.
+         * @param hand       The used hand.
+         */
+        protected void fillBucket(final Block where, final ItemStack resultItem,
+                                  final EquipmentSlot hand) throws CancelledByEventException {
+            final PlayerBucketFillEvent event = new PlayerBucketFillEvent(MokkitPlayer.this, where, BlockFace.SELF,
+                    Material.BUCKET, resultItem);
+            getServer().getPluginManager().callEvent(event);
+            if (event.isCancelled()) {
+                throw new CancelledByEventException(event);
+            }
+
+            // Remove the liquid.
+            where.setType(Material.AIR);
+
+            // Update the hand item.
+            if (hand == EquipmentSlot.HAND) {
+                getInventory().setItemInMainHand(event.getItemStack());
+            } else {
+                getInventory().setItemInOffHand(event.getItemStack());
             }
         }
 
@@ -1200,60 +1236,24 @@ public class MokkitPlayer extends MokkitHumanEntity implements Player {
         }
 
         /**
-         * Attempts to fill a bucket.
+         * Attempts to place a painting.
          *
-         * @param where      The liquid block.
-         * @param resultItem The bucket that is held after the event.
-         * @param hand       The used hand.
-         */
-        protected void fillBucket(final Block where, final ItemStack resultItem,
-                                  final EquipmentSlot hand) throws CancelledByEventException {
-            final PlayerBucketFillEvent event = new PlayerBucketFillEvent(MokkitPlayer.this, where, BlockFace.SELF,
-                    Material.BUCKET, resultItem);
-            getServer().getPluginManager().callEvent(event);
-            if (event.isCancelled()) {
-                throw new CancelledByEventException(event);
-            }
-
-            // Remove the liquid.
-            where.setType(Material.AIR);
-
-            // Update the hand item.
-            if (hand == EquipmentSlot.HAND) {
-                getInventory().setItemInMainHand(event.getItemStack());
-            } else {
-                getInventory().setItemInOffHand(event.getItemStack());
-            }
-        }
-
-        /**
-         * Attempts to empty a bucket.
-         *
-         * @param where       Where the bucket is to be emptied.
          * @param clicked     The clicked block.
          * @param clickedFace The clicked block face.
-         * @param bucket      The used bucket.
-         * @param liquid      The liquid that is to be placed.
-         * @param hand        The hand that was used.
          */
-        protected void emptyBucket(final Block where, final Block clicked, final BlockFace clickedFace,
-                                   final Material bucket, final Material liquid,
-                                   final EquipmentSlot hand) throws CancelledByEventException {
-            final PlayerBucketEmptyEvent event = new PlayerBucketEmptyEvent(MokkitPlayer.this, clicked,
-                    clickedFace, bucket, new ItemStack(Material.BUCKET));
+        protected void placePainting(final Block clicked,
+                                     final BlockFace clickedFace) throws CancelledByEventException {
+            // This event is strange: The painting is placed beforehand.
+            final Painting painting = getWorld().spawn(clicked.getRelative(clickedFace).getLocation(), Painting.class);
+
+            // Start placing.
+            final HangingPlaceEvent event = new HangingPlaceEvent(painting, MokkitPlayer.this, clicked,
+                    clickedFace);
             getServer().getPluginManager().callEvent(event);
             if (event.isCancelled()) {
+                // Remove the painting as if it never existed.
+                painting.remove();
                 throw new CancelledByEventException(event);
-            }
-
-            // Place the liquid.
-            where.setType(liquid);
-
-            // Update the hand item.
-            if (hand == EquipmentSlot.HAND) {
-                getInventory().setItemInMainHand(event.getItemStack());
-            } else {
-                getInventory().setItemInOffHand(event.getItemStack());
             }
         }
     }

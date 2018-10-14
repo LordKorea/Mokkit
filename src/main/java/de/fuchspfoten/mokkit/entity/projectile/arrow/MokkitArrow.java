@@ -47,8 +47,9 @@ public class MokkitArrow extends MokkitProjectile implements Arrow {
     }
 
     @Override
-    public EntityType getType() {
-        return EntityType.ARROW;
+    public Block getAttachedBlock() {
+        // TODO
+        throw new UnsupportedMockException();
     }
 
     @Override
@@ -61,6 +62,23 @@ public class MokkitArrow extends MokkitProjectile implements Arrow {
     public void setKnockbackStrength(final int knockbackStrength) {
         // TODO
         throw new UnsupportedMockException();
+    }
+
+    @Override
+    public PickupStatus getPickupStatus() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void setPickupStatus(final PickupStatus status) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public EntityType getType() {
+        return EntityType.ARROW;
     }
 
     @Override
@@ -82,32 +100,14 @@ public class MokkitArrow extends MokkitProjectile implements Arrow {
     }
 
     @Override
-    public Block getAttachedBlock() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public PickupStatus getPickupStatus() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setPickupStatus(final PickupStatus status) {
-        // TODO
-        throw new UnsupportedMockException();
+    public Mokkit mokkit() {
+        return mokkit;
     }
 
     @Override
     public Arrow.Spigot spigot() {
         // TODO
         throw new UnsupportedMockException();
-    }
-
-    @Override
-    public Mokkit mokkit() {
-        return mokkit;
     }
 
     /**

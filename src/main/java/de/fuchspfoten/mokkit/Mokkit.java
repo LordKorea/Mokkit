@@ -21,6 +21,19 @@ public final class Mokkit {
     private static MokkitServer server = null;
 
     /**
+     * Loads and enables the given plugin.
+     *
+     * @param pluginClass The plugin's class.
+     * @param <T>         The plugin type.
+     * @return The plugin.
+     */
+    public static <T extends JavaPlugin> T loadPlugin(final Class<T> pluginClass) {
+        final T plugin = server.getPluginManager().loadPlugin(pluginClass);
+        server.getPluginManager().enablePlugin(plugin);
+        return plugin;
+    }
+
+    /**
      * Starts mocking a server and returns it.
      *
      * @return The mocking server.
@@ -52,19 +65,6 @@ public final class Mokkit {
         // Stop mocking.
         server = null;
         ReflectionHelper.setStaticField(Bukkit.class, "server", null);
-    }
-
-    /**
-     * Loads and enables the given plugin.
-     *
-     * @param pluginClass The plugin's class.
-     * @param <T>         The plugin type.
-     * @return The plugin.
-     */
-    public static <T extends JavaPlugin> T loadPlugin(final Class<T> pluginClass) {
-        final T plugin = server.getPluginManager().loadPlugin(pluginClass);
-        server.getPluginManager().enablePlugin(plugin);
-        return plugin;
     }
 
     /**

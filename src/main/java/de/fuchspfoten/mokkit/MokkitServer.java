@@ -123,50 +123,27 @@ public class MokkitServer implements Server {
     }
 
     @Override
-    public String getName() {
-        return "Mokkit";
+    public boolean addRecipe(final Recipe recipe) {
+        // TODO
+        throw new UnsupportedMockException();
     }
 
     @Override
-    public String getVersion() {
-        return de.fuchspfoten.mokkit.Mokkit.VERSION;
+    public Iterator<Advancement> advancementIterator() {
+        // TODO
+        throw new UnsupportedMockException();
     }
 
     @Override
-    public String getBukkitVersion() {
-        return "Mokkit-Bukkit (Spigot)";
+    public void banIP(final String address) {
+        // TODO
+        throw new UnsupportedMockException();
     }
 
     @Override
-    public PluginCommand getPluginCommand(final String name) {
-        return getPluginManager().getCommand(name);
-    }
-
-    @Override
-    public MokkitWorld createWorld(final WorldCreator creator) {
-        final MokkitWorld world = new MokkitWorld(this, creator.name());
-        worlds.put(creator.name(), world);
-        return world;
-    }
-
-    @Override
-    public List<World> getWorlds() {
-        return new ArrayList<>(worlds.values());
-    }
-
-    @Override
-    public World getWorld(final String name) {
-        return worlds.get(name);
-    }
-
-    @Override
-    public OfflinePlayer getOfflinePlayer(final String name) {
-        return getOfflinePlayer(getUUIDForName(name));
-    }
-
-    @Override
-    public OfflinePlayer getOfflinePlayer(final UUID id) {
-        return new MokkitOfflinePlayer(id);
+    public int broadcast(final String message, final String permission) {
+        // TODO
+        throw new UnsupportedMockException();
     }
 
     @Override
@@ -179,353 +156,20 @@ public class MokkitServer implements Server {
     }
 
     @Override
-    public Collection<? extends Player> getOnlinePlayers() {
-        return Collections.unmodifiableCollection(players);
-    }
-
-    @Override
-    public Player getPlayer(final UUID id) {
-        return players.stream().filter(p -> p.getUniqueId().equals(id)).findAny().orElse(null);
-    }
-
-    @Override
-    public World getWorld(final UUID uid) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public int getMaxPlayers() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public int getPort() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public int getViewDistance() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public String getIp() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public String getServerName() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public String getServerId() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public String getWorldType() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public boolean getGenerateStructures() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public boolean getAllowEnd() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public boolean getAllowNether() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public boolean hasWhitelist() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setWhitelist(final boolean value) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public Set<OfflinePlayer> getWhitelistedPlayers() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void reloadWhitelist() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public String getUpdateFolder() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public File getUpdateFolderFile() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public long getConnectionThrottle() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public int getTicksPerAnimalSpawns() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public int getTicksPerMonsterSpawns() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public Player getPlayer(final String name) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public Player getPlayerExact(final String name) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public List<Player> matchPlayer(final String name) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public boolean unloadWorld(final String name, final boolean save) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public boolean unloadWorld(final World world, final boolean save) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public MapView getMap(final short id) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public MapView createMap(final World world) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void reload() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void reloadData() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void savePlayers() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public boolean dispatchCommand(final CommandSender sender, final String commandLine) throws CommandException {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public boolean addRecipe(final Recipe recipe) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public List<Recipe> getRecipesFor(final ItemStack result) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public Iterator<Recipe> recipeIterator() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
     public void clearRecipes() {
         // TODO
         throw new UnsupportedMockException();
     }
 
     @Override
-    public void resetRecipes() {
+    public BossBar createBossBar(final String title, final BarColor color, final BarStyle style,
+                                 final BarFlag... flags) {
         // TODO
         throw new UnsupportedMockException();
     }
 
     @Override
-    public Map<String, String[]> getCommandAliases() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public int getSpawnRadius() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setSpawnRadius(final int value) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public boolean getOnlineMode() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public boolean getAllowFlight() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public boolean isHardcore() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void shutdown() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public int broadcast(final String message, final String permission) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public Set<String> getIPBans() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void banIP(final String address) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void unbanIP(final String address) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public Set<OfflinePlayer> getBannedPlayers() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public BanList getBanList(final BanList.Type type) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public Set<OfflinePlayer> getOperators() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public GameMode getDefaultGameMode() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setDefaultGameMode(final GameMode mode) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public ConsoleCommandSender getConsoleSender() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public File getWorldContainer() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public OfflinePlayer[] getOfflinePlayers() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public Messenger getMessenger() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public HelpMap getHelpMap() {
+    public ChunkGenerator.ChunkData createChunkData(final World world) {
         // TODO
         throw new UnsupportedMockException();
     }
@@ -556,25 +200,50 @@ public class MokkitServer implements Server {
     }
 
     @Override
+    public MapView createMap(final World world) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
     public Merchant createMerchant(final String title) {
         // TODO
         throw new UnsupportedMockException();
     }
 
     @Override
-    public int getMonsterSpawnLimit() {
+    public MokkitWorld createWorld(final WorldCreator creator) {
+        final MokkitWorld world = new MokkitWorld(this, creator.name());
+        worlds.put(creator.name(), world);
+        return world;
+    }
+
+    @Override
+    public boolean dispatchCommand(final CommandSender sender, final String commandLine) throws CommandException {
         // TODO
         throw new UnsupportedMockException();
     }
 
     @Override
-    public int getAnimalSpawnLimit() {
+    public Advancement getAdvancement(final NamespacedKey key) {
         // TODO
         throw new UnsupportedMockException();
     }
 
     @Override
-    public int getWaterAnimalSpawnLimit() {
+    public boolean getAllowEnd() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public boolean getAllowFlight() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public boolean getAllowNether() {
         // TODO
         throw new UnsupportedMockException();
     }
@@ -586,55 +255,78 @@ public class MokkitServer implements Server {
     }
 
     @Override
-    public boolean isPrimaryThread() {
+    public int getAnimalSpawnLimit() {
         // TODO
         throw new UnsupportedMockException();
     }
 
     @Override
-    public String getMotd() {
+    public BanList getBanList(final BanList.Type type) {
         // TODO
         throw new UnsupportedMockException();
     }
 
     @Override
-    public String getShutdownMessage() {
+    public Set<OfflinePlayer> getBannedPlayers() {
         // TODO
         throw new UnsupportedMockException();
     }
 
     @Override
-    public Warning.WarningState getWarningState() {
+    public String getBukkitVersion() {
+        return "Mokkit-Bukkit (Spigot)";
+    }
+
+    @Override
+    public Map<String, String[]> getCommandAliases() {
         // TODO
         throw new UnsupportedMockException();
     }
 
     @Override
-    public ItemFactory getItemFactory() {
+    public long getConnectionThrottle() {
         // TODO
         throw new UnsupportedMockException();
     }
 
     @Override
-    public ScoreboardManager getScoreboardManager() {
+    public ConsoleCommandSender getConsoleSender() {
         // TODO
         throw new UnsupportedMockException();
     }
 
     @Override
-    public CachedServerIcon getServerIcon() {
+    public GameMode getDefaultGameMode() {
         // TODO
         throw new UnsupportedMockException();
     }
 
     @Override
-    public CachedServerIcon loadServerIcon(final File file) {
+    public void setDefaultGameMode(final GameMode mode) {
         // TODO
         throw new UnsupportedMockException();
     }
 
     @Override
-    public CachedServerIcon loadServerIcon(final BufferedImage image) {
+    public Entity getEntity(final UUID uuid) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public boolean getGenerateStructures() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public HelpMap getHelpMap() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public Set<String> getIPBans() {
         // TODO
         throw new UnsupportedMockException();
     }
@@ -652,32 +344,175 @@ public class MokkitServer implements Server {
     }
 
     @Override
-    public ChunkGenerator.ChunkData createChunkData(final World world) {
+    public String getIp() {
         // TODO
         throw new UnsupportedMockException();
     }
 
     @Override
-    public BossBar createBossBar(final String title, final BarColor color, final BarStyle style,
-                                 final BarFlag... flags) {
+    public ItemFactory getItemFactory() {
         // TODO
         throw new UnsupportedMockException();
     }
 
     @Override
-    public Entity getEntity(final UUID uuid) {
+    public Set<String> getListeningPluginChannels() {
         // TODO
         throw new UnsupportedMockException();
     }
 
     @Override
-    public Advancement getAdvancement(final NamespacedKey key) {
+    public MapView getMap(final short id) {
         // TODO
         throw new UnsupportedMockException();
     }
 
     @Override
-    public Iterator<Advancement> advancementIterator() {
+    public int getMaxPlayers() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public Messenger getMessenger() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public int getMonsterSpawnLimit() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public String getMotd() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public String getName() {
+        return "Mokkit";
+    }
+
+    @Override
+    public OfflinePlayer getOfflinePlayer(final String name) {
+        return getOfflinePlayer(getUUIDForName(name));
+    }
+
+    @Override
+    public OfflinePlayer getOfflinePlayer(final UUID id) {
+        return new MokkitOfflinePlayer(id);
+    }
+
+    @Override
+    public OfflinePlayer[] getOfflinePlayers() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public boolean getOnlineMode() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public Collection<? extends Player> getOnlinePlayers() {
+        return Collections.unmodifiableCollection(players);
+    }
+
+    @Override
+    public Set<OfflinePlayer> getOperators() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public Player getPlayer(final UUID id) {
+        return players.stream().filter(p -> p.getUniqueId().equals(id)).findAny().orElse(null);
+    }
+
+    @Override
+    public Player getPlayer(final String name) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public Player getPlayerExact(final String name) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public PluginCommand getPluginCommand(final String name) {
+        return getPluginManager().getCommand(name);
+    }
+
+    @Override
+    public int getPort() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public List<Recipe> getRecipesFor(final ItemStack result) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public ScoreboardManager getScoreboardManager() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public CachedServerIcon getServerIcon() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public String getServerId() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public String getServerName() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public String getShutdownMessage() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public int getSpawnRadius() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void setSpawnRadius(final int value) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public int getTicksPerAnimalSpawns() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public int getTicksPerMonsterSpawns() {
         // TODO
         throw new UnsupportedMockException();
     }
@@ -689,19 +524,106 @@ public class MokkitServer implements Server {
     }
 
     @Override
-    public Spigot spigot() {
+    public String getUpdateFolder() {
         // TODO
         throw new UnsupportedMockException();
     }
 
     @Override
-    public void sendPluginMessage(final Plugin source, final String channel, final byte[] message) {
+    public File getUpdateFolderFile() {
         // TODO
         throw new UnsupportedMockException();
     }
 
     @Override
-    public Set<String> getListeningPluginChannels() {
+    public String getVersion() {
+        return de.fuchspfoten.mokkit.Mokkit.VERSION;
+    }
+
+    @Override
+    public int getViewDistance() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public Warning.WarningState getWarningState() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public int getWaterAnimalSpawnLimit() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public Set<OfflinePlayer> getWhitelistedPlayers() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public World getWorld(final String name) {
+        return worlds.get(name);
+    }
+
+    @Override
+    public World getWorld(final UUID uid) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public File getWorldContainer() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public String getWorldType() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public List<World> getWorlds() {
+        return new ArrayList<>(worlds.values());
+    }
+
+    @Override
+    public boolean hasWhitelist() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public boolean isHardcore() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public boolean isPrimaryThread() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public CachedServerIcon loadServerIcon(final File file) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public CachedServerIcon loadServerIcon(final BufferedImage image) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public List<Player> matchPlayer(final String name) {
         // TODO
         throw new UnsupportedMockException();
     }
@@ -713,6 +635,84 @@ public class MokkitServer implements Server {
      */
     public Mokkit mokkit() {
         return mokkit;
+    }
+
+    @Override
+    public Iterator<Recipe> recipeIterator() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void reload() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void reloadData() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void reloadWhitelist() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void resetRecipes() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void savePlayers() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void sendPluginMessage(final Plugin source, final String channel, final byte[] message) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void setWhitelist(final boolean value) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void shutdown() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public Spigot spigot() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void unbanIP(final String address) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public boolean unloadWorld(final String name, final boolean save) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public boolean unloadWorld(final World world, final boolean save) {
+        // TODO
+        throw new UnsupportedMockException();
     }
 
     /**

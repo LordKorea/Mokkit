@@ -25,11 +25,6 @@ public class MokkitEvoker extends MokkitSpellcaster implements Evoker {
     }
 
     @Override
-    public EntityType getType() {
-        return EntityType.EVOKER;
-    }
-
-    @Override
     public Evoker.Spell getCurrentSpell() {
         // TODO
         throw new UnsupportedMockException();
@@ -39,5 +34,10 @@ public class MokkitEvoker extends MokkitSpellcaster implements Evoker {
     public void setCurrentSpell(final Evoker.Spell spell) {
         // TODO
         throw new UnsupportedMockException();
+    }
+
+    @Override
+    public EntityType getType() {
+        return EntityType.EVOKER;
     }
 }

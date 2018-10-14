@@ -25,11 +25,6 @@ public class MokkitRabbit extends MokkitAnimals implements Rabbit {
     }
 
     @Override
-    public EntityType getType() {
-        return EntityType.RABBIT;
-    }
-
-    @Override
     public Type getRabbitType() {
         // TODO
         throw new UnsupportedMockException();
@@ -39,5 +34,10 @@ public class MokkitRabbit extends MokkitAnimals implements Rabbit {
     public void setRabbitType(final Type type) {
         // TODO
         throw new UnsupportedMockException();
+    }
+
+    @Override
+    public EntityType getType() {
+        return EntityType.RABBIT;
     }
 }

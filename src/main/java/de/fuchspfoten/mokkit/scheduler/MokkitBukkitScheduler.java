@@ -42,68 +42,13 @@ public class MokkitBukkitScheduler implements BukkitScheduler {
     private final Map<Integer, MokkitBukkitTask> tasks = new HashMap<>();
 
     @Override
-    public int scheduleSyncDelayedTask(final Plugin plugin, final Runnable task, final long delay) {
-        final MokkitBukkitTask internTask = new MokkitBukkitTask(currentTick + delay, task, taskId, plugin,
-                true);
-        schedulerQueue.add(internTask);
-        tasks.put(taskId, internTask);
-        return taskId++;
-    }
-
-    @Override
-    public int scheduleSyncDelayedTask(final Plugin plugin, final BukkitRunnable task, final long delay) {
-        return scheduleSyncDelayedTask(plugin, (Runnable) task, delay);
-    }
-
-    @Override
-    public int scheduleSyncDelayedTask(final Plugin plugin, final Runnable task) {
-        return scheduleSyncDelayedTask(plugin, task, -1);
-    }
-
-    @Override
-    public int scheduleSyncDelayedTask(final Plugin plugin, final BukkitRunnable task) {
-        return scheduleSyncDelayedTask(plugin, (Runnable) task);
-    }
-
-    @Override
-    public int scheduleSyncRepeatingTask(final Plugin plugin, final Runnable task, final long delay,
-                                         final long period) {
-        return scheduleSyncDelayedTask(plugin, new Runnable() {
-            @Override
-            public void run() {
-                task.run();
-                scheduleSyncDelayedTask(plugin, this, period);
-            }
-        }, delay);
-    }
-
-    @Override
-    public int scheduleSyncRepeatingTask(final Plugin plugin, final BukkitRunnable task, final long delay,
-                                         final long period) {
-        return scheduleSyncRepeatingTask(plugin, (Runnable) task, delay, period);
-    }
-
-    @Override
-    public int scheduleAsyncDelayedTask(final Plugin plugin, final Runnable task, final long delay) {
-        // Just do it in sync.
-        return scheduleSyncDelayedTask(plugin, task, delay);
-    }
-
-    @Override
-    public int scheduleAsyncDelayedTask(final Plugin plugin, final Runnable task) {
-        // Just do it in sync.
-        return scheduleSyncDelayedTask(plugin, task);
-    }
-
-    @Override
-    public int scheduleAsyncRepeatingTask(final Plugin plugin, final Runnable task, final long delay,
-                                          final long period) {
-        // Just do it in sync.
-        return scheduleSyncRepeatingTask(plugin, task, delay, period);
-    }
-
-    @Override
     public <T> Future<T> callSyncMethod(final Plugin plugin, final Callable<T> task) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void cancelAllTasks() {
         // TODO
         throw new UnsupportedMockException();
     }
@@ -121,7 +66,13 @@ public class MokkitBukkitScheduler implements BukkitScheduler {
     }
 
     @Override
-    public void cancelAllTasks() {
+    public List<BukkitWorker> getActiveWorkers() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public List<BukkitTask> getPendingTasks() {
         // TODO
         throw new UnsupportedMockException();
     }
@@ -134,18 +85,6 @@ public class MokkitBukkitScheduler implements BukkitScheduler {
 
     @Override
     public boolean isQueued(final int taskId) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public List<BukkitWorker> getActiveWorkers() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public List<BukkitTask> getPendingTasks() {
         // TODO
         throw new UnsupportedMockException();
     }
@@ -229,5 +168,66 @@ public class MokkitBukkitScheduler implements BukkitScheduler {
                                                  final long period) throws IllegalArgumentException {
         // TODO
         throw new UnsupportedMockException();
+    }
+
+    @Override
+    public int scheduleAsyncDelayedTask(final Plugin plugin, final Runnable task, final long delay) {
+        // Just do it in sync.
+        return scheduleSyncDelayedTask(plugin, task, delay);
+    }
+
+    @Override
+    public int scheduleAsyncDelayedTask(final Plugin plugin, final Runnable task) {
+        // Just do it in sync.
+        return scheduleSyncDelayedTask(plugin, task);
+    }
+
+    @Override
+    public int scheduleAsyncRepeatingTask(final Plugin plugin, final Runnable task, final long delay,
+                                          final long period) {
+        // Just do it in sync.
+        return scheduleSyncRepeatingTask(plugin, task, delay, period);
+    }
+
+    @Override
+    public int scheduleSyncDelayedTask(final Plugin plugin, final Runnable task, final long delay) {
+        final MokkitBukkitTask internTask = new MokkitBukkitTask(currentTick + delay, task, taskId, plugin,
+                true);
+        schedulerQueue.add(internTask);
+        tasks.put(taskId, internTask);
+        return taskId++;
+    }
+
+    @Override
+    public int scheduleSyncDelayedTask(final Plugin plugin, final BukkitRunnable task, final long delay) {
+        return scheduleSyncDelayedTask(plugin, (Runnable) task, delay);
+    }
+
+    @Override
+    public int scheduleSyncDelayedTask(final Plugin plugin, final Runnable task) {
+        return scheduleSyncDelayedTask(plugin, task, -1);
+    }
+
+    @Override
+    public int scheduleSyncDelayedTask(final Plugin plugin, final BukkitRunnable task) {
+        return scheduleSyncDelayedTask(plugin, (Runnable) task);
+    }
+
+    @Override
+    public int scheduleSyncRepeatingTask(final Plugin plugin, final Runnable task, final long delay,
+                                         final long period) {
+        return scheduleSyncDelayedTask(plugin, new Runnable() {
+            @Override
+            public void run() {
+                task.run();
+                scheduleSyncDelayedTask(plugin, this, period);
+            }
+        }, delay);
+    }
+
+    @Override
+    public int scheduleSyncRepeatingTask(final Plugin plugin, final BukkitRunnable task, final long delay,
+                                         final long period) {
+        return scheduleSyncRepeatingTask(plugin, (Runnable) task, delay, period);
     }
 }

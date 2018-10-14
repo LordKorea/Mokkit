@@ -39,11 +39,6 @@ public class MokkitSkeleton extends MokkitMonster implements Skeleton {
     }
 
     @Override
-    public EntityType getType() {
-        return EntityType.SKELETON;
-    }
-
-    @Override
     public SkeletonType getSkeletonType() {
         // TODO
         throw new UnsupportedMockException();
@@ -53,5 +48,10 @@ public class MokkitSkeleton extends MokkitMonster implements Skeleton {
     public void setSkeletonType(final SkeletonType type) {
         // TODO
         throw new UnsupportedMockException();
+    }
+
+    @Override
+    public EntityType getType() {
+        return EntityType.SKELETON;
     }
 }

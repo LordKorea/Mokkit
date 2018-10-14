@@ -33,70 +33,37 @@ public abstract class MokkitInventory implements Inventory {
     }
 
     @Override
-    public ItemStack getItem(final int index) {
-        return contents[index];
-    }
-
-    @Override
-    public void setItem(final int index, final ItemStack item) {
-        contents[index] = item;
-    }
-
-    @Override
-    public int getSize() {
-        return contents.length;
-    }
-
-    @Override
-    public int getMaxStackSize() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setMaxStackSize(final int size) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public String getName() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
     public HashMap<Integer, ItemStack> addItem(final ItemStack... items) throws IllegalArgumentException {
         // TODO
         throw new UnsupportedMockException();
     }
 
     @Override
-    public HashMap<Integer, ItemStack> removeItem(final ItemStack... items) throws IllegalArgumentException {
+    public HashMap<Integer, ? extends ItemStack> all(final int materialId) {
         // TODO
         throw new UnsupportedMockException();
     }
 
     @Override
-    public ItemStack[] getContents() {
+    public HashMap<Integer, ? extends ItemStack> all(final Material material) throws IllegalArgumentException {
         // TODO
         throw new UnsupportedMockException();
     }
 
     @Override
-    public void setContents(final ItemStack[] items) throws IllegalArgumentException {
+    public HashMap<Integer, ? extends ItemStack> all(final ItemStack item) {
         // TODO
         throw new UnsupportedMockException();
     }
 
     @Override
-    public ItemStack[] getStorageContents() {
+    public void clear(final int index) {
         // TODO
         throw new UnsupportedMockException();
     }
 
     @Override
-    public void setStorageContents(final ItemStack[] items) throws IllegalArgumentException {
+    public void clear() {
         // TODO
         throw new UnsupportedMockException();
     }
@@ -144,24 +111,6 @@ public abstract class MokkitInventory implements Inventory {
     }
 
     @Override
-    public HashMap<Integer, ? extends ItemStack> all(final int materialId) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public HashMap<Integer, ? extends ItemStack> all(final Material material) throws IllegalArgumentException {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public HashMap<Integer, ? extends ItemStack> all(final ItemStack item) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
     public int first(final int materialId) {
         // TODO
         throw new UnsupportedMockException();
@@ -186,6 +135,100 @@ public abstract class MokkitInventory implements Inventory {
     }
 
     @Override
+    public ItemStack[] getContents() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void setContents(final ItemStack[] items) throws IllegalArgumentException {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public InventoryHolder getHolder() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public ItemStack getItem(final int index) {
+        return contents[index];
+    }
+
+    @Override
+    public Location getLocation() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public int getMaxStackSize() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void setMaxStackSize(final int size) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public String getName() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public int getSize() {
+        return contents.length;
+    }
+
+    @Override
+    public ItemStack[] getStorageContents() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void setStorageContents(final ItemStack[] items) throws IllegalArgumentException {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public String getTitle() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public InventoryType getType() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public List<HumanEntity> getViewers() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public ListIterator<ItemStack> iterator() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public ListIterator<ItemStack> iterator(final int index) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
     public void remove(final int materialId) {
         // TODO
         throw new UnsupportedMockException();
@@ -204,56 +247,13 @@ public abstract class MokkitInventory implements Inventory {
     }
 
     @Override
-    public void clear(final int index) {
+    public HashMap<Integer, ItemStack> removeItem(final ItemStack... items) throws IllegalArgumentException {
         // TODO
         throw new UnsupportedMockException();
     }
 
     @Override
-    public void clear() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public List<HumanEntity> getViewers() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public String getTitle() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public InventoryType getType() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public InventoryHolder getHolder() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public ListIterator<ItemStack> iterator() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public ListIterator<ItemStack> iterator(final int index) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public Location getLocation() {
-        // TODO
-        throw new UnsupportedMockException();
+    public void setItem(final int index, final ItemStack item) {
+        contents[index] = item;
     }
 }

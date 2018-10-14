@@ -25,11 +25,6 @@ public class MokkitSpectralArrow extends MokkitArrow implements SpectralArrow {
     }
 
     @Override
-    public EntityType getType() {
-        return EntityType.SPECTRAL_ARROW;
-    }
-
-    @Override
     public int getGlowingTicks() {
         // TODO
         throw new UnsupportedMockException();
@@ -39,5 +34,10 @@ public class MokkitSpectralArrow extends MokkitArrow implements SpectralArrow {
     public void setGlowingTicks(final int duration) {
         // TODO
         throw new UnsupportedMockException();
+    }
+
+    @Override
+    public EntityType getType() {
+        return EntityType.SPECTRAL_ARROW;
     }
 }

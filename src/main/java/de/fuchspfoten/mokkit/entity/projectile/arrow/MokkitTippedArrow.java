@@ -30,8 +30,15 @@ public class MokkitTippedArrow extends MokkitArrow implements TippedArrow {
     }
 
     @Override
-    public EntityType getType() {
-        return EntityType.TIPPED_ARROW;
+    public boolean addCustomEffect(final PotionEffect effect, final boolean overwrite) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void clearCustomEffects() {
+        // TODO
+        throw new UnsupportedMockException();
     }
 
     @Override
@@ -59,27 +66,14 @@ public class MokkitTippedArrow extends MokkitArrow implements TippedArrow {
     }
 
     @Override
-    public boolean hasCustomEffects() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
     public List<PotionEffect> getCustomEffects() {
         // TODO
         throw new UnsupportedMockException();
     }
 
     @Override
-    public boolean addCustomEffect(final PotionEffect effect, final boolean overwrite) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public boolean removeCustomEffect(final PotionEffectType type) {
-        // TODO
-        throw new UnsupportedMockException();
+    public EntityType getType() {
+        return EntityType.TIPPED_ARROW;
     }
 
     @Override
@@ -89,7 +83,13 @@ public class MokkitTippedArrow extends MokkitArrow implements TippedArrow {
     }
 
     @Override
-    public void clearCustomEffects() {
+    public boolean hasCustomEffects() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public boolean removeCustomEffect(final PotionEffectType type) {
         // TODO
         throw new UnsupportedMockException();
     }

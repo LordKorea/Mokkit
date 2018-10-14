@@ -26,11 +26,6 @@ public class MokkitShulker extends MokkitGolem implements Shulker {
     }
 
     @Override
-    public EntityType getType() {
-        return EntityType.SHULKER;
-    }
-
-    @Override
     public DyeColor getColor() {
         // TODO
         throw new UnsupportedMockException();
@@ -40,5 +35,10 @@ public class MokkitShulker extends MokkitGolem implements Shulker {
     public void setColor(final DyeColor color) {
         // TODO
         throw new UnsupportedMockException();
+    }
+
+    @Override
+    public EntityType getType() {
+        return EntityType.SHULKER;
     }
 }

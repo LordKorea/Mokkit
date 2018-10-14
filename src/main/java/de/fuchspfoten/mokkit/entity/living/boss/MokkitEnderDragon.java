@@ -26,11 +26,6 @@ public class MokkitEnderDragon extends MokkitComplexLivingEntity implements Ende
     }
 
     @Override
-    public EntityType getType() {
-        return EntityType.ENDER_DRAGON;
-    }
-
-    @Override
     public Phase getPhase() {
         // TODO
         throw new UnsupportedMockException();
@@ -40,5 +35,10 @@ public class MokkitEnderDragon extends MokkitComplexLivingEntity implements Ende
     public void setPhase(final Phase phase) {
         // TODO
         throw new UnsupportedMockException();
+    }
+
+    @Override
+    public EntityType getType() {
+        return EntityType.ENDER_DRAGON;
     }
 }

@@ -41,11 +41,6 @@ public class MokkitSlime extends MokkitLivingEntity implements Slime {
     }
 
     @Override
-    public EntityType getType() {
-        return EntityType.SLIME;
-    }
-
-    @Override
     public int getSize() {
         // TODO
         throw new UnsupportedMockException();
@@ -67,5 +62,10 @@ public class MokkitSlime extends MokkitLivingEntity implements Slime {
     public void setTarget(final LivingEntity target) {
         // TODO
         throw new UnsupportedMockException();
+    }
+
+    @Override
+    public EntityType getType() {
+        return EntityType.SLIME;
     }
 }

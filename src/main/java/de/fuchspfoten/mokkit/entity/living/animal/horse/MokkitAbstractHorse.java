@@ -31,18 +31,6 @@ public abstract class MokkitAbstractHorse extends MokkitAnimals implements Abstr
     }
 
     @Override
-    public Horse.Variant getVariant() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setVariant(final Horse.Variant variant) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
     public int getDomestication() {
         // TODO
         throw new UnsupportedMockException();
@@ -55,13 +43,7 @@ public abstract class MokkitAbstractHorse extends MokkitAnimals implements Abstr
     }
 
     @Override
-    public int getMaxDomestication() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setMaxDomestication(final int level) {
+    public AbstractHorseInventory getInventory() {
         // TODO
         throw new UnsupportedMockException();
     }
@@ -79,19 +61,13 @@ public abstract class MokkitAbstractHorse extends MokkitAnimals implements Abstr
     }
 
     @Override
-    public AbstractHorseInventory getInventory() {
+    public int getMaxDomestication() {
         // TODO
         throw new UnsupportedMockException();
     }
 
     @Override
-    public boolean isTamed() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setTamed(final boolean tame) {
+    public void setMaxDomestication(final int level) {
         // TODO
         throw new UnsupportedMockException();
     }
@@ -104,6 +80,30 @@ public abstract class MokkitAbstractHorse extends MokkitAnimals implements Abstr
 
     @Override
     public void setOwner(final AnimalTamer tamer) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public Horse.Variant getVariant() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void setVariant(final Horse.Variant variant) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public boolean isTamed() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void setTamed(final boolean tame) {
         // TODO
         throw new UnsupportedMockException();
     }

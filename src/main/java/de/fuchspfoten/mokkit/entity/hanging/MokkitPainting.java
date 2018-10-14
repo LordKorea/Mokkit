@@ -26,14 +26,14 @@ public class MokkitPainting extends MokkitHanging implements Painting {
     }
 
     @Override
-    public EntityType getType() {
-        return EntityType.PAINTING;
-    }
-
-    @Override
     public Art getArt() {
         // TODO
         throw new UnsupportedMockException();
+    }
+
+    @Override
+    public EntityType getType() {
+        return EntityType.PAINTING;
     }
 
     @Override

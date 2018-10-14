@@ -26,11 +26,6 @@ public class MokkitLlama extends MokkitChestedHorse implements Llama {
     }
 
     @Override
-    public EntityType getType() {
-        return EntityType.LLAMA;
-    }
-
-    @Override
     public Color getColor() {
         // TODO
         throw new UnsupportedMockException();
@@ -38,6 +33,12 @@ public class MokkitLlama extends MokkitChestedHorse implements Llama {
 
     @Override
     public void setColor(final Color color) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public LlamaInventory getInventory() {
         // TODO
         throw new UnsupportedMockException();
     }
@@ -55,8 +56,7 @@ public class MokkitLlama extends MokkitChestedHorse implements Llama {
     }
 
     @Override
-    public LlamaInventory getInventory() {
-        // TODO
-        throw new UnsupportedMockException();
+    public EntityType getType() {
+        return EntityType.LLAMA;
     }
 }

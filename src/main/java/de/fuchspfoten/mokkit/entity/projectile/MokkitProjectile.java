@@ -47,12 +47,6 @@ public abstract class MokkitProjectile extends MokkitEntity implements Projectil
         throw new UnsupportedMockException();
     }
 
-    @Override
-    public void setBounce(final boolean doesBounce) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
     /**
      * Getter for the control object.
      *
@@ -60,6 +54,12 @@ public abstract class MokkitProjectile extends MokkitEntity implements Projectil
      */
     public Mokkit mokkit() {
         return mokkit;
+    }
+
+    @Override
+    public void setBounce(final boolean doesBounce) {
+        // TODO
+        throw new UnsupportedMockException();
     }
 
     /**

@@ -12,22 +12,6 @@ import java.lang.reflect.Method;
 public final class ReflectionHelper {
 
     /**
-     * Sets a static field.
-     *
-     * @param clazz The class.
-     * @param name  The name of the field.
-     */
-    public static void setStaticField(final Class<?> clazz, final String name, final Object value) {
-        try {
-            final Field field = clazz.getDeclaredField(name);
-            field.setAccessible(true);
-            field.set(null, value);
-        } catch (final ReflectiveOperationException ex) {
-            throw new InternalException("can not set static field", ex);
-        }
-    }
-
-    /**
      * Creates an instance.
      *
      * @param clazz The class.
@@ -69,6 +53,26 @@ public final class ReflectionHelper {
     }
 
     /**
+     * Invokes a static method that may be inherited, but must be public.
+     *
+     * @param clazz The class.
+     * @param name  The method name.
+     * @param types The parameter types.
+     * @param args  The parameter arguments.
+     * @param <T>   The class type.
+     * @return The return value.
+     */
+    public static <T> Object invokeStaticInheritedMethod(final Class<T> clazz, final String name,
+                                                         final Class<?>[] types, final Object[] args) {
+        try {
+            final Method method = clazz.getMethod(name, types);
+            return method.invoke(null, args);
+        } catch (final ReflectiveOperationException ex) {
+            throw new InternalException("can not invoke static inherited method", ex);
+        }
+    }
+
+    /**
      * Invokes a static method.
      *
      * @param clazz The class.
@@ -90,22 +94,18 @@ public final class ReflectionHelper {
     }
 
     /**
-     * Invokes a static method that may be inherited, but must be public.
+     * Sets a static field.
      *
      * @param clazz The class.
-     * @param name  The method name.
-     * @param types The parameter types.
-     * @param args  The parameter arguments.
-     * @param <T>   The class type.
-     * @return The return value.
+     * @param name  The name of the field.
      */
-    public static <T> Object invokeStaticInheritedMethod(final Class<T> clazz, final String name,
-                                                         final Class<?>[] types, final Object[] args) {
+    public static void setStaticField(final Class<?> clazz, final String name, final Object value) {
         try {
-            final Method method = clazz.getMethod(name, types);
-            return method.invoke(null, args);
+            final Field field = clazz.getDeclaredField(name);
+            field.setAccessible(true);
+            field.set(null, value);
         } catch (final ReflectiveOperationException ex) {
-            throw new InternalException("can not invoke static inherited method", ex);
+            throw new InternalException("can not set static field", ex);
         }
     }
 

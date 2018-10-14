@@ -25,18 +25,13 @@ public class MokkitCreeper extends MokkitMonster implements Creeper {
     }
 
     @Override
-    public EntityType getType() {
-        return EntityType.CREEPER;
-    }
-
-    @Override
-    public boolean isPowered() {
+    public int getExplosionRadius() {
         // TODO
         throw new UnsupportedMockException();
     }
 
     @Override
-    public void setPowered(final boolean value) {
+    public void setExplosionRadius(final int radius) {
         // TODO
         throw new UnsupportedMockException();
     }
@@ -54,13 +49,18 @@ public class MokkitCreeper extends MokkitMonster implements Creeper {
     }
 
     @Override
-    public int getExplosionRadius() {
+    public EntityType getType() {
+        return EntityType.CREEPER;
+    }
+
+    @Override
+    public boolean isPowered() {
         // TODO
         throw new UnsupportedMockException();
     }
 
     @Override
-    public void setExplosionRadius(final int radius) {
+    public void setPowered(final boolean value) {
         // TODO
         throw new UnsupportedMockException();
     }

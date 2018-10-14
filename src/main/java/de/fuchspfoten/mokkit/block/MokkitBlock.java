@@ -72,6 +72,90 @@ public class MokkitBlock implements Block {
     }
 
     @Override
+    public boolean breakNaturally() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public boolean breakNaturally(final ItemStack tool) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public Biome getBiome() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void setBiome(final Biome bio) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public int getBlockPower(final BlockFace face) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public int getBlockPower() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public Chunk getChunk() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public Collection<ItemStack> getDrops() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public Collection<ItemStack> getDrops(final ItemStack tool) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public BlockFace getFace(final Block block) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public double getHumidity() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public byte getLightFromBlocks() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public byte getLightFromSky() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public byte getLightLevel() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
     public Location getLocation() {
         return new Location(world, x, y, z);
     }
@@ -88,20 +172,15 @@ public class MokkitBlock implements Block {
     }
 
     @Override
-    public BlockState getState() {
-        return new MokkitBlockState(this);
+    public List<MetadataValue> getMetadata(final String metadataKey) {
+        // TODO
+        throw new UnsupportedMockException();
     }
 
     @Override
-    public boolean setTypeIdAndData(final int type, final byte data, final boolean applyPhysics) {
-        final Material typeBefore = this.type;
-        final byte dataBefore = this.data;
-
-        this.type = Material.getMaterial(type);
-        this.data = data;
-        // TODO applyPhysics
-
-        return typeBefore != this.type || dataBefore != data;
+    public PistonMoveReaction getPistonMoveReaction() {
+        // TODO
+        throw new UnsupportedMockException();
     }
 
     @Override
@@ -121,37 +200,78 @@ public class MokkitBlock implements Block {
     }
 
     @Override
+    public BlockState getState() {
+        return new MokkitBlockState(this);
+    }
+
+    @Override
+    public double getTemperature() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
     public int getTypeId() {
         // TODO
         throw new UnsupportedMockException();
     }
 
     @Override
-    public byte getLightLevel() {
+    public boolean hasMetadata(final String metadataKey) {
         // TODO
         throw new UnsupportedMockException();
     }
 
     @Override
-    public byte getLightFromSky() {
+    public boolean isBlockFaceIndirectlyPowered(final BlockFace face) {
         // TODO
         throw new UnsupportedMockException();
     }
 
     @Override
-    public byte getLightFromBlocks() {
+    public boolean isBlockFacePowered(final BlockFace face) {
         // TODO
         throw new UnsupportedMockException();
     }
 
     @Override
-    public Chunk getChunk() {
+    public boolean isBlockIndirectlyPowered() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public boolean isBlockPowered() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public boolean isEmpty() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public boolean isLiquid() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void removeMetadata(final String metadataKey, final Plugin owningPlugin) {
         // TODO
         throw new UnsupportedMockException();
     }
 
     @Override
     public void setData(final byte data, final boolean applyPhysics) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void setMetadata(final String metadataKey, final MetadataValue newMetadataValue) {
         // TODO
         throw new UnsupportedMockException();
     }
@@ -175,134 +295,14 @@ public class MokkitBlock implements Block {
     }
 
     @Override
-    public BlockFace getFace(final Block block) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
+    public boolean setTypeIdAndData(final int type, final byte data, final boolean applyPhysics) {
+        final Material typeBefore = this.type;
+        final byte dataBefore = this.data;
 
-    @Override
-    public Biome getBiome() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
+        this.type = Material.getMaterial(type);
+        this.data = data;
+        // TODO applyPhysics
 
-    @Override
-    public void setBiome(final Biome bio) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public boolean isBlockPowered() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public boolean isBlockIndirectlyPowered() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public boolean isBlockFacePowered(final BlockFace face) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public boolean isBlockFaceIndirectlyPowered(final BlockFace face) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public int getBlockPower(final BlockFace face) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public int getBlockPower() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public boolean isEmpty() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public boolean isLiquid() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public double getTemperature() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public double getHumidity() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public PistonMoveReaction getPistonMoveReaction() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public boolean breakNaturally() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public boolean breakNaturally(final ItemStack tool) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public Collection<ItemStack> getDrops() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public Collection<ItemStack> getDrops(final ItemStack tool) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setMetadata(final String metadataKey, final MetadataValue newMetadataValue) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public List<MetadataValue> getMetadata(final String metadataKey) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public boolean hasMetadata(final String metadataKey) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void removeMetadata(final String metadataKey, final Plugin owningPlugin) {
-        // TODO
-        throw new UnsupportedMockException();
+        return typeBefore != this.type || dataBefore != data;
     }
 }

@@ -26,13 +26,15 @@ public class MokkitWolf extends MokkitTameableAnimals implements Wolf {
     }
 
     @Override
-    public void setTamed(final boolean tame) {
-        super.setTamed(tame);
-        if (isTamed()) {
-            setMaxHealth(20.0);
-        } else {
-            setMaxHealth(8.0);
-        }
+    public DyeColor getCollarColor() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void setCollarColor(final DyeColor color) {
+        // TODO
+        throw new UnsupportedMockException();
     }
 
     @Override
@@ -53,18 +55,6 @@ public class MokkitWolf extends MokkitTameableAnimals implements Wolf {
     }
 
     @Override
-    public DyeColor getCollarColor() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setCollarColor(final DyeColor color) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
     public boolean isSitting() {
         // TODO
         throw new UnsupportedMockException();
@@ -74,5 +64,15 @@ public class MokkitWolf extends MokkitTameableAnimals implements Wolf {
     public void setSitting(final boolean sitting) {
         // TODO
         throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void setTamed(final boolean tame) {
+        super.setTamed(tame);
+        if (isTamed()) {
+            setMaxHealth(20.0);
+        } else {
+            setMaxHealth(8.0);
+        }
     }
 }
