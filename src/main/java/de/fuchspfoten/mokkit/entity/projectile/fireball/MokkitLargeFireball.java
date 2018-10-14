@@ -2,9 +2,9 @@ package de.fuchspfoten.mokkit.entity.projectile.fireball;
 
 import de.fuchspfoten.mokkit.MokkitServer;
 import org.bukkit.Location;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LargeFireball;
-import org.bukkit.entity.LivingEntity;
 import org.bukkit.util.Vector;
 
 import java.util.UUID;
@@ -31,7 +31,7 @@ public class MokkitLargeFireball extends MokkitFireball implements LargeFireball
     }
 
     @Override
-    public double onDamaged(final LivingEntity damager, final double damage) {
+    public double onDamaged(final Entity damager, final double damage) {
         final double dmg = super.onDamaged(damager, damage);
 
         // Deflect the fireball.

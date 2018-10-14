@@ -6,8 +6,8 @@ import de.fuchspfoten.mokkit.entity.MokkitEntity;
 import de.fuchspfoten.mokkit.internal.exception.UnsupportedMockException;
 import org.bukkit.Location;
 import org.bukkit.block.BlockFace;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Hanging;
-import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.hanging.HangingBreakByEntityEvent;
 import org.bukkit.event.hanging.HangingBreakEvent;
 
@@ -31,7 +31,7 @@ public abstract class MokkitHanging extends MokkitEntity implements Hanging {
     }
 
     @Override
-    public double onDamaged(final LivingEntity damager, final double damage) {
+    public double onDamaged(final Entity damager, final double damage) {
         final HangingBreakByEntityEvent event = new HangingBreakByEntityEvent(this, damager,
                 HangingBreakEvent.RemoveCause.ENTITY);
         getServer().getPluginManager().callEvent(event);

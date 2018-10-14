@@ -6,8 +6,8 @@ import de.fuchspfoten.mokkit.entity.MokkitEntity;
 import de.fuchspfoten.mokkit.internal.exception.UnsupportedMockException;
 import org.bukkit.Location;
 import org.bukkit.entity.EnderCrystal;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
-import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.entity.EntityExplodeEvent;
 
 import java.util.ArrayList;
@@ -35,7 +35,7 @@ public class MokkitEnderCrystal extends MokkitEntity implements EnderCrystal {
     }
 
     @Override
-    public double onDamaged(final LivingEntity damager, final double damage) {
+    public double onDamaged(final Entity damager, final double damage) {
         final double dmg = super.onDamaged(damager, damage);
 
         // TODO: Explosion blocks and strength.

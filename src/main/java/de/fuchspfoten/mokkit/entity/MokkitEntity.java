@@ -12,7 +12,6 @@ import org.bukkit.World;
 import org.bukkit.block.PistonMoveReaction;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
-import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityTeleportEvent;
@@ -97,7 +96,7 @@ public abstract class MokkitEntity implements Entity {
      * @param damager The damaging entity.
      * @return The actual damage.
      */
-    public double onDamaged(final LivingEntity damager, final double damage) {
+    public double onDamaged(final Entity damager, final double damage) {
         final EntityDamageByEntityEvent event = new EntityDamageByEntityEvent(damager, this,
                 EntityDamageEvent.DamageCause.ENTITY_ATTACK, damage);
         getServer().getPluginManager().callEvent(event);

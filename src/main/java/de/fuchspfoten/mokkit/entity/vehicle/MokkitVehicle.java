@@ -4,7 +4,7 @@ import de.fuchspfoten.mokkit.CancelledByEventException;
 import de.fuchspfoten.mokkit.MokkitServer;
 import de.fuchspfoten.mokkit.entity.MokkitEntity;
 import org.bukkit.Location;
-import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Vehicle;
 import org.bukkit.event.vehicle.VehicleDamageEvent;
 import org.bukkit.event.vehicle.VehicleDestroyEvent;
@@ -29,7 +29,7 @@ public abstract class MokkitVehicle extends MokkitEntity implements Vehicle {
     }
 
     @Override
-    public double onDamaged(final LivingEntity damager, final double damage) {
+    public double onDamaged(final Entity damager, final double damage) {
         final VehicleDamageEvent damageEvent = new VehicleDamageEvent(this, damager, damage);
         getServer().getPluginManager().callEvent(damageEvent);
         if (damageEvent.isCancelled()) {
