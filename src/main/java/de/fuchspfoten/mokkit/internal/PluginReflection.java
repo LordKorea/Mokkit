@@ -31,7 +31,7 @@ public final class PluginReflection {
         ReflectionHelper.invokeMethod(JavaPlugin.class, pluginRaw, "init", new Class[]{PluginLoader.class,
                         Server.class, PluginDescriptionFile.class, File.class, File.class, ClassLoader.class},
                 new Object[]{loader, server, pluginDescriptionFile, dataFolder, file,
-                        PluginReflection.class.getClassLoader()});
+                        new ProtectionDomainFilteringResourceLoader(clazz)});
 
         // By now the plugin is initialized but nothing else has been done.
         return pluginRaw;
