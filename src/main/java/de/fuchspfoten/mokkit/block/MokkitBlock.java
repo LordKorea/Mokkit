@@ -353,6 +353,11 @@ public class MokkitBlock implements Block {
                 return;
             }
 
+            if (pushList.size() > 12) {
+                // Too many, no movement.
+                return;
+            }
+
             // Call the event.
             final BlockPistonExtendEvent event = new BlockPistonExtendEvent(MokkitBlock.this,
                     Collections.unmodifiableList(pushList), pbm.getFacing());
