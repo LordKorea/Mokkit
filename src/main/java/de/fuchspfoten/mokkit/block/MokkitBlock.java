@@ -1,8 +1,10 @@
 package de.fuchspfoten.mokkit.block;
 
+import de.fuchspfoten.mokkit.CancelledByEventException;
 import de.fuchspfoten.mokkit.internal.exception.UnsupportedMockException;
 import lombok.Getter;
 import lombok.Setter;
+import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -12,17 +14,26 @@ import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.BlockState;
 import org.bukkit.block.PistonMoveReaction;
+import org.bukkit.event.block.BlockPistonExtendEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.material.PistonBaseMaterial;
+import org.bukkit.material.PistonExtensionMaterial;
 import org.bukkit.metadata.MetadataValue;
 import org.bukkit.plugin.Plugin;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 /**
  * @see org.bukkit.block.Block
  */
 public class MokkitBlock implements Block {
+
+    /**
+     * The control object.
+     */
+    private final Mokkit mokkit = new Mokkit();
 
     /**
      * The world this block is in.
@@ -109,8 +120,7 @@ public class MokkitBlock implements Block {
 
     @Override
     public Chunk getChunk() {
-        // TODO
-        throw new UnsupportedMockException();
+        return getWorld().getChunkAt(this);
     }
 
     @Override
@@ -304,5 +314,66 @@ public class MokkitBlock implements Block {
         // TODO applyPhysics
 
         return typeBefore != this.type || dataBefore != data;
+    }
+
+    /**
+     * Fetch the control object.
+     *
+     * @return The control object.
+     */
+    public Mokkit mokkit() {
+        return mokkit;
+    }
+
+    /**
+     * The class for the control object.
+     */
+    public class Mokkit {
+
+        /**
+         * Extends the piston this block represents.
+         */
+        public void extendPiston() {
+            // TODO instantaneous move, no piston moving block used.
+            if (getType() != Material.PISTON_BASE && getType() != Material.PISTON_STICKY_BASE) {
+                throw new IllegalStateException("not a piston");
+            }
+            final BlockState selfState = getState();
+            final PistonBaseMaterial pbm = (PistonBaseMaterial) selfState.getData();
+            if (pbm.isPowered()) {
+                throw new IllegalStateException("already extended");
+            }
+
+            // Calculate the push list.
+            final List<Block> pushList;
+            try {
+                pushList = PistonHelper.calculatePushList(getRelative(pbm.getFacing()), pbm.getFacing());
+            } catch (final PushBlockedException ex) {
+                // No movement, it's blocked.
+                return;
+            }
+
+            // Call the event.
+            final BlockPistonExtendEvent event = new BlockPistonExtendEvent(MokkitBlock.this,
+                    Collections.unmodifiableList(pushList), pbm.getFacing());
+            Bukkit.getServer().getPluginManager().callEvent(event);
+            if (event.isCancelled()) {
+                throw new CancelledByEventException(event);
+            }
+
+            // Apply the operation.
+            PistonHelper.moveBlocks(pushList, pbm.getFacing());
+            pbm.setPowered(true);
+            selfState.update(true);
+
+            // Add the extension part.
+            final BlockState exState = getRelative(pbm.getFacing()).getState();
+            exState.setType(Material.PISTON_EXTENSION);
+            final PistonExtensionMaterial pem = new PistonExtensionMaterial(Material.PISTON_EXTENSION);
+            pem.setSticky(pbm.isSticky());
+            pem.setFacingDirection(pbm.getFacing());
+            exState.setData(pem);
+            exState.update(true);
+        }
     }
 }

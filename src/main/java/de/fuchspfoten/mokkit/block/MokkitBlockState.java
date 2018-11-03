@@ -84,14 +84,12 @@ public class MokkitBlockState implements BlockState {
 
     @Override
     public Material getType() {
-        // TODO
-        throw new UnsupportedMockException();
+        return getData().getItemType();
     }
 
     @Override
     public void setType(final Material type) {
-        // TODO
-        throw new UnsupportedMockException();
+        this.data = type.getNewData((byte) 0);
     }
 
     @Override
