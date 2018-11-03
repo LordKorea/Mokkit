@@ -587,8 +587,12 @@ public class MokkitWorld implements World {
     @Override
     public Collection<Entity> getNearbyEntities(final Location location, final double x, final double y,
                                                 final double z) {
-        // TODO
-        throw new UnsupportedMockException();
+        return entities.stream()
+                .filter(e -> e.getWorld() == location.getWorld())
+                .filter(e -> Math.abs(location.getX() - e.getLocation().getX()) <= x)
+                .filter(e -> Math.abs(location.getY() - e.getLocation().getY()) <= y)
+                .filter(e -> Math.abs(location.getZ() - e.getLocation().getZ()) <= z)
+                .collect(Collectors.toList());
     }
 
     @Override
