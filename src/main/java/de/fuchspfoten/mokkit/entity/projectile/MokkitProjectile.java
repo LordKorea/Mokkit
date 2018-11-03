@@ -75,6 +75,7 @@ public abstract class MokkitProjectile extends MokkitEntity implements Projectil
         public void hitTarget(final Entity target) {
             final ProjectileHitEvent hitEvent = new ProjectileHitEvent(MokkitProjectile.this, target);
             getServer().getPluginManager().callEvent(hitEvent);
+            remove();
         }
     }
 }

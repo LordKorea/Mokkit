@@ -54,6 +54,7 @@ import de.fuchspfoten.mokkit.entity.living.monster.MokkitWitherSkeleton;
 import de.fuchspfoten.mokkit.entity.living.monster.MokkitZombie;
 import de.fuchspfoten.mokkit.entity.living.monster.MokkitZombieVillager;
 import de.fuchspfoten.mokkit.entity.living.water.MokkitSquid;
+import de.fuchspfoten.mokkit.entity.misc.MokkitAreaEffectCloud;
 import de.fuchspfoten.mokkit.entity.misc.MokkitEnderCrystal;
 import de.fuchspfoten.mokkit.entity.projectile.arrow.MokkitArrow;
 import de.fuchspfoten.mokkit.entity.projectile.arrow.MokkitSpectralArrow;
@@ -61,6 +62,8 @@ import de.fuchspfoten.mokkit.entity.projectile.arrow.MokkitTippedArrow;
 import de.fuchspfoten.mokkit.entity.projectile.fireball.MokkitDragonFireball;
 import de.fuchspfoten.mokkit.entity.projectile.fireball.MokkitLargeFireball;
 import de.fuchspfoten.mokkit.entity.projectile.fireball.MokkitSmallFireball;
+import de.fuchspfoten.mokkit.entity.projectile.potion.MokkitLingeringPotion;
+import de.fuchspfoten.mokkit.entity.projectile.potion.MokkitSplashPotion;
 import de.fuchspfoten.mokkit.entity.vehicle.MokkitBoat;
 import de.fuchspfoten.mokkit.entity.vehicle.minecart.MokkitCommandMinecart;
 import de.fuchspfoten.mokkit.entity.vehicle.minecart.MokkitExplosiveMinecart;
@@ -139,6 +142,7 @@ public class MokkitWorld implements World {
             new EnumMap<>(EntityType.class);
 
     static {
+        spawnableEntities.put(EntityType.AREA_EFFECT_CLOUD, MokkitAreaEffectCloud.class);
         spawnableEntities.put(EntityType.ARMOR_STAND, MokkitArmorStand.class);
         spawnableEntities.put(EntityType.ARROW, MokkitArrow.class);
         spawnableEntities.put(EntityType.BAT, MokkitBat.class);
@@ -166,6 +170,7 @@ public class MokkitWorld implements World {
         spawnableEntities.put(EntityType.IRON_GOLEM, MokkitIronGolem.class);
         spawnableEntities.put(EntityType.ITEM_FRAME, MokkitItemFrame.class);
         spawnableEntities.put(EntityType.LEASH_HITCH, MokkitLeashHitch.class);
+        spawnableEntities.put(EntityType.LINGERING_POTION, MokkitLingeringPotion.class);
         spawnableEntities.put(EntityType.LLAMA, MokkitLlama.class);
         spawnableEntities.put(EntityType.MAGMA_CUBE, MokkitMagmaCube.class);
         spawnableEntities.put(EntityType.MINECART, MokkitRideableMinecart.class);
@@ -194,6 +199,7 @@ public class MokkitWorld implements World {
         spawnableEntities.put(EntityType.SNOWMAN, MokkitSnowman.class);
         spawnableEntities.put(EntityType.SPECTRAL_ARROW, MokkitSpectralArrow.class);
         spawnableEntities.put(EntityType.SPIDER, MokkitSpider.class);
+        spawnableEntities.put(EntityType.SPLASH_POTION, MokkitSplashPotion.class);
         spawnableEntities.put(EntityType.SQUID, MokkitSquid.class);
         spawnableEntities.put(EntityType.STRAY, MokkitStray.class);
         spawnableEntities.put(EntityType.TIPPED_ARROW, MokkitTippedArrow.class);
