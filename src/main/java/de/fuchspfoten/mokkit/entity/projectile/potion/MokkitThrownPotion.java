@@ -9,12 +9,20 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 
 import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 /**
  * @see org.bukkit.entity.ThrownPotion
  */
 public abstract class MokkitThrownPotion extends MokkitProjectile implements ThrownPotion {
+
+    /**
+     * The potion effects of the potion.
+     */
+    private Set<PotionEffect> effects = new HashSet<>();
 
     /**
      * Constructor.
@@ -31,8 +39,7 @@ public abstract class MokkitThrownPotion extends MokkitProjectile implements Thr
 
     @Override
     public Collection<PotionEffect> getEffects() {
-        // TODO
-        throw new UnsupportedMockException();
+        return Collections.unmodifiableCollection(effects);
     }
 
     @Override
