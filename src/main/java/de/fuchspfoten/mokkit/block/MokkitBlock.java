@@ -270,6 +270,15 @@ public class MokkitBlock implements Block {
         throw new UnsupportedMockException();
     }
 
+    /**
+     * Fetch the control object.
+     *
+     * @return The control object.
+     */
+    public Mokkit mokkit() {
+        return mokkit;
+    }
+
     @Override
     public void removeMetadata(final String metadataKey, final Plugin owningPlugin) {
         // TODO
@@ -316,15 +325,6 @@ public class MokkitBlock implements Block {
         // TODO applyPhysics
 
         return typeBefore != this.type || dataBefore != data;
-    }
-
-    /**
-     * Fetch the control object.
-     *
-     * @return The control object.
-     */
-    public Mokkit mokkit() {
-        return mokkit;
     }
 
     /**

@@ -35,6 +35,27 @@ public final class Mokkit {
     }
 
     /**
+     * Simulates a single tick.
+     */
+    public static void simulateTick() {
+        simulateTicks(1);
+    }
+
+    /**
+     * Simulates the given amount of ticks.
+     *
+     * @param amount The amount of ticks to simulate.
+     */
+    public static void simulateTicks(final int amount) {
+        for (int i = 0; i < amount; i++) {
+            server.getScheduler().tick();
+            server.getWorlds().stream()
+                    .map(x -> (MokkitWorld) x)
+                    .forEach(x -> x.tick(server.getScheduler().getCurrentTick()));
+        }
+    }
+
+    /**
      * Starts mocking a server and returns it.
      *
      * @return The mocking server.
@@ -57,27 +78,6 @@ public final class Mokkit {
 
         // TODO what else.
         return server;
-    }
-
-    /**
-     * Simulates a single tick.
-     */
-    public static void simulateTick() {
-        simulateTicks(1);
-    }
-
-    /**
-     * Simulates the given amount of ticks.
-     *
-     * @param amount The amount of ticks to simulate.
-     */
-    public static void simulateTicks(final int amount) {
-        for (int i = 0; i < amount; i++) {
-            server.getScheduler().tick();
-            server.getWorlds().stream()
-                    .map(x -> (MokkitWorld) x)
-                    .forEach(x -> x.tick(server.getScheduler().getCurrentTick()));
-        }
     }
 
     /**

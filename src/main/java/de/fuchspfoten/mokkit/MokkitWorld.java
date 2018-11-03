@@ -833,6 +833,15 @@ public class MokkitWorld implements World, Tickable {
         throw new UnsupportedMockException();
     }
 
+    /**
+     * Fetch the control object.
+     *
+     * @return The control object.
+     */
+    public Mokkit mokkit() {
+        return mokkit;
+    }
+
     @Override
     public void playEffect(final Location location, final Effect effect, final int data) {
         // TODO
@@ -1254,15 +1263,6 @@ public class MokkitWorld implements World, Tickable {
     public boolean unloadChunkRequest(final int x, final int z, final boolean safe) {
         // TODO
         throw new UnsupportedMockException();
-    }
-
-    /**
-     * Fetch the control object.
-     *
-     * @return The control object.
-     */
-    public Mokkit mokkit() {
-        return mokkit;
     }
 
     /**
