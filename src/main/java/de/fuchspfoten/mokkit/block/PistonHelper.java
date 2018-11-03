@@ -18,6 +18,19 @@ import java.util.Set;
  */
 public final class PistonHelper {
 
+    // TODO the movement is not 100% accurate.
+
+    /**
+     * Calculates the pull list for pulling target in the given direction.
+     *
+     * @param target    The target.
+     * @param direction The direction.
+     * @return The list of blocks to pull.
+     */
+    public static List<Block> calculatePullList(final Block target, final BlockFace direction) {
+        return new ArrayList<>(calculateMoveSet(target, direction, new HashSet<>(), 0));
+    }
+
     /**
      * Calculates the push list for pushing target in the given direction.
      *
@@ -26,7 +39,7 @@ public final class PistonHelper {
      * @return The list of blocks to push.
      */
     public static List<Block> calculatePushList(final Block target, final BlockFace direction) {
-        return new ArrayList<>(calculatePushSet(target, direction, new HashSet<>(), 0));
+        return new ArrayList<>(calculateMoveSet(target, direction, new HashSet<>(), 0));
     }
 
     /**
@@ -68,7 +81,7 @@ public final class PistonHelper {
     }
 
     /**
-     * Calculates the push set for pushing target in the given direction.
+     * Calculates the move set for moving target in the given direction.
      *
      * @param target    The target.
      * @param direction The direction.
@@ -76,32 +89,32 @@ public final class PistonHelper {
      * @param limit     If this number is over 100, we stop.
      * @return The set of blocks to push.
      */
-    private static Set<Block> calculatePushSet(final Block target, final BlockFace direction, final Set<Block> closedSet,
-                                               final int limit) {
-        final Set<Block> pushSet = new HashSet<>();
+    private static Set<Block> calculateMoveSet(final Block target, final BlockFace direction,
+                                               final Set<Block> closedSet, final int limit) {
+        final Set<Block> moveSet = new HashSet<>();
         if (isImmobile(target.getType())) {
             // Block is immobile and blocks the push in this direction.
-            throw new PushBlockedException();
+            throw new PistonBlockedException();
         }
         if (!isMovable(target.getType())) {
             // Target is not movable and not immobile: Do not add any blocks to the push list for this block.
-            return pushSet;
+            return moveSet;
         }
 
         // Target closed?
         if (closedSet.contains(target)) {
-            return pushSet;
+            return moveSet;
         }
 
         // Flood limit reached?
         if (limit > 100) {
-            throw new PushBlockedException();
+            throw new PistonBlockedException();
         }
 
         // The block is pushable.
-        pushSet.add(target);
+        moveSet.add(target);
         closedSet.add(target);
-        pushSet.addAll(calculatePushSet(target.getRelative(direction), direction, closedSet, limit + 1));
+        moveSet.addAll(calculateMoveSet(target.getRelative(direction), direction, closedSet, limit + 1));
 
         // If this is a slime block, push neighbors.
         if (target.getType() == Material.SLIME_BLOCK) {
@@ -116,15 +129,15 @@ public final class PistonHelper {
                 // Push this with our current closed set.
                 try {
                     final HashSet<Block> tmpSet = new HashSet<>(closedSet);
-                    pushSet.addAll(calculatePushSet(next, direction, tmpSet, limit + pushSet.size()));
+                    moveSet.addAll(calculateMoveSet(next, direction, tmpSet, limit + moveSet.size()));
                     closedSet.addAll(tmpSet);
-                } catch (final PushBlockedException ex) {
+                } catch (final PistonBlockedException ex) {
                     // Just ignore this block.
                 }
             }
         }
 
-        return pushSet;
+        return moveSet;
     }
 
     /**

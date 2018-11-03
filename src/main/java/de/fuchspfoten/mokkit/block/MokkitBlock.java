@@ -15,12 +15,14 @@ import org.bukkit.block.BlockFace;
 import org.bukkit.block.BlockState;
 import org.bukkit.block.PistonMoveReaction;
 import org.bukkit.event.block.BlockPistonExtendEvent;
+import org.bukkit.event.block.BlockPistonRetractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.material.PistonBaseMaterial;
 import org.bukkit.material.PistonExtensionMaterial;
 import org.bukkit.metadata.MetadataValue;
 import org.bukkit.plugin.Plugin;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -348,7 +350,7 @@ public class MokkitBlock implements Block {
             final List<Block> pushList;
             try {
                 pushList = PistonHelper.calculatePushList(getRelative(pbm.getFacing()), pbm.getFacing());
-            } catch (final PushBlockedException ex) {
+            } catch (final PistonBlockedException ex) {
                 // No movement, it's blocked.
                 return;
             }
@@ -368,10 +370,10 @@ public class MokkitBlock implements Block {
 
             // Apply the operation.
             PistonHelper.moveBlocks(pushList, pbm.getFacing());
-            pbm.setPowered(true);
-            selfState.update(true);
 
             // Add the extension part.
+            pbm.setPowered(true);
+            selfState.update(true);
             final BlockState exState = getRelative(pbm.getFacing()).getState();
             exState.setType(Material.PISTON_EXTENSION);
             final PistonExtensionMaterial pem = new PistonExtensionMaterial(Material.PISTON_EXTENSION);
@@ -379,6 +381,53 @@ public class MokkitBlock implements Block {
             pem.setFacingDirection(pbm.getFacing());
             exState.setData(pem);
             exState.update(true);
+        }
+
+
+        /**
+         * Retracts the piston this block represents.
+         */
+        public void retractPiston() {
+            // TODO instantaneous move, no piston moving block used.
+            if (getType() != Material.PISTON_BASE && getType() != Material.PISTON_STICKY_BASE) {
+                throw new IllegalStateException("not a piston");
+            }
+            final BlockState selfState = getState();
+            final PistonBaseMaterial pbm = (PistonBaseMaterial) selfState.getData();
+            if (!pbm.isPowered()) {
+                throw new IllegalStateException("not extended");
+            }
+
+            // Only pull blocks if the piston is sticky.
+            final List<Block> pullList = new ArrayList<>();
+            if (pbm.isSticky()) {
+                try {
+                    pullList.addAll(PistonHelper.calculatePullList(getRelative(pbm.getFacing(), 2),
+                            pbm.getFacing().getOppositeFace()));
+                    if (pullList.size() > 12) {
+                        // Too many blocks, no pulling.
+                        pullList.clear();
+                    }
+                } catch (final PistonBlockedException ex) {
+                    // No pulling.
+                }
+            }
+
+            // Call the event.
+            final BlockPistonRetractEvent event = new BlockPistonRetractEvent(MokkitBlock.this,
+                    Collections.unmodifiableList(pullList), pbm.getFacing().getOppositeFace());
+            Bukkit.getServer().getPluginManager().callEvent(event);
+            if (event.isCancelled()) {
+                throw new CancelledByEventException(event);
+            }
+
+            // Remove the extension.
+            getRelative(pbm.getFacing()).setType(Material.AIR);
+            pbm.setPowered(false);
+            selfState.update(true);
+
+            // Apply the operation.
+            PistonHelper.moveBlocks(pullList, pbm.getFacing().getOppositeFace());
         }
     }
 }
