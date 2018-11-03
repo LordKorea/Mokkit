@@ -3,23 +3,95 @@ package de.fuchspfoten.mokkit.entity.misc;
 import de.fuchspfoten.mokkit.MokkitServer;
 import de.fuchspfoten.mokkit.entity.MokkitEntity;
 import de.fuchspfoten.mokkit.internal.exception.UnsupportedMockException;
+import lombok.Getter;
+import lombok.Setter;
 import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.entity.AreaEffectCloud;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.LivingEntity;
+import org.bukkit.event.entity.AreaEffectCloudApplyEvent;
 import org.bukkit.potion.PotionData;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.projectiles.ProjectileSource;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 /**
  * @see org.bukkit.entity.AreaEffectCloud
  */
 public class MokkitAreaEffectCloud extends MokkitEntity implements AreaEffectCloud {
+
+    /**
+     * The control object.
+     */
+    private final Mokkit mokkit = new Mokkit();
+
+    /**
+     * The duration this cloud will live for.
+     */
+    private @Getter @Setter int duration = 600;
+
+    /**
+     * The target-individual wait time before effects apply to targets.
+     */
+    private @Getter @Setter int waitTime = 0;
+
+    /**
+     * The per entity cooldown time needed after an application.
+     */
+    private @Getter @Setter int reapplicationDelay = 5;
+
+    /**
+     * The amount that is subtracted from the duration on use.
+     */
+    private @Getter @Setter int durationOnUse = 0;
+
+    /**
+     * The radius of the cloud.
+     */
+    private @Getter @Setter float radius = 3.0f;
+
+    /**
+     * The amount that is subtracted from the radius on use.
+     */
+    private @Getter @Setter float radiusOnUse = 0.5f;
+
+    /**
+     * The amount that is subtracted from the radius per tick.
+     */
+    private @Getter @Setter float radiusPerTick = 3.0f / 600.0f;
+
+    /**
+     * The source that created this cloud.
+     */
+    private @Getter @Setter ProjectileSource source;
+
+    /**
+     * The underlying potion.
+     */
+    private @Getter @Setter PotionData basePotionData;
+
+    /**
+     * The custom potion effects of this cloud.
+     */
+    private final Set<PotionEffect> customEffects = new HashSet<>();
+
+    /**
+     * The ticks in which the effects were last applied to the given entities.
+     */
+    private final Map<LivingEntity, Long> lastAppliedTick = new HashMap<>();
 
     /**
      * Constructor.
@@ -40,20 +112,7 @@ public class MokkitAreaEffectCloud extends MokkitEntity implements AreaEffectClo
 
     @Override
     public void clearCustomEffects() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public PotionData getBasePotionData() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setBasePotionData(final PotionData data) {
-        // TODO
-        throw new UnsupportedMockException();
+        customEffects.clear();
     }
 
     @Override
@@ -70,32 +129,7 @@ public class MokkitAreaEffectCloud extends MokkitEntity implements AreaEffectClo
 
     @Override
     public List<PotionEffect> getCustomEffects() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public int getDuration() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setDuration(final int duration) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public int getDurationOnUse() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setDurationOnUse(final int duration) {
-        // TODO
-        throw new UnsupportedMockException();
+        return new ArrayList<>(customEffects);
     }
 
     @Override
@@ -111,97 +145,79 @@ public class MokkitAreaEffectCloud extends MokkitEntity implements AreaEffectClo
     }
 
     @Override
-    public float getRadius() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setRadius(final float radius) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public float getRadiusOnUse() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setRadiusOnUse(final float radius) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public float getRadiusPerTick() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setRadiusPerTick(final float radius) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public int getReapplicationDelay() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setReapplicationDelay(final int delay) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public ProjectileSource getSource() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setSource(final ProjectileSource source) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
     public EntityType getType() {
         return EntityType.AREA_EFFECT_CLOUD;
     }
 
     @Override
-    public int getWaitTime() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setWaitTime(final int waitTime) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
     public boolean hasCustomEffect(final PotionEffectType type) {
-        // TODO
-        throw new UnsupportedMockException();
+        return customEffects.stream().anyMatch(e -> e.getType().equals(type));
     }
 
     @Override
     public boolean hasCustomEffects() {
-        // TODO
-        throw new UnsupportedMockException();
+        return !customEffects.isEmpty();
+    }
+
+    /**
+     * Fetch the control object.
+     *
+     * @return The control object.
+     */
+    public Mokkit mokkit() {
+        return mokkit;
     }
 
     @Override
     public boolean removeCustomEffect(final PotionEffectType type) {
-        // TODO
-        throw new UnsupportedMockException();
+        return customEffects.removeIf(e -> e.getType().equals(type));
+    }
+
+    /**
+     * Class for the control object.
+     */
+    public class Mokkit extends MokkitEntity.Mokkit {
+
+        @Override
+        public void tick(final long tick) {
+            if (tick % 5 != 0) {
+                // Once per five ticks.
+                return;
+            }
+
+            final Collection<Entity> targets =
+                    getWorld().getNearbyEntities(getLocation(), getRadius(), 0.5, getRadius());
+
+            // TODO: waitTime
+
+            final List<LivingEntity> realTargets = targets.stream()
+                    .filter(x -> x instanceof LivingEntity)
+                    .map(x -> (LivingEntity) x)
+                    .filter(x -> tick - lastAppliedTick.getOrDefault(x, 0L) >= getReapplicationDelay())
+                    .collect(Collectors.toList());
+
+            final AreaEffectCloudApplyEvent event =
+                    new AreaEffectCloudApplyEvent(MokkitAreaEffectCloud.this, realTargets);
+            getServer().getPluginManager().callEvent(event);
+
+            realTargets.forEach(x -> {
+                // TODO these numbers are not accurate.
+                x.addPotionEffect(new PotionEffect(basePotionData.getType().getEffectType(),
+                        basePotionData.isExtended() ? 300 : 100, basePotionData.isUpgraded() ? 1 : 0));
+                for (final PotionEffect effect : customEffects) {
+                    x.addPotionEffect(new PotionEffect(effect.getType(), effect.getDuration(), effect.getAmplifier(),
+                            effect.isAmbient(), effect.hasParticles(), effect.getColor()));
+                }
+                lastAppliedTick.put(x, tick);
+            });
+            duration -= getDurationOnUse() * realTargets.size();
+            radius -= getRadiusOnUse() * realTargets.size();
+
+            duration--;
+            radius -= getRadiusPerTick();
+            if (duration <= 0 || radius <= 0) {
+                remove();
+            }
+        }
     }
 }

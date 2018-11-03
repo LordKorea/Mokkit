@@ -4,6 +4,8 @@ import de.fuchspfoten.mokkit.CancelledByEventException;
 import de.fuchspfoten.mokkit.MokkitServer;
 import de.fuchspfoten.mokkit.MokkitWorld;
 import de.fuchspfoten.mokkit.internal.exception.UnsupportedMockException;
+import de.fuchspfoten.mokkit.scheduler.TickListener;
+import de.fuchspfoten.mokkit.scheduler.Tickable;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.EntityEffect;
@@ -31,7 +33,7 @@ import java.util.UUID;
 /**
  * @see org.bukkit.entity.Entity
  */
-public abstract class MokkitEntity implements Entity {
+public abstract class MokkitEntity implements Entity, Tickable {
 
     /**
      * The location where the entity is at.
@@ -565,7 +567,7 @@ public abstract class MokkitEntity implements Entity {
     /**
      * Control object class.
      */
-    public class Mokkit {
+    public class Mokkit implements TickListener {
 
         /**
          * Clears the chat log for this entity.
@@ -599,6 +601,10 @@ public abstract class MokkitEntity implements Entity {
                 }
             }
             return false;
+        }
+
+        @Override
+        public void tick(final long tick) {
         }
     }
 }

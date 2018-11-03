@@ -74,6 +74,8 @@ import de.fuchspfoten.mokkit.entity.vehicle.minecart.MokkitSpawnerMinecart;
 import de.fuchspfoten.mokkit.entity.vehicle.minecart.MokkitStorageMinecart;
 import de.fuchspfoten.mokkit.internal.exception.InternalException;
 import de.fuchspfoten.mokkit.internal.exception.UnsupportedMockException;
+import de.fuchspfoten.mokkit.scheduler.TickListener;
+import de.fuchspfoten.mokkit.scheduler.Tickable;
 import lombok.Getter;
 import org.bukkit.BlockChangeDelegate;
 import org.bukkit.Bukkit;
@@ -117,6 +119,7 @@ import org.bukkit.util.Consumer;
 import org.bukkit.util.Vector;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.EnumMap;
@@ -133,7 +136,7 @@ import java.util.stream.Collectors;
 /**
  * @see org.bukkit.World
  */
-public class MokkitWorld implements World {
+public class MokkitWorld implements World, Tickable {
 
     /**
      * The spawnable entities.
@@ -230,6 +233,11 @@ public class MokkitWorld implements World {
             }
         }
     }
+
+    /**
+     * The control object.
+     */
+    private final Mokkit mokkit = new Mokkit();
 
     /**
      * The server this world is in.
@@ -1246,5 +1254,26 @@ public class MokkitWorld implements World {
     public boolean unloadChunkRequest(final int x, final int z, final boolean safe) {
         // TODO
         throw new UnsupportedMockException();
+    }
+
+    /**
+     * Fetch the control object.
+     *
+     * @return The control object.
+     */
+    public Mokkit mokkit() {
+        return mokkit;
+    }
+
+    /**
+     * The class for the control object.
+     */
+    public class Mokkit implements TickListener {
+
+        @Override
+        public void tick(final long tick) {
+            final List<Entity> toTick = new ArrayList<>(entities);
+            toTick.stream().filter(x -> x instanceof Tickable).map(x -> (Tickable) x).forEach(x -> x.tick(tick));
+        }
     }
 }

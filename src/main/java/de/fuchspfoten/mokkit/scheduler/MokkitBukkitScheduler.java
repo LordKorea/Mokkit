@@ -1,6 +1,7 @@
 package de.fuchspfoten.mokkit.scheduler;
 
 import de.fuchspfoten.mokkit.internal.exception.UnsupportedMockException;
+import lombok.Getter;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitScheduler;
@@ -8,9 +9,7 @@ import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.scheduler.BukkitWorker;
 
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Future;
@@ -23,7 +22,7 @@ public class MokkitBukkitScheduler implements BukkitScheduler {
     /**
      * The current tick.
      */
-    private long currentTick = 0L;
+    private @Getter long currentTick = 0L;
 
     /**
      * The next task ID.
@@ -35,11 +34,6 @@ public class MokkitBukkitScheduler implements BukkitScheduler {
      */
     private final PriorityQueue<MokkitBukkitTask> schedulerQueue =
             new PriorityQueue<>(Comparator.comparingLong(MokkitBukkitTask::getTargetTick));
-
-    /**
-     * The tasks that are scheduled.
-     */
-    private final Map<Integer, MokkitBukkitTask> tasks = new HashMap<>();
 
     @Override
     public <T> Future<T> callSyncMethod(final Plugin plugin, final Callable<T> task) {
@@ -194,7 +188,6 @@ public class MokkitBukkitScheduler implements BukkitScheduler {
         final MokkitBukkitTask internTask = new MokkitBukkitTask(currentTick + delay, task, taskId, plugin,
                 true);
         schedulerQueue.add(internTask);
-        tasks.put(taskId, internTask);
         return taskId++;
     }
 
@@ -229,5 +222,36 @@ public class MokkitBukkitScheduler implements BukkitScheduler {
     public int scheduleSyncRepeatingTask(final Plugin plugin, final BukkitRunnable task, final long delay,
                                          final long period) {
         return scheduleSyncRepeatingTask(plugin, (Runnable) task, delay, period);
+    }
+
+    /**
+     * Runs a tick.
+     */
+    public void tick() {
+        // Run the tasks.
+        do {
+            final MokkitBukkitTask nextTask = schedulerQueue.peek();
+            if (nextTask == null) {
+                // No tasks.
+                break;
+            }
+
+            if (nextTask.getTargetTick() != currentTick) {
+                // No tasks for the current tick.
+                break;
+            }
+
+            // Remove the task.
+            schedulerQueue.poll();
+            if (nextTask.isCancelled()) {
+                // Task is cancelled.
+                continue;
+            }
+
+            // Run the task.
+            nextTask.getRunnable().run();
+        } while (true);
+
+        currentTick++;
     }
 }
