@@ -41,7 +41,7 @@ public abstract class MokkitEntity implements Entity {
     /**
      * Whether or not the entity is despawned for some reason.
      */
-    protected boolean despawned;
+    protected boolean despawned = false;
 
     /**
      * The server this entity is in.
@@ -427,6 +427,15 @@ public abstract class MokkitEntity implements Entity {
     }
 
     /**
+     * Getter for the control object.
+     *
+     * @return The control object.
+     */
+    public Mokkit mokkit() {
+        return mokkit;
+    }
+
+    /**
      * Called when this entity is damaged.
      * <p>
      * This method is part of the control interface and throws {@link CancelledByEventException}s when events are
@@ -487,20 +496,17 @@ public abstract class MokkitEntity implements Entity {
         throw new UnsupportedMockException();
     }
 
-    /**
-     * Getter for the control object.
-     *
-     * @return The control object.
-     */
-    public Mokkit mokkit() {
-        return mokkit;
-    }
-
     @Override
     public void sendMessage(final String[] messages) {
         for (final String message : messages) {
             sendMessage(message);
         }
+    }
+
+    @Override
+    public void sendMessage(final String message) {
+        // Store the message.
+        receivedMessages.add(message);
     }
 
     @Override
@@ -556,16 +562,17 @@ public abstract class MokkitEntity implements Entity {
         return teleport(destination.getLocation(), cause);
     }
 
-    @Override
-    public void sendMessage(final String message) {
-        // Store the message.
-        receivedMessages.add(message);
-    }
-
     /**
      * Control object class.
      */
     public class Mokkit {
+
+        /**
+         * Clears the chat log for this entity.
+         */
+        public void clearChatLog() {
+            receivedMessages.clear();
+        }
 
         /**
          * Get the last received message.
@@ -577,13 +584,6 @@ public abstract class MokkitEntity implements Entity {
                 return null;
             }
             return receivedMessages.get(receivedMessages.size() - 1);
-        }
-
-        /**
-         * Clears the chat log for this entity.
-         */
-        public void clearChatLog() {
-            receivedMessages.clear();
         }
 
         /**

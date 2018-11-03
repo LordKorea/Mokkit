@@ -966,6 +966,7 @@ public class MokkitPlayer extends MokkitHumanEntity implements Player {
 
         // Perform the teleport.
         this.location = tp.getTo().clone();
+        MokkitWorld.updateWorldsForEntity(this);
         return true;
     }
 

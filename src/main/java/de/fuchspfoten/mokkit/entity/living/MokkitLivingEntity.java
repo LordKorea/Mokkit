@@ -53,7 +53,7 @@ public abstract class MokkitLivingEntity extends MokkitEntity implements LivingE
     /**
      * The potion effects of the entity.
      */
-    private Set<PotionEffect> potionEffects = new HashSet<>();
+    private final Set<PotionEffect> potionEffects = new HashSet<>();
 
     /**
      * The control object.
@@ -79,20 +79,26 @@ public abstract class MokkitLivingEntity extends MokkitEntity implements LivingE
 
     @Override
     public boolean addPotionEffect(final PotionEffect effect) {
-        // TODO
-        throw new UnsupportedMockException();
+        if (hasPotionEffect(effect.getType())) {
+            return false;
+        }
+        return addPotionEffect(effect, true);
     }
 
     @Override
     public boolean addPotionEffect(final PotionEffect effect, final boolean force) {
-        // TODO
-        throw new UnsupportedMockException();
+        removePotionEffect(effect.getType());
+        potionEffects.add(effect);
+        return true;
     }
 
     @Override
     public boolean addPotionEffects(final Collection<PotionEffect> effects) {
-        // TODO
-        throw new UnsupportedMockException();
+        boolean result = true;
+        for (final PotionEffect effect : effects) {
+            result = result && addPotionEffect(effect);
+        }
+        return result;
     }
 
     @Override
@@ -116,8 +122,7 @@ public abstract class MokkitLivingEntity extends MokkitEntity implements LivingE
 
     @Override
     public Collection<PotionEffect> getActivePotionEffects() {
-        // TODO
-        throw new UnsupportedMockException();
+        return Collections.unmodifiableCollection(potionEffects);
     }
 
     @Override
@@ -236,8 +241,7 @@ public abstract class MokkitLivingEntity extends MokkitEntity implements LivingE
 
     @Override
     public PotionEffect getPotionEffect(final PotionEffectType type) {
-        // TODO
-        throw new UnsupportedMockException();
+        return potionEffects.stream().filter(e -> e.getType().equals(type)).findAny().orElse(null);
     }
 
     @Override
@@ -284,7 +288,7 @@ public abstract class MokkitLivingEntity extends MokkitEntity implements LivingE
 
     @Override
     public boolean hasPotionEffect(final PotionEffectType type) {
-        return potionEffects.stream().anyMatch(e -> e.getType() == type);
+        return potionEffects.stream().anyMatch(e -> e.getType().equals(type));
     }
 
     @Override
@@ -340,8 +344,7 @@ public abstract class MokkitLivingEntity extends MokkitEntity implements LivingE
 
     @Override
     public void removePotionEffect(final PotionEffectType type) {
-        // TODO
-        throw new UnsupportedMockException();
+        potionEffects.removeIf(e -> e.getType().equals(type));
     }
 
     @Override

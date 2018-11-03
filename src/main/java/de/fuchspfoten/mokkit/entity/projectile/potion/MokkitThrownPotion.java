@@ -20,9 +20,14 @@ import java.util.UUID;
 public abstract class MokkitThrownPotion extends MokkitProjectile implements ThrownPotion {
 
     /**
+     * The control object.
+     */
+    private final Mokkit mokkit = new Mokkit();
+
+    /**
      * The potion effects of the potion.
      */
-    private Set<PotionEffect> effects = new HashSet<>();
+    private final Set<PotionEffect> effects = new HashSet<>();
 
     /**
      * Constructor.
@@ -52,5 +57,30 @@ public abstract class MokkitThrownPotion extends MokkitProjectile implements Thr
     public void setItem(final ItemStack item) {
         // TODO
         throw new UnsupportedMockException();
+    }
+
+    /**
+     * Fetches the control object.
+     *
+     * @return The control object.
+     */
+    public Mokkit mokkit() {
+        return mokkit;
+    }
+
+    /**
+     * The class for the control object.
+     */
+    public class Mokkit extends MokkitProjectile.Mokkit {
+
+        /**
+         * Adds the given effect to the potion, overwriting existing effects.
+         *
+         * @param effect The effect.
+         */
+        public void addEffect(final PotionEffect effect) {
+            effects.removeIf(e -> e.getType().equals(effect.getType()));
+            effects.add(effect);
+        }
     }
 }

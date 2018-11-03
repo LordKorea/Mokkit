@@ -222,7 +222,6 @@ public class MokkitWorld implements World {
      */
     public static void updateWorldsForEntity(final Entity entity) {
         for (final World world : Bukkit.getWorlds()) {
-            assert world instanceof MokkitWorld;
             final MokkitWorld mWorld = (MokkitWorld) world;
             if (mWorld == entity.getWorld() && entity.isValid()) {
                 mWorld.entities.add(entity);

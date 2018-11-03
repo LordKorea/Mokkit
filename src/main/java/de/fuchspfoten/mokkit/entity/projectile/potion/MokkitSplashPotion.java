@@ -2,7 +2,6 @@ package de.fuchspfoten.mokkit.entity.projectile.potion;
 
 import de.fuchspfoten.mokkit.CancelledByEventException;
 import de.fuchspfoten.mokkit.MokkitServer;
-import de.fuchspfoten.mokkit.entity.projectile.MokkitProjectile;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
@@ -49,7 +48,7 @@ public class MokkitSplashPotion extends MokkitThrownPotion implements SplashPoti
     /**
      * Class for the control object.
      */
-    public class Mokkit extends MokkitProjectile.Mokkit {
+    public class Mokkit extends MokkitThrownPotion.Mokkit {
 
         @Override
         public void hitTarget(final Entity target) {

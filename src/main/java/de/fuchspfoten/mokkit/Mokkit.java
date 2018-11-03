@@ -1,6 +1,7 @@
 package de.fuchspfoten.mokkit;
 
 import de.fuchspfoten.mokkit.internal.ReflectionHelper;
+import de.fuchspfoten.mokkit.potion.MokkitPotionEffectType;
 import org.bukkit.Bukkit;
 import org.bukkit.WorldCreator;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -47,6 +48,9 @@ public final class Mokkit {
         server = new MokkitServer();
         ReflectionHelper.setStaticField(Bukkit.class, "server", null);
         Bukkit.setServer(server);
+
+        // Create potion effects.
+        MokkitPotionEffectType.registerPotionEffects();
 
         // Create the default world.
         server.createWorld(new WorldCreator("world"));
