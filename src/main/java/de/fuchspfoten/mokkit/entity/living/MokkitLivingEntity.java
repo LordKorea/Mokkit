@@ -25,6 +25,7 @@ import org.bukkit.util.Vector;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -48,6 +49,11 @@ public abstract class MokkitLivingEntity extends MokkitEntity implements LivingE
      * The health of the entity.
      */
     private @Getter @Setter double health;
+
+    /**
+     * The potion effects of the entity.
+     */
+    private Set<PotionEffect> potionEffects = new HashSet<>();
 
     /**
      * The control object.
@@ -278,8 +284,7 @@ public abstract class MokkitLivingEntity extends MokkitEntity implements LivingE
 
     @Override
     public boolean hasPotionEffect(final PotionEffectType type) {
-        // TODO
-        throw new UnsupportedMockException();
+        return potionEffects.stream().anyMatch(e -> e.getType() == type);
     }
 
     @Override
