@@ -398,6 +398,10 @@ public class MokkitBlock implements Block {
                 throw new IllegalStateException("not extended");
             }
 
+            // Take a snapshot of the extension.
+            final BlockState snapshot = getRelative(pbm.getFacing()).getState();
+            getRelative(pbm.getFacing()).setType(Material.AIR);
+
             // Only pull blocks if the piston is sticky.
             final List<Block> pullList = new ArrayList<>();
             if (pbm.isSticky()) {
@@ -418,11 +422,12 @@ public class MokkitBlock implements Block {
                     Collections.unmodifiableList(pullList), pbm.getFacing().getOppositeFace());
             Bukkit.getServer().getPluginManager().callEvent(event);
             if (event.isCancelled()) {
+                // Restore to the snapshot.
+                snapshot.update(true);
                 throw new CancelledByEventException(event);
             }
 
-            // Remove the extension.
-            getRelative(pbm.getFacing()).setType(Material.AIR);
+            // Unpower the block.
             pbm.setPowered(false);
             selfState.update(true);
 
