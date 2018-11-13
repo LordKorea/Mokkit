@@ -15,14 +15,14 @@ public class MokkitItemFactory implements ItemFactory {
 
     @Override
     public ItemMeta asMetaFor(final ItemMeta meta, final ItemStack stack) throws IllegalArgumentException {
-        // TODO
-        throw new UnsupportedMockException();
+        // TODO: subclasses?
+        return meta;
     }
 
     @Override
     public ItemMeta asMetaFor(final ItemMeta meta, final Material material) throws IllegalArgumentException {
-        // TODO
-        throw new UnsupportedMockException();
+        // TODO: subclasses?
+        return meta;
     }
 
     @Override
@@ -59,7 +59,7 @@ public class MokkitItemFactory implements ItemFactory {
 
     @Override
     public boolean isApplicable(final ItemMeta meta, final Material material) throws IllegalArgumentException {
-        // TODO
-        throw new UnsupportedMockException();
+        // TODO: subclasses?
+        return true;
     }
 }

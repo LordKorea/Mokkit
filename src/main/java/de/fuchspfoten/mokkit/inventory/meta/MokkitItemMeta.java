@@ -1,10 +1,13 @@
 package de.fuchspfoten.mokkit.inventory.meta;
 
 import de.fuchspfoten.mokkit.internal.exception.UnsupportedMockException;
+import lombok.Getter;
+import lombok.Setter;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -12,7 +15,12 @@ import java.util.Set;
 /**
  * @see org.bukkit.inventory.meta.ItemMeta
  */
-public class MokkitItemMeta implements ItemMeta {
+public class MokkitItemMeta implements ItemMeta, Cloneable {
+
+    /**
+     * The lore of this item meta.
+     */
+    private @Getter @Setter List<String> lore;
 
     @Override
     public boolean addEnchant(final Enchantment ench, final int level, final boolean ignoreLevelRestriction) {
@@ -28,8 +36,13 @@ public class MokkitItemMeta implements ItemMeta {
 
     @Override
     public ItemMeta clone() {
-        // TODO
-        throw new UnsupportedMockException();
+        try {
+            final MokkitItemMeta meta = (MokkitItemMeta) super.clone();
+            meta.lore = hasLore() ? new ArrayList<>(lore) : null;
+            return meta;
+        } catch (final CloneNotSupportedException e) {
+            throw new IllegalStateException(e);
+        }
     }
 
     @Override
@@ -75,18 +88,6 @@ public class MokkitItemMeta implements ItemMeta {
     }
 
     @Override
-    public List<String> getLore() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setLore(final List<String> lore) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
     public boolean hasConflictingEnchant(final Enchantment ench) {
         // TODO
         throw new UnsupportedMockException();
@@ -124,8 +125,7 @@ public class MokkitItemMeta implements ItemMeta {
 
     @Override
     public boolean hasLore() {
-        // TODO
-        throw new UnsupportedMockException();
+        return lore != null && !lore.isEmpty();
     }
 
     /**
