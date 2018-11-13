@@ -3,6 +3,7 @@ package de.fuchspfoten.mokkit;
 import de.fuchspfoten.mokkit.entity.living.human.MokkitPlayer;
 import de.fuchspfoten.mokkit.internal.exception.InternalException;
 import de.fuchspfoten.mokkit.internal.exception.UnsupportedMockException;
+import de.fuchspfoten.mokkit.inventory.MokkitItemFactory;
 import de.fuchspfoten.mokkit.plugin.MokkitPluginManager;
 import de.fuchspfoten.mokkit.scheduler.MokkitBukkitScheduler;
 import lombok.Getter;
@@ -102,6 +103,11 @@ public class MokkitServer implements Server {
      * The players on the server.
      */
     private final Set<MokkitPlayer> players = new HashSet<>();
+
+    /**
+     * The item factory.
+     */
+    private @Getter final ItemFactory itemFactory = new MokkitItemFactory();
 
     /**
      * The mokkit control object.
@@ -345,12 +351,6 @@ public class MokkitServer implements Server {
 
     @Override
     public String getIp() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public ItemFactory getItemFactory() {
         // TODO
         throw new UnsupportedMockException();
     }
