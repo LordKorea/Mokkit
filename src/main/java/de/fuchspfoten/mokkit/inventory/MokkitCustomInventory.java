@@ -1,6 +1,7 @@
 package de.fuchspfoten.mokkit.inventory;
 
 import lombok.NonNull;
+import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.InventoryHolder;
 
 /**
@@ -16,6 +17,6 @@ public class MokkitCustomInventory extends MokkitInventory {
      * @param title  The title of the inventory.
      */
     public MokkitCustomInventory(final int size, final InventoryHolder holder, final @NonNull String title) {
-        super(size, holder, title);
+        super(size, holder, title, InventoryType.CHEST);
     }
 }

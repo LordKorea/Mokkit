@@ -5,9 +5,12 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
 import org.bukkit.entity.HumanEntity;
+import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
+
+import java.util.Arrays;
 
 /**
  * @see org.bukkit.inventory.PlayerInventory
@@ -27,7 +30,7 @@ public class MokkitPlayerInventory extends MokkitInventory implements PlayerInve
         // Items: 9..35.
         // Armor: 36..39.
         // Off Hand: 40.
-        super(9 + 3 * 9 + 4 + 1, holder, "");
+        super(9 + 3 * 9 + 4 + 1, holder, "", InventoryType.PLAYER);
     }
 
     @Override
@@ -38,14 +41,15 @@ public class MokkitPlayerInventory extends MokkitInventory implements PlayerInve
 
     @Override
     public ItemStack[] getArmorContents() {
-        // TODO
-        throw new UnsupportedMockException();
+        final ItemStack[] result = new ItemStack[4];
+        Arrays.setAll(result, i -> contents[36 + i]);
+        return result;
     }
 
     @Override
-    public void setArmorContents(final ItemStack[] items) {
-        // TODO
-        throw new UnsupportedMockException();
+    public void setArmorContents(final @NonNull ItemStack[] items) {
+        assert items.length == 4 : "invalid array length";
+        System.arraycopy(items, 0, contents, 36, 4);
     }
 
     @Override
@@ -74,14 +78,13 @@ public class MokkitPlayerInventory extends MokkitInventory implements PlayerInve
 
     @Override
     public ItemStack[] getExtraContents() {
-        // TODO
-        throw new UnsupportedMockException();
+        return new ItemStack[]{contents[40]};
     }
 
     @Override
-    public void setExtraContents(final ItemStack[] items) {
-        // TODO
-        throw new UnsupportedMockException();
+    public void setExtraContents(final @NonNull ItemStack[] items) {
+        assert items.length == 1 : "invalid array length";
+        contents[40] = items[0];
     }
 
     @Override

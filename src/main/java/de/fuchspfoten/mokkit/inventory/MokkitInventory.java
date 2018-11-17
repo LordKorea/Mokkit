@@ -23,7 +23,7 @@ public abstract class MokkitInventory implements Inventory {
     /**
      * The contents of the inventory.
      */
-    private final ItemStack[] contents;
+    protected final ItemStack[] contents;
 
     /**
      * The holder of the inventory.
@@ -36,17 +36,24 @@ public abstract class MokkitInventory implements Inventory {
     private @Getter final String title;
 
     /**
+     * The type of this inventory.
+     */
+    private @Getter final InventoryType type;
+
+    /**
      * Constructor.
      *
      * @param size The size of inventory.
      * @param holder The holder of the inventory.
      * @param title  The title of the inventory.
      */
-    public MokkitInventory(final int size, final InventoryHolder holder, final @NonNull String title) {
+    public MokkitInventory(final int size, final InventoryHolder holder, final @NonNull String title,
+                           final @NonNull InventoryType type) {
         assert size >= 0 : "invalid size " + size;
         contents = new ItemStack[size];
         this.holder = holder;
         this.title = title;
+        this.type = type;
     }
 
     @Override
@@ -205,12 +212,6 @@ public abstract class MokkitInventory implements Inventory {
 
     @Override
     public void setStorageContents(final ItemStack[] items) throws IllegalArgumentException {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public InventoryType getType() {
         // TODO
         throw new UnsupportedMockException();
     }

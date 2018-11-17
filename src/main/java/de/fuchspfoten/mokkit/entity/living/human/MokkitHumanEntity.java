@@ -3,6 +3,7 @@ package de.fuchspfoten.mokkit.entity.living.human;
 import de.fuchspfoten.mokkit.MokkitServer;
 import de.fuchspfoten.mokkit.entity.living.MokkitLivingEntity;
 import de.fuchspfoten.mokkit.internal.exception.UnsupportedMockException;
+import de.fuchspfoten.mokkit.inventory.MokkitInventoryView;
 import de.fuchspfoten.mokkit.inventory.MokkitPlayerInventory;
 import lombok.Getter;
 import lombok.NonNull;
@@ -13,6 +14,8 @@ import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Villager;
+import org.bukkit.event.inventory.InventoryCloseEvent;
+import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
@@ -38,6 +41,11 @@ public abstract class MokkitHumanEntity extends MokkitLivingEntity implements Hu
     private @Getter @Setter GameMode gameMode = GameMode.SURVIVAL;
 
     /**
+     * The currently opened inventory.
+     */
+    private @Getter InventoryView openInventory;
+
+    /**
      * Constructor.
      *
      * @param server   The server this entity is in.
@@ -52,8 +60,13 @@ public abstract class MokkitHumanEntity extends MokkitLivingEntity implements Hu
 
     @Override
     public void closeInventory() {
-        // TODO
-        throw new UnsupportedMockException();
+        if (openInventory == null) {
+            return;
+        }
+
+        final InventoryCloseEvent event = new InventoryCloseEvent(openInventory);
+        getServer().getPluginManager().callEvent(event);
+        openInventory = null;
     }
 
     @Override
@@ -98,12 +111,6 @@ public abstract class MokkitHumanEntity extends MokkitLivingEntity implements Hu
 
     @Override
     public MainHand getMainHand() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public InventoryView getOpenInventory() {
         // TODO
         throw new UnsupportedMockException();
     }
@@ -170,8 +177,15 @@ public abstract class MokkitHumanEntity extends MokkitLivingEntity implements Hu
 
     @Override
     public InventoryView openInventory(final Inventory inventory) {
-        // TODO
-        throw new UnsupportedMockException();
+        final InventoryView newView = new MokkitInventoryView(inventory, this.inventory, this,
+                inventory.getType());
+        final InventoryOpenEvent event = new InventoryOpenEvent(newView);
+        getServer().getPluginManager().callEvent(event);
+        if (event.isCancelled()) {
+            return openInventory;
+        }
+        openInventory = newView;
+        return openInventory;
     }
 
     @Override
