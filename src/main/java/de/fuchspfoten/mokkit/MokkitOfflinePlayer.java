@@ -2,6 +2,7 @@ package de.fuchspfoten.mokkit;
 
 import de.fuchspfoten.mokkit.internal.exception.UnsupportedMockException;
 import lombok.Getter;
+import lombok.NonNull;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
@@ -25,7 +26,7 @@ public class MokkitOfflinePlayer implements OfflinePlayer {
      *
      * @param uniqueId The UUID of the player.
      */
-    public MokkitOfflinePlayer(final UUID uniqueId) {
+    public MokkitOfflinePlayer(final @NonNull UUID uniqueId) {
         this.uniqueId = uniqueId;
     }
 

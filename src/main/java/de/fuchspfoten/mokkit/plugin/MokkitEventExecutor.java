@@ -1,6 +1,7 @@
 package de.fuchspfoten.mokkit.plugin;
 
 import de.fuchspfoten.mokkit.internal.exception.FailureException;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.bukkit.event.Event;
 import org.bukkit.event.Listener;
@@ -18,15 +19,15 @@ public class MokkitEventExecutor implements EventExecutor {
     /**
      * The type of the parameter of the method.
      */
-    private final Class<?> parameterType;
+    private @NonNull final Class<?> parameterType;
 
     /**
      * The method that is to be called.
      */
-    private final Method listenerMethod;
+    private @NonNull final Method listenerMethod;
 
     @Override
-    public void execute(final Listener listener, final Event event) {
+    public void execute(final @NonNull Listener listener, final @NonNull Event event) {
         if (!parameterType.isAssignableFrom(event.getClass())) {
             return;
         }

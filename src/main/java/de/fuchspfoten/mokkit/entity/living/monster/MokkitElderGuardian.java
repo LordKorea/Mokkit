@@ -1,6 +1,7 @@
 package de.fuchspfoten.mokkit.entity.living.monster;
 
 import de.fuchspfoten.mokkit.MokkitServer;
+import lombok.NonNull;
 import org.bukkit.Location;
 import org.bukkit.entity.ElderGuardian;
 import org.bukkit.entity.EntityType;
@@ -19,7 +20,8 @@ public class MokkitElderGuardian extends MokkitGuardian implements ElderGuardian
      * @param location The location the entity is at.
      * @param uuid     The UUID of the entity.
      */
-    public MokkitElderGuardian(final MokkitServer server, final Location location, final UUID uuid) {
+    public MokkitElderGuardian(final @NonNull MokkitServer server, final @NonNull Location location,
+                               final @NonNull UUID uuid) {
         super(server, "ElderGuardian", location, uuid, 80.0);
     }
 

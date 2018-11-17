@@ -2,6 +2,7 @@ package de.fuchspfoten.mokkit.entity.projectile.arrow;
 
 import de.fuchspfoten.mokkit.MokkitServer;
 import de.fuchspfoten.mokkit.internal.exception.UnsupportedMockException;
+import lombok.NonNull;
 import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.entity.EntityType;
@@ -25,7 +26,8 @@ public class MokkitTippedArrow extends MokkitArrow implements TippedArrow {
      * @param location The location the entity is at.
      * @param uniqueId The UUID of the entity.
      */
-    public MokkitTippedArrow(final MokkitServer server, final Location location, final UUID uniqueId) {
+    public MokkitTippedArrow(final @NonNull MokkitServer server, final @NonNull Location location,
+                             final @NonNull UUID uniqueId) {
         super(server, "TippedArrow", location, uniqueId);
     }
 

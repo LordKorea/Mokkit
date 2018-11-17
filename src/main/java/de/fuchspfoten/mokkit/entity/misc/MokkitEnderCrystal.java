@@ -4,6 +4,7 @@ import de.fuchspfoten.mokkit.CancelledByEventException;
 import de.fuchspfoten.mokkit.MokkitServer;
 import de.fuchspfoten.mokkit.entity.MokkitEntity;
 import de.fuchspfoten.mokkit.internal.exception.UnsupportedMockException;
+import lombok.NonNull;
 import org.bukkit.Location;
 import org.bukkit.entity.EnderCrystal;
 import org.bukkit.entity.Entity;
@@ -25,7 +26,8 @@ public class MokkitEnderCrystal extends MokkitEntity implements EnderCrystal {
      * @param location The location the entity is at.
      * @param uniqueId The UUID of the entity.
      */
-    public MokkitEnderCrystal(final MokkitServer server, final Location location, final UUID uniqueId) {
+    public MokkitEnderCrystal(final @NonNull MokkitServer server, final @NonNull Location location,
+                              final @NonNull UUID uniqueId) {
         super(server, "EnderCrystal", location, uniqueId);
     }
 
@@ -59,7 +61,7 @@ public class MokkitEnderCrystal extends MokkitEntity implements EnderCrystal {
     }
 
     @Override
-    public double onDamaged(final Entity damager, final double damage) {
+    public double onDamaged(final @NonNull Entity damager, final double damage) {
         final double dmg = super.onDamaged(damager, damage);
 
         // TODO: Explosion blocks and strength.

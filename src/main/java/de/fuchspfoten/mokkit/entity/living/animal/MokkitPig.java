@@ -2,6 +2,7 @@ package de.fuchspfoten.mokkit.entity.living.animal;
 
 import de.fuchspfoten.mokkit.MokkitServer;
 import de.fuchspfoten.mokkit.internal.exception.UnsupportedMockException;
+import lombok.NonNull;
 import org.bukkit.Location;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Pig;
@@ -20,7 +21,7 @@ public class MokkitPig extends MokkitAnimals implements Pig {
      * @param location The location the entity is at.
      * @param uuid     The UUID of the entity.
      */
-    public MokkitPig(final MokkitServer server, final Location location, final UUID uuid) {
+    public MokkitPig(final @NonNull MokkitServer server, final @NonNull Location location, final @NonNull UUID uuid) {
         super(server, "Pig", location, uuid, 10.0);
     }
 

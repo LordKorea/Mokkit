@@ -2,6 +2,7 @@ package de.fuchspfoten.mokkit.entity.living.monster;
 
 import de.fuchspfoten.mokkit.MokkitServer;
 import de.fuchspfoten.mokkit.entity.living.MokkitCreature;
+import lombok.NonNull;
 import org.bukkit.Location;
 import org.bukkit.entity.Monster;
 
@@ -21,8 +22,8 @@ public abstract class MokkitMonster extends MokkitCreature implements Monster {
      * @param uuid             The UUID of the entity.
      * @param defaultMaxHealth The default max health of the entity.
      */
-    public MokkitMonster(final MokkitServer server, final String name, final Location location, final UUID uuid,
-                         final double defaultMaxHealth) {
+    public MokkitMonster(final @NonNull MokkitServer server, final @NonNull String name,
+                         final @NonNull Location location, final @NonNull UUID uuid, final double defaultMaxHealth) {
         super(server, name, location, uuid, defaultMaxHealth);
     }
 }

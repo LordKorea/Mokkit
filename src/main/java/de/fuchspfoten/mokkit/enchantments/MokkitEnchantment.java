@@ -2,6 +2,7 @@ package de.fuchspfoten.mokkit.enchantments;
 
 import de.fuchspfoten.mokkit.internal.exception.UnsupportedMockException;
 import lombok.Getter;
+import lombok.NonNull;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.inventory.ItemStack;
@@ -69,7 +70,7 @@ public final class MokkitEnchantment extends Enchantment {
      * @param id   The ID of the enchantment.
      * @param name The name of the enchantment.
      */
-    private MokkitEnchantment(final int id, final String name) {
+    private MokkitEnchantment(final int id, final @NonNull String name) {
         super(id);
         this.name = name;
     }

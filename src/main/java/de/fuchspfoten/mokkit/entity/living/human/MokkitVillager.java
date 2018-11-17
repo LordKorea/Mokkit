@@ -3,6 +3,7 @@ package de.fuchspfoten.mokkit.entity.living.human;
 import de.fuchspfoten.mokkit.MokkitServer;
 import de.fuchspfoten.mokkit.entity.living.MokkitAgeable;
 import de.fuchspfoten.mokkit.internal.exception.UnsupportedMockException;
+import lombok.NonNull;
 import org.bukkit.Location;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.HumanEntity;
@@ -25,7 +26,8 @@ public class MokkitVillager extends MokkitAgeable implements Villager {
      * @param location The location the entity is at.
      * @param uuid     The UUID of the entity.
      */
-    public MokkitVillager(final MokkitServer server, final Location location, final UUID uuid) {
+    public MokkitVillager(final @NonNull MokkitServer server, final @NonNull Location location,
+                          final @NonNull UUID uuid) {
         super(server, "Villager", location, uuid, 20.0);
     }
 

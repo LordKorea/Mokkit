@@ -4,6 +4,7 @@ import de.fuchspfoten.mokkit.MokkitServer;
 import de.fuchspfoten.mokkit.entity.MokkitEntity;
 import de.fuchspfoten.mokkit.internal.exception.UnsupportedMockException;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.Setter;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
@@ -36,8 +37,8 @@ public abstract class MokkitProjectile extends MokkitEntity implements Projectil
      * @param location The location the entity is at.
      * @param uniqueId The UUID of the entity.
      */
-    public MokkitProjectile(final MokkitServer server, final String name, final Location location,
-                            final UUID uniqueId) {
+    public MokkitProjectile(final @NonNull MokkitServer server, final @NonNull String name,
+                            final @NonNull Location location, final @NonNull UUID uniqueId) {
         super(server, name, location, uniqueId);
     }
 
@@ -72,7 +73,7 @@ public abstract class MokkitProjectile extends MokkitEntity implements Projectil
          *
          * @param target The target.
          */
-        public void hitTarget(final Entity target) {
+        public void hitTarget(final @NonNull Entity target) {
             final ProjectileHitEvent hitEvent = new ProjectileHitEvent(MokkitProjectile.this, target);
             getServer().getPluginManager().callEvent(hitEvent);
             remove();

@@ -2,6 +2,7 @@ package de.fuchspfoten.mokkit.entity.living.animal;
 
 import de.fuchspfoten.mokkit.MokkitServer;
 import de.fuchspfoten.mokkit.internal.exception.UnsupportedMockException;
+import lombok.NonNull;
 import org.bukkit.Location;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Ocelot;
@@ -20,7 +21,8 @@ public class MokkitOcelot extends MokkitTameableAnimals implements Ocelot {
      * @param location The location the entity is at.
      * @param uuid     The UUID of the entity.
      */
-    public MokkitOcelot(final MokkitServer server, final Location location, final UUID uuid) {
+    public MokkitOcelot(final @NonNull MokkitServer server, final @NonNull Location location,
+                        final @NonNull UUID uuid) {
         super(server, "Ocelot", location, uuid, 10.0);
     }
 

@@ -3,6 +3,7 @@ package de.fuchspfoten.mokkit.entity.vehicle.minecart;
 import de.fuchspfoten.mokkit.MokkitServer;
 import de.fuchspfoten.mokkit.entity.vehicle.MokkitVehicle;
 import de.fuchspfoten.mokkit.internal.exception.UnsupportedMockException;
+import lombok.NonNull;
 import org.bukkit.Location;
 import org.bukkit.entity.Minecart;
 import org.bukkit.material.MaterialData;
@@ -23,7 +24,8 @@ public abstract class MokkitMinecart extends MokkitVehicle implements Minecart {
      * @param location The location the entity is at.
      * @param uuid     The UUID of the entity.
      */
-    public MokkitMinecart(final MokkitServer server, final String name, final Location location, final UUID uuid) {
+    public MokkitMinecart(final @NonNull MokkitServer server, final @NonNull String name,
+                          final @NonNull Location location, final @NonNull UUID uuid) {
         super(server, name, location, uuid);
     }
 

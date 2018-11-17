@@ -7,6 +7,7 @@ import de.fuchspfoten.mokkit.inventory.MokkitItemFactory;
 import de.fuchspfoten.mokkit.plugin.MokkitPluginManager;
 import de.fuchspfoten.mokkit.scheduler.MokkitBukkitScheduler;
 import lombok.Getter;
+import lombok.NonNull;
 import org.bukkit.BanList;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
@@ -153,7 +154,7 @@ public class MokkitServer implements Server {
     }
 
     @Override
-    public int broadcastMessage(final String message) {
+    public int broadcastMessage(final @NonNull String message) {
         getLogger().info(ChatColor.stripColor(message));
 
         // TODO permissions.
@@ -218,7 +219,7 @@ public class MokkitServer implements Server {
     }
 
     @Override
-    public MokkitWorld createWorld(final WorldCreator creator) {
+    public MokkitWorld createWorld(final @NonNull WorldCreator creator) {
         final MokkitWorld world = new MokkitWorld(this, creator.name());
         worlds.put(creator.name(), world);
         return world;
@@ -397,12 +398,12 @@ public class MokkitServer implements Server {
     }
 
     @Override
-    public OfflinePlayer getOfflinePlayer(final String name) {
+    public OfflinePlayer getOfflinePlayer(final @NonNull String name) {
         return getOfflinePlayer(getUUIDForName(name));
     }
 
     @Override
-    public OfflinePlayer getOfflinePlayer(final UUID id) {
+    public OfflinePlayer getOfflinePlayer(final @NonNull UUID id) {
         return new MokkitOfflinePlayer(id);
     }
 
@@ -430,7 +431,7 @@ public class MokkitServer implements Server {
     }
 
     @Override
-    public Player getPlayer(final UUID id) {
+    public Player getPlayer(final @NonNull UUID id) {
         return players.stream().filter(p -> p.getUniqueId().equals(id)).findAny().orElse(null);
     }
 
@@ -447,7 +448,7 @@ public class MokkitServer implements Server {
     }
 
     @Override
-    public PluginCommand getPluginCommand(final String name) {
+    public PluginCommand getPluginCommand(final @NonNull String name) {
         return getPluginManager().getCommand(name);
     }
 
@@ -565,7 +566,7 @@ public class MokkitServer implements Server {
     }
 
     @Override
-    public World getWorld(final String name) {
+    public World getWorld(final @NonNull String name) {
         return worlds.get(name);
     }
 
@@ -722,7 +723,7 @@ public class MokkitServer implements Server {
      * @param name The name.
      * @return The UUID.
      */
-    private UUID getUUIDForName(final String name) {
+    private UUID getUUIDForName(final @NonNull String name) {
         return UUID.nameUUIDFromBytes(("Mokkit:" + name).getBytes());
     }
 
@@ -743,7 +744,7 @@ public class MokkitServer implements Server {
          * @param name The name of the player.
          * @return The player.
          */
-        public MokkitPlayer joinPlayer(final String name) throws CancelledByEventException {
+        public MokkitPlayer joinPlayer(final @NonNull String name) throws CancelledByEventException {
             return joinPlayer(name, "127.0.0.1");
         }
 
@@ -754,7 +755,8 @@ public class MokkitServer implements Server {
          * @param ipAddress The IP address of the player.
          * @return The player.
          */
-        public MokkitPlayer joinPlayer(final String name, final String ipAddress) throws CancelledByEventException {
+        public MokkitPlayer joinPlayer(final @NonNull String name, final @NonNull String ipAddress)
+                throws CancelledByEventException {
             // Create the IP address.
             final InetAddress ipAddr;
             try {

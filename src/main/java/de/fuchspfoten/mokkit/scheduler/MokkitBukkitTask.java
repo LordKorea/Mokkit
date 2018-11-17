@@ -1,6 +1,7 @@
 package de.fuchspfoten.mokkit.scheduler;
 
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitTask;
@@ -19,7 +20,7 @@ public class MokkitBukkitTask implements BukkitTask {
     /**
      * The task's runnable.
      */
-    private @Getter final Runnable runnable;
+    private @NonNull @Getter final Runnable runnable;
 
     /**
      * The task's ID.
@@ -29,7 +30,7 @@ public class MokkitBukkitTask implements BukkitTask {
     /**
      * The task's owner.
      */
-    private @Getter final Plugin owner;
+    private @NonNull @Getter final Plugin owner;
 
     /**
      * Whether the task is running sync or not.

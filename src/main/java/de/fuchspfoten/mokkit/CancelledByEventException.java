@@ -1,6 +1,7 @@
 package de.fuchspfoten.mokkit;
 
 import lombok.Getter;
+import lombok.NonNull;
 import org.bukkit.event.Event;
 
 /**
@@ -18,7 +19,7 @@ public class CancelledByEventException extends RuntimeException {
      *
      * @param cancelledEvent The event that cancelled the action.
      */
-    public CancelledByEventException(final Event cancelledEvent) {
+    public CancelledByEventException(final @NonNull Event cancelledEvent) {
         super("Action cancelled by event: " + cancelledEvent.getEventName());
         this.cancelledEvent = cancelledEvent;
     }

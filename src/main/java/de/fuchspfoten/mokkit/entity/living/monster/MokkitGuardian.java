@@ -2,6 +2,7 @@ package de.fuchspfoten.mokkit.entity.living.monster;
 
 import de.fuchspfoten.mokkit.MokkitServer;
 import de.fuchspfoten.mokkit.internal.exception.UnsupportedMockException;
+import lombok.NonNull;
 import org.bukkit.Location;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Guardian;
@@ -20,7 +21,8 @@ public class MokkitGuardian extends MokkitMonster implements Guardian {
      * @param location The location the entity is at.
      * @param uuid     The UUID of the entity.
      */
-    public MokkitGuardian(final MokkitServer server, final Location location, final UUID uuid) {
+    public MokkitGuardian(final @NonNull MokkitServer server, final @NonNull Location location,
+                          final @NonNull UUID uuid) {
         super(server, "Guardian", location, uuid, 30.0);
     }
 
@@ -33,7 +35,8 @@ public class MokkitGuardian extends MokkitMonster implements Guardian {
      * @param uuid             The UUID of the entity.
      * @param defaultMaxHealth The default max health of the entity.
      */
-    protected MokkitGuardian(final MokkitServer server, final String name, final Location location, final UUID uuid,
+    protected MokkitGuardian(final @NonNull MokkitServer server, final @NonNull String name,
+                             final @NonNull Location location, final @NonNull UUID uuid,
                              final double defaultMaxHealth) {
         super(server, name, location, uuid, defaultMaxHealth);
     }

@@ -1,6 +1,7 @@
 package de.fuchspfoten.mokkit.entity.living.monster;
 
 import de.fuchspfoten.mokkit.MokkitServer;
+import lombok.NonNull;
 import org.bukkit.Location;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Vex;
@@ -19,7 +20,7 @@ public class MokkitVex extends MokkitMonster implements Vex {
      * @param location The location the entity is at.
      * @param uuid     The UUID of the entity.
      */
-    public MokkitVex(final MokkitServer server, final Location location, final UUID uuid) {
+    public MokkitVex(final @NonNull MokkitServer server, final @NonNull Location location, final @NonNull UUID uuid) {
         super(server, "Vex", location, uuid, 14.0);
     }
 

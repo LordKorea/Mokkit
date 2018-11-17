@@ -3,6 +3,7 @@ package de.fuchspfoten.mokkit.entity.living.animal;
 import de.fuchspfoten.mokkit.MokkitServer;
 import de.fuchspfoten.mokkit.entity.living.MokkitAmbient;
 import de.fuchspfoten.mokkit.internal.exception.UnsupportedMockException;
+import lombok.NonNull;
 import org.bukkit.Location;
 import org.bukkit.entity.Bat;
 import org.bukkit.entity.EntityType;
@@ -21,7 +22,7 @@ public class MokkitBat extends MokkitAmbient implements Bat {
      * @param location The location the entity is at.
      * @param uuid     The UUID of the entity.
      */
-    public MokkitBat(final MokkitServer server, final Location location, final UUID uuid) {
+    public MokkitBat(final @NonNull MokkitServer server, final @NonNull Location location, final @NonNull UUID uuid) {
         super(server, "Bat", location, uuid, 6.0);
     }
 

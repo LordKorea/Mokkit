@@ -5,6 +5,7 @@ import de.fuchspfoten.mokkit.entity.living.MokkitLivingEntity;
 import de.fuchspfoten.mokkit.internal.exception.UnsupportedMockException;
 import de.fuchspfoten.mokkit.inventory.MokkitPlayerInventory;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.Setter;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
@@ -44,7 +45,8 @@ public abstract class MokkitHumanEntity extends MokkitLivingEntity implements Hu
      * @param location The location the entity is at.
      * @param uuid     The UUID of the entity.
      */
-    public MokkitHumanEntity(final MokkitServer server, final String name, final Location location, final UUID uuid) {
+    public MokkitHumanEntity(final @NonNull MokkitServer server, final @NonNull String name,
+                             final @NonNull Location location, final @NonNull UUID uuid) {
         super(server, name, location, uuid, 20.0);
     }
 

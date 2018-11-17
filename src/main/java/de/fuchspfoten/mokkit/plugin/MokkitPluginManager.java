@@ -6,6 +6,7 @@ import de.fuchspfoten.mokkit.internal.ReflectionHelper;
 import de.fuchspfoten.mokkit.internal.exception.FailureException;
 import de.fuchspfoten.mokkit.internal.exception.InternalException;
 import de.fuchspfoten.mokkit.internal.exception.UnsupportedMockException;
+import lombok.NonNull;
 import org.bukkit.Server;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.event.Event;
@@ -72,7 +73,7 @@ public class MokkitPluginManager implements PluginManager {
      *
      * @param server The server.
      */
-    public MokkitPluginManager(final Server server) {
+    public MokkitPluginManager(final @NonNull Server server) {
         this.server = server;
         pluginLoader = new JavaPluginLoader(server);
     }
@@ -84,7 +85,7 @@ public class MokkitPluginManager implements PluginManager {
     }
 
     @Override
-    public void callEvent(final Event event) throws IllegalStateException {
+    public void callEvent(final @NonNull Event event) throws IllegalStateException {
         final HandlerList handlerList = event.getHandlers();
         for (final RegisteredListener listener : handlerList.getRegisteredListeners()) {
             try {
@@ -102,7 +103,7 @@ public class MokkitPluginManager implements PluginManager {
     }
 
     @Override
-    public void disablePlugin(final Plugin plugin) {
+    public void disablePlugin(final @NonNull Plugin plugin) {
         if (plugin.isEnabled()) {
             assert plugin instanceof JavaPlugin;
             callEvent(new PluginDisableEvent(plugin));
@@ -119,7 +120,7 @@ public class MokkitPluginManager implements PluginManager {
     }
 
     @Override
-    public void enablePlugin(final Plugin plugin) {
+    public void enablePlugin(final @NonNull Plugin plugin) {
         if (!plugin.isEnabled()) {
             assert plugin instanceof JavaPlugin;
             ReflectionHelper.invokeMethod(JavaPlugin.class, (JavaPlugin) plugin, "setEnabled",
@@ -134,7 +135,7 @@ public class MokkitPluginManager implements PluginManager {
      * @param name The name.
      * @return The command.
      */
-    public PluginCommand getCommand(final String name) {
+    public PluginCommand getCommand(final @NonNull String name) {
         return commandList.stream().filter(x -> x.getName().equals(name)).findAny().orElse(null);
     }
 
@@ -180,12 +181,12 @@ public class MokkitPluginManager implements PluginManager {
     }
 
     @Override
-    public boolean isPluginEnabled(final Plugin plugin) {
+    public boolean isPluginEnabled(final @NonNull Plugin plugin) {
         return plugin.isEnabled();
     }
 
     @Override
-    public boolean isPluginEnabled(final String name) {
+    public boolean isPluginEnabled(final @NonNull String name) {
         return getPlugin(name).isEnabled();
     }
 
@@ -196,7 +197,7 @@ public class MokkitPluginManager implements PluginManager {
      * @param <T>   The plugin type.
      * @return The plugin.
      */
-    public <T extends JavaPlugin> T loadPlugin(final Class<T> clazz) {
+    public <T extends JavaPlugin> T loadPlugin(final @NonNull Class<T> clazz) {
         final PluginDescriptionFile description = getPluginYAML(clazz);
         final File dataFolder;
         try {
@@ -258,7 +259,7 @@ public class MokkitPluginManager implements PluginManager {
     }
 
     @Override
-    public void registerEvents(final Listener listener, final Plugin plugin) {
+    public void registerEvents(final @NonNull Listener listener, final @NonNull Plugin plugin) {
         for (final Method method : listener.getClass().getMethods()) {
             final EventHandler annot = method.getAnnotation(EventHandler.class);
             if (annot != null) {
@@ -329,7 +330,7 @@ public class MokkitPluginManager implements PluginManager {
      *
      * @param plugin The plugin.
      */
-    private void fetchCommands(final Plugin plugin) {
+    private void fetchCommands(final @NonNull Plugin plugin) {
         final PluginDescriptionFile description = plugin.getDescription();
         if (description.getCommands() != null) {
             for (final Map.Entry<String, Map<String, Object>> entry : description.getCommands().entrySet()) {
@@ -374,7 +375,7 @@ public class MokkitPluginManager implements PluginManager {
      * @param source The main class.
      * @return The plugin.yml as a plugin description file.
      */
-    private PluginDescriptionFile getPluginYAML(final Class<?> source) {
+    private PluginDescriptionFile getPluginYAML(final @NonNull Class<?> source) {
         try {
             final Enumeration<URL> candidates = source.getClassLoader().getResources("plugin.yml");
             while (candidates.hasMoreElements()) {

@@ -4,6 +4,7 @@ import de.fuchspfoten.mokkit.MokkitServer;
 import de.fuchspfoten.mokkit.entity.MokkitEntity;
 import de.fuchspfoten.mokkit.internal.exception.UnsupportedMockException;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.Setter;
 import org.bukkit.Color;
 import org.bukkit.Location;
@@ -100,7 +101,8 @@ public class MokkitAreaEffectCloud extends MokkitEntity implements AreaEffectClo
      * @param location The location the entity is at.
      * @param uniqueId The UUID of the entity.
      */
-    public MokkitAreaEffectCloud(final MokkitServer server, final Location location, final UUID uniqueId) {
+    public MokkitAreaEffectCloud(final @NonNull MokkitServer server, final @NonNull Location location,
+                                 final @NonNull UUID uniqueId) {
         super(server, "AreaEffectCloud", location, uniqueId);
     }
 
@@ -150,7 +152,7 @@ public class MokkitAreaEffectCloud extends MokkitEntity implements AreaEffectClo
     }
 
     @Override
-    public boolean hasCustomEffect(final PotionEffectType type) {
+    public boolean hasCustomEffect(final @NonNull PotionEffectType type) {
         return customEffects.stream().anyMatch(e -> e.getType().equals(type));
     }
 
@@ -169,7 +171,7 @@ public class MokkitAreaEffectCloud extends MokkitEntity implements AreaEffectClo
     }
 
     @Override
-    public boolean removeCustomEffect(final PotionEffectType type) {
+    public boolean removeCustomEffect(final @NonNull PotionEffectType type) {
         return customEffects.removeIf(e -> e.getType().equals(type));
     }
 
@@ -180,6 +182,8 @@ public class MokkitAreaEffectCloud extends MokkitEntity implements AreaEffectClo
 
         @Override
         public void tick(final long tick) {
+            assert tick >= 0 : "invalid tick number " + tick;
+
             if (tick % 5 != 0) {
                 // Once per five ticks.
                 return;

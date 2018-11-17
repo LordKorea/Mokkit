@@ -3,6 +3,7 @@ package de.fuchspfoten.mokkit.entity.projectile.potion;
 import de.fuchspfoten.mokkit.MokkitServer;
 import de.fuchspfoten.mokkit.entity.projectile.MokkitProjectile;
 import de.fuchspfoten.mokkit.internal.exception.UnsupportedMockException;
+import lombok.NonNull;
 import org.bukkit.Location;
 import org.bukkit.entity.ThrownPotion;
 import org.bukkit.inventory.ItemStack;
@@ -37,8 +38,8 @@ public abstract class MokkitThrownPotion extends MokkitProjectile implements Thr
      * @param location The location the entity is at.
      * @param uniqueId The UUID of the entity.
      */
-    public MokkitThrownPotion(final MokkitServer server, final String name, final Location location,
-                              final UUID uniqueId) {
+    public MokkitThrownPotion(final @NonNull MokkitServer server, final @NonNull String name,
+                              final @NonNull Location location, final @NonNull UUID uniqueId) {
         super(server, name, location, uniqueId);
     }
 
@@ -78,7 +79,7 @@ public abstract class MokkitThrownPotion extends MokkitProjectile implements Thr
          *
          * @param effect The effect.
          */
-        public void addEffect(final PotionEffect effect) {
+        public void addEffect(final @NonNull PotionEffect effect) {
             effects.removeIf(e -> e.getType().equals(effect.getType()));
             effects.add(effect);
         }

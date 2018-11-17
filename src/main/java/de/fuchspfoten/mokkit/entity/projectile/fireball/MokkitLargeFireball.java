@@ -1,6 +1,7 @@
 package de.fuchspfoten.mokkit.entity.projectile.fireball;
 
 import de.fuchspfoten.mokkit.MokkitServer;
+import lombok.NonNull;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
@@ -21,7 +22,8 @@ public class MokkitLargeFireball extends MokkitFireball implements LargeFireball
      * @param location The location the entity is at.
      * @param uniqueId The UUID of the entity.
      */
-    public MokkitLargeFireball(final MokkitServer server, final Location location, final UUID uniqueId) {
+    public MokkitLargeFireball(final @NonNull MokkitServer server, final @NonNull Location location,
+                               final @NonNull UUID uniqueId) {
         super(server, "LargeFireball", location, uniqueId);
     }
 
@@ -31,7 +33,7 @@ public class MokkitLargeFireball extends MokkitFireball implements LargeFireball
     }
 
     @Override
-    public double onDamaged(final Entity damager, final double damage) {
+    public double onDamaged(final @NonNull Entity damager, final double damage) {
         final double dmg = super.onDamaged(damager, damage);
 
         // Deflect the fireball.

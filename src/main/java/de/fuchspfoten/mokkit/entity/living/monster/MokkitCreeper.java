@@ -2,6 +2,7 @@ package de.fuchspfoten.mokkit.entity.living.monster;
 
 import de.fuchspfoten.mokkit.MokkitServer;
 import de.fuchspfoten.mokkit.internal.exception.UnsupportedMockException;
+import lombok.NonNull;
 import org.bukkit.Location;
 import org.bukkit.entity.Creeper;
 import org.bukkit.entity.EntityType;
@@ -20,7 +21,8 @@ public class MokkitCreeper extends MokkitMonster implements Creeper {
      * @param location The location the entity is at.
      * @param uuid     The UUID of the entity.
      */
-    public MokkitCreeper(final MokkitServer server, final Location location, final UUID uuid) {
+    public MokkitCreeper(final @NonNull MokkitServer server, final @NonNull Location location,
+                         final @NonNull UUID uuid) {
         super(server, "Creeper", location, uuid, 20.0);
     }
 

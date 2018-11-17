@@ -1,5 +1,6 @@
 package de.fuchspfoten.mokkit.block;
 
+import lombok.NonNull;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
@@ -27,7 +28,7 @@ public final class PistonHelper {
      * @param direction The direction.
      * @return The list of blocks to pull.
      */
-    public static List<Block> calculatePullList(final Block target, final BlockFace direction) {
+    public static List<Block> calculatePullList(final @NonNull Block target, final @NonNull BlockFace direction) {
         return new ArrayList<>(calculateMoveSet(target, direction, new HashSet<>(), 0));
     }
 
@@ -38,7 +39,7 @@ public final class PistonHelper {
      * @param direction The direction.
      * @return The list of blocks to push.
      */
-    public static List<Block> calculatePushList(final Block target, final BlockFace direction) {
+    public static List<Block> calculatePushList(final @NonNull Block target, final @NonNull BlockFace direction) {
         return new ArrayList<>(calculateMoveSet(target, direction, new HashSet<>(), 0));
     }
 
@@ -48,7 +49,7 @@ public final class PistonHelper {
      * @param blocks    The blocks.
      * @param direction The direction.
      */
-    public static void moveBlocks(final List<Block> blocks, final BlockFace direction) {
+    public static void moveBlocks(final @NonNull List<Block> blocks, final @NonNull BlockFace direction) {
         // TODO drops of removed blocks?
         final Set<Block> toDoSet = new HashSet<>(blocks);
         final Queue<Block> toDoQueue = new ArrayDeque<>(blocks);
@@ -89,8 +90,8 @@ public final class PistonHelper {
      * @param limit     If this number is over 100, we stop.
      * @return The set of blocks to push.
      */
-    private static Set<Block> calculateMoveSet(final Block target, final BlockFace direction,
-                                               final Set<Block> closedSet, final int limit) {
+    private static Set<Block> calculateMoveSet(final @NonNull Block target, final @NonNull BlockFace direction,
+                                               final @NonNull Set<Block> closedSet, final int limit) {
         final Set<Block> moveSet = new HashSet<>();
         if (isImmobile(target.getType())) {
             // Block is immobile and blocks the push in this direction.
@@ -146,7 +147,7 @@ public final class PistonHelper {
      * @param mat The material.
      * @return True iff it is immobile.
      */
-    private static boolean isImmobile(final Material mat) {
+    private static boolean isImmobile(final @NonNull Material mat) {
         // TODO pistons can not be pushed right now.
         // TODO this list is likely incomplete / wrong
         switch (mat) {
@@ -207,7 +208,7 @@ public final class PistonHelper {
      * @param mat The material.
      * @return True iff it is movable.
      */
-    private static boolean isMovable(final Material mat) {
+    private static boolean isMovable(final @NonNull Material mat) {
         // TODO pistons can not be pushed right now.
         // TODO this list is likely incomplete / wrong
         switch (mat) {

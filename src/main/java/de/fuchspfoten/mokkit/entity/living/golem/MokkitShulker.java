@@ -2,6 +2,7 @@ package de.fuchspfoten.mokkit.entity.living.golem;
 
 import de.fuchspfoten.mokkit.MokkitServer;
 import de.fuchspfoten.mokkit.internal.exception.UnsupportedMockException;
+import lombok.NonNull;
 import org.bukkit.DyeColor;
 import org.bukkit.Location;
 import org.bukkit.entity.EntityType;
@@ -21,7 +22,8 @@ public class MokkitShulker extends MokkitGolem implements Shulker {
      * @param location The location the entity is at.
      * @param uuid     The UUID of the entity.
      */
-    public MokkitShulker(final MokkitServer server, final Location location, final UUID uuid) {
+    public MokkitShulker(final @NonNull MokkitServer server, final @NonNull Location location,
+                         final @NonNull UUID uuid) {
         super(server, "Shulker", location, uuid, 30.0);
     }
 

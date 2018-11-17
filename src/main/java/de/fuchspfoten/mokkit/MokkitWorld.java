@@ -77,6 +77,7 @@ import de.fuchspfoten.mokkit.internal.exception.UnsupportedMockException;
 import de.fuchspfoten.mokkit.scheduler.TickListener;
 import de.fuchspfoten.mokkit.scheduler.Tickable;
 import lombok.Getter;
+import lombok.NonNull;
 import org.bukkit.BlockChangeDelegate;
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
@@ -223,7 +224,7 @@ public class MokkitWorld implements World, Tickable {
      *
      * @param entity The entity.
      */
-    public static void updateWorldsForEntity(final Entity entity) {
+    public static void updateWorldsForEntity(final @NonNull Entity entity) {
         for (final World world : Bukkit.getWorlds()) {
             final MokkitWorld mWorld = (MokkitWorld) world;
             if (mWorld == entity.getWorld() && entity.isValid()) {
@@ -264,7 +265,7 @@ public class MokkitWorld implements World, Tickable {
      *
      * @param name The name of the world.
      */
-    public MokkitWorld(final MokkitServer server, final String name) {
+    public MokkitWorld(final @NonNull MokkitServer server, final @NonNull String name) {
         this.server = server;
         this.name = name;
     }
@@ -375,6 +376,7 @@ public class MokkitWorld implements World, Tickable {
 
     @Override
     public Block getBlockAt(final int x, final int y, final int z) {
+        assert 0 <= y && y < getMaxHeight() : "invalid y position " + y;
         final Chunk chunk = getChunkAt(x >> 4, z >> 4);
         final int chunkXOff = (x >> 4) * 16;
         final int chunkZOff = (z >> 4) * 16;
@@ -382,7 +384,7 @@ public class MokkitWorld implements World, Tickable {
     }
 
     @Override
-    public Block getBlockAt(final Location location) {
+    public Block getBlockAt(final @NonNull Location location) {
         return getBlockAt(location.getBlockX(), location.getBlockY(), location.getBlockZ());
     }
 
@@ -399,7 +401,7 @@ public class MokkitWorld implements World, Tickable {
     }
 
     @Override
-    public Chunk getChunkAt(final Location location) {
+    public Chunk getChunkAt(final @NonNull Location location) {
         return getChunkAt(location.getBlockX() >> 4, location.getBlockZ() >> 4);
     }
 
@@ -413,7 +415,7 @@ public class MokkitWorld implements World, Tickable {
     }
 
     @Override
-    public Chunk getChunkAt(final Block block) {
+    public Chunk getChunkAt(final @NonNull Block block) {
         return getChunkAt(block.getLocation());
     }
 
@@ -444,7 +446,7 @@ public class MokkitWorld implements World, Tickable {
 
     @SafeVarargs
     @Override
-    public final <T extends Entity> Collection<T> getEntitiesByClass(final Class<T>... classes) {
+    public final <T extends Entity> Collection<T> getEntitiesByClass(final @NonNull Class<T>... classes) {
         final List<T> results = new LinkedList<>();
         for (final Class<T> clazz : classes) {
             results.addAll(getEntitiesByClass(clazz));
@@ -453,7 +455,7 @@ public class MokkitWorld implements World, Tickable {
     }
 
     @Override
-    public <T extends Entity> Collection<T> getEntitiesByClass(final Class<T> cls) {
+    public <T extends Entity> Collection<T> getEntitiesByClass(final @NonNull Class<T> cls) {
         return entities.stream()
                 .filter(e -> cls.isAssignableFrom(e.getClass()))
                 .map(cls::cast)
@@ -461,7 +463,7 @@ public class MokkitWorld implements World, Tickable {
     }
 
     @Override
-    public Collection<Entity> getEntitiesByClasses(final Class<?>... classes) {
+    public Collection<Entity> getEntitiesByClasses(final @NonNull Class<?>... classes) {
         final List<Entity> results = new LinkedList<>();
         for (final Class<?> clazz : classes) {
             if (Entity.class.isAssignableFrom(clazz)) {
@@ -592,8 +594,11 @@ public class MokkitWorld implements World, Tickable {
     }
 
     @Override
-    public Collection<Entity> getNearbyEntities(final Location location, final double x, final double y,
+    public Collection<Entity> getNearbyEntities(final @NonNull Location location, final double x, final double y,
                                                 final double z) {
+        assert x >= 0 : "invalid x distance " + x;
+        assert y >= 0 : "invalid x distance " + y;
+        assert z >= 0 : "invalid x distance " + z;
         return entities.stream()
                 .filter(e -> e.getWorld() == location.getWorld())
                 .filter(e -> Math.abs(location.getX() - e.getLocation().getX()) <= x)
@@ -965,18 +970,16 @@ public class MokkitWorld implements World, Tickable {
     }
 
     @Override
-    public <T extends Entity> T spawn(final Location location, final Class<T> clazz) throws IllegalArgumentException {
+    public <T extends Entity> T spawn(final @NonNull Location location, final @NonNull Class<T> clazz)
+            throws IllegalArgumentException {
         return spawn(location, clazz, t -> {
         });
     }
 
     @SuppressWarnings("unchecked")
     @Override
-    public <T extends Entity> T spawn(final Location location, final Class<T> clazz,
-                                      final Consumer<T> function) throws IllegalArgumentException {
-        if (location == null || clazz == null || function == null) {
-            throw new IllegalArgumentException("location or class null");
-        }
+    public <T extends Entity> T spawn(final @NonNull Location location, final @NonNull Class<T> clazz,
+                                      final @NonNull Consumer<T> function) throws IllegalArgumentException {
         if (location.getWorld() != this) {
             throw new IllegalArgumentException("attempting to spawn in conflicting worlds");
         }
@@ -1010,25 +1013,19 @@ public class MokkitWorld implements World, Tickable {
         // switch (targetType) {
             /*case DROPPED_ITEM:
             case EXPERIENCE_ORB:
-            case AREA_EFFECT_CLOUD:
             case EGG:
             case SNOWBALL:
             case ENDER_PEARL:
             case ENDER_SIGNAL:
-            case SPLASH_POTION:
             case THROWN_EXP_BOTTLE:
             case WITHER_SKULL:
             case PRIMED_TNT:
             case FALLING_BLOCK:
             case FIREWORK:
-            case SPECTRAL_ARROW:
             case SHULKER_BULLET:
             case EVOKER_FANGS:
-
             case LLAMA_SPIT:
-            case LINGERING_POTION:
             case FISHING_HOOK:
-            case TIPPED_ARROW:
                 // Not (yet) supported.
                 throw new UnsupportedMockException();*/
         // }
@@ -1087,13 +1084,14 @@ public class MokkitWorld implements World, Tickable {
     }
 
     @Override
-    public Arrow spawnArrow(final Location location, final Vector direction, final float speed, final float spread) {
+    public Arrow spawnArrow(final @NonNull Location location, final @NonNull Vector direction, final float speed,
+                            final float spread) {
         return spawnArrow(location, direction, speed, spread, Arrow.class);
     }
 
     @Override
-    public <T extends Arrow> T spawnArrow(final Location location, final Vector direction, final float speed,
-                                          final float spread, final Class<T> clazz) {
+    public <T extends Arrow> T spawnArrow(final @NonNull Location location, final @NonNull Vector direction,
+                                          final float speed, final float spread, final @NonNull Class<T> clazz) {
         return spawn(location, clazz, arrow -> {
             arrow.setVelocity(direction.normalize().multiply(speed));
             // TODO spread?
@@ -1101,7 +1099,7 @@ public class MokkitWorld implements World, Tickable {
     }
 
     @Override
-    public Entity spawnEntity(final Location loc, final EntityType type) {
+    public Entity spawnEntity(final @NonNull Location loc, final @NonNull EntityType type) {
         return spawn(loc, type.getEntityClass());
     }
 
@@ -1272,6 +1270,7 @@ public class MokkitWorld implements World, Tickable {
 
         @Override
         public void tick(final long tick) {
+            assert tick >= 0 : "invalid tick " + tick;
             final List<Entity> toTick = new ArrayList<>(entities);
             toTick.stream().filter(x -> x instanceof Tickable).map(x -> (Tickable) x).forEach(x -> x.tick(tick));
         }

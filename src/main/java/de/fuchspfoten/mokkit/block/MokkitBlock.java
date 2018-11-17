@@ -3,6 +3,7 @@ package de.fuchspfoten.mokkit.block;
 import de.fuchspfoten.mokkit.CancelledByEventException;
 import de.fuchspfoten.mokkit.internal.exception.UnsupportedMockException;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.Setter;
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
@@ -75,7 +76,8 @@ public class MokkitBlock implements Block {
      * @param y     The y position of the block.
      * @param z     The z position of the block.
      */
-    public MokkitBlock(final World world, final int x, final int y, final int z) {
+    public MokkitBlock(final @NonNull World world, final int x, final int y, final int z) {
+        assert 0 <= y && y < world.getMaxHeight() : "invalid position y " + y;
         this.world = world;
         this.x = x;
         this.y = y;
@@ -201,12 +203,12 @@ public class MokkitBlock implements Block {
     }
 
     @Override
-    public Block getRelative(final BlockFace face) {
+    public Block getRelative(final @NonNull BlockFace face) {
         return getRelative(face, 1);
     }
 
     @Override
-    public Block getRelative(final BlockFace face, final int distance) {
+    public Block getRelative(final @NonNull BlockFace face, final int distance) {
         return getRelative(distance * face.getModX(), distance * face.getModY(),
                 distance * face.getModZ());
     }

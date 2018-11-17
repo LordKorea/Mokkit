@@ -2,6 +2,7 @@ package de.fuchspfoten.mokkit.block;
 
 import de.fuchspfoten.mokkit.internal.exception.UnsupportedMockException;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.Setter;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
@@ -35,7 +36,7 @@ public class MokkitBlockState implements BlockState {
      *
      * @param block The block of this state.
      */
-    public MokkitBlockState(final Block block) {
+    public MokkitBlockState(final @NonNull Block block) {
         this.block = block;
         this.data = block.getType().getNewData(block.getData());
     }
@@ -88,7 +89,7 @@ public class MokkitBlockState implements BlockState {
     }
 
     @Override
-    public void setType(final Material type) {
+    public void setType(final @NonNull Material type) {
         this.data = type.getNewData((byte) 0);
     }
 

@@ -3,6 +3,7 @@ package de.fuchspfoten.mokkit;
 import de.fuchspfoten.mokkit.enchantments.MokkitEnchantment;
 import de.fuchspfoten.mokkit.internal.ReflectionHelper;
 import de.fuchspfoten.mokkit.potion.MokkitPotionEffectType;
+import lombok.NonNull;
 import org.bukkit.Bukkit;
 import org.bukkit.WorldCreator;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -29,7 +30,7 @@ public final class Mokkit {
      * @param <T>         The plugin type.
      * @return The plugin.
      */
-    public static <T extends JavaPlugin> T loadPlugin(final Class<T> pluginClass) {
+    public static <T extends JavaPlugin> T loadPlugin(final @NonNull Class<T> pluginClass) {
         final T plugin = server.getPluginManager().loadPlugin(pluginClass);
         server.getPluginManager().enablePlugin(plugin);
         return plugin;
@@ -48,6 +49,7 @@ public final class Mokkit {
      * @param amount The amount of ticks to simulate.
      */
     public static void simulateTicks(final int amount) {
+        assert amount > 0 : "invalid amount";
         for (int i = 0; i < amount; i++) {
             server.getScheduler().tick();
             server.getWorlds().stream()

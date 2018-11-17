@@ -1,6 +1,7 @@
 package de.fuchspfoten.mokkit.entity.projectile.fireball;
 
 import de.fuchspfoten.mokkit.MokkitServer;
+import lombok.NonNull;
 import org.bukkit.Location;
 import org.bukkit.entity.DragonFireball;
 import org.bukkit.entity.EntityType;
@@ -19,7 +20,8 @@ public class MokkitDragonFireball extends MokkitFireball implements DragonFireba
      * @param location The location the entity is at.
      * @param uniqueId The UUID of the entity.
      */
-    public MokkitDragonFireball(final MokkitServer server, final Location location, final UUID uniqueId) {
+    public MokkitDragonFireball(final @NonNull MokkitServer server, final @NonNull Location location,
+                                final @NonNull UUID uniqueId) {
         super(server, "DragonFireball", location, uniqueId);
     }
 

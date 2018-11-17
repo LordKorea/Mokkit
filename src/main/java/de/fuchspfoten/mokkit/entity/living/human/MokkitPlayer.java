@@ -5,6 +5,7 @@ import de.fuchspfoten.mokkit.MokkitServer;
 import de.fuchspfoten.mokkit.MokkitWorld;
 import de.fuchspfoten.mokkit.entity.living.MokkitLivingEntity;
 import de.fuchspfoten.mokkit.internal.exception.UnsupportedMockException;
+import lombok.NonNull;
 import org.bukkit.Achievement;
 import org.bukkit.Effect;
 import org.bukkit.GameMode;
@@ -68,7 +69,8 @@ public class MokkitPlayer extends MokkitHumanEntity implements Player {
      * @param location The location the entity is at.
      * @param uuid     The UUID of the entity.
      */
-    public MokkitPlayer(final MokkitServer server, final String name, final Location location, final UUID uuid) {
+    public MokkitPlayer(final @NonNull MokkitServer server, final @NonNull String name,
+                        final @NonNull Location location, final @NonNull UUID uuid) {
         super(server, name, location, uuid);
     }
 
@@ -956,7 +958,7 @@ public class MokkitPlayer extends MokkitHumanEntity implements Player {
     }
 
     @Override
-    public boolean teleport(final Location location, final PlayerTeleportEvent.TeleportCause cause) {
+    public boolean teleport(final @NonNull Location location, final @NonNull PlayerTeleportEvent.TeleportCause cause) {
         final PlayerTeleportEvent tp = new PlayerTeleportEvent(this, getLocation().clone(), location.clone(),
                 cause);
         getServer().getPluginManager().callEvent(tp);
@@ -992,7 +994,7 @@ public class MokkitPlayer extends MokkitHumanEntity implements Player {
          *
          * @param block The block.
          */
-        public void breakBlock(final Block block) throws CancelledByEventException {
+        public void breakBlock(final @NonNull Block block) throws CancelledByEventException {
             // Start damaging the block.
             final BlockDamageEvent blockDamageEvent = new BlockDamageEvent(MokkitPlayer.this, block,
                     getInventory().getItemInMainHand(), getGameMode() == GameMode.CREATIVE);
@@ -1019,7 +1021,7 @@ public class MokkitPlayer extends MokkitHumanEntity implements Player {
          *
          * @param who The entity.
          */
-        public void interactWith(final Entity who) throws CancelledByEventException {
+        public void interactWith(final @NonNull Entity who) throws CancelledByEventException {
             interactWith(who, EquipmentSlot.HAND);
         }
 
@@ -1029,7 +1031,8 @@ public class MokkitPlayer extends MokkitHumanEntity implements Player {
          * @param who  The entity.
          * @param hand The hand that is used for interacting.
          */
-        public void interactWith(final Entity who, final EquipmentSlot hand) throws CancelledByEventException {
+        public void interactWith(final @NonNull Entity who, final @NonNull EquipmentSlot hand)
+                throws CancelledByEventException {
             final PlayerInteractEntityEvent event = new PlayerInteractEntityEvent(MokkitPlayer.this, who, hand);
             getServer().getPluginManager().callEvent(event);
             if (event.isCancelled()) {
@@ -1044,7 +1047,7 @@ public class MokkitPlayer extends MokkitHumanEntity implements Player {
          *
          * @param block The block.
          */
-        public void rightClickBlock(final Block block, final BlockFace clickedFace) {
+        public void rightClickBlock(final @NonNull Block block, final @NonNull BlockFace clickedFace) {
             if (getInventory().getItemInMainHand() != null && getInventory().getItemInOffHand() != null) {
                 throw new UnsupportedMockException();
             }
@@ -1155,9 +1158,10 @@ public class MokkitPlayer extends MokkitHumanEntity implements Player {
          * @param liquid      The liquid that is to be placed.
          * @param hand        The hand that was used.
          */
-        protected void emptyBucket(final Block where, final Block clicked, final BlockFace clickedFace,
-                                   final Material bucket, final Material liquid,
-                                   final EquipmentSlot hand) throws CancelledByEventException {
+        protected void emptyBucket(final @NonNull Block where, final @NonNull Block clicked,
+                                   final @NonNull BlockFace clickedFace, final @NonNull Material bucket,
+                                   final @NonNull Material liquid, final @NonNull EquipmentSlot hand)
+                throws CancelledByEventException {
             final PlayerBucketEmptyEvent event = new PlayerBucketEmptyEvent(MokkitPlayer.this, clicked,
                     clickedFace, bucket, new ItemStack(Material.BUCKET));
             getServer().getPluginManager().callEvent(event);
@@ -1183,8 +1187,8 @@ public class MokkitPlayer extends MokkitHumanEntity implements Player {
          * @param resultItem The bucket that is held after the event.
          * @param hand       The used hand.
          */
-        protected void fillBucket(final Block where, final ItemStack resultItem,
-                                  final EquipmentSlot hand) throws CancelledByEventException {
+        protected void fillBucket(final @NonNull Block where, final @NonNull ItemStack resultItem,
+                                  final @NonNull EquipmentSlot hand) throws CancelledByEventException {
             final PlayerBucketFillEvent event = new PlayerBucketFillEvent(MokkitPlayer.this, where, BlockFace.SELF,
                     Material.BUCKET, resultItem);
             getServer().getPluginManager().callEvent(event);
@@ -1211,8 +1215,9 @@ public class MokkitPlayer extends MokkitHumanEntity implements Player {
          * @param clicked The block that was clicked by the player for placing.
          * @param hand    The hand that contained the placed block.
          */
-        protected void placeBlock(final Block where, final MaterialData what, final Block clicked,
-                                  final EquipmentSlot hand) throws CancelledByEventException {
+        protected void placeBlock(final @NonNull Block where, final @NonNull MaterialData what,
+                                  final @NonNull Block clicked, final @NonNull EquipmentSlot hand)
+                throws CancelledByEventException {
             // Take a snapshot of the block before.
             final BlockState beforeState = where.getState();
             final BlockState eventState = where.getState();
@@ -1242,8 +1247,8 @@ public class MokkitPlayer extends MokkitHumanEntity implements Player {
          * @param clicked     The clicked block.
          * @param clickedFace The clicked block face.
          */
-        protected void placePainting(final Block clicked,
-                                     final BlockFace clickedFace) throws CancelledByEventException {
+        protected void placePainting(final @NonNull Block clicked, final @NonNull BlockFace clickedFace)
+                throws CancelledByEventException {
             // This event is strange: The painting is placed beforehand.
             final Painting painting = getWorld().spawn(clicked.getRelative(clickedFace).getLocation(), Painting.class);
 

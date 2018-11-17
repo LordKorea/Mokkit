@@ -3,6 +3,7 @@ package de.fuchspfoten.mokkit.entity.living.monster;
 import de.fuchspfoten.mokkit.MokkitServer;
 import de.fuchspfoten.mokkit.entity.living.MokkitLivingEntity;
 import de.fuchspfoten.mokkit.internal.exception.UnsupportedMockException;
+import lombok.NonNull;
 import org.bukkit.Location;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
@@ -22,7 +23,7 @@ public class MokkitSlime extends MokkitLivingEntity implements Slime {
      * @param location The location the entity is at.
      * @param uuid     The UUID of the entity.
      */
-    public MokkitSlime(final MokkitServer server, final Location location, final UUID uuid) {
+    public MokkitSlime(final @NonNull MokkitServer server, final @NonNull Location location, final @NonNull UUID uuid) {
         super(server, "Slime", location, uuid, 1.0);
     }
 
@@ -35,8 +36,8 @@ public class MokkitSlime extends MokkitLivingEntity implements Slime {
      * @param uuid             The UUID of the entity.
      * @param defaultMaxHealth The default max health of the entity.
      */
-    protected MokkitSlime(final MokkitServer server, final String name, final Location location, final UUID uuid,
-                          final double defaultMaxHealth) {
+    protected MokkitSlime(final @NonNull MokkitServer server, final @NonNull String name,
+                          final @NonNull Location location, final @NonNull UUID uuid, final double defaultMaxHealth) {
         super(server, name, location, uuid, defaultMaxHealth);
     }
 

@@ -2,6 +2,7 @@ package de.fuchspfoten.mokkit.entity.living.monster;
 
 import de.fuchspfoten.mokkit.MokkitServer;
 import de.fuchspfoten.mokkit.internal.exception.UnsupportedMockException;
+import lombok.NonNull;
 import org.bukkit.Location;
 import org.bukkit.entity.Enderman;
 import org.bukkit.entity.EntityType;
@@ -21,7 +22,8 @@ public class MokkitEnderman extends MokkitMonster implements Enderman {
      * @param location The location the entity is at.
      * @param uuid     The UUID of the entity.
      */
-    public MokkitEnderman(final MokkitServer server, final Location location, final UUID uuid) {
+    public MokkitEnderman(final @NonNull MokkitServer server, final @NonNull Location location,
+                          final @NonNull UUID uuid) {
         super(server, "Enderman", location, uuid, 40.0);
     }
 

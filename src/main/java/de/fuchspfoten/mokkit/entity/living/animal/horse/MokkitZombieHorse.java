@@ -1,6 +1,7 @@
 package de.fuchspfoten.mokkit.entity.living.animal.horse;
 
 import de.fuchspfoten.mokkit.MokkitServer;
+import lombok.NonNull;
 import org.bukkit.Location;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.ZombieHorse;
@@ -19,7 +20,8 @@ public class MokkitZombieHorse extends MokkitAbstractHorse implements ZombieHors
      * @param location The location the entity is at.
      * @param uuid     The UUID of the entity.
      */
-    public MokkitZombieHorse(final MokkitServer server, final Location location, final UUID uuid) {
+    public MokkitZombieHorse(final @NonNull MokkitServer server, final @NonNull Location location,
+                             final @NonNull UUID uuid) {
         super(server, "ZombieHorse", location, uuid, 15.0);
     }
 

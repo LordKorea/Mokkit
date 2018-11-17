@@ -1,6 +1,7 @@
 package de.fuchspfoten.mokkit.potion;
 
 import lombok.Getter;
+import lombok.NonNull;
 import org.bukkit.Color;
 import org.bukkit.potion.PotionEffectType;
 
@@ -106,7 +107,7 @@ public final class MokkitPotionEffectType extends PotionEffectType {
      *
      * @param durationModifier The duration modifier for the effect type.
      */
-    private MokkitPotionEffectType(final int id, final double durationModifier, final String name,
+    private MokkitPotionEffectType(final int id, final double durationModifier, final @NonNull String name,
                                    final boolean instant, final int color) {
         super(id);
         this.durationModifier = durationModifier;

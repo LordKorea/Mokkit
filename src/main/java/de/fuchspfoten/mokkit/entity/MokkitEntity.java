@@ -7,6 +7,7 @@ import de.fuchspfoten.mokkit.internal.exception.UnsupportedMockException;
 import de.fuchspfoten.mokkit.scheduler.TickListener;
 import de.fuchspfoten.mokkit.scheduler.Tickable;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.Setter;
 import org.bukkit.EntityEffect;
 import org.bukkit.Location;
@@ -93,7 +94,8 @@ public abstract class MokkitEntity implements Entity, Tickable {
      * @param location The location the entity is at.
      * @param uniqueId The UUID of the entity.
      */
-    public MokkitEntity(final MokkitServer server, final String name, final Location location, final UUID uniqueId) {
+    public MokkitEntity(final @NonNull MokkitServer server, final @NonNull String name,
+                        final @NonNull Location location, final @NonNull UUID uniqueId) {
         this.server = server;
         this.name = name;
         this.location = location;
@@ -446,7 +448,7 @@ public abstract class MokkitEntity implements Entity, Tickable {
      * @param damager The damaging entity.
      * @return The actual damage.
      */
-    public double onDamaged(final Entity damager, final double damage) {
+    public double onDamaged(final @NonNull Entity damager, final double damage) {
         final EntityDamageByEntityEvent event = new EntityDamageByEntityEvent(damager, this,
                 EntityDamageEvent.DamageCause.ENTITY_ATTACK, damage);
         getServer().getPluginManager().callEvent(event);
@@ -506,7 +508,7 @@ public abstract class MokkitEntity implements Entity, Tickable {
     }
 
     @Override
-    public void sendMessage(final String message) {
+    public void sendMessage(final @NonNull String message) {
         // Store the message.
         receivedMessages.add(message);
     }
@@ -536,12 +538,12 @@ public abstract class MokkitEntity implements Entity, Tickable {
     }
 
     @Override
-    public boolean teleport(final Location location) {
+    public boolean teleport(final @NonNull Location location) {
         return teleport(location, PlayerTeleportEvent.TeleportCause.UNKNOWN);
     }
 
     @Override
-    public boolean teleport(final Location location, final PlayerTeleportEvent.TeleportCause cause) {
+    public boolean teleport(final @NonNull Location location, final @NonNull PlayerTeleportEvent.TeleportCause cause) {
         final EntityTeleportEvent tp = new EntityTeleportEvent(this, getLocation().clone(), location.clone());
         getServer().getPluginManager().callEvent(tp);
         if (tp.isCancelled()) {
@@ -555,12 +557,12 @@ public abstract class MokkitEntity implements Entity, Tickable {
     }
 
     @Override
-    public boolean teleport(final Entity destination) {
+    public boolean teleport(final @NonNull Entity destination) {
         return teleport(destination.getLocation(), PlayerTeleportEvent.TeleportCause.UNKNOWN);
     }
 
     @Override
-    public boolean teleport(final Entity destination, final PlayerTeleportEvent.TeleportCause cause) {
+    public boolean teleport(final @NonNull Entity destination, final @NonNull PlayerTeleportEvent.TeleportCause cause) {
         return teleport(destination.getLocation(), cause);
     }
 
@@ -594,7 +596,7 @@ public abstract class MokkitEntity implements Entity, Tickable {
          * @param content The string.
          * @return Whether the player has such a message.
          */
-        public boolean hasMessageLike(final String content) {
+        public boolean hasMessageLike(final @NonNull String content) {
             for (final String msg : receivedMessages) {
                 if (msg.contains(content)) {
                     return true;

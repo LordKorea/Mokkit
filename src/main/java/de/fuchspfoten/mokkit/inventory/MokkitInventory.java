@@ -29,6 +29,7 @@ public abstract class MokkitInventory implements Inventory {
      * @param size The size of inventory.
      */
     public MokkitInventory(final int size) {
+        assert size >= 0 : "invalid size " + size;
         contents = new ItemStack[size];
     }
 

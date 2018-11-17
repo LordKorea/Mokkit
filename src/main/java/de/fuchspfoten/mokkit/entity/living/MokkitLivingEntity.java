@@ -5,6 +5,7 @@ import de.fuchspfoten.mokkit.MokkitServer;
 import de.fuchspfoten.mokkit.entity.MokkitEntity;
 import de.fuchspfoten.mokkit.internal.exception.UnsupportedMockException;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.Setter;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -69,7 +70,8 @@ public abstract class MokkitLivingEntity extends MokkitEntity implements LivingE
      * @param uuid             The UUID of the entity.
      * @param defaultMaxHealth The default max health of the entity.
      */
-    public MokkitLivingEntity(final MokkitServer server, final String name, final Location location, final UUID uuid,
+    public MokkitLivingEntity(final @NonNull MokkitServer server, final @NonNull String name,
+                              final @NonNull Location location, final @NonNull UUID uuid,
                               final double defaultMaxHealth) {
         super(server, name, location, uuid);
         this.defaultMaxHealth = defaultMaxHealth;
@@ -78,7 +80,7 @@ public abstract class MokkitLivingEntity extends MokkitEntity implements LivingE
     }
 
     @Override
-    public boolean addPotionEffect(final PotionEffect effect) {
+    public boolean addPotionEffect(final @NonNull PotionEffect effect) {
         if (hasPotionEffect(effect.getType())) {
             return false;
         }
@@ -86,14 +88,14 @@ public abstract class MokkitLivingEntity extends MokkitEntity implements LivingE
     }
 
     @Override
-    public boolean addPotionEffect(final PotionEffect effect, final boolean force) {
+    public boolean addPotionEffect(final @NonNull PotionEffect effect, final boolean force) {
         removePotionEffect(effect.getType());
         potionEffects.add(effect);
         return true;
     }
 
     @Override
-    public boolean addPotionEffects(final Collection<PotionEffect> effects) {
+    public boolean addPotionEffects(final @NonNull Collection<PotionEffect> effects) {
         boolean result = true;
         for (final PotionEffect effect : effects) {
             result = result && addPotionEffect(effect);
@@ -107,7 +109,7 @@ public abstract class MokkitLivingEntity extends MokkitEntity implements LivingE
     }
 
     @Override
-    public void damage(final double amount, final Entity source) {
+    public void damage(final double amount, final @NonNull Entity source) {
         // TODO what do we do with the source?
         health -= amount;
         if (isDead()) {
@@ -240,7 +242,7 @@ public abstract class MokkitLivingEntity extends MokkitEntity implements LivingE
     }
 
     @Override
-    public PotionEffect getPotionEffect(final PotionEffectType type) {
+    public PotionEffect getPotionEffect(final @NonNull PotionEffectType type) {
         return potionEffects.stream().filter(e -> e.getType().equals(type)).findAny().orElse(null);
     }
 
@@ -287,7 +289,7 @@ public abstract class MokkitLivingEntity extends MokkitEntity implements LivingE
     }
 
     @Override
-    public boolean hasPotionEffect(final PotionEffectType type) {
+    public boolean hasPotionEffect(final @NonNull PotionEffectType type) {
         return potionEffects.stream().anyMatch(e -> e.getType().equals(type));
     }
 
@@ -343,7 +345,7 @@ public abstract class MokkitLivingEntity extends MokkitEntity implements LivingE
     }
 
     @Override
-    public void removePotionEffect(final PotionEffectType type) {
+    public void removePotionEffect(final @NonNull PotionEffectType type) {
         potionEffects.removeIf(e -> e.getType().equals(type));
     }
 
@@ -381,7 +383,8 @@ public abstract class MokkitLivingEntity extends MokkitEntity implements LivingE
          * @param target     The target.
          * @param damageDone The damage that is to be done.
          */
-        public void attackLiving(final LivingEntity target, final double damageDone) throws CancelledByEventException {
+        public void attackLiving(final @NonNull LivingEntity target, final double damageDone)
+                throws CancelledByEventException {
             attackLiving(target, damageDone, EntityDamageEvent.DamageCause.ENTITY_ATTACK);
         }
 
@@ -392,8 +395,8 @@ public abstract class MokkitLivingEntity extends MokkitEntity implements LivingE
          * @param damageDone The damage that is to be done.
          * @param cause      The cause of the damage done.
          */
-        public void attackLiving(final LivingEntity target, final double damageDone,
-                                 final EntityDamageEvent.DamageCause cause) throws CancelledByEventException {
+        public void attackLiving(final @NonNull LivingEntity target, final double damageDone,
+                                 final @NonNull EntityDamageEvent.DamageCause cause) throws CancelledByEventException {
             // Attempt damaging the target.
             final EntityDamageByEntityEvent event = new EntityDamageByEntityEvent(MokkitLivingEntity.this,
                     target, cause, damageDone);
@@ -411,7 +414,7 @@ public abstract class MokkitLivingEntity extends MokkitEntity implements LivingE
          *
          * @param target The target.
          */
-        public void damageEntity(final Entity target) throws CancelledByEventException {
+        public void damageEntity(final @NonNull Entity target) throws CancelledByEventException {
             if (target instanceof LivingEntity) {
                 attackLiving((LivingEntity) target, 1.0, EntityDamageEvent.DamageCause.ENTITY_ATTACK);
             } else {

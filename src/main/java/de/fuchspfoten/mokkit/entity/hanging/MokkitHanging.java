@@ -4,6 +4,7 @@ import de.fuchspfoten.mokkit.CancelledByEventException;
 import de.fuchspfoten.mokkit.MokkitServer;
 import de.fuchspfoten.mokkit.entity.MokkitEntity;
 import de.fuchspfoten.mokkit.internal.exception.UnsupportedMockException;
+import lombok.NonNull;
 import org.bukkit.Location;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Entity;
@@ -26,7 +27,8 @@ public abstract class MokkitHanging extends MokkitEntity implements Hanging {
      * @param location The location the entity is at.
      * @param uniqueId The UUID of the entity.
      */
-    public MokkitHanging(final MokkitServer server, final String name, final Location location, final UUID uniqueId) {
+    public MokkitHanging(final @NonNull MokkitServer server, final @NonNull String name,
+                         final @NonNull Location location, final @NonNull UUID uniqueId) {
         super(server, name, location, uniqueId);
     }
 
@@ -43,7 +45,7 @@ public abstract class MokkitHanging extends MokkitEntity implements Hanging {
     }
 
     @Override
-    public double onDamaged(final Entity damager, final double damage) {
+    public double onDamaged(final @NonNull Entity damager, final double damage) {
         final HangingBreakByEntityEvent event = new HangingBreakByEntityEvent(this, damager,
                 HangingBreakEvent.RemoveCause.ENTITY);
         getServer().getPluginManager().callEvent(event);

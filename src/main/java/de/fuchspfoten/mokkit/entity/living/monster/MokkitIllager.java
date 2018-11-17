@@ -1,6 +1,7 @@
 package de.fuchspfoten.mokkit.entity.living.monster;
 
 import de.fuchspfoten.mokkit.MokkitServer;
+import lombok.NonNull;
 import org.bukkit.Location;
 import org.bukkit.entity.Illager;
 
@@ -20,8 +21,8 @@ public class MokkitIllager extends MokkitMonster implements Illager {
      * @param uuid             The UUID of the entity.
      * @param defaultMaxHealth The default max health of the entity.
      */
-    public MokkitIllager(final MokkitServer server, final String name, final Location location, final UUID uuid,
-                         final double defaultMaxHealth) {
+    public MokkitIllager(final @NonNull MokkitServer server, final @NonNull String name,
+                         final @NonNull Location location, final @NonNull UUID uuid, final double defaultMaxHealth) {
         super(server, name, location, uuid, defaultMaxHealth);
     }
 }

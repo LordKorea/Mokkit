@@ -2,6 +2,7 @@ package de.fuchspfoten.mokkit.entity.living.golem;
 
 import de.fuchspfoten.mokkit.MokkitServer;
 import de.fuchspfoten.mokkit.internal.exception.UnsupportedMockException;
+import lombok.NonNull;
 import org.bukkit.Location;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.IronGolem;
@@ -20,7 +21,8 @@ public class MokkitIronGolem extends MokkitGolem implements IronGolem {
      * @param location The location the entity is at.
      * @param uuid     The UUID of the entity.
      */
-    public MokkitIronGolem(final MokkitServer server, final Location location, final UUID uuid) {
+    public MokkitIronGolem(final @NonNull MokkitServer server, final @NonNull Location location,
+                           final @NonNull UUID uuid) {
         super(server, "IronGolem", location, uuid, 100.0);
     }
 

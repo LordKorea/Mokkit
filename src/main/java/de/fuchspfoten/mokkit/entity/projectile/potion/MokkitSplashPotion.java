@@ -2,6 +2,7 @@ package de.fuchspfoten.mokkit.entity.projectile.potion;
 
 import de.fuchspfoten.mokkit.CancelledByEventException;
 import de.fuchspfoten.mokkit.MokkitServer;
+import lombok.NonNull;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
@@ -31,7 +32,8 @@ public class MokkitSplashPotion extends MokkitThrownPotion implements SplashPoti
      * @param location The location the entity is at.
      * @param uniqueId The UUID of the entity.
      */
-    public MokkitSplashPotion(final MokkitServer server, final Location location, final UUID uniqueId) {
+    public MokkitSplashPotion(final @NonNull MokkitServer server, final @NonNull Location location,
+                              final @NonNull UUID uniqueId) {
         super(server, "SplashPotion", location, uniqueId);
     }
 
@@ -51,7 +53,7 @@ public class MokkitSplashPotion extends MokkitThrownPotion implements SplashPoti
     public class Mokkit extends MokkitThrownPotion.Mokkit {
 
         @Override
-        public void hitTarget(final Entity target) {
+        public void hitTarget(final @NonNull Entity target) {
             splash();
         }
 

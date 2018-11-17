@@ -2,6 +2,7 @@ package de.fuchspfoten.mokkit.entity.living.golem;
 
 import de.fuchspfoten.mokkit.MokkitServer;
 import de.fuchspfoten.mokkit.internal.exception.UnsupportedMockException;
+import lombok.NonNull;
 import org.bukkit.Location;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Snowman;
@@ -20,7 +21,8 @@ public class MokkitSnowman extends MokkitGolem implements Snowman {
      * @param location The location the entity is at.
      * @param uuid     The UUID of the entity.
      */
-    public MokkitSnowman(final MokkitServer server, final Location location, final UUID uuid) {
+    public MokkitSnowman(final @NonNull MokkitServer server, final @NonNull Location location,
+                         final @NonNull UUID uuid) {
         super(server, "Snowman", location, uuid, 4.0);
     }
 

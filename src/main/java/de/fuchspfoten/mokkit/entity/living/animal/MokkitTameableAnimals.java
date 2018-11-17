@@ -1,6 +1,7 @@
 package de.fuchspfoten.mokkit.entity.living.animal;
 
 import de.fuchspfoten.mokkit.MokkitServer;
+import lombok.NonNull;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.AnimalTamer;
@@ -29,7 +30,8 @@ public abstract class MokkitTameableAnimals extends MokkitAnimals implements Tam
      * @param uuid             The UUID of the entity.
      * @param defaultMaxHealth The default max health of the entity.
      */
-    public MokkitTameableAnimals(final MokkitServer server, final String name, final Location location, final UUID uuid,
+    public MokkitTameableAnimals(final @NonNull MokkitServer server, final @NonNull String name,
+                                 final @NonNull Location location, final @NonNull UUID uuid,
                                  final double defaultMaxHealth) {
         super(server, name, location, uuid, defaultMaxHealth);
     }
@@ -48,7 +50,7 @@ public abstract class MokkitTameableAnimals extends MokkitAnimals implements Tam
     }
 
     @Override
-    public void setOwner(final AnimalTamer tamer) {
+    public void setOwner(final @NonNull AnimalTamer tamer) {
         ownerUUID = tamer.getUniqueId();
     }
 

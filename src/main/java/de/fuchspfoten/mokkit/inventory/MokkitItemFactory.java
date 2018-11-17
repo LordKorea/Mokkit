@@ -2,6 +2,7 @@ package de.fuchspfoten.mokkit.inventory;
 
 import de.fuchspfoten.mokkit.internal.exception.UnsupportedMockException;
 import de.fuchspfoten.mokkit.inventory.meta.MokkitItemMeta;
+import lombok.NonNull;
 import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemFactory;
@@ -14,13 +15,15 @@ import org.bukkit.inventory.meta.ItemMeta;
 public class MokkitItemFactory implements ItemFactory {
 
     @Override
-    public ItemMeta asMetaFor(final ItemMeta meta, final ItemStack stack) throws IllegalArgumentException {
+    public ItemMeta asMetaFor(final @NonNull ItemMeta meta, final @NonNull ItemStack stack)
+            throws IllegalArgumentException {
         // TODO: subclasses?
         return meta;
     }
 
     @Override
-    public ItemMeta asMetaFor(final ItemMeta meta, final Material material) throws IllegalArgumentException {
+    public ItemMeta asMetaFor(final @NonNull ItemMeta meta, final @NonNull Material material)
+            throws IllegalArgumentException {
         // TODO: subclasses?
         return meta;
     }
@@ -46,7 +49,7 @@ public class MokkitItemFactory implements ItemFactory {
     }
 
     @Override
-    public ItemMeta getItemMeta(final Material material) {
+    public ItemMeta getItemMeta(final @NonNull Material material) {
         // TODO: subclasses?
         return new MokkitItemMeta();
     }
@@ -58,7 +61,8 @@ public class MokkitItemFactory implements ItemFactory {
     }
 
     @Override
-    public boolean isApplicable(final ItemMeta meta, final Material material) throws IllegalArgumentException {
+    public boolean isApplicable(final @NonNull ItemMeta meta, final @NonNull Material material)
+            throws IllegalArgumentException {
         // TODO: subclasses?
         return true;
     }

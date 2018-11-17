@@ -2,6 +2,7 @@ package de.fuchspfoten.mokkit.entity.living;
 
 import de.fuchspfoten.mokkit.MokkitServer;
 import de.fuchspfoten.mokkit.internal.exception.UnsupportedMockException;
+import lombok.NonNull;
 import org.bukkit.Location;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.EntityType;
@@ -22,7 +23,8 @@ public class MokkitArmorStand extends MokkitLivingEntity implements ArmorStand {
      * @param location The location the entity is at.
      * @param uuid     The UUID of the entity.
      */
-    public MokkitArmorStand(final MokkitServer server, final Location location, final UUID uuid) {
+    public MokkitArmorStand(final @NonNull MokkitServer server, final @NonNull Location location,
+                            final @NonNull UUID uuid) {
         super(server, "ArmorStand", location, uuid, 2.0);
     }
 

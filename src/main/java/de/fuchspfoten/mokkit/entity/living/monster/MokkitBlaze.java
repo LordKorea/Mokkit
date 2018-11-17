@@ -1,6 +1,7 @@
 package de.fuchspfoten.mokkit.entity.living.monster;
 
 import de.fuchspfoten.mokkit.MokkitServer;
+import lombok.NonNull;
 import org.bukkit.Location;
 import org.bukkit.entity.Blaze;
 import org.bukkit.entity.EntityType;
@@ -19,7 +20,7 @@ public class MokkitBlaze extends MokkitMonster implements Blaze {
      * @param location The location the entity is at.
      * @param uuid     The UUID of the entity.
      */
-    public MokkitBlaze(final MokkitServer server, final Location location, final UUID uuid) {
+    public MokkitBlaze(final @NonNull MokkitServer server, final @NonNull Location location, final @NonNull UUID uuid) {
         super(server, "Blaze", location, uuid, 20.0);
     }
 

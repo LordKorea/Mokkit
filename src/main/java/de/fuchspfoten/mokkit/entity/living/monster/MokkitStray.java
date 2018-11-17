@@ -1,6 +1,7 @@
 package de.fuchspfoten.mokkit.entity.living.monster;
 
 import de.fuchspfoten.mokkit.MokkitServer;
+import lombok.NonNull;
 import org.bukkit.Location;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Stray;
@@ -19,7 +20,7 @@ public class MokkitStray extends MokkitSkeleton implements Stray {
      * @param location The location the entity is at.
      * @param uuid     The UUID of the entity.
      */
-    public MokkitStray(final MokkitServer server, final Location location, final UUID uuid) {
+    public MokkitStray(final @NonNull MokkitServer server, final @NonNull Location location, final @NonNull UUID uuid) {
         super(server, "Stray", location, uuid, 20.0);
     }
 

@@ -3,6 +3,7 @@ package de.fuchspfoten.mokkit;
 import de.fuchspfoten.mokkit.block.MokkitBlock;
 import de.fuchspfoten.mokkit.internal.exception.UnsupportedMockException;
 import lombok.Getter;
+import lombok.NonNull;
 import org.bukkit.Chunk;
 import org.bukkit.ChunkSnapshot;
 import org.bukkit.World;
@@ -42,7 +43,7 @@ public class MokkitChunk implements Chunk {
      * @param x     The x position of the chunk.
      * @param z     The z position of the chunk.
      */
-    public MokkitChunk(final World world, final int x, final int z) {
+    public MokkitChunk(final @NonNull World world, final int x, final int z) {
         this.world = world;
         this.x = x;
         this.z = z;
@@ -50,9 +51,7 @@ public class MokkitChunk implements Chunk {
 
     @Override
     public Block getBlock(final int x, final int y, final int z) {
-        if (y < 0 || y >= world.getMaxHeight()) {
-            return null;
-        }
+        assert 0 <= y && y < world.getMaxHeight() : "invalid y coordinate " + y;
 
         // Get the correct section.
         final int ySection = y >> 4;
@@ -147,6 +146,7 @@ public class MokkitChunk implements Chunk {
      * @return The block.
      */
     protected Block createBlock(final int x, final int y, final int z) {
+        assert 0 <= y && y < world.getMaxHeight() : "invalid y position " + y;
         // TODO create empty block.
         return new MokkitBlock(getWorld(), x + 16 * getX(), y, z + 16 * getZ());
     }
@@ -160,6 +160,9 @@ public class MokkitChunk implements Chunk {
      * @return The index.
      */
     private int index(final int x, final int y, final int z) {
+        assert 0 <= x && x < 16 : "invalid x position " + x;
+        assert 0 <= y && y < 16 : "invalid y position " + y;
+        assert 0 <= z && z < 16 : "invalid z position " + z;
         return y * 16 * 16 + x * 16 + z;
     }
 }

@@ -3,6 +3,7 @@ package de.fuchspfoten.mokkit.entity.living.boss;
 import de.fuchspfoten.mokkit.MokkitServer;
 import de.fuchspfoten.mokkit.entity.living.MokkitComplexLivingEntity;
 import de.fuchspfoten.mokkit.internal.exception.UnsupportedMockException;
+import lombok.NonNull;
 import org.bukkit.Location;
 import org.bukkit.entity.EnderDragon;
 import org.bukkit.entity.EntityType;
@@ -21,7 +22,8 @@ public class MokkitEnderDragon extends MokkitComplexLivingEntity implements Ende
      * @param location The location the entity is at.
      * @param uuid     The UUID of the entity.
      */
-    public MokkitEnderDragon(final MokkitServer server, final Location location, final UUID uuid) {
+    public MokkitEnderDragon(final @NonNull MokkitServer server, final @NonNull Location location,
+                             final @NonNull UUID uuid) {
         super(server, "EnderDragon", location, uuid, 200.0);
     }
 

@@ -2,6 +2,7 @@ package de.fuchspfoten.mokkit.entity.living.monster;
 
 import de.fuchspfoten.mokkit.MokkitServer;
 import de.fuchspfoten.mokkit.internal.exception.UnsupportedMockException;
+import lombok.NonNull;
 import org.bukkit.Location;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.PigZombie;
@@ -20,7 +21,8 @@ public class MokkitPigZombie extends MokkitZombie implements PigZombie {
      * @param location The location the entity is at.
      * @param uuid     The UUID of the entity.
      */
-    public MokkitPigZombie(final MokkitServer server, final Location location, final UUID uuid) {
+    public MokkitPigZombie(final @NonNull MokkitServer server, final @NonNull Location location,
+                           final @NonNull UUID uuid) {
         super(server, "PigZombie", location, uuid, 20.0);
     }
 

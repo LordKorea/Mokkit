@@ -2,6 +2,7 @@ package de.fuchspfoten.mokkit.entity.hanging;
 
 import de.fuchspfoten.mokkit.MokkitServer;
 import de.fuchspfoten.mokkit.internal.exception.UnsupportedMockException;
+import lombok.NonNull;
 import org.bukkit.Location;
 import org.bukkit.Rotation;
 import org.bukkit.entity.EntityType;
@@ -22,7 +23,8 @@ public class MokkitItemFrame extends MokkitHanging implements ItemFrame {
      * @param location The location the entity is at.
      * @param uniqueId The UUID of the entity.
      */
-    public MokkitItemFrame(final MokkitServer server, final Location location, final UUID uniqueId) {
+    public MokkitItemFrame(final @NonNull MokkitServer server, final @NonNull Location location,
+                           final @NonNull UUID uniqueId) {
         super(server, "ItemFrame", location, uniqueId);
     }
 

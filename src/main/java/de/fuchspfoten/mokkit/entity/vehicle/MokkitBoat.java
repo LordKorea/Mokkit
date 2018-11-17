@@ -2,6 +2,7 @@ package de.fuchspfoten.mokkit.entity.vehicle;
 
 import de.fuchspfoten.mokkit.MokkitServer;
 import de.fuchspfoten.mokkit.internal.exception.UnsupportedMockException;
+import lombok.NonNull;
 import org.bukkit.Location;
 import org.bukkit.TreeSpecies;
 import org.bukkit.entity.Boat;
@@ -21,7 +22,8 @@ public class MokkitBoat extends MokkitVehicle implements Boat {
      * @param location The location the entity is at.
      * @param uniqueId The UUID of the entity.
      */
-    public MokkitBoat(final MokkitServer server, final Location location, final UUID uniqueId) {
+    public MokkitBoat(final @NonNull MokkitServer server, final @NonNull Location location,
+                      final @NonNull UUID uniqueId) {
         super(server, "Boat", location, uniqueId);
     }
 

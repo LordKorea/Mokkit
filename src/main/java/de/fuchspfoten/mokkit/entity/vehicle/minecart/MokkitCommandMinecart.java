@@ -2,6 +2,7 @@ package de.fuchspfoten.mokkit.entity.vehicle.minecart;
 
 import de.fuchspfoten.mokkit.MokkitServer;
 import de.fuchspfoten.mokkit.internal.exception.UnsupportedMockException;
+import lombok.NonNull;
 import org.bukkit.Location;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.minecart.CommandMinecart;
@@ -20,7 +21,8 @@ public class MokkitCommandMinecart extends MokkitMinecart implements CommandMine
      * @param location The location the entity is at.
      * @param uuid     The UUID of the entity.
      */
-    public MokkitCommandMinecart(final MokkitServer server, final Location location, final UUID uuid) {
+    public MokkitCommandMinecart(final @NonNull MokkitServer server, final @NonNull Location location,
+                                 final @NonNull UUID uuid) {
         super(server, "CommandMinecart", location, uuid);
     }
 

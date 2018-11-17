@@ -3,6 +3,7 @@ package de.fuchspfoten.mokkit.entity.vehicle;
 import de.fuchspfoten.mokkit.CancelledByEventException;
 import de.fuchspfoten.mokkit.MokkitServer;
 import de.fuchspfoten.mokkit.entity.MokkitEntity;
+import lombok.NonNull;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Vehicle;
@@ -24,12 +25,13 @@ public abstract class MokkitVehicle extends MokkitEntity implements Vehicle {
      * @param location The location the entity is at.
      * @param uniqueId The UUID of the entity.
      */
-    public MokkitVehicle(final MokkitServer server, final String name, final Location location, final UUID uniqueId) {
+    public MokkitVehicle(final @NonNull MokkitServer server, final @NonNull String name,
+                         final @NonNull Location location, final @NonNull UUID uniqueId) {
         super(server, name, location, uniqueId);
     }
 
     @Override
-    public double onDamaged(final Entity damager, final double damage) {
+    public double onDamaged(final @NonNull Entity damager, final double damage) {
         final VehicleDamageEvent damageEvent = new VehicleDamageEvent(this, damager, damage);
         getServer().getPluginManager().callEvent(damageEvent);
         if (damageEvent.isCancelled()) {

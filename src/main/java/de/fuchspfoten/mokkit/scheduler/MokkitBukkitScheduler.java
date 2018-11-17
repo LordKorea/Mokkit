@@ -2,6 +2,7 @@ package de.fuchspfoten.mokkit.scheduler;
 
 import de.fuchspfoten.mokkit.internal.exception.UnsupportedMockException;
 import lombok.Getter;
+import lombok.NonNull;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitScheduler;
@@ -165,26 +166,26 @@ public class MokkitBukkitScheduler implements BukkitScheduler {
     }
 
     @Override
-    public int scheduleAsyncDelayedTask(final Plugin plugin, final Runnable task, final long delay) {
+    public int scheduleAsyncDelayedTask(final @NonNull Plugin plugin, final @NonNull Runnable task, final long delay) {
         // Just do it in sync.
         return scheduleSyncDelayedTask(plugin, task, delay);
     }
 
     @Override
-    public int scheduleAsyncDelayedTask(final Plugin plugin, final Runnable task) {
+    public int scheduleAsyncDelayedTask(final @NonNull Plugin plugin, final @NonNull Runnable task) {
         // Just do it in sync.
         return scheduleSyncDelayedTask(plugin, task);
     }
 
     @Override
-    public int scheduleAsyncRepeatingTask(final Plugin plugin, final Runnable task, final long delay,
+    public int scheduleAsyncRepeatingTask(final @NonNull Plugin plugin, final @NonNull Runnable task, final long delay,
                                           final long period) {
         // Just do it in sync.
         return scheduleSyncRepeatingTask(plugin, task, delay, period);
     }
 
     @Override
-    public int scheduleSyncDelayedTask(final Plugin plugin, final Runnable task, final long delay) {
+    public int scheduleSyncDelayedTask(final @NonNull Plugin plugin, final @NonNull Runnable task, final long delay) {
         final MokkitBukkitTask internTask = new MokkitBukkitTask(currentTick + delay, task, taskId, plugin,
                 true);
         schedulerQueue.add(internTask);
@@ -192,22 +193,23 @@ public class MokkitBukkitScheduler implements BukkitScheduler {
     }
 
     @Override
-    public int scheduleSyncDelayedTask(final Plugin plugin, final BukkitRunnable task, final long delay) {
+    public int scheduleSyncDelayedTask(final @NonNull Plugin plugin, final @NonNull BukkitRunnable task,
+                                       final long delay) {
         return scheduleSyncDelayedTask(plugin, (Runnable) task, delay);
     }
 
     @Override
-    public int scheduleSyncDelayedTask(final Plugin plugin, final Runnable task) {
+    public int scheduleSyncDelayedTask(final @NonNull Plugin plugin, final @NonNull Runnable task) {
         return scheduleSyncDelayedTask(plugin, task, -1);
     }
 
     @Override
-    public int scheduleSyncDelayedTask(final Plugin plugin, final BukkitRunnable task) {
+    public int scheduleSyncDelayedTask(final @NonNull Plugin plugin, final @NonNull BukkitRunnable task) {
         return scheduleSyncDelayedTask(plugin, (Runnable) task);
     }
 
     @Override
-    public int scheduleSyncRepeatingTask(final Plugin plugin, final Runnable task, final long delay,
+    public int scheduleSyncRepeatingTask(final @NonNull Plugin plugin, final @NonNull Runnable task, final long delay,
                                          final long period) {
         return scheduleSyncDelayedTask(plugin, new Runnable() {
             @Override
@@ -219,8 +221,8 @@ public class MokkitBukkitScheduler implements BukkitScheduler {
     }
 
     @Override
-    public int scheduleSyncRepeatingTask(final Plugin plugin, final BukkitRunnable task, final long delay,
-                                         final long period) {
+    public int scheduleSyncRepeatingTask(final @NonNull Plugin plugin, final @NonNull BukkitRunnable task,
+                                         final long delay, final long period) {
         return scheduleSyncRepeatingTask(plugin, (Runnable) task, delay, period);
     }
 
@@ -236,7 +238,7 @@ public class MokkitBukkitScheduler implements BukkitScheduler {
                 break;
             }
 
-            if (nextTask.getTargetTick() != currentTick) {
+            if (nextTask.getTargetTick() > currentTick) {
                 // No tasks for the current tick.
                 break;
             }

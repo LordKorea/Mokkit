@@ -1,6 +1,7 @@
 package de.fuchspfoten.mokkit.entity.living.monster;
 
 import de.fuchspfoten.mokkit.MokkitServer;
+import lombok.NonNull;
 import org.bukkit.Location;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.WitherSkeleton;
@@ -19,7 +20,8 @@ public class MokkitWitherSkeleton extends MokkitSkeleton implements WitherSkelet
      * @param location The location the entity is at.
      * @param uuid     The UUID of the entity.
      */
-    public MokkitWitherSkeleton(final MokkitServer server, final Location location, final UUID uuid) {
+    public MokkitWitherSkeleton(final @NonNull MokkitServer server, final @NonNull Location location,
+                                final @NonNull UUID uuid) {
         super(server, "WitherSkeleton", location, uuid, 20.0);
     }
 
