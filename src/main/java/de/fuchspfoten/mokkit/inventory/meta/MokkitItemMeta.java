@@ -2,12 +2,15 @@ package de.fuchspfoten.mokkit.inventory.meta;
 
 import de.fuchspfoten.mokkit.internal.exception.UnsupportedMockException;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.Setter;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.EnumSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -18,14 +21,24 @@ import java.util.Set;
 public class MokkitItemMeta implements ItemMeta, Cloneable {
 
     /**
-     * The lore of this item meta.
+     * The lore of this item meta's item.
      */
     private @Getter @Setter List<String> lore;
 
     /**
-     * The display name of this item meta.
+     * The display name of this item meta's item.
      */
     private @Getter @Setter String displayName;
+
+    /**
+     * Whether or not this item meta is of an unbreakable item.
+     */
+    private @Getter @Setter boolean unbreakable;
+
+    /**
+     * The set of flags of this item meta's item.
+     */
+    private final Set<ItemFlag> flags = EnumSet.noneOf(ItemFlag.class);
 
     @Override
     public boolean addEnchant(final Enchantment ench, final int level, final boolean ignoreLevelRestriction) {
@@ -34,9 +47,11 @@ public class MokkitItemMeta implements ItemMeta, Cloneable {
     }
 
     @Override
-    public void addItemFlags(final ItemFlag... itemFlags) {
-        // TODO
-        throw new UnsupportedMockException();
+    public void addItemFlags(final @NonNull ItemFlag... itemFlags) {
+        for (final ItemFlag flag : itemFlags) {
+            assert flag != null : "flags must not be null";
+            flags.add(flag);
+        }
     }
 
     @Override
@@ -64,8 +79,7 @@ public class MokkitItemMeta implements ItemMeta, Cloneable {
 
     @Override
     public Set<ItemFlag> getItemFlags() {
-        // TODO
-        throw new UnsupportedMockException();
+        return Collections.unmodifiableSet(flags);
     }
 
     @Override
@@ -104,9 +118,8 @@ public class MokkitItemMeta implements ItemMeta, Cloneable {
     }
 
     @Override
-    public boolean hasItemFlag(final ItemFlag flag) {
-        // TODO
-        throw new UnsupportedMockException();
+    public boolean hasItemFlag(final @NonNull ItemFlag flag) {
+        return flags.contains(flag);
     }
 
     @Override
@@ -131,27 +144,17 @@ public class MokkitItemMeta implements ItemMeta, Cloneable {
     }
 
     @Override
-    public boolean isUnbreakable() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setUnbreakable(final boolean unbreakable) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
     public boolean removeEnchant(final Enchantment ench) {
         // TODO
         throw new UnsupportedMockException();
     }
 
     @Override
-    public void removeItemFlags(final ItemFlag... itemFlags) {
-        // TODO
-        throw new UnsupportedMockException();
+    public void removeItemFlags(final @NonNull ItemFlag... itemFlags) {
+        for (final ItemFlag flag : itemFlags) {
+            assert flag != null : "item flags must not be null";
+            flags.remove(flag);
+        }
     }
 
     @Override
