@@ -3,6 +3,7 @@ package de.fuchspfoten.mokkit;
 import de.fuchspfoten.mokkit.entity.living.human.MokkitPlayer;
 import de.fuchspfoten.mokkit.internal.exception.InternalException;
 import de.fuchspfoten.mokkit.internal.exception.UnsupportedMockException;
+import de.fuchspfoten.mokkit.inventory.MokkitCustomInventory;
 import de.fuchspfoten.mokkit.inventory.MokkitItemFactory;
 import de.fuchspfoten.mokkit.plugin.MokkitPluginManager;
 import de.fuchspfoten.mokkit.scheduler.MokkitBukkitScheduler;
@@ -194,16 +195,16 @@ public class MokkitServer implements Server {
     }
 
     @Override
-    public Inventory createInventory(final InventoryHolder owner, final int size) throws IllegalArgumentException {
-        // TODO
-        throw new UnsupportedMockException();
+    public Inventory createInventory(final InventoryHolder owner, final int size)
+            throws IllegalArgumentException {
+        return createInventory(owner, size, "");
     }
 
     @Override
-    public Inventory createInventory(final InventoryHolder owner, final int size,
-                                     final String title) throws IllegalArgumentException {
-        // TODO
-        throw new UnsupportedMockException();
+    public Inventory createInventory(final InventoryHolder owner, final int size, final @NonNull String title)
+            throws IllegalArgumentException {
+        assert size % 9 == 0 : "invalid size " + size;
+        return new MokkitCustomInventory(size, owner, title);
     }
 
     @Override

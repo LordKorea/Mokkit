@@ -1,6 +1,8 @@
 package de.fuchspfoten.mokkit.inventory;
 
 import de.fuchspfoten.mokkit.internal.exception.UnsupportedMockException;
+import lombok.Getter;
+import lombok.NonNull;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.HumanEntity;
@@ -24,13 +26,27 @@ public abstract class MokkitInventory implements Inventory {
     private final ItemStack[] contents;
 
     /**
+     * The holder of the inventory.
+     */
+    private @Getter final InventoryHolder holder;
+
+    /**
+     * The inventory title.
+     */
+    private @Getter final String title;
+
+    /**
      * Constructor.
      *
      * @param size The size of inventory.
+     * @param holder The holder of the inventory.
+     * @param title  The title of the inventory.
      */
-    public MokkitInventory(final int size) {
+    public MokkitInventory(final int size, final InventoryHolder holder, final @NonNull String title) {
         assert size >= 0 : "invalid size " + size;
         contents = new ItemStack[size];
+        this.holder = holder;
+        this.title = title;
     }
 
     @Override
@@ -148,12 +164,6 @@ public abstract class MokkitInventory implements Inventory {
     }
 
     @Override
-    public InventoryHolder getHolder() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
     public ItemStack getItem(final int index) {
         return contents[index];
     }
@@ -195,12 +205,6 @@ public abstract class MokkitInventory implements Inventory {
 
     @Override
     public void setStorageContents(final ItemStack[] items) throws IllegalArgumentException {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public String getTitle() {
         // TODO
         throw new UnsupportedMockException();
     }

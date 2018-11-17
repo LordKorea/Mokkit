@@ -30,7 +30,7 @@ public abstract class MokkitHumanEntity extends MokkitLivingEntity implements Hu
     /**
      * The inventory of the human entity.
      */
-    private @Getter final PlayerInventory inventory = new MokkitPlayerInventory();
+    private @Getter final PlayerInventory inventory = new MokkitPlayerInventory(this);
 
     /**
      * The game mode of the human entity.

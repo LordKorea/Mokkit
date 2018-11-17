@@ -2,8 +2,10 @@ package de.fuchspfoten.mokkit.inventory;
 
 import de.fuchspfoten.mokkit.internal.exception.UnsupportedMockException;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.Setter;
 import org.bukkit.entity.HumanEntity;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 
@@ -20,12 +22,12 @@ public class MokkitPlayerInventory extends MokkitInventory implements PlayerInve
     /**
      * Constructor.
      */
-    public MokkitPlayerInventory() {
+    public MokkitPlayerInventory(final @NonNull InventoryHolder holder) {
         // Hotbar: 0..8.
         // Items: 9..35.
         // Armor: 36..39.
         // Off Hand: 40.
-        super(9 + 3 * 9 + 4 + 1);
+        super(9 + 3 * 9 + 4 + 1, holder, "");
     }
 
     @Override
