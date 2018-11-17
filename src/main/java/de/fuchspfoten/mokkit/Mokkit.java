@@ -1,5 +1,6 @@
 package de.fuchspfoten.mokkit;
 
+import de.fuchspfoten.mokkit.enchantments.MokkitEnchantment;
 import de.fuchspfoten.mokkit.internal.ReflectionHelper;
 import de.fuchspfoten.mokkit.potion.MokkitPotionEffectType;
 import org.bukkit.Bukkit;
@@ -72,6 +73,9 @@ public final class Mokkit {
 
         // Create potion effects.
         MokkitPotionEffectType.registerPotionEffects();
+
+        // Create enchantments.
+        MokkitEnchantment.registerEnchantments();
 
         // Create the default world.
         server.createWorld(new WorldCreator("world"));
