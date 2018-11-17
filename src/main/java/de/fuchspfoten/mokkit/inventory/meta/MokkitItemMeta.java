@@ -22,6 +22,11 @@ public class MokkitItemMeta implements ItemMeta, Cloneable {
      */
     private @Getter @Setter List<String> lore;
 
+    /**
+     * The display name of this item meta.
+     */
+    private @Getter @Setter String displayName;
+
     @Override
     public boolean addEnchant(final Enchantment ench, final int level, final boolean ignoreLevelRestriction) {
         // TODO
@@ -43,18 +48,6 @@ public class MokkitItemMeta implements ItemMeta, Cloneable {
         } catch (final CloneNotSupportedException e) {
             throw new IllegalStateException(e);
         }
-    }
-
-    @Override
-    public String getDisplayName() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setDisplayName(final String name) {
-        // TODO
-        throw new UnsupportedMockException();
     }
 
     @Override
@@ -95,8 +88,7 @@ public class MokkitItemMeta implements ItemMeta, Cloneable {
 
     @Override
     public boolean hasDisplayName() {
-        // TODO
-        throw new UnsupportedMockException();
+        return displayName != null;
     }
 
     @Override
@@ -134,7 +126,8 @@ public class MokkitItemMeta implements ItemMeta, Cloneable {
      * @return true iff this meta is empty.
      */
     public boolean isEmpty() {
-        return true;
+        // TODO update this to changes.
+        return !hasLore() && !hasDisplayName();
     }
 
     @Override
