@@ -164,6 +164,14 @@ public abstract class MokkitInventory implements Inventory {
         throw new UnsupportedMockException();
     }
 
+    /**
+     * Gets the type of the given slot.
+     *
+     * @param slot The slot.
+     * @return The slot type.
+     */
+    public abstract InventoryType.SlotType getSlotType(final int slot);
+
     @Override
     public void setContents(final ItemStack[] items) throws IllegalArgumentException {
         // TODO

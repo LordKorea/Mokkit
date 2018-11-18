@@ -3,7 +3,6 @@ package de.fuchspfoten.mokkit.entity.living.human;
 import de.fuchspfoten.mokkit.CancelledByEventException;
 import de.fuchspfoten.mokkit.MokkitServer;
 import de.fuchspfoten.mokkit.MokkitWorld;
-import de.fuchspfoten.mokkit.entity.living.MokkitLivingEntity;
 import de.fuchspfoten.mokkit.internal.exception.UnsupportedMockException;
 import lombok.NonNull;
 import org.bukkit.Achievement;
@@ -981,7 +980,7 @@ public class MokkitPlayer extends MokkitHumanEntity implements Player {
     /**
      * Class for the control object.
      */
-    public class Mokkit extends MokkitLivingEntity.Mokkit {
+    public class Mokkit extends MokkitHumanEntity.Mokkit {
 
         /**
          * Protected constructor to prevent outside instance creation.

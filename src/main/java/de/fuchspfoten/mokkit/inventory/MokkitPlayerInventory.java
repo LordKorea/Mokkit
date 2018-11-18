@@ -30,7 +30,7 @@ public class MokkitPlayerInventory extends MokkitInventory implements PlayerInve
         // Items: 9..35.
         // Armor: 36..39.
         // Off Hand: 40.
-        super(9 + 3 * 9 + 4 + 1, holder, "", InventoryType.PLAYER);
+        super(9 + 3 * 9 + 4 + 1, holder, "Inventory", InventoryType.PLAYER);
     }
 
     @Override
@@ -148,5 +148,16 @@ public class MokkitPlayerInventory extends MokkitInventory implements PlayerInve
     public void setLeggings(final ItemStack leggings) {
         // TODO
         throw new UnsupportedMockException();
+    }
+
+    @Override
+    public InventoryType.SlotType getSlotType(final int slot) {
+        if (slot < 8) {
+            return InventoryType.SlotType.QUICKBAR;
+        }
+        if (slot >= 36 && slot <= 39) {
+            return InventoryType.SlotType.ARMOR;
+        }
+        return InventoryType.SlotType.CONTAINER;
     }
 }

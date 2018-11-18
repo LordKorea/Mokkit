@@ -19,4 +19,9 @@ public class MokkitCustomInventory extends MokkitInventory {
     public MokkitCustomInventory(final int size, final InventoryHolder holder, final @NonNull String title) {
         super(size, holder, title, InventoryType.CHEST);
     }
+
+    @Override
+    public InventoryType.SlotType getSlotType(final int slot) {
+        return InventoryType.SlotType.CONTAINER;
+    }
 }

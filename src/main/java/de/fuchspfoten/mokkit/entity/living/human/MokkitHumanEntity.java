@@ -1,8 +1,10 @@
 package de.fuchspfoten.mokkit.entity.living.human;
 
+import de.fuchspfoten.mokkit.CancelledByEventException;
 import de.fuchspfoten.mokkit.MokkitServer;
 import de.fuchspfoten.mokkit.entity.living.MokkitLivingEntity;
 import de.fuchspfoten.mokkit.internal.exception.UnsupportedMockException;
+import de.fuchspfoten.mokkit.inventory.MokkitInventory;
 import de.fuchspfoten.mokkit.inventory.MokkitInventoryView;
 import de.fuchspfoten.mokkit.inventory.MokkitPlayerInventory;
 import lombok.Getter;
@@ -14,8 +16,12 @@ import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Villager;
+import org.bukkit.event.inventory.ClickType;
+import org.bukkit.event.inventory.InventoryAction;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
+import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
@@ -31,6 +37,11 @@ import java.util.UUID;
 public abstract class MokkitHumanEntity extends MokkitLivingEntity implements HumanEntity {
 
     /**
+     * The control object.
+     */
+    private final Mokkit mokkit = new Mokkit();
+
+    /**
      * The inventory of the human entity.
      */
     private @Getter final PlayerInventory inventory = new MokkitPlayerInventory(this);
@@ -44,6 +55,11 @@ public abstract class MokkitHumanEntity extends MokkitLivingEntity implements Hu
      * The currently opened inventory.
      */
     private @Getter InventoryView openInventory;
+
+    /**
+     * The item on the cursor.
+     */
+    private @NonNull @Getter @Setter ItemStack itemOnCursor;
 
     /**
      * Constructor.
@@ -95,18 +111,6 @@ public abstract class MokkitHumanEntity extends MokkitLivingEntity implements Hu
     @Override
     public void setItemInHand(final ItemStack item) {
         getInventory().setItemInMainHand(item);
-    }
-
-    @Override
-    public ItemStack getItemOnCursor() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setItemOnCursor(final ItemStack item) {
-        // TODO
-        throw new UnsupportedMockException();
     }
 
     @Override
@@ -234,6 +238,135 @@ public abstract class MokkitHumanEntity extends MokkitLivingEntity implements Hu
         } else {
             nextItem.setAmount(nextItem.getAmount() - 1);
             getInventory().setItemInMainHand(nextItem);
+        }
+    }
+
+    /**
+     * Fetches the control object.
+     *
+     * @return The control object.
+     */
+    public Mokkit mokkit() {
+        return mokkit;
+    }
+
+    /**
+     * The class of the control object.
+     */
+    public class Mokkit extends MokkitLivingEntity.Mokkit {
+
+        /**
+         * Performs a click in the open inventory.
+         *
+         * @param slot      The raw slot.
+         * @param clickType The click type.
+         */
+        public void clickInOpenInventory(final int slot, final @NonNull ClickType clickType, final int key) {
+            if (openInventory == null) {
+                return;
+            }
+
+            final boolean isBottom = slot >= openInventory.getTopInventory().getSize();
+            final int convertedSlot = openInventory.convertSlot(slot);
+            final Inventory inventory = isBottom ? openInventory.getBottomInventory() : openInventory.getTopInventory();
+
+            final InventoryType.SlotType slotType;
+            if (isBottom && slot < 5) {
+                // Player crafting.
+                slotType = (slot == 0) ? InventoryType.SlotType.RESULT : InventoryType.SlotType.CRAFTING;
+            } else {
+                slotType = ((MokkitInventory) inventory).getSlotType(convertedSlot);
+            }
+
+            final ItemStack cursor = openInventory.getCursor();
+            final ItemStack current = inventory.getItem(convertedSlot);
+            final boolean hasItem = current != null;
+            final boolean hasCursor = cursor != null;
+            final InventoryAction action;
+            switch (clickType) {
+                case LEFT:
+                    if (hasItem) {
+                        if (hasCursor) {
+                            if (current.isSimilar(cursor)) {
+                                if (current.getAmount() == current.getMaxStackSize()) {
+                                    action = InventoryAction.NOTHING;
+                                } else {
+                                    action = InventoryAction.PLACE_SOME;
+                                }
+                            } else {
+                                action = InventoryAction.SWAP_WITH_CURSOR;
+                            }
+                        } else {
+                            action = InventoryAction.PICKUP_ALL;
+                        }
+                    } else {
+                        if (hasCursor) {
+                            action = InventoryAction.PLACE_ALL;
+                        } else {
+                            action = InventoryAction.NOTHING;
+                        }
+                    }
+                    break;
+                case UNKNOWN:
+                    action = InventoryAction.UNKNOWN;
+                    break;
+
+                case SHIFT_LEFT:
+                case RIGHT:
+                case SHIFT_RIGHT:
+                case WINDOW_BORDER_LEFT:
+                case WINDOW_BORDER_RIGHT:
+                case MIDDLE:
+                case NUMBER_KEY:
+                case DOUBLE_CLICK:
+                case DROP:
+                case CONTROL_DROP:
+                case CREATIVE:
+                default:
+                    throw new UnsupportedMockException();
+            }
+
+            final InventoryClickEvent event = new InventoryClickEvent(openInventory, slotType, slot, clickType, action,
+                    key);
+            getServer().getPluginManager().callEvent(event);
+            if (event.isCancelled()) {
+                throw new CancelledByEventException(event);
+            }
+
+            switch (action) {
+                case NOTHING:
+                    break;
+                case PICKUP_ALL:
+                    openInventory.setCursor(inventory.getItem(convertedSlot));
+                    inventory.setItem(convertedSlot, null);
+                    break;
+                case SWAP_WITH_CURSOR:
+                    final ItemStack tmp = openInventory.getCursor();
+                    openInventory.setCursor(inventory.getItem(convertedSlot));
+                    inventory.setItem(convertedSlot, tmp);
+                    break;
+                case PLACE_ALL:
+                    inventory.setItem(convertedSlot, openInventory.getCursor());
+                    openInventory.setCursor(null);
+                case PLACE_SOME:
+                    throw new UnsupportedMockException();
+
+                /*case PICKUP_SOME:
+                case PICKUP_HALF:
+                case PICKUP_ONE:
+                case PLACE_ONE:
+                case DROP_ALL_CURSOR:
+                case DROP_ONE_CURSOR:
+                case DROP_ALL_SLOT:
+                case DROP_ONE_SLOT:
+                case MOVE_TO_OTHER_INVENTORY:
+                case HOTBAR_MOVE_AND_READD:
+                case HOTBAR_SWAP:
+                case CLONE_STACK:
+                case COLLECT_TO_CURSOR:*/
+                case UNKNOWN:
+                    throw new UnsupportedMockException();
+            }
         }
     }
 }
