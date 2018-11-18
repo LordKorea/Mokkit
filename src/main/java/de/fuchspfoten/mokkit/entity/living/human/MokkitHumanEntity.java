@@ -59,7 +59,7 @@ public abstract class MokkitHumanEntity extends MokkitLivingEntity implements Hu
     /**
      * The item on the cursor.
      */
-    private @NonNull @Getter @Setter ItemStack itemOnCursor;
+    private @Getter @Setter ItemStack itemOnCursor;
 
     /**
      * Constructor.
@@ -271,7 +271,20 @@ public abstract class MokkitHumanEntity extends MokkitLivingEntity implements Hu
             final boolean armor = 36 <= slot && slot <= 39;
             final boolean offHand = slot == 40;
             final boolean hotbar = slot < 9;
-            final int rawSlot = hotbar ? slot + 36 : (offHand ? slot + 5 : (armor ? 44 - slot : slot));
+            final int rawSlot;
+            if (hotbar) {
+                rawSlot = slot + 27;
+            } else {
+                if (armor) {
+                    rawSlot = 44 - slot;
+                } else {
+                    if (offHand) {
+                        rawSlot = slot + 5;
+                    } else {
+                        rawSlot = slot - 9;
+                    }
+                }
+            }
             clickInOpenInventory(rawSlot + openInventory.getTopInventory().getSize(), clickType, key);
         }
 
