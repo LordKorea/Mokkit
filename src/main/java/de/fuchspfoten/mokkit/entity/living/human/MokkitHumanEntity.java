@@ -397,6 +397,7 @@ public abstract class MokkitHumanEntity extends MokkitLivingEntity implements Hu
                 case PLACE_ALL:
                     inventory.setItem(convertedSlot, openInventory.getCursor());
                     openInventory.setCursor(null);
+                    break;
                 case PLACE_SOME:
                     throw new UnsupportedMockException();
 
