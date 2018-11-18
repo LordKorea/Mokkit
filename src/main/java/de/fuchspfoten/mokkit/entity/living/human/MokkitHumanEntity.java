@@ -256,12 +256,48 @@ public abstract class MokkitHumanEntity extends MokkitLivingEntity implements Hu
     public class Mokkit extends MokkitLivingEntity.Mokkit {
 
         /**
+         * Performs a click in the open bottom inventory.
+         *
+         * @param slot      The slot in the bottom inventory.
+         * @param clickType The click type.
+         * @param key       The pressed key, if any.
+         */
+        public void clickInBottomInventory(final int slot, final @NonNull ClickType clickType, final int key) {
+            if (openInventory == null) {
+                return;
+            }
+            assert 0 <= slot && slot < openInventory.getBottomInventory().getSize() : "invalid slot " + slot;
+
+            final boolean armor = 36 <= slot && slot <= 39;
+            final boolean offHand = slot == 40;
+            final boolean hotbar = slot < 9;
+            final int rawSlot = hotbar ? slot + 36 : (offHand ? slot + 5 : (armor ? 44 - slot : slot));
+            clickInOpenInventory(rawSlot + openInventory.getTopInventory().getSize(), clickType, key);
+        }
+
+        /**
+         * Performs a click in the open top inventory.
+         *
+         * @param slot      The slot in the top inventory.
+         * @param clickType The click type.
+         * @param key       The pressed key, if any.
+         */
+        public void clickInTopInventory(final int slot, final @NonNull ClickType clickType, final int key) {
+            if (openInventory == null) {
+                return;
+            }
+            assert 0 <= slot && slot < openInventory.getTopInventory().getSize() : "invalid slot " + slot;
+            clickInOpenInventory(slot, clickType, key);
+        }
+
+        /**
          * Performs a click in the open inventory.
          *
          * @param slot      The raw slot.
          * @param clickType The click type.
+         * @param key The pressed key, if any.
          */
-        public void clickInOpenInventory(final int slot, final @NonNull ClickType clickType, final int key) {
+        private void clickInOpenInventory(final int slot, final @NonNull ClickType clickType, final int key) {
             if (openInventory == null) {
                 return;
             }
