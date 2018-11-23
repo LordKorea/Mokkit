@@ -1,6 +1,7 @@
 package de.fuchspfoten.mokkit.inventory.meta;
 
 import de.fuchspfoten.mokkit.internal.exception.UnsupportedMockException;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
@@ -18,6 +19,7 @@ import java.util.Set;
 /**
  * @see org.bukkit.inventory.meta.ItemMeta
  */
+@EqualsAndHashCode
 public class MokkitItemMeta implements ItemMeta, Cloneable {
 
     /**
