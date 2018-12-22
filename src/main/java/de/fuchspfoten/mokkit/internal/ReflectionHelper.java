@@ -21,6 +21,7 @@ import de.fuchspfoten.mokkit.internal.exception.InternalException;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 /**
@@ -42,7 +43,8 @@ public final class ReflectionHelper {
             final Constructor<T> constructor = clazz.getDeclaredConstructor(types);
             constructor.setAccessible(true);
             return constructor.newInstance(args);
-        } catch (final ReflectiveOperationException ex) {
+        } catch (final IllegalAccessException | InstantiationException | InvocationTargetException
+                | NoSuchMethodException ex) {
             throw new InternalException("can not create instance", ex);
         }
     }
@@ -58,13 +60,14 @@ public final class ReflectionHelper {
      * @param <T>      The class type.
      * @return The return value.
      */
+    @SuppressWarnings("UnusedReturnValue")
     public static <T> Object invokeMethod(final Class<T> clazz, final T instance, final String name,
                                           final Class<?>[] types, final Object[] args) {
         try {
             final Method method = clazz.getDeclaredMethod(name, types);
             method.setAccessible(true);
             return method.invoke(instance, args);
-        } catch (final ReflectiveOperationException ex) {
+        } catch (final IllegalAccessException | NoSuchMethodException | InvocationTargetException ex) {
             throw new InternalException("can not invoke method", ex);
         }
     }
@@ -84,7 +87,7 @@ public final class ReflectionHelper {
         try {
             final Method method = clazz.getMethod(name, types);
             return method.invoke(null, args);
-        } catch (final ReflectiveOperationException ex) {
+        } catch (final IllegalAccessException | NoSuchMethodException | InvocationTargetException ex) {
             throw new InternalException("can not invoke static inherited method", ex);
         }
     }
@@ -105,7 +108,7 @@ public final class ReflectionHelper {
             final Method method = clazz.getDeclaredMethod(name, types);
             method.setAccessible(true);
             return method.invoke(null, args);
-        } catch (final ReflectiveOperationException ex) {
+        } catch (final IllegalAccessException | NoSuchMethodException | InvocationTargetException ex) {
             throw new InternalException("can not invoke static method", ex);
         }
     }
@@ -121,7 +124,7 @@ public final class ReflectionHelper {
             final Field field = clazz.getDeclaredField(name);
             field.setAccessible(true);
             field.set(null, value);
-        } catch (final ReflectiveOperationException ex) {
+        } catch (final IllegalAccessException | NoSuchFieldException ex) {
             throw new InternalException("can not set static field", ex);
         }
     }

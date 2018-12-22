@@ -18,21 +18,23 @@
 package de.fuchspfoten.mokkit.internal;
 
 import java.io.File;
+import java.util.Collection;
 import java.util.LinkedList;
-import java.util.List;
+import java.util.Objects;
 
 /**
  * Deletes files.
  */
-public final class FileDeleter extends Thread {
+public final class FileDeleter implements Runnable {
 
     /**
      * Files that are scheduled for deletion.
      */
-    private static final List<File> scheduledForDeletion = new LinkedList<>();
+    private static final Collection<File> scheduledForDeletion = new LinkedList<>();
 
     static {
-        Runtime.getRuntime().addShutdownHook(new FileDeleter());
+        final Thread thread = new Thread(new FileDeleter());
+        Runtime.getRuntime().addShutdownHook(thread);
     }
 
     /**
@@ -48,7 +50,6 @@ public final class FileDeleter extends Thread {
      * Constructor.
      */
     private FileDeleter() {
-        super();
     }
 
     /**
@@ -56,22 +57,22 @@ public final class FileDeleter extends Thread {
      *
      * @param file The file.
      */
-    private void delete(final File file) {
+    private static void delete(final File file) {
         if (!file.exists()) {
             return;
         }
 
         if (file.isDirectory()) {
-            for (final File child : file.listFiles()) {
+            for (final File child : Objects.requireNonNull(file.listFiles())) {
                 delete(child);
             }
         }
+        //noinspection ResultOfMethodCallIgnored
         file.delete();
     }
 
     @Override
     public void run() {
-        System.err.println("Running scheduled file deletion.");
         for (final File file : scheduledForDeletion) {
             delete(file);
         }

@@ -39,24 +39,12 @@ public class ProtectionDomainFilteringResourceLoader extends ClassLoader {
     private final String pathPrefix;
 
     /**
-     * Constructor.
-     *
-     * @param associatedPlugin The plugin this loader is associated with.
-     */
-    public ProtectionDomainFilteringResourceLoader(final Class<? extends JavaPlugin> associatedPlugin) {
-        super(associatedPlugin.getClassLoader());
-        this.pathPrefix = stripProtocols(associatedPlugin.getProtectionDomain().getCodeSource().getLocation());
-        Bukkit.getLogger().info("Code source prefix of protection domain for class "
-                + associatedPlugin.getSimpleName() + " is " + pathPrefix);
-    }
-
-    /**
      * Strips jar: and file: protocols from the URL.
      *
      * @param url The URL.
      * @return The stripped string representation.
      */
-    private String stripProtocols(final URL url) {
+    private static String stripProtocols(final URL url) {
         String repr = url.toString();
         while (repr.startsWith("jar:") || repr.startsWith("file:")) {
             if (repr.startsWith("jar:")) {
@@ -67,6 +55,18 @@ public class ProtectionDomainFilteringResourceLoader extends ClassLoader {
             }
         }
         return repr;
+    }
+
+    /**
+     * Constructor.
+     *
+     * @param associatedPlugin The plugin this loader is associated with.
+     */
+    public ProtectionDomainFilteringResourceLoader(final Class<? extends JavaPlugin> associatedPlugin) {
+        super(associatedPlugin.getClassLoader());
+        pathPrefix = stripProtocols(associatedPlugin.getProtectionDomain().getCodeSource().getLocation());
+        Bukkit.getLogger().info("Code source prefix of protection domain for class "
+                + associatedPlugin.getSimpleName() + " is " + pathPrefix);
     }
 
     @Override

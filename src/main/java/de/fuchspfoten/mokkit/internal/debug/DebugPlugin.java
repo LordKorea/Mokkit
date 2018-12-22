@@ -64,7 +64,7 @@ public class DebugPlugin extends JavaPlugin implements Listener {
      *
      * @param issuer The player that issues the action.
      */
-    @SuppressWarnings("TypeMayBeWeakened")
+    @SuppressWarnings({"TypeMayBeWeakened", "MethodMayBeStatic"})
     private void debugAction(final Player issuer) {
         issuer.getWorld().spawn(issuer.getLocation(), Pig.class);
     }

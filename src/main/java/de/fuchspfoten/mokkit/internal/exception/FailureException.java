@@ -33,9 +33,8 @@ public class FailureException extends RuntimeException {
         //noinspection InstanceofConcreteClass
         if (cause instanceof UnsupportedMockException) {
             throw new UnsupportedMockException((UnsupportedMockException) cause);
-        } else {
-            throw new FailureException(message, cause);
         }
+        throw new FailureException(message, cause);
     }
 
     /**

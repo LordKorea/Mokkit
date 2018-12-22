@@ -27,6 +27,7 @@ import sun.reflect.ReflectionFactory;
 
 import java.io.File;
 import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 
 /**
  * Helps with plugin reflection.
@@ -65,10 +66,11 @@ public final class PluginReflection {
         // Evil, dark magic. Breaks on other JVMs... works on Oracle JDK & OpenJDK.
         try {
             final ReflectionFactory evil = ReflectionFactory.getReflectionFactory();
-            final Constructor objCons = Object.class.getDeclaredConstructor();
-            final Constructor surrogate = evil.newConstructorForSerialization(clazz, objCons);
+            final Constructor<Object> objCons = Object.class.getDeclaredConstructor();
+            final Constructor<?> surrogate = evil.newConstructorForSerialization(clazz, objCons);
             return clazz.cast(surrogate.newInstance());
-        } catch (final Exception ex) {
+        } catch (final IllegalAccessException | IllegalArgumentException | InstantiationException | SecurityException
+                | NoSuchMethodException | InvocationTargetException ex) {
             throw new InternalException("could not create plugin instance", ex);
         }
     }
