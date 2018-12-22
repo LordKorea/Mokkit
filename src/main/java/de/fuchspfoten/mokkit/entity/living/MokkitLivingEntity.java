@@ -340,6 +340,7 @@ public abstract class MokkitLivingEntity extends MokkitEntity implements LivingE
      *
      * @return The control object.
      */
+    @Override
     public Mokkit mokkit() {
         return mokkit;
     }

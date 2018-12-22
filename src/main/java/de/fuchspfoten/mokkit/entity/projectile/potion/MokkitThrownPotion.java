@@ -65,6 +65,7 @@ public abstract class MokkitThrownPotion extends MokkitProjectile implements Thr
      *
      * @return The control object.
      */
+    @Override
     public Mokkit mokkit() {
         return mokkit;
     }

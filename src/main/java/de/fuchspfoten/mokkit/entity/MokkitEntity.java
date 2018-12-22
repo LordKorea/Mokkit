@@ -435,6 +435,7 @@ public abstract class MokkitEntity implements Entity, Tickable {
      *
      * @return The control object.
      */
+    @Override
     public Mokkit mokkit() {
         return mokkit;
     }

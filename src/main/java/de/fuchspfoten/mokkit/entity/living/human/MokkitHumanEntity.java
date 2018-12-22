@@ -246,6 +246,7 @@ public abstract class MokkitHumanEntity extends MokkitLivingEntity implements Hu
      *
      * @return The control object.
      */
+    @Override
     public Mokkit mokkit() {
         return mokkit;
     }

@@ -629,6 +629,7 @@ public class MokkitPlayer extends MokkitHumanEntity implements Player {
      *
      * @return The control object.
      */
+    @Override
     public Mokkit mokkit() {
         return mokkit;
     }

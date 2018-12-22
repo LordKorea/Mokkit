@@ -53,6 +53,7 @@ public abstract class MokkitProjectile extends MokkitEntity implements Projectil
      *
      * @return The control object.
      */
+    @Override
     public Mokkit mokkit() {
         return mokkit;
     }
