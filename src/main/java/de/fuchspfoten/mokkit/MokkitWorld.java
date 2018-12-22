@@ -106,6 +106,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
 import org.bukkit.entity.Vehicle;
 import org.bukkit.event.entity.CreatureSpawnEvent;
+import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
 import org.bukkit.event.entity.EntitySpawnEvent;
 import org.bukkit.event.entity.ItemSpawnEvent;
 import org.bukkit.event.entity.ProjectileLaunchEvent;
@@ -120,6 +121,7 @@ import org.bukkit.util.Consumer;
 import org.bukkit.util.Vector;
 
 import java.io.File;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -444,14 +446,20 @@ public class MokkitWorld implements World, Tickable {
         throw new UnsupportedMockException();
     }
 
-    @SafeVarargs
     @Override
-    public final <T extends Entity> Collection<T> getEntitiesByClass(final @NonNull Class<T>... classes) {
-        final List<T> results = new LinkedList<>();
-        for (final Class<T> clazz : classes) {
-            results.addAll(getEntitiesByClass(clazz));
+    public boolean loadChunk(final int x, final int z, final boolean generate) {
+        final MokkitChunkCoordinate coord = new MokkitChunkCoordinate(x, z);
+        if (loadedChunks.containsKey(coord)) {
+            return true;
         }
-        return results;
+
+        // Create the chunk.
+        if (generate) {
+            loadedChunks.put(coord, new MokkitSuperflatChunk(this, x, z));
+        } else {
+            loadedChunks.put(coord, new MokkitChunk(this, x, z));
+        }
+        return true;
     }
 
     @Override
@@ -462,14 +470,12 @@ public class MokkitWorld implements World, Tickable {
                 .collect(Collectors.toList());
     }
 
+    @SafeVarargs
     @Override
-    public Collection<Entity> getEntitiesByClasses(final @NonNull Class<?>... classes) {
-        final List<Entity> results = new LinkedList<>();
-        for (final Class<?> clazz : classes) {
-            if (Entity.class.isAssignableFrom(clazz)) {
-                //noinspection unchecked clazz must extend Entity.
-                results.addAll(getEntitiesByClass((Class<? extends Entity>) clazz));
-            }
+    public final <T extends Entity> Collection<T> getEntitiesByClass(final @NonNull Class<T>... classes) {
+        final Collection<T> results = new LinkedList<>();
+        for (final Class<T> clazz : classes) {
+            results.addAll(getEntitiesByClass(clazz));
         }
         return results;
     }
@@ -817,19 +823,15 @@ public class MokkitWorld implements World, Tickable {
     }
 
     @Override
-    public boolean loadChunk(final int x, final int z, final boolean generate) {
-        final MokkitChunkCoordinate coord = new MokkitChunkCoordinate(x, z);
-        if (loadedChunks.containsKey(coord)) {
-            return true;
+    public Collection<Entity> getEntitiesByClasses(final @NonNull Class<?>... classes) {
+        final Collection<Entity> results = new LinkedList<>();
+        for (final Class<?> clazz : classes) {
+            if (Entity.class.isAssignableFrom(clazz)) {
+                //noinspection unchecked clazz must extend Entity.
+                results.addAll(getEntitiesByClass((Class<? extends Entity>) clazz));
+            }
         }
-
-        // Create the chunk.
-        if (!generate) {
-            loadedChunks.put(coord, new MokkitChunk(this, x, z));
-        } else {
-            loadedChunks.put(coord, new MokkitSuperflatChunk(this, x, z));
-        }
-        return true;
+        return results;
     }
 
     @Override
@@ -838,13 +840,111 @@ public class MokkitWorld implements World, Tickable {
         throw new UnsupportedMockException();
     }
 
-    /**
-     * Fetch the control object.
-     *
-     * @return The control object.
-     */
-    public Mokkit mokkit() {
-        return mokkit;
+    @SuppressWarnings("unchecked")
+    @Override
+    public <T extends Entity> T spawn(final @NonNull Location location, final @NonNull Class<T> clazz,
+                                      final @NonNull Consumer<T> function) throws IllegalArgumentException {
+        if (location.getWorld() != this) {
+            throw new IllegalArgumentException("attempting to spawn in conflicting worlds");
+        }
+
+        // Determine the entity type.
+        EntityType targetType = null;
+        for (final EntityType possible : EntityType.values()) {
+            if (possible.getEntityClass() == clazz) {
+                targetType = possible;
+                break;
+            }
+        }
+        if (targetType == null) {
+            throw new IllegalArgumentException("can not find entity for class: " + clazz.getName());
+        }
+
+        // Block illegal entity types.
+        final Set<EntityType> illegal = EnumSet.noneOf(EntityType.class);
+        illegal.addAll(Arrays.asList(EntityType.COMPLEX_PART, EntityType.LIGHTNING, EntityType.PLAYER,
+                EntityType.UNKNOWN, EntityType.WEATHER));
+        if (illegal.contains(targetType)) {
+            throw new IllegalArgumentException("can not spawn " + targetType.name());
+        }
+
+        // Determine the spawnable entities.
+        if (!spawnableEntities.containsKey(targetType)) {
+            throw new UnsupportedMockException();
+        }
+
+        // Determine whether we can spawn this type.
+        // switch (targetType) {
+            /*case DROPPED_ITEM:
+            case EXPERIENCE_ORB:
+            case EGG:
+            case SNOWBALL:
+            case ENDER_PEARL:
+            case ENDER_SIGNAL:
+            case THROWN_EXP_BOTTLE:
+            case WITHER_SKULL:
+            case PRIMED_TNT:
+            case FALLING_BLOCK:
+            case FIREWORK:
+            case SHULKER_BULLET:
+            case EVOKER_FANGS:
+            case LLAMA_SPIT:
+            case FISHING_HOOK:
+                // Not (yet) supported.
+                throw new UnsupportedMockException();*/
+        // }
+
+        // Spawn the entity.
+        final Class<? extends MokkitEntity> toSpawn = spawnableEntities.get(targetType);
+        final T entity;
+        try {
+            entity = (T) toSpawn.getConstructor(MokkitServer.class, Location.class, UUID.class).newInstance(server,
+                    location, UUID.randomUUID());
+        } catch (final IllegalAccessException | InstantiationException | InvocationTargetException
+                | NoSuchMethodException ex) {
+            throw new InternalException("can not create entity", ex);
+        }
+
+        // TODO SpawnerSpawnEvent? Spawn reasons?
+        if (entity instanceof Item) {
+            final ItemSpawnEvent event = new ItemSpawnEvent((Item) entity);
+            server.getPluginManager().callEvent(event);
+            if (event.isCancelled()) {
+                throw new IllegalArgumentException("can not spawn entity due to cancelled ItemSpawnEvent");
+            }
+        } else if (entity instanceof LivingEntity) {
+            final CreatureSpawnEvent event = new CreatureSpawnEvent((LivingEntity) entity, SpawnReason.CUSTOM);
+            server.getPluginManager().callEvent(event);
+            if (event.isCancelled()) {
+                throw new IllegalArgumentException("can not spawn entity due to cancelled CreatureSpawnEvent");
+            }
+        } else if (entity instanceof Projectile) {
+            final ProjectileLaunchEvent event = new ProjectileLaunchEvent(entity);
+            server.getPluginManager().callEvent(event);
+            if (event.isCancelled()) {
+                throw new IllegalArgumentException("can not spawn entity due to cancelled ProjectileLaunchEvent");
+            }
+        } else if (entity instanceof Vehicle) {
+            final VehicleCreateEvent event = new VehicleCreateEvent((Vehicle) entity);
+            server.getPluginManager().callEvent(event);
+            if (event.isCancelled()) {
+                throw new IllegalArgumentException("can not spawn entity due to cancelled VehicleCreateEvent");
+            }
+        } else {
+            final EntitySpawnEvent event = new EntitySpawnEvent(entity);
+            server.getPluginManager().callEvent(event);
+            if (event.isCancelled()) {
+                throw new IllegalArgumentException("can not spawn entity due to cancelled EntitySpawnEvent");
+            }
+        }
+
+        // Invoke the callback.
+        function.accept(entity);
+
+        // Add to the world.
+        entities.add(entity);
+
+        return entity;
     }
 
     @Override
@@ -976,111 +1076,14 @@ public class MokkitWorld implements World, Tickable {
         });
     }
 
-    @SuppressWarnings("unchecked")
+    /**
+     * Fetch the control object.
+     *
+     * @return The control object.
+     */
     @Override
-    public <T extends Entity> T spawn(final @NonNull Location location, final @NonNull Class<T> clazz,
-                                      final @NonNull Consumer<T> function) throws IllegalArgumentException {
-        if (location.getWorld() != this) {
-            throw new IllegalArgumentException("attempting to spawn in conflicting worlds");
-        }
-
-        // Determine the entity type.
-        EntityType targetType = null;
-        for (final EntityType possible : EntityType.values()) {
-            if (possible.getEntityClass() == clazz) {
-                targetType = possible;
-                break;
-            }
-        }
-        if (targetType == null) {
-            throw new IllegalArgumentException("can not find entity for class: " + clazz.getName());
-        }
-
-        // Block illegal entity types.
-        final Set<EntityType> illegal = EnumSet.noneOf(EntityType.class);
-        illegal.addAll(Arrays.asList(EntityType.COMPLEX_PART, EntityType.LIGHTNING, EntityType.PLAYER,
-                EntityType.UNKNOWN, EntityType.WEATHER));
-        if (illegal.contains(targetType)) {
-            throw new IllegalArgumentException("can not spawn " + targetType.name());
-        }
-
-        // Determine the spawnable entities.
-        if (!spawnableEntities.containsKey(targetType)) {
-            throw new UnsupportedMockException();
-        }
-
-        // Determine whether we can spawn this type.
-        // switch (targetType) {
-            /*case DROPPED_ITEM:
-            case EXPERIENCE_ORB:
-            case EGG:
-            case SNOWBALL:
-            case ENDER_PEARL:
-            case ENDER_SIGNAL:
-            case THROWN_EXP_BOTTLE:
-            case WITHER_SKULL:
-            case PRIMED_TNT:
-            case FALLING_BLOCK:
-            case FIREWORK:
-            case SHULKER_BULLET:
-            case EVOKER_FANGS:
-            case LLAMA_SPIT:
-            case FISHING_HOOK:
-                // Not (yet) supported.
-                throw new UnsupportedMockException();*/
-        // }
-
-        // Spawn the entity.
-        final Class<? extends MokkitEntity> toSpawn = spawnableEntities.get(targetType);
-        final T entity;
-        try {
-            entity = (T) toSpawn.getConstructor(MokkitServer.class, Location.class, UUID.class).newInstance(server,
-                    location, UUID.randomUUID());
-        } catch (final ReflectiveOperationException ex) {
-            throw new InternalException("can not create entity", ex);
-        }
-
-        // TODO SpawnerSpawnEvent? Spawn reasons?
-        if (entity instanceof Item) {
-            final ItemSpawnEvent event = new ItemSpawnEvent((Item) entity);
-            server.getPluginManager().callEvent(event);
-            if (event.isCancelled()) {
-                throw new IllegalArgumentException("can not spawn entity due to cancelled ItemSpawnEvent");
-            }
-        } else if (entity instanceof LivingEntity) {
-            final CreatureSpawnEvent event = new CreatureSpawnEvent((LivingEntity) entity,
-                    CreatureSpawnEvent.SpawnReason.CUSTOM);
-            server.getPluginManager().callEvent(event);
-            if (event.isCancelled()) {
-                throw new IllegalArgumentException("can not spawn entity due to cancelled CreatureSpawnEvent");
-            }
-        } else if (entity instanceof Projectile) {
-            final ProjectileLaunchEvent event = new ProjectileLaunchEvent(entity);
-            server.getPluginManager().callEvent(event);
-            if (event.isCancelled()) {
-                throw new IllegalArgumentException("can not spawn entity due to cancelled ProjectileLaunchEvent");
-            }
-        } else if (entity instanceof Vehicle) {
-            final VehicleCreateEvent event = new VehicleCreateEvent((Vehicle) entity);
-            server.getPluginManager().callEvent(event);
-            if (event.isCancelled()) {
-                throw new IllegalArgumentException("can not spawn entity due to cancelled VehicleCreateEvent");
-            }
-        } else {
-            final EntitySpawnEvent event = new EntitySpawnEvent(entity);
-            server.getPluginManager().callEvent(event);
-            if (event.isCancelled()) {
-                throw new IllegalArgumentException("can not spawn entity due to cancelled EntitySpawnEvent");
-            }
-        }
-
-        // Invoke the callback.
-        function.accept(entity);
-
-        // Add to the world.
-        entities.add(entity);
-
-        return entity;
+    public Mokkit mokkit() {
+        return mokkit;
     }
 
     @Override
@@ -1271,7 +1274,7 @@ public class MokkitWorld implements World, Tickable {
         @Override
         public void tick(final long tick) {
             assert tick >= 0 : "invalid tick " + tick;
-            final List<Entity> toTick = new ArrayList<>(entities);
+            final Collection<Entity> toTick = new ArrayList<>(entities);
             toTick.stream().filter(x -> x instanceof Tickable).map(x -> (Tickable) x).forEach(x -> x.tick(tick));
         }
     }

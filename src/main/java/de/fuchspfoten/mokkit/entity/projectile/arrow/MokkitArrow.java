@@ -8,6 +8,7 @@ import lombok.NonNull;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Arrow;
+import org.bukkit.entity.Damageable;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
@@ -125,7 +126,7 @@ public class MokkitArrow extends MokkitProjectile implements Arrow {
             // TODO how much damage?
             final double resultDamage = ((MokkitEntity) target).onDamaged(MokkitArrow.this, 1.0);
             if (target instanceof LivingEntity) {
-                ((LivingEntity) target).damage(resultDamage);
+                ((Damageable) target).damage(resultDamage);
             }
 
             // The arrow is now in the player, no longer an entity.

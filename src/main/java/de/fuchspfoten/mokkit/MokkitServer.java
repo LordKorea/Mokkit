@@ -10,6 +10,7 @@ import de.fuchspfoten.mokkit.scheduler.MokkitBukkitScheduler;
 import lombok.Getter;
 import lombok.NonNull;
 import org.bukkit.BanList;
+import org.bukkit.BanList.Type;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
@@ -17,7 +18,7 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.Server;
 import org.bukkit.UnsafeValues;
-import org.bukkit.Warning;
+import org.bukkit.Warning.WarningState;
 import org.bukkit.World;
 import org.bukkit.WorldCreator;
 import org.bukkit.advancement.Advancement;
@@ -33,9 +34,10 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
+import org.bukkit.event.player.AsyncPlayerPreLoginEvent.Result;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
-import org.bukkit.generator.ChunkGenerator;
+import org.bukkit.generator.ChunkGenerator.ChunkData;
 import org.bukkit.help.HelpMap;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
@@ -102,9 +104,14 @@ public class MokkitServer implements Server {
     private final Map<String, MokkitWorld> worlds = new HashMap<>();
 
     /**
-     * The players on the server.
+     * Retrieves a UUID for the given name.
+     *
+     * @param name The name.
+     * @return The UUID.
      */
-    private final Set<MokkitPlayer> players = new HashSet<>();
+    private static UUID getUUIDForName(final @NonNull String name) {
+        return UUID.nameUUIDFromBytes(("Mokkit:" + name).getBytes());
+    }
 
     /**
      * The item factory.
@@ -154,14 +161,10 @@ public class MokkitServer implements Server {
         throw new UnsupportedMockException();
     }
 
-    @Override
-    public int broadcastMessage(final @NonNull String message) {
-        getLogger().info(ChatColor.stripColor(message));
-
-        // TODO permissions.
-        players.forEach(p -> p.sendMessage(message));
-        return players.size();
-    }
+    /**
+     * The players on the server.
+     */
+    private final Collection<MokkitPlayer> players = new HashSet<>();
 
     @Override
     public void clearRecipes() {
@@ -177,9 +180,12 @@ public class MokkitServer implements Server {
     }
 
     @Override
-    public ChunkGenerator.ChunkData createChunkData(final World world) {
-        // TODO
-        throw new UnsupportedMockException();
+    public int broadcastMessage(final @NonNull String message) {
+        logger.info(ChatColor.stripColor(message));
+
+        // TODO permissions.
+        players.forEach(p -> p.sendMessage(message));
+        return players.size();
     }
 
     @Override
@@ -269,9 +275,8 @@ public class MokkitServer implements Server {
     }
 
     @Override
-    public BanList getBanList(final BanList.Type type) {
-        // TODO
-        throw new UnsupportedMockException();
+    public PluginCommand getPluginCommand(final @NonNull String name) {
+        return pluginManager.getCommand(name);
     }
 
     @Override
@@ -449,8 +454,9 @@ public class MokkitServer implements Server {
     }
 
     @Override
-    public PluginCommand getPluginCommand(final @NonNull String name) {
-        return getPluginManager().getCommand(name);
+    public BanList getBanList(final Type type) {
+        // TODO
+        throw new UnsupportedMockException();
     }
 
     @Override
@@ -549,7 +555,7 @@ public class MokkitServer implements Server {
     }
 
     @Override
-    public Warning.WarningState getWarningState() {
+    public WarningState getWarningState() {
         // TODO
         throw new UnsupportedMockException();
     }
@@ -718,14 +724,10 @@ public class MokkitServer implements Server {
         throw new UnsupportedMockException();
     }
 
-    /**
-     * Retrieves a UUID for the given name.
-     *
-     * @param name The name.
-     * @return The UUID.
-     */
-    private UUID getUUIDForName(final @NonNull String name) {
-        return UUID.nameUUIDFromBytes(("Mokkit:" + name).getBytes());
+    @Override
+    public ChunkData createChunkData(final World world) {
+        // TODO
+        throw new UnsupportedMockException();
     }
 
     /**
@@ -770,7 +772,7 @@ public class MokkitServer implements Server {
             final AsyncPlayerPreLoginEvent preLoginEvent = new AsyncPlayerPreLoginEvent(name, ipAddr,
                     getUUIDForName(name));
             getPluginManager().callEvent(preLoginEvent);
-            if (preLoginEvent.getLoginResult() != AsyncPlayerPreLoginEvent.Result.ALLOWED) {
+            if (preLoginEvent.getLoginResult() != Result.ALLOWED) {
                 getLogger().info(String.format("Disallowed login of %1$s (%2$s) in pre-login phase: %3$s (%4$s)",
                         name, getUUIDForName(name).toString(), preLoginEvent.getKickMessage(),
                         preLoginEvent.getLoginResult().name()));

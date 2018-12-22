@@ -129,7 +129,7 @@ public final class PistonHelper {
 
                 // Push this with our current closed set.
                 try {
-                    final HashSet<Block> tmpSet = new HashSet<>(closedSet);
+                    final Set<Block> tmpSet = new HashSet<>(closedSet);
                     moveSet.addAll(calculateMoveSet(next, direction, tmpSet, limit + moveSet.size()));
                     closedSet.addAll(tmpSet);
                 } catch (final PistonBlockedException ex) {

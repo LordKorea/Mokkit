@@ -57,11 +57,8 @@ public class MokkitOfflinePlayer implements OfflinePlayer {
     }
 
     @Override
-    public Player getPlayer() {
-        if (isOnline()) {
-            return Bukkit.getPlayer(getUniqueId());
-        }
-        return null;
+    public boolean isOnline() {
+        return Bukkit.getPlayer(uniqueId) != null;
     }
 
     @Override
@@ -77,8 +74,11 @@ public class MokkitOfflinePlayer implements OfflinePlayer {
     }
 
     @Override
-    public boolean isOnline() {
-        return Bukkit.getPlayer(getUniqueId()) != null;
+    public Player getPlayer() {
+        if (isOnline()) {
+            return Bukkit.getPlayer(uniqueId);
+        }
+        return null;
     }
 
     @Override

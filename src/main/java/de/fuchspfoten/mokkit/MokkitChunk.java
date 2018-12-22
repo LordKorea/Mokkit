@@ -138,6 +138,21 @@ public class MokkitChunk implements Chunk {
     }
 
     /**
+     * Provides the data array index.
+     *
+     * @param x The x position, 0 <= x < 16.
+     * @param y The y position, 0 <= y < 16.
+     * @param z The z position, 0 <= z < 16.
+     * @return The index.
+     */
+    private static int index(final int x, final int y, final int z) {
+        assert 0 <= x && x < 16 : "invalid x position " + x;
+        assert 0 <= y && y < 16 : "invalid y position " + y;
+        assert 0 <= z && z < 16 : "invalid z position " + z;
+        return y * 16 * 16 + x * 16 + z;
+    }
+
+    /**
      * Creates a block at the given position.
      *
      * @param x The x position.
@@ -148,21 +163,6 @@ public class MokkitChunk implements Chunk {
     protected Block createBlock(final int x, final int y, final int z) {
         assert 0 <= y && y < world.getMaxHeight() : "invalid y position " + y;
         // TODO create empty block.
-        return new MokkitBlock(getWorld(), x + 16 * getX(), y, z + 16 * getZ());
-    }
-
-    /**
-     * Provides the data array index.
-     *
-     * @param x The x position, 0 <= x < 16.
-     * @param y The y position, 0 <= y < 16.
-     * @param z The z position, 0 <= z < 16.
-     * @return The index.
-     */
-    private int index(final int x, final int y, final int z) {
-        assert 0 <= x && x < 16 : "invalid x position " + x;
-        assert 0 <= y && y < 16 : "invalid y position " + y;
-        assert 0 <= z && z < 16 : "invalid z position " + z;
-        return y * 16 * 16 + x * 16 + z;
+        return new MokkitBlock(world, x + 16 * this.x, y, z + 16 * this.z);
     }
 }

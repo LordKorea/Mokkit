@@ -13,6 +13,7 @@ public class FailureException extends RuntimeException {
      * @param cause   The cause of the exception.
      */
     public static void failIfNotMock(final String message, final Throwable cause) {
+        //noinspection InstanceofConcreteClass
         if (cause instanceof UnsupportedMockException) {
             throw new UnsupportedMockException((UnsupportedMockException) cause);
         } else {

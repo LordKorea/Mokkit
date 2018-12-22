@@ -3,6 +3,7 @@ package de.fuchspfoten.mokkit.internal.debug;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Pig;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -25,25 +26,14 @@ public class DebugPlugin extends JavaPlugin implements Listener {
      */
     private UUID orwell;
 
-    @Override
-    public boolean onCommand(final CommandSender sender, final Command command, final String label,
-                             final String[] args) {
-        if (command.getName().equals("mokkit")) {
-            if (!(sender instanceof Player)) {
-                sender.sendMessage("can only use as player!");
-                return true;
-            }
-
-            if (args.length == 1) {
-                sender.sendMessage("Issuing debug action.");
-                debugAction((Player) sender);
-                return true;
-            }
-
-            orwell = ((Player) sender).getUniqueId();
-            sender.sendMessage("You are now receiving mokkit debug-information.");
-        }
-        return true;
+    /**
+     * Issues a debug action.
+     *
+     * @param issuer The player that issues the action.
+     */
+    @SuppressWarnings("TypeMayBeWeakened")
+    private void debugAction(final Player issuer) {
+        issuer.getWorld().spawn(issuer.getLocation(), Pig.class);
     }
 
     @Override
@@ -70,13 +60,25 @@ public class DebugPlugin extends JavaPlugin implements Listener {
         report("%1$s explodes", event.getEntity().getType().name());
     }
 
-    /**
-     * Issues a debug action.
-     *
-     * @param issuer The player that issues the action.
-     */
-    private void debugAction(final Player issuer) {
-        issuer.getWorld().spawn(issuer.getLocation(), Pig.class);
+    @Override
+    public boolean onCommand(final CommandSender sender, final Command command, final String label,
+                             final String[] args) {
+        if (command.getName().equals("mokkit")) {
+            if (!(sender instanceof Player)) {
+                sender.sendMessage("can only use as player!");
+                return true;
+            }
+
+            if (args.length == 1) {
+                sender.sendMessage("Issuing debug action.");
+                debugAction((Player) sender);
+                return true;
+            }
+
+            orwell = ((Entity) sender).getUniqueId();
+            sender.sendMessage("You are now receiving mokkit debug-information.");
+        }
+        return true;
     }
 
     /**
