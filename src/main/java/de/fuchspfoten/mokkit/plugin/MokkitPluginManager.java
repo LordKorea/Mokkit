@@ -52,11 +52,13 @@ import java.io.IOException;
 import java.lang.reflect.Method;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -81,9 +83,26 @@ public class MokkitPluginManager implements PluginManager {
     private final Map<String, JavaPlugin> pluginMap = new HashMap<>();
 
     /**
-     * The commands that exist.
+     * Retrieves the plugin.yml file of the given plugin main class.
+     *
+     * @param source The main class.
+     * @return The plugin.yml as a plugin description file.
      */
-    private final List<PluginCommand> commandList = new ArrayList<>();
+    private static PluginDescriptionFile getPluginYAML(final @NonNull Class<?> source) {
+        try {
+            final Enumeration<URL> candidates = source.getClassLoader().getResources("plugin.yml");
+            while (candidates.hasMoreElements()) {
+                final URL candidate = candidates.nextElement();
+                final PluginDescriptionFile pdf = new PluginDescriptionFile(candidate.openStream());
+                if (source.getName().equals(pdf.getMain())) {
+                    return pdf;
+                }
+            }
+            throw new IllegalStateException("Could not find plugin YAML");
+        } catch (final IOException | InvalidDescriptionException ex) {
+            throw new IllegalStateException("Could not load plugin YAML", ex);
+        }
+    }
 
     /**
      * Constructor.
@@ -206,42 +225,10 @@ public class MokkitPluginManager implements PluginManager {
     public boolean isPluginEnabled(final @NonNull String name) {
         return getPlugin(name).isEnabled();
     }
-
     /**
-     * Loads the given plugin.
-     *
-     * @param clazz The plugin's class.
-     * @param <T>   The plugin type.
-     * @return The plugin.
+     * The commands that exist.
      */
-    public <T extends JavaPlugin> T loadPlugin(final @NonNull Class<T> clazz) {
-        final PluginDescriptionFile description = getPluginYAML(clazz);
-        final File dataFolder;
-        try {
-            dataFolder = File.createTempFile(clazz.getSimpleName() + "_" + System.currentTimeMillis(),
-                    null);
-            if (!dataFolder.delete()) {
-                throw new InternalException("Could not delete data folder to mkdir!");
-            }
-            if (!dataFolder.mkdir()) {
-                throw new InternalException("Can not create data folder!");
-            }
-            FileDeleter.scheduleForDeletion(dataFolder);
-        } catch (final IOException ex) {
-            throw new InternalException("Could not create data folder!", ex);
-        }
-
-        // Create the plugin.
-        final T plugin = PluginReflection.createPlugin(clazz, server, pluginLoader, description, dataFolder, null);
-        pluginMap.put(plugin.getName(), plugin);
-
-        // Fetch the commands.
-        fetchCommands(plugin);
-
-        // Finish loading.
-        plugin.onLoad();
-        return plugin;
-    }
+    private final Collection<PluginCommand> commandList = new ArrayList<>();
 
     @Override
     public Plugin loadPlugin(final File file) throws UnknownDependencyException {
@@ -343,6 +330,42 @@ public class MokkitPluginManager implements PluginManager {
     }
 
     /**
+     * Loads the given plugin.
+     *
+     * @param clazz The plugin's class.
+     * @param <T>   The plugin type.
+     * @return The plugin.
+     */
+    public <T extends JavaPlugin> T loadPlugin(final @NonNull Class<T> clazz) {
+        final PluginDescriptionFile description = getPluginYAML(clazz);
+        final File dataFolder;
+        try {
+            dataFolder = File.createTempFile(clazz.getSimpleName() + '_' + System.currentTimeMillis(),
+                    null);
+            if (!dataFolder.delete()) {
+                throw new InternalException("Could not delete data folder to mkdir!");
+            }
+            if (!dataFolder.mkdir()) {
+                throw new InternalException("Can not create data folder!");
+            }
+            FileDeleter.scheduleForDeletion(dataFolder);
+        } catch (final IOException ex) {
+            throw new InternalException("Could not create data folder!", ex);
+        }
+
+        // Create the plugin.
+        final T plugin = PluginReflection.createPlugin(clazz, server, pluginLoader, description, dataFolder, null);
+        pluginMap.put(plugin.getName(), plugin);
+
+        // Fetch the commands.
+        fetchCommands(plugin);
+
+        // Finish loading.
+        plugin.onLoad();
+        return plugin;
+    }
+
+    /**
      * Fetch the commands of the given plugin.
      *
      * @param plugin The plugin.
@@ -350,10 +373,10 @@ public class MokkitPluginManager implements PluginManager {
     private void fetchCommands(final @NonNull Plugin plugin) {
         final PluginDescriptionFile description = plugin.getDescription();
         if (description.getCommands() != null) {
-            for (final Map.Entry<String, Map<String, Object>> entry : description.getCommands().entrySet()) {
+            for (final Entry<String, Map<String, Object>> entry : description.getCommands().entrySet()) {
                 final PluginCommand cmd = ReflectionHelper.create(PluginCommand.class,
                         new Class[]{String.class, Plugin.class}, new Object[]{entry.getKey(), plugin});
-                for (final Map.Entry<String, Object> additionalEntry : entry.getValue().entrySet()) {
+                for (final Entry<String, Object> additionalEntry : entry.getValue().entrySet()) {
                     final String value = additionalEntry.getValue().toString();
                     switch (additionalEntry.getKey()) {
                         case "description":
@@ -361,7 +384,7 @@ public class MokkitPluginManager implements PluginManager {
                             break;
                         case "aliases":
                             if (additionalEntry.getValue() instanceof List) {
-                                final List<?> aliases = (List<?>) additionalEntry.getValue();
+                                final Collection<?> aliases = (Collection<?>) additionalEntry.getValue();
                                 cmd.setAliases(aliases.stream().map(Object::toString).collect(Collectors.toList()));
                             } else {
                                 cmd.setAliases(Collections.singletonList(value));
@@ -383,28 +406,6 @@ public class MokkitPluginManager implements PluginManager {
                 }
                 commandList.add(cmd);
             }
-        }
-    }
-
-    /**
-     * Retrieves the plugin.yml file of the given plugin main class.
-     *
-     * @param source The main class.
-     * @return The plugin.yml as a plugin description file.
-     */
-    private PluginDescriptionFile getPluginYAML(final @NonNull Class<?> source) {
-        try {
-            final Enumeration<URL> candidates = source.getClassLoader().getResources("plugin.yml");
-            while (candidates.hasMoreElements()) {
-                final URL candidate = candidates.nextElement();
-                final PluginDescriptionFile pdf = new PluginDescriptionFile(candidate.openStream());
-                if (source.getName().equals(pdf.getMain())) {
-                    return pdf;
-                }
-            }
-            throw new IllegalStateException("Could not find plugin YAML");
-        } catch (final IOException | InvalidDescriptionException ex) {
-            throw new IllegalStateException("Could not load plugin YAML", ex);
         }
     }
 }
