@@ -179,18 +179,6 @@ public class MokkitServer implements Server {
     }
 
     @Override
-    public String getServerName() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public Iterator<Advancement> advancementIterator() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
     public String getBukkitVersion() {
         return "Mokkit-Bukkit (Spigot)";
     }
@@ -225,19 +213,7 @@ public class MokkitServer implements Server {
     }
 
     @Override
-    public File getUpdateFolderFile() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-    @Override
-    public long getConnectionThrottle() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public BossBar createBossBar(final String title, final BarColor color, final BarStyle style,
-                                 final BarFlag... flags) {
+    public String getServerName() {
         // TODO
         throw new UnsupportedMockException();
     }
@@ -312,24 +288,13 @@ public class MokkitServer implements Server {
     }
 
     @Override
-    public World getWorld(final UUID uid) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-    @Override
-    public MapView getMap(final short id) {
+    public File getUpdateFolderFile() {
         // TODO
         throw new UnsupportedMockException();
     }
 
     @Override
-    public Advancement getAdvancement(final NamespacedKey key) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void reload() {
+    public long getConnectionThrottle() {
         // TODO
         throw new UnsupportedMockException();
     }
@@ -399,13 +364,13 @@ public class MokkitServer implements Server {
     }
 
     @Override
-    public boolean addRecipe(final Recipe recipe) {
+    public World getWorld(final UUID uid) {
         // TODO
         throw new UnsupportedMockException();
     }
 
     @Override
-    public List<Recipe> getRecipesFor(final ItemStack result) {
+    public MapView getMap(final short id) {
         // TODO
         throw new UnsupportedMockException();
     }
@@ -417,19 +382,7 @@ public class MokkitServer implements Server {
     }
 
     @Override
-    public void resetRecipes() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public File getWorldContainer() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public Entity getEntity(final UUID uuid) {
+    public void reload() {
         // TODO
         throw new UnsupportedMockException();
     }
@@ -458,13 +411,13 @@ public class MokkitServer implements Server {
     }
 
     @Override
-    public int getAmbientSpawnLimit() {
+    public boolean addRecipe(final Recipe recipe) {
         // TODO
         throw new UnsupportedMockException();
     }
 
     @Override
-    public int getIdleTimeout() {
+    public List<Recipe> getRecipesFor(final ItemStack result) {
         // TODO
         throw new UnsupportedMockException();
     }
@@ -482,7 +435,7 @@ public class MokkitServer implements Server {
     }
 
     @Override
-    public void setIdleTimeout(final int threshold) {
+    public void resetRecipes() {
         // TODO
         throw new UnsupportedMockException();
     }
@@ -599,6 +552,11 @@ public class MokkitServer implements Server {
         throw new UnsupportedMockException();
     }
 
+    @Override
+    public File getWorldContainer() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
 
     @Override
     public OfflinePlayer[] getOfflinePlayers() {
@@ -668,7 +626,7 @@ public class MokkitServer implements Server {
     }
 
     @Override
-    public UnsafeValues getUnsafe() {
+    public int getAmbientSpawnLimit() {
         // TODO
         throw new UnsupportedMockException();
     }
@@ -814,6 +772,48 @@ public class MokkitServer implements Server {
         }
     }
 
+    @Override
+    public Iterator<Advancement> advancementIterator() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public BossBar createBossBar(final String title, final BarColor color, final BarStyle style,
+                                 final BarFlag... flags) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public Advancement getAdvancement(final NamespacedKey key) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public Entity getEntity(final UUID uuid) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public int getIdleTimeout() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void setIdleTimeout(final int threshold) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public UnsafeValues getUnsafe() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
 
     @Override
     public Spigot spigot() {
@@ -821,12 +821,9 @@ public class MokkitServer implements Server {
         throw new UnsupportedMockException();
     }
 
-
     @Override
     public ChunkData createChunkData(final World world) {
         // TODO
         throw new UnsupportedMockException();
     }
-
-
 }

@@ -215,21 +215,10 @@ public abstract class MokkitEntity implements Entity, Tickable {
     public boolean teleport(final @NonNull Entity destination) {
         return teleport(destination.getLocation(), TeleportCause.UNKNOWN);
     }
+
     @Override
     public boolean teleport(final @NonNull Entity destination, final @NonNull TeleportCause cause) {
         return teleport(destination.getLocation(), cause);
-    }
-
-    @Override
-    public boolean addScoreboardTag(final String tag) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public int getFireTicks() {
-        // TODO
-        throw new UnsupportedMockException();
     }
 
     @Override
@@ -245,14 +234,15 @@ public abstract class MokkitEntity implements Entity, Tickable {
     }
 
     @Override
-    public int getMaxFireTicks() {
+    public int getFireTicks() {
         // TODO
         throw new UnsupportedMockException();
     }
 
     @Override
-    public boolean isValid() {
-        return !despawned && !dead;
+    public int getMaxFireTicks() {
+        // TODO
+        throw new UnsupportedMockException();
     }
 
     @Override
@@ -268,9 +258,8 @@ public abstract class MokkitEntity implements Entity, Tickable {
     }
 
     @Override
-    public void setFallDistance(final float distance) {
-        // TODO
-        throw new UnsupportedMockException();
+    public boolean isValid() {
+        return !despawned && !dead;
     }
 
     @Override
@@ -322,26 +311,13 @@ public abstract class MokkitEntity implements Entity, Tickable {
     }
 
     @Override
+    public void setFallDistance(final float distance) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
     public boolean isPermissionSet(final String name) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public PermissionAttachment addAttachment(final Plugin plugin, final String name, final boolean value,
-                                              final int ticks) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public EntityDamageEvent getLastDamageCause() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public List<MetadataValue> getMetadata(final String metadataKey) {
         // TODO
         throw new UnsupportedMockException();
     }
@@ -377,18 +353,8 @@ public abstract class MokkitEntity implements Entity, Tickable {
     }
 
     @Override
-    public boolean hasMetadata(final String metadataKey) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-    @Override
-    public void removeMetadata(final String metadataKey, final Plugin owningPlugin) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setLastDamageCause(final EntityDamageEvent event) {
+    public PermissionAttachment addAttachment(final Plugin plugin, final String name, final boolean value,
+                                              final int ticks) {
         // TODO
         throw new UnsupportedMockException();
     }
@@ -446,6 +412,24 @@ public abstract class MokkitEntity implements Entity, Tickable {
         throw new UnsupportedMockException();
     }
 
+    @Override
+    public List<MetadataValue> getMetadata(final String metadataKey) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public boolean hasMetadata(final String metadataKey) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void removeMetadata(final String metadataKey, final Plugin owningPlugin) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
     /**
      * Control object class.
      */
@@ -490,6 +474,23 @@ public abstract class MokkitEntity implements Entity, Tickable {
         }
     }
 
+    @Override
+    public boolean addScoreboardTag(final String tag) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public EntityDamageEvent getLastDamageCause() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void setLastDamageCause(final EntityDamageEvent event) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
 
     @Override
     public PistonMoveReaction getPistonMoveReaction() {
@@ -497,13 +498,11 @@ public abstract class MokkitEntity implements Entity, Tickable {
         throw new UnsupportedMockException();
     }
 
-
     @Override
     public int getPortalCooldown() {
         // TODO
         throw new UnsupportedMockException();
     }
-
 
     @Override
     public void setPortalCooldown(final int cooldown) {
@@ -511,13 +510,11 @@ public abstract class MokkitEntity implements Entity, Tickable {
         throw new UnsupportedMockException();
     }
 
-
     @Override
     public Set<String> getScoreboardTags() {
         // TODO
         throw new UnsupportedMockException();
     }
-
 
     @Override
     public int getTicksLived() {
@@ -525,19 +522,16 @@ public abstract class MokkitEntity implements Entity, Tickable {
         throw new UnsupportedMockException();
     }
 
-
     @Override
     public void setTicksLived(final int value) {
         // TODO
         throw new UnsupportedMockException();
     }
 
-
     @Override
     public EntityType getType() {
         throw new UnsupportedOperationException("subclasses must handle their entity type");
     }
-
 
     @Override
     public Entity getVehicle() {
@@ -545,13 +539,11 @@ public abstract class MokkitEntity implements Entity, Tickable {
         throw new UnsupportedMockException();
     }
 
-
     @Override
     public boolean hasGravity() {
         // TODO
         throw new UnsupportedMockException();
     }
-
 
     @Override
     public boolean isCustomNameVisible() {
@@ -564,7 +556,6 @@ public abstract class MokkitEntity implements Entity, Tickable {
         // TODO
         throw new UnsupportedMockException();
     }
-
 
     @Override
     public boolean isGlowing() {
@@ -596,7 +587,6 @@ public abstract class MokkitEntity implements Entity, Tickable {
         throw new UnsupportedMockException();
     }
 
-
     @Override
     public boolean isSilent() {
         // TODO
@@ -609,13 +599,11 @@ public abstract class MokkitEntity implements Entity, Tickable {
         throw new UnsupportedMockException();
     }
 
-
     @Override
     public boolean leaveVehicle() {
         // TODO
         throw new UnsupportedMockException();
     }
-
 
     @Override
     public void playEffect(final EntityEffect type) {
@@ -623,13 +611,11 @@ public abstract class MokkitEntity implements Entity, Tickable {
         throw new UnsupportedMockException();
     }
 
-
     @Override
     public boolean removeScoreboardTag(final String tag) {
         // TODO
         throw new UnsupportedMockException();
     }
-
 
     @Override
     public void setGravity(final boolean gravity) {
@@ -637,12 +623,9 @@ public abstract class MokkitEntity implements Entity, Tickable {
         throw new UnsupportedMockException();
     }
 
-
     @Override
     public Spigot spigot() {
         // TODO
         throw new UnsupportedMockException();
     }
-
-
 }

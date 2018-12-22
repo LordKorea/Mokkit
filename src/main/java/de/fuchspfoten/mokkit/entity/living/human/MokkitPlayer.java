@@ -254,68 +254,6 @@ public class MokkitPlayer extends MokkitHumanEntity implements Player {
         throw new UnsupportedMockException();
     }
 
-    @Override
-    public InetSocketAddress getAddress() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void chat(final String msg) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void awardAchievement(final Achievement achievement) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void decrementStatistic(final Statistic statistic) throws IllegalArgumentException {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void decrementStatistic(final Statistic statistic, final int amount) throws IllegalArgumentException {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void decrementStatistic(final Statistic statistic, final Material material) throws IllegalArgumentException {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void decrementStatistic(final Statistic statistic, final Material material,
-                                   final int amount) throws IllegalArgumentException {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void decrementStatistic(final Statistic statistic,
-                                   final EntityType entityType) throws IllegalArgumentException {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void decrementStatistic(final Statistic statistic, final EntityType entityType, final int amount) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public boolean canSee(final Player player) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
     /**
      * Class for the control object.
      */
@@ -601,6 +539,68 @@ public class MokkitPlayer extends MokkitHumanEntity implements Player {
                 throw new CancelledByEventException(event);
             }
         }
+    }
+
+    @Override
+    public InetSocketAddress getAddress() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void chat(final String msg) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void awardAchievement(final Achievement achievement) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void decrementStatistic(final Statistic statistic) throws IllegalArgumentException {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void decrementStatistic(final Statistic statistic, final int amount) throws IllegalArgumentException {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void decrementStatistic(final Statistic statistic, final Material material) throws IllegalArgumentException {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void decrementStatistic(final Statistic statistic, final Material material,
+                                   final int amount) throws IllegalArgumentException {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void decrementStatistic(final Statistic statistic,
+                                   final EntityType entityType) throws IllegalArgumentException {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void decrementStatistic(final Statistic statistic, final EntityType entityType, final int amount) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public boolean canSee(final Player player) {
+        // TODO
+        throw new UnsupportedMockException();
     }
 
     @Override
