@@ -134,6 +134,7 @@ public class MokkitArrow extends MokkitProjectile implements Arrow {
     /**
      * Class for the control object.
      */
+    @SuppressWarnings("ClassNameSameAsAncestorName")
     public class Mokkit extends MokkitProjectile.Mokkit {
 
         @Override

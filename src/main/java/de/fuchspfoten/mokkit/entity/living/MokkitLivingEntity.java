@@ -34,7 +34,7 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.inventory.EntityEquipment;
 import org.bukkit.potion.PotionEffect;
@@ -57,20 +57,24 @@ public abstract class MokkitLivingEntity extends MokkitEntity implements LivingE
      * The default max health.
      */
     private final double defaultMaxHealth;
+
     /**
      * The potion effects of the entity.
      */
-    private final Set<PotionEffect> potionEffects = new HashSet<>();
+    private final Collection<PotionEffect> potionEffects = new HashSet<>();
+
     /**
      * The control object.
      */
     private final Mokkit mokkit = new Mokkit();
+
     /**
      * The max health of the entity.
      */
     private @Getter
     @Setter
     double maxHealth;
+
     /**
      * The health of the entity.
      */
@@ -87,9 +91,9 @@ public abstract class MokkitLivingEntity extends MokkitEntity implements LivingE
      * @param uuid             The UUID of the entity.
      * @param defaultMaxHealth The default max health of the entity.
      */
-    public MokkitLivingEntity(final @NonNull MokkitServer server, final @NonNull String name,
-                              final @NonNull Location location, final @NonNull UUID uuid,
-                              final double defaultMaxHealth) {
+    protected MokkitLivingEntity(final @NonNull MokkitServer server, final @NonNull String name,
+                                 final @NonNull Location location, final @NonNull UUID uuid,
+                                 final double defaultMaxHealth) {
         super(server, name, location, uuid);
         this.defaultMaxHealth = defaultMaxHealth;
         maxHealth = defaultMaxHealth;
@@ -157,6 +161,18 @@ public abstract class MokkitLivingEntity extends MokkitEntity implements LivingE
     }
 
     @Override
+    public List<Block> getLastTwoTargetBlocks(final Set<Material> transparent, final int maxDistance) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public int getMaximumAir() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
     public boolean getCanPickupItems() {
         // TODO
         throw new UnsupportedMockException();
@@ -167,8 +183,20 @@ public abstract class MokkitLivingEntity extends MokkitEntity implements LivingE
         // TODO
         throw new UnsupportedMockException();
     }
+
     @Override
     public void setRemainingAir(final int ticks) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void setMaximumAir(final int ticks) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+    @Override
+    public int getMaximumNoDamageTicks() {
         // TODO
         throw new UnsupportedMockException();
     }
@@ -180,7 +208,7 @@ public abstract class MokkitLivingEntity extends MokkitEntity implements LivingE
     }
 
     @Override
-    public List<Block> getLastTwoTargetBlocks(final Set<Material> transparent, final int maxDistance) {
+    public void setMaximumNoDamageTicks(final int ticks) {
         // TODO
         throw new UnsupportedMockException();
     }
@@ -198,27 +226,17 @@ public abstract class MokkitLivingEntity extends MokkitEntity implements LivingE
     }
 
     @Override
-    public int getMaximumAir() {
-        // TODO
-        throw new UnsupportedMockException();
+    public boolean addPotionEffects(final @NonNull Collection<PotionEffect> effects) {
+        boolean result = true;
+        for (final PotionEffect effect : effects) {
+            result = result && addPotionEffect(effect);
+        }
+        return result;
     }
 
     @Override
-    public void setMaximumAir(final int ticks) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public int getMaximumNoDamageTicks() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setMaximumNoDamageTicks(final int ticks) {
-        // TODO
-        throw new UnsupportedMockException();
+    public boolean hasPotionEffect(final @NonNull PotionEffectType type) {
+        return potionEffects.stream().anyMatch(e -> e.getType().equals(type));
     }
 
     @Override
@@ -232,14 +250,9 @@ public abstract class MokkitLivingEntity extends MokkitEntity implements LivingE
         // TODO
         throw new UnsupportedMockException();
     }
-    @Override
-    public Player getKiller() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
 
     @Override
-    public Entity getLeashHolder() throws IllegalStateException {
+    public Player getKiller() {
         // TODO
         throw new UnsupportedMockException();
     }
@@ -260,12 +273,78 @@ public abstract class MokkitLivingEntity extends MokkitEntity implements LivingE
     }
 
     @Override
-    public boolean addPotionEffects(final @NonNull Collection<PotionEffect> effects) {
-        boolean result = true;
-        for (final PotionEffect effect : effects) {
-            result = result && addPotionEffect(effect);
+    public <T extends Projectile> T launchProjectile(final Class<? extends T> projectile) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+    @Override
+    public <T extends Projectile> T launchProjectile(final Class<? extends T> projectile, final Vector velocity) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public Entity getLeashHolder() throws IllegalStateException {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    /**
+     * Class for the control object.
+     */
+    @SuppressWarnings("ClassNameSameAsAncestorName")
+    public class Mokkit extends MokkitEntity.Mokkit {
+
+        /**
+         * Protected constructor to prevent outside instance creation.
+         */
+        protected Mokkit() {
         }
-        return result;
+
+        /**
+         * Attempts to attack a target.
+         *
+         * @param target     The target.
+         * @param damageDone The damage that is to be done.
+         */
+        public void attackLiving(final @NonNull LivingEntity target, final double damageDone)
+                throws CancelledByEventException {
+            attackLiving(target, damageDone, DamageCause.ENTITY_ATTACK);
+        }
+
+        /**
+         * Attempts to attack a target.
+         *
+         * @param target     The target.
+         * @param damageDone The damage that is to be done.
+         * @param cause      The cause of the damage done.
+         */
+        public void attackLiving(final @NonNull LivingEntity target, final double damageDone,
+                                 final @NonNull DamageCause cause) throws CancelledByEventException {
+            // Attempt damaging the target.
+            final EntityDamageByEntityEvent event = new EntityDamageByEntityEvent(MokkitLivingEntity.this,
+                    target, cause, damageDone);
+            getServer().getPluginManager().callEvent(event);
+            if (event.isCancelled()) {
+                throw new CancelledByEventException(event);
+            }
+
+            // Damage the target.
+            target.damage(damageDone);
+        }
+
+        /**
+         * Damages an entity. If the entity has health, the damage done is 1 damage point.
+         *
+         * @param target The target.
+         */
+        public void damageEntity(final @NonNull Entity target) throws CancelledByEventException {
+            if (target instanceof LivingEntity) {
+                attackLiving((LivingEntity) target, 1.0, DamageCause.ENTITY_ATTACK);
+            } else {
+                ((MokkitEntity) target).onDamaged(MokkitLivingEntity.this, 1.0);
+            }
+        }
     }
 
     @Override
@@ -281,11 +360,6 @@ public abstract class MokkitLivingEntity extends MokkitEntity implements LivingE
     @Override
     public Collection<PotionEffect> getActivePotionEffects() {
         return Collections.unmodifiableCollection(potionEffects);
-    }
-
-    @Override
-    public boolean hasPotionEffect(final @NonNull PotionEffectType type) {
-        return potionEffects.stream().anyMatch(e -> e.getType().equals(type));
     }
 
     @Override
@@ -322,62 +396,6 @@ public abstract class MokkitLivingEntity extends MokkitEntity implements LivingE
         return mokkit;
     }
 
-    /**
-     * Class for the control object.
-     */
-    public class Mokkit extends MokkitEntity.Mokkit {
-
-        /**
-         * Protected constructor to prevent outside instance creation.
-         */
-        protected Mokkit() {
-        }
-
-        /**
-         * Attempts to attack a target.
-         *
-         * @param target     The target.
-         * @param damageDone The damage that is to be done.
-         */
-        public void attackLiving(final @NonNull LivingEntity target, final double damageDone)
-                throws CancelledByEventException {
-            attackLiving(target, damageDone, EntityDamageEvent.DamageCause.ENTITY_ATTACK);
-        }
-
-        /**
-         * Attempts to attack a target.
-         *
-         * @param target     The target.
-         * @param damageDone The damage that is to be done.
-         * @param cause      The cause of the damage done.
-         */
-        public void attackLiving(final @NonNull LivingEntity target, final double damageDone,
-                                 final @NonNull EntityDamageEvent.DamageCause cause) throws CancelledByEventException {
-            // Attempt damaging the target.
-            final EntityDamageByEntityEvent event = new EntityDamageByEntityEvent(MokkitLivingEntity.this,
-                    target, cause, damageDone);
-            getServer().getPluginManager().callEvent(event);
-            if (event.isCancelled()) {
-                throw new CancelledByEventException(event);
-            }
-
-            // Damage the target.
-            target.damage(damageDone);
-        }
-
-        /**
-         * Damages an entity. If the entity has health, the damage done is 1 damage point.
-         *
-         * @param target The target.
-         */
-        public void damageEntity(final @NonNull Entity target) throws CancelledByEventException {
-            if (target instanceof LivingEntity) {
-                attackLiving((LivingEntity) target, 1.0, EntityDamageEvent.DamageCause.ENTITY_ATTACK);
-            } else {
-                ((MokkitEntity) target).onDamaged(MokkitLivingEntity.this, 1.0);
-            }
-        }
-    }
 
     @Override
     public boolean hasAI() {
@@ -385,17 +403,6 @@ public abstract class MokkitLivingEntity extends MokkitEntity implements LivingE
         throw new UnsupportedMockException();
     }
 
-    @Override
-    public <T extends Projectile> T launchProjectile(final Class<? extends T> projectile) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public <T extends Projectile> T launchProjectile(final Class<? extends T> projectile, final Vector velocity) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
 
     @Override
     public boolean isCollidable() {

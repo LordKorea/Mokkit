@@ -29,7 +29,6 @@ import org.bukkit.potion.PotionEffect;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.Set;
 import java.util.UUID;
 
 /**
@@ -45,7 +44,7 @@ public abstract class MokkitThrownPotion extends MokkitProjectile implements Thr
     /**
      * The potion effects of the potion.
      */
-    private final Set<PotionEffect> effects = new HashSet<>();
+    private final Collection<PotionEffect> effects = new HashSet<>();
 
     /**
      * Constructor.
@@ -55,8 +54,8 @@ public abstract class MokkitThrownPotion extends MokkitProjectile implements Thr
      * @param location The location the entity is at.
      * @param uniqueId The UUID of the entity.
      */
-    public MokkitThrownPotion(final @NonNull MokkitServer server, final @NonNull String name,
-                              final @NonNull Location location, final @NonNull UUID uniqueId) {
+    protected MokkitThrownPotion(final @NonNull MokkitServer server, final @NonNull String name,
+                                 final @NonNull Location location, final @NonNull UUID uniqueId) {
         super(server, name, location, uniqueId);
     }
 
@@ -90,6 +89,7 @@ public abstract class MokkitThrownPotion extends MokkitProjectile implements Thr
     /**
      * The class for the control object.
      */
+    @SuppressWarnings("ClassNameSameAsAncestorName")
     public class Mokkit extends MokkitProjectile.Mokkit {
 
         /**

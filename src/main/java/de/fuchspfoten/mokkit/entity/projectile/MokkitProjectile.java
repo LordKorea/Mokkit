@@ -44,9 +44,7 @@ public abstract class MokkitProjectile extends MokkitEntity implements Projectil
     /**
      * The shooter of this projectile.
      */
-    private @Getter
-    @Setter
-    ProjectileSource shooter;
+    private @Getter @Setter ProjectileSource shooter;
 
     /**
      * Constructor.
@@ -56,8 +54,8 @@ public abstract class MokkitProjectile extends MokkitEntity implements Projectil
      * @param location The location the entity is at.
      * @param uniqueId The UUID of the entity.
      */
-    public MokkitProjectile(final @NonNull MokkitServer server, final @NonNull String name,
-                            final @NonNull Location location, final @NonNull UUID uniqueId) {
+    protected MokkitProjectile(final @NonNull MokkitServer server, final @NonNull String name,
+                               final @NonNull Location location, final @NonNull UUID uniqueId) {
         super(server, name, location, uniqueId);
     }
 
@@ -86,6 +84,7 @@ public abstract class MokkitProjectile extends MokkitEntity implements Projectil
     /**
      * Class for the control object.
      */
+    @SuppressWarnings("ClassNameSameAsAncestorName")
     public class Mokkit extends MokkitEntity.Mokkit {
 
         /**

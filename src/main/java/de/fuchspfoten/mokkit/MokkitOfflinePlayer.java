@@ -36,8 +36,7 @@ public class MokkitOfflinePlayer implements OfflinePlayer {
     /**
      * The UUID of the player.
      */
-    private @Getter
-    final UUID uniqueId;
+    private @Getter final UUID uniqueId;
 
     /**
      * Constructor.

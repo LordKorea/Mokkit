@@ -47,21 +47,22 @@ public class MokkitChunk implements Chunk {
         assert 0 <= z && z < 16 : "invalid z position " + z;
         return y * 16 * 16 + x * 16 + z;
     }
+
     /**
      * The world of this chunk.
      */
-    private @Getter
-    final World world;
+    private @Getter final World world;
+
     /**
      * The x position.
      */
-    private @Getter
-    final int x;
+    private @Getter final int x;
+
     /**
      * The z position.
      */
-    private @Getter
-    final int z;
+    private @Getter final int z;
+
     /**
      * The data of this chunk.
      */

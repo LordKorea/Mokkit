@@ -47,12 +47,6 @@ public final class FileDeleter implements Runnable {
     }
 
     /**
-     * Constructor.
-     */
-    private FileDeleter() {
-    }
-
-    /**
      * Deletes a file recursively.
      *
      * @param file The file.
@@ -69,6 +63,12 @@ public final class FileDeleter implements Runnable {
         }
         //noinspection ResultOfMethodCallIgnored
         file.delete();
+    }
+
+    /**
+     * Constructor.
+     */
+    private FileDeleter() {
     }
 
     @Override

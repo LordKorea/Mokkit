@@ -38,9 +38,8 @@ public abstract class MokkitFlying extends MokkitLivingEntity implements Flying 
      * @param uuid             The UUID of the entity.
      * @param defaultMaxHealth The default max health of the entity.
      */
-    public MokkitFlying(final @NonNull MokkitServer server, final @NonNull String name,
-                        final @NonNull Location location, final @NonNull UUID uuid,
-                        final double defaultMaxHealth) {
+    protected MokkitFlying(final @NonNull MokkitServer server, final @NonNull String name,
+                           final @NonNull Location location, final @NonNull UUID uuid, final double defaultMaxHealth) {
         super(server, name, location, uuid, defaultMaxHealth);
     }
 }

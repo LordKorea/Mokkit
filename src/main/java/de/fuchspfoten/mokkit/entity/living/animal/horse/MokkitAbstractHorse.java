@@ -24,7 +24,7 @@ import lombok.NonNull;
 import org.bukkit.Location;
 import org.bukkit.entity.AbstractHorse;
 import org.bukkit.entity.AnimalTamer;
-import org.bukkit.entity.Horse;
+import org.bukkit.entity.Horse.Variant;
 import org.bukkit.inventory.AbstractHorseInventory;
 
 import java.util.UUID;
@@ -43,20 +43,20 @@ public abstract class MokkitAbstractHorse extends MokkitAnimals implements Abstr
      * @param uuid             The UUID of the entity.
      * @param defaultMaxHealth The default max health of the entity.
      */
-    public MokkitAbstractHorse(final @NonNull MokkitServer server, final @NonNull String name,
-                               final @NonNull Location location, final @NonNull UUID uuid,
-                               final double defaultMaxHealth) {
+    protected MokkitAbstractHorse(final @NonNull MokkitServer server, final @NonNull String name,
+                                  final @NonNull Location location, final @NonNull UUID uuid,
+                                  final double defaultMaxHealth) {
         super(server, name, location, uuid, defaultMaxHealth);
     }
 
     @Override
-    public Horse.Variant getVariant() {
+    public Variant getVariant() {
         // TODO
         throw new UnsupportedMockException();
     }
 
     @Override
-    public void setVariant(final Horse.Variant variant) {
+    public void setVariant(final Variant variant) {
         // TODO
         throw new UnsupportedMockException();
     }

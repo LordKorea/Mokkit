@@ -30,6 +30,7 @@ import org.bukkit.potion.PotionEffect;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.UUID;
 
 /**
@@ -67,6 +68,7 @@ public class MokkitSplashPotion extends MokkitThrownPotion implements SplashPoti
     /**
      * Class for the control object.
      */
+    @SuppressWarnings("ClassNameSameAsAncestorName")
     public class Mokkit extends MokkitThrownPotion.Mokkit {
 
         /**
@@ -90,7 +92,7 @@ public class MokkitSplashPotion extends MokkitThrownPotion implements SplashPoti
 
             // Apply the effects.
             for (final PotionEffect effect : getEffects()) {
-                for (final Map.Entry<LivingEntity, Double> entry : intensityMap.entrySet()) {
+                for (final Entry<LivingEntity, Double> entry : intensityMap.entrySet()) {
                     final PotionEffect scaled = new PotionEffect(effect.getType(),
                             (int) (effect.getDuration() * entry.getValue()), effect.getAmplifier(), effect.isAmbient(),
                             effect.hasParticles(), effect.getColor());

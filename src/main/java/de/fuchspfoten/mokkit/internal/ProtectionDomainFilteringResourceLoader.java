@@ -34,11 +34,6 @@ import java.util.NoSuchElementException;
 public class ProtectionDomainFilteringResourceLoader extends ClassLoader {
 
     /**
-     * The location prefix for the code source of the protection domain.
-     */
-    private final String pathPrefix;
-
-    /**
      * Strips jar: and file: protocols from the URL.
      *
      * @param url The URL.
@@ -56,6 +51,11 @@ public class ProtectionDomainFilteringResourceLoader extends ClassLoader {
         }
         return repr;
     }
+
+    /**
+     * The location prefix for the code source of the protection domain.
+     */
+    private final String pathPrefix;
 
     /**
      * Constructor.

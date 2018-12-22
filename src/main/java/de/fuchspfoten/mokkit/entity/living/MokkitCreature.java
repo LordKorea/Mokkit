@@ -48,8 +48,9 @@ public abstract class MokkitCreature extends MokkitLivingEntity implements Creat
      * @param uuid             The UUID of the entity.
      * @param defaultMaxHealth The default max health of the entity.
      */
-    public MokkitCreature(final @NonNull MokkitServer server, final @NonNull String name,
-                          final @NonNull Location location, final @NonNull UUID uuid, final double defaultMaxHealth) {
+    protected MokkitCreature(final @NonNull MokkitServer server, final @NonNull String name,
+                             final @NonNull Location location, final @NonNull UUID uuid,
+                             final double defaultMaxHealth) {
         super(server, name, location, uuid, defaultMaxHealth);
     }
 }

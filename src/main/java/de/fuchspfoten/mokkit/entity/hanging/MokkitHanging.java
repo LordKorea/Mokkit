@@ -27,7 +27,7 @@ import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Hanging;
 import org.bukkit.event.hanging.HangingBreakByEntityEvent;
-import org.bukkit.event.hanging.HangingBreakEvent;
+import org.bukkit.event.hanging.HangingBreakEvent.RemoveCause;
 
 import java.util.UUID;
 
@@ -44,8 +44,8 @@ public abstract class MokkitHanging extends MokkitEntity implements Hanging {
      * @param location The location the entity is at.
      * @param uniqueId The UUID of the entity.
      */
-    public MokkitHanging(final @NonNull MokkitServer server, final @NonNull String name,
-                         final @NonNull Location location, final @NonNull UUID uniqueId) {
+    protected MokkitHanging(final @NonNull MokkitServer server, final @NonNull String name,
+                            final @NonNull Location location, final @NonNull UUID uniqueId) {
         super(server, name, location, uniqueId);
     }
 
@@ -58,7 +58,7 @@ public abstract class MokkitHanging extends MokkitEntity implements Hanging {
     @Override
     public double onDamaged(final @NonNull Entity damager, final double damage) {
         final HangingBreakByEntityEvent event = new HangingBreakByEntityEvent(this, damager,
-                HangingBreakEvent.RemoveCause.ENTITY);
+                RemoveCause.ENTITY);
         getServer().getPluginManager().callEvent(event);
         if (event.isCancelled()) {
             throw new CancelledByEventException(event);

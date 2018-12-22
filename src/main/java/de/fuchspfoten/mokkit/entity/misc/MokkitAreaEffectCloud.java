@@ -55,62 +55,69 @@ public class MokkitAreaEffectCloud extends MokkitEntity implements AreaEffectClo
      * The control object.
      */
     private final Mokkit mokkit = new Mokkit();
+
     /**
      * The custom potion effects of this cloud.
      */
     private final Set<PotionEffect> customEffects = new HashSet<>();
+
     /**
      * The ticks in which the effects were last applied to the given entities.
      */
     private final Map<LivingEntity, Long> lastAppliedTick = new HashMap<>();
+
     /**
      * The duration this cloud will live for.
      */
-    private @Getter
-    @Setter
-    int duration = 600;
+    private @Getter @Setter int duration = 600;
+
     /**
      * The target-individual wait time before effects apply to targets.
      */
-    private @Getter
-    @Setter
-    int waitTime = 0;
+    private @Getter @Setter int waitTime = 0;
+
     /**
      * The per entity cooldown time needed after an application.
      */
     private @Getter
     @Setter
     int reapplicationDelay = 5;
+
     /**
      * The amount that is subtracted from the duration on use.
      */
     private @Getter
     @Setter
     int durationOnUse = 0;
+
     /**
      * The radius of the cloud.
      */
     private @Getter
     @Setter
     float radius = 3.0f;
+
     /**
      * The amount that is subtracted from the radius on use.
      */
     private @Getter
     @Setter
     float radiusOnUse = 0.5f;
+
     /**
      * The amount that is subtracted from the radius per tick.
      */
     private @Getter
     @Setter
     float radiusPerTick = 3.0f / 600.0f;
+
     /**
      * The source that created this cloud.
      */
     private @Getter
     @Setter
     ProjectileSource source;
+
     /**
      * The underlying potion.
      */
@@ -185,11 +192,6 @@ public class MokkitAreaEffectCloud extends MokkitEntity implements AreaEffectClo
         throw new UnsupportedMockException();
     }
 
-    @Override
-    public EntityType getType() {
-        return EntityType.AREA_EFFECT_CLOUD;
-    }
-
     /**
      * Fetch the control object.
      *
@@ -200,9 +202,15 @@ public class MokkitAreaEffectCloud extends MokkitEntity implements AreaEffectClo
         return mokkit;
     }
 
+    @Override
+    public EntityType getType() {
+        return EntityType.AREA_EFFECT_CLOUD;
+    }
+
     /**
      * Class for the control object.
      */
+    @SuppressWarnings("ClassNameSameAsAncestorName")
     public class Mokkit extends MokkitEntity.Mokkit {
 
         @Override

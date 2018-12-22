@@ -42,8 +42,8 @@ public abstract class MokkitVehicle extends MokkitEntity implements Vehicle {
      * @param location The location the entity is at.
      * @param uniqueId The UUID of the entity.
      */
-    public MokkitVehicle(final @NonNull MokkitServer server, final @NonNull String name,
-                         final @NonNull Location location, final @NonNull UUID uniqueId) {
+    protected MokkitVehicle(final @NonNull MokkitServer server, final @NonNull String name,
+                            final @NonNull Location location, final @NonNull UUID uniqueId) {
         super(server, name, location, uniqueId);
     }
 

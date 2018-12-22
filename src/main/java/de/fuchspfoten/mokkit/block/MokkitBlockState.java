@@ -41,15 +41,12 @@ public class MokkitBlockState implements BlockState {
     /**
      * The backing block.
      */
-    private @Getter
-    final Block block;
+    private @Getter final Block block;
 
     /**
      * The data of the block state.
      */
-    private @Getter
-    @Setter
-    MaterialData data;
+    private @Getter @Setter MaterialData data;
 
     /**
      * Constructor.
@@ -58,17 +55,17 @@ public class MokkitBlockState implements BlockState {
      */
     public MokkitBlockState(final @NonNull Block block) {
         this.block = block;
-        this.data = block.getType().getNewData(block.getData());
+        data = block.getType().getNewData(block.getData());
     }
 
     @Override
     public Material getType() {
-        return getData().getItemType();
+        return data.getItemType();
     }
 
     @Override
     public void setType(final @NonNull Material type) {
-        this.data = type.getNewData((byte) 0);
+        data = type.getNewData((byte) 0);
     }
 
     @Override

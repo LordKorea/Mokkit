@@ -40,8 +40,8 @@ public abstract class MokkitFireball extends MokkitProjectile implements Firebal
      * @param location The location the entity is at.
      * @param uniqueId The UUID of the entity.
      */
-    public MokkitFireball(final @NonNull MokkitServer server, final @NonNull String name,
-                          final @NonNull Location location, final @NonNull UUID uniqueId) {
+    protected MokkitFireball(final @NonNull MokkitServer server, final @NonNull String name,
+                             final @NonNull Location location, final @NonNull UUID uniqueId) {
         super(server, name, location, uniqueId);
         setVelocity(new Vector(1.0, 0.0, 0.0));
     }

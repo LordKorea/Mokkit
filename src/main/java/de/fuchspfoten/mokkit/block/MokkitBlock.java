@@ -58,40 +58,32 @@ public class MokkitBlock implements Block {
     /**
      * The world this block is in.
      */
-    private @Getter
-    final World world;
+    private @Getter final World world;
 
     /**
      * The x position of the block.
      */
-    private @Getter
-    final int x;
+    private @Getter final int x;
 
     /**
      * The y position of the block.
      */
-    private @Getter
-    final int y;
+    private @Getter final int y;
 
     /**
      * The z position of the block.
      */
-    private @Getter
-    final int z;
+    private @Getter final int z;
 
     /**
      * The material of the block.
      */
-    private @Getter
-    @Setter
-    Material type;
+    private @Getter @Setter Material type;
 
     /**
      * The data byte of the block.
      */
-    private @Getter
-    @Setter
-    byte data;
+    private @Getter @Setter byte data;
 
     /**
      * Constructor.
@@ -107,8 +99,8 @@ public class MokkitBlock implements Block {
         this.x = x;
         this.y = y;
         this.z = z;
-        this.type = Material.AIR;
-        this.data = 0;
+        type = Material.AIR;
+        data = (byte) 0;
     }
 
     /**
@@ -178,7 +170,7 @@ public class MokkitBlock implements Block {
 
     @Override
     public Chunk getChunk() {
-        return getWorld().getChunkAt(this);
+        return world.getChunkAt(this);
     }
 
     @Override

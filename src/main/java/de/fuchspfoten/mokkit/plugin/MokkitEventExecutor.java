@@ -36,14 +36,12 @@ public class MokkitEventExecutor implements EventExecutor {
     /**
      * The type of the parameter of the method.
      */
-    private @NonNull
-    final Class<?> parameterType;
+    private @NonNull final Class<?> parameterType;
 
     /**
      * The method that is to be called.
      */
-    private @NonNull
-    final Method listenerMethod;
+    private @NonNull final Method listenerMethod;
 
     @Override
     public void execute(final @NonNull Listener listener, final @NonNull Event event) {

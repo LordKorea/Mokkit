@@ -46,20 +46,17 @@ public abstract class MokkitInventory implements Inventory {
     /**
      * The holder of the inventory.
      */
-    private @Getter
-    final InventoryHolder holder;
+    private @Getter final InventoryHolder holder;
 
     /**
      * The inventory title.
      */
-    private @Getter
-    final String title;
+    private @Getter final String title;
 
     /**
      * The type of this inventory.
      */
-    private @Getter
-    final InventoryType type;
+    private @Getter final InventoryType type;
 
     /**
      * Constructor.

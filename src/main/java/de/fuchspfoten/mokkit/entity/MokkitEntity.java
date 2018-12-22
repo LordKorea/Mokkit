@@ -34,8 +34,9 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.entity.EntityTeleportEvent;
-import org.bukkit.event.player.PlayerTeleportEvent;
+import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 import org.bukkit.metadata.MetadataValue;
 import org.bukkit.permissions.Permission;
 import org.bukkit.permissions.PermissionAttachment;
@@ -56,51 +57,52 @@ public abstract class MokkitEntity implements Entity, Tickable {
     /**
      * The server this entity is in.
      */
-    private @Getter
-    final MokkitServer server;
+    private @Getter final MokkitServer server;
+
     /**
      * The name of the entity.
      */
-    private @Getter
-    final String name;
+    private @Getter final String name;
+
     /**
      * The unique ID of the entity.
      */
-    private @Getter
-    final UUID uniqueId;
+    private @Getter final UUID uniqueId;
+
     /**
      * The messages this entity received.
      */
     private final List<String> receivedMessages = new ArrayList<>();
+
     /**
      * The control object.
      */
     private final Mokkit mokkit = new Mokkit();
+
     /**
      * The location where the entity is at.
      */
     protected Location location;
+
     /**
      * Whether or not the entity is despawned for some reason.
      */
     protected boolean despawned = false;
+
     /**
      * The velocity of the entity.
      */
-    private @Getter
-    @Setter
-    Vector velocity;
+    private @Getter @Setter Vector velocity;
+
     /**
      * Whether the entity is a server operator.
      */
-    private @Getter
-    @Setter
-    boolean op;
+    private @Getter @Setter boolean op;
+
     /**
      * Whether the entity is dead.
      */
-    private @Getter
-    boolean dead;
+    private @Getter boolean dead;
 
     /**
      * Constructor.
@@ -110,8 +112,8 @@ public abstract class MokkitEntity implements Entity, Tickable {
      * @param location The location the entity is at.
      * @param uniqueId The UUID of the entity.
      */
-    public MokkitEntity(final @NonNull MokkitServer server, final @NonNull String name,
-                        final @NonNull Location location, final @NonNull UUID uniqueId) {
+    protected MokkitEntity(final @NonNull MokkitServer server, final @NonNull String name,
+                           final @NonNull Location location, final @NonNull UUID uniqueId) {
         this.server = server;
         this.name = name;
         this.location = location;
@@ -129,8 +131,8 @@ public abstract class MokkitEntity implements Entity, Tickable {
      */
     public double onDamaged(final @NonNull Entity damager, final double damage) {
         final EntityDamageByEntityEvent event = new EntityDamageByEntityEvent(damager, this,
-                EntityDamageEvent.DamageCause.ENTITY_ATTACK, damage);
-        getServer().getPluginManager().callEvent(event);
+                DamageCause.ENTITY_ATTACK, damage);
+        server.getPluginManager().callEvent(event);
         if (event.isCancelled()) {
             throw new CancelledByEventException(event);
         }
@@ -172,14 +174,9 @@ public abstract class MokkitEntity implements Entity, Tickable {
         // TODO
         throw new UnsupportedMockException();
     }
-    @Override
-    public double getWidth() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
 
     @Override
-    public boolean addScoreboardTag(final String tag) {
+    public double getWidth() {
         // TODO
         throw new UnsupportedMockException();
     }
@@ -197,13 +194,13 @@ public abstract class MokkitEntity implements Entity, Tickable {
 
     @Override
     public boolean teleport(final @NonNull Location location) {
-        return teleport(location, PlayerTeleportEvent.TeleportCause.UNKNOWN);
+        return teleport(location, TeleportCause.UNKNOWN);
     }
 
     @Override
-    public boolean teleport(final @NonNull Location location, final @NonNull PlayerTeleportEvent.TeleportCause cause) {
+    public boolean teleport(final @NonNull Location location, final @NonNull TeleportCause cause) {
         final EntityTeleportEvent tp = new EntityTeleportEvent(this, getLocation().clone(), location.clone());
-        getServer().getPluginManager().callEvent(tp);
+        server.getPluginManager().callEvent(tp);
         if (tp.isCancelled()) {
             return false;
         }
@@ -216,12 +213,23 @@ public abstract class MokkitEntity implements Entity, Tickable {
 
     @Override
     public boolean teleport(final @NonNull Entity destination) {
-        return teleport(destination.getLocation(), PlayerTeleportEvent.TeleportCause.UNKNOWN);
+        return teleport(destination.getLocation(), TeleportCause.UNKNOWN);
+    }
+    @Override
+    public boolean teleport(final @NonNull Entity destination, final @NonNull TeleportCause cause) {
+        return teleport(destination.getLocation(), cause);
     }
 
     @Override
-    public boolean teleport(final @NonNull Entity destination, final @NonNull PlayerTeleportEvent.TeleportCause cause) {
-        return teleport(destination.getLocation(), cause);
+    public boolean addScoreboardTag(final String tag) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public int getFireTicks() {
+        // TODO
+        throw new UnsupportedMockException();
     }
 
     @Override
@@ -243,9 +251,8 @@ public abstract class MokkitEntity implements Entity, Tickable {
     }
 
     @Override
-    public int getFireTicks() {
-        // TODO
-        throw new UnsupportedMockException();
+    public boolean isValid() {
+        return !despawned && !dead;
     }
 
     @Override
@@ -261,23 +268,13 @@ public abstract class MokkitEntity implements Entity, Tickable {
     }
 
     @Override
-    public EntityDamageEvent getLastDamageCause() {
+    public void setFallDistance(final float distance) {
         // TODO
         throw new UnsupportedMockException();
     }
 
-    @Override
-    public boolean isValid() {
-        return !despawned && !isDead();
-    }
     @Override
     public Entity getPassenger() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setLastDamageCause(final EntityDamageEvent event) {
         // TODO
         throw new UnsupportedMockException();
     }
@@ -325,19 +322,26 @@ public abstract class MokkitEntity implements Entity, Tickable {
     }
 
     @Override
-    public void setFallDistance(final float distance) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
     public boolean isPermissionSet(final String name) {
         // TODO
         throw new UnsupportedMockException();
     }
 
     @Override
-    public PistonMoveReaction getPistonMoveReaction() {
+    public PermissionAttachment addAttachment(final Plugin plugin, final String name, final boolean value,
+                                              final int ticks) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public EntityDamageEvent getLastDamageCause() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public List<MetadataValue> getMetadata(final String metadataKey) {
         // TODO
         throw new UnsupportedMockException();
     }
@@ -355,24 +359,13 @@ public abstract class MokkitEntity implements Entity, Tickable {
     }
 
     @Override
-    public int getPortalCooldown() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
     public boolean hasPermission(final Permission perm) {
         // TODO
         throw new UnsupportedMockException();
     }
-    @Override
-    public PermissionAttachment addAttachment(final Plugin plugin, final String name, final boolean value) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
 
     @Override
-    public void setPortalCooldown(final int cooldown) {
+    public PermissionAttachment addAttachment(final Plugin plugin, final String name, final boolean value) {
         // TODO
         throw new UnsupportedMockException();
     }
@@ -384,14 +377,18 @@ public abstract class MokkitEntity implements Entity, Tickable {
     }
 
     @Override
-    public PermissionAttachment addAttachment(final Plugin plugin, final String name, final boolean value,
-                                              final int ticks) {
+    public boolean hasMetadata(final String metadataKey) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+    @Override
+    public void removeMetadata(final String metadataKey, final Plugin owningPlugin) {
         // TODO
         throw new UnsupportedMockException();
     }
 
     @Override
-    public Set<String> getScoreboardTags() {
+    public void setLastDamageCause(final EntityDamageEvent event) {
         // TODO
         throw new UnsupportedMockException();
     }
@@ -401,14 +398,9 @@ public abstract class MokkitEntity implements Entity, Tickable {
         // TODO
         throw new UnsupportedMockException();
     }
-    @Override
-    public void removeAttachment(final PermissionAttachment attachment) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
 
     @Override
-    public int getTicksLived() {
+    public void removeAttachment(final PermissionAttachment attachment) {
         // TODO
         throw new UnsupportedMockException();
     }
@@ -421,12 +413,6 @@ public abstract class MokkitEntity implements Entity, Tickable {
 
     @Override
     public Set<PermissionAttachmentInfo> getEffectivePermissions() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setTicksLived(final int value) {
         // TODO
         throw new UnsupportedMockException();
     }
@@ -448,11 +434,6 @@ public abstract class MokkitEntity implements Entity, Tickable {
     }
 
     @Override
-    public EntityType getType() {
-        throw new UnsupportedOperationException("subclasses must handle their entity type");
-    }
-
-    @Override
     public void sendMessage(final String[] messages) {
         for (final String message : messages) {
             sendMessage(message);
@@ -465,29 +446,105 @@ public abstract class MokkitEntity implements Entity, Tickable {
         throw new UnsupportedMockException();
     }
 
+    /**
+     * Control object class.
+     */
+    public class Mokkit implements TickListener {
+
+        /**
+         * Clears the chat log for this entity.
+         */
+        public void clearChatLog() {
+            receivedMessages.clear();
+        }
+
+        /**
+         * Get the last received message.
+         *
+         * @return The last received message.
+         */
+        public String getLastReceivedMessage() {
+            if (receivedMessages.isEmpty()) {
+                return null;
+            }
+            return receivedMessages.get(receivedMessages.size() - 1);
+        }
+
+        /**
+         * Checks whether or not the player received a message that contains the given string.
+         *
+         * @param content The string.
+         * @return Whether the player has such a message.
+         */
+        public boolean hasMessageLike(final @NonNull CharSequence content) {
+            for (final String msg : receivedMessages) {
+                if (msg.contains(content)) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        @Override
+        public void tick(final long tick) {
+        }
+    }
+
+
+    @Override
+    public PistonMoveReaction getPistonMoveReaction() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+
+    @Override
+    public int getPortalCooldown() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+
+    @Override
+    public void setPortalCooldown(final int cooldown) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+
+    @Override
+    public Set<String> getScoreboardTags() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+
+    @Override
+    public int getTicksLived() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+
+    @Override
+    public void setTicksLived(final int value) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+
+    @Override
+    public EntityType getType() {
+        throw new UnsupportedOperationException("subclasses must handle their entity type");
+    }
+
+
     @Override
     public Entity getVehicle() {
         // TODO
         throw new UnsupportedMockException();
     }
 
-    @Override
-    public List<MetadataValue> getMetadata(final String metadataKey) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public boolean hasMetadata(final String metadataKey) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void removeMetadata(final String metadataKey, final Plugin owningPlugin) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
 
     @Override
     public boolean hasGravity() {
@@ -539,50 +596,6 @@ public abstract class MokkitEntity implements Entity, Tickable {
         throw new UnsupportedMockException();
     }
 
-    /**
-     * Control object class.
-     */
-    public class Mokkit implements TickListener {
-
-        /**
-         * Clears the chat log for this entity.
-         */
-        public void clearChatLog() {
-            receivedMessages.clear();
-        }
-
-        /**
-         * Get the last received message.
-         *
-         * @return The last received message.
-         */
-        public String getLastReceivedMessage() {
-            if (receivedMessages.isEmpty()) {
-                return null;
-            }
-            return receivedMessages.get(receivedMessages.size() - 1);
-        }
-
-        /**
-         * Checks whether or not the player received a message that contains the given string.
-         *
-         * @param content The string.
-         * @return Whether the player has such a message.
-         */
-        public boolean hasMessageLike(final @NonNull String content) {
-            for (final String msg : receivedMessages) {
-                if (msg.contains(content)) {
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        @Override
-        public void tick(final long tick) {
-        }
-    }
-
 
     @Override
     public boolean isSilent() {
@@ -630,14 +643,6 @@ public abstract class MokkitEntity implements Entity, Tickable {
         // TODO
         throw new UnsupportedMockException();
     }
-
-
-
-
-
-
-
-
 
 
 }

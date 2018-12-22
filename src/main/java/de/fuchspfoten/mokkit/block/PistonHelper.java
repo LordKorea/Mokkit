@@ -26,6 +26,7 @@ import org.bukkit.material.MaterialData;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Queue;
@@ -68,7 +69,7 @@ public final class PistonHelper {
      */
     public static void moveBlocks(final @NonNull List<Block> blocks, final @NonNull BlockFace direction) {
         // TODO drops of removed blocks?
-        final Set<Block> toDoSet = new HashSet<>(blocks);
+        final Collection<Block> toDoSet = new HashSet<>(blocks);
         final Queue<Block> toDoQueue = new ArrayDeque<>(blocks);
         while (!toDoSet.isEmpty()) {
             final Block next = toDoQueue.poll();
@@ -136,8 +137,9 @@ public final class PistonHelper {
 
         // If this is a slime block, push neighbors.
         if (target.getType() == Material.SLIME_BLOCK) {
-            final BlockFace[] faces =
-                    {BlockFace.NORTH, BlockFace.EAST, BlockFace.SOUTH, BlockFace.WEST, BlockFace.UP, BlockFace.DOWN};
+            final BlockFace[] faces = new BlockFace[]{
+                    BlockFace.NORTH, BlockFace.EAST, BlockFace.SOUTH, BlockFace.WEST, BlockFace.UP, BlockFace.DOWN
+            };
             for (final BlockFace face : faces) {
                 if (face == direction) {
                     continue;

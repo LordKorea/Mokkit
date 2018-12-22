@@ -39,9 +39,9 @@ public abstract class MokkitSpellcaster extends MokkitIllager implements Spellca
      * @param uuid             The UUID of the entity.
      * @param defaultMaxHealth The default max health of the entity.
      */
-    public MokkitSpellcaster(final @NonNull MokkitServer server, final @NonNull String name,
-                             final @NonNull Location location, final @NonNull UUID uuid,
-                             final double defaultMaxHealth) {
+    protected MokkitSpellcaster(final @NonNull MokkitServer server, final @NonNull String name,
+                                final @NonNull Location location, final @NonNull UUID uuid,
+                                final double defaultMaxHealth) {
         super(server, name, location, uuid, defaultMaxHealth);
     }
 

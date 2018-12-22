@@ -79,8 +79,7 @@ public final class MokkitEnchantment extends Enchantment {
     /**
      * The name of the enchantment.
      */
-    private @Getter
-    final String name;
+    private @Getter final String name;
 
     /**
      * Constructor.

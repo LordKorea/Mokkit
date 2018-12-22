@@ -43,18 +43,21 @@ public class MokkitItemMeta implements ItemMeta, Cloneable {
      * The set of flags of this item meta's item.
      */
     private final Set<ItemFlag> flags = EnumSet.noneOf(ItemFlag.class);
+
     /**
      * The lore of this item meta's item.
      */
     private @Getter
     @Setter
     List<String> lore;
+
     /**
      * The display name of this item meta's item.
      */
     private @Getter
     @Setter
     String displayName;
+
     /**
      * Whether or not this item meta is of an unbreakable item.
      */

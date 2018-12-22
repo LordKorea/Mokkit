@@ -93,14 +93,17 @@ public class MokkitPluginManager implements PluginManager {
      * The server.
      */
     private final Server server;
+
     /**
      * The plugin loader.
      */
     private final JavaPluginLoader pluginLoader;
+
     /**
      * The plugins that are loaded.
      */
     private final Map<String, JavaPlugin> pluginMap = new HashMap<>();
+
     /**
      * The commands that exist.
      */

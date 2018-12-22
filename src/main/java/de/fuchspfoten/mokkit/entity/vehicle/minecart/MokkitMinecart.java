@@ -41,8 +41,8 @@ public abstract class MokkitMinecart extends MokkitVehicle implements Minecart {
      * @param location The location the entity is at.
      * @param uuid     The UUID of the entity.
      */
-    public MokkitMinecart(final @NonNull MokkitServer server, final @NonNull String name,
-                          final @NonNull Location location, final @NonNull UUID uuid) {
+    protected MokkitMinecart(final @NonNull MokkitServer server, final @NonNull String name,
+                             final @NonNull Location location, final @NonNull UUID uuid) {
         super(server, name, location, uuid);
     }
 

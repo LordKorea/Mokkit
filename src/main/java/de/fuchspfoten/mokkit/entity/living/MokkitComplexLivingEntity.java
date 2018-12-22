@@ -41,9 +41,9 @@ public abstract class MokkitComplexLivingEntity extends MokkitLivingEntity imple
      * @param uuid             The UUID of the entity.
      * @param defaultMaxHealth The default max health of the entity.
      */
-    public MokkitComplexLivingEntity(final @NonNull MokkitServer server, final @NonNull String name,
-                                     final @NonNull Location location, final @NonNull UUID uuid,
-                                     final double defaultMaxHealth) {
+    protected MokkitComplexLivingEntity(final @NonNull MokkitServer server, final @NonNull String name,
+                                        final @NonNull Location location, final @NonNull UUID uuid,
+                                        final double defaultMaxHealth) {
         super(server, name, location, uuid, defaultMaxHealth);
     }
 

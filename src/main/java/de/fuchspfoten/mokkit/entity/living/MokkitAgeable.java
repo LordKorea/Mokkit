@@ -39,9 +39,8 @@ public abstract class MokkitAgeable extends MokkitCreature implements Ageable {
      * @param uuid             The UUID of the entity.
      * @param defaultMaxHealth The default max health of the entity.
      */
-    public MokkitAgeable(final @NonNull MokkitServer server, final @NonNull String name,
-                         final @NonNull Location location, final @NonNull UUID uuid,
-                         final double defaultMaxHealth) {
+    protected MokkitAgeable(final @NonNull MokkitServer server, final @NonNull String name,
+                            final @NonNull Location location, final @NonNull UUID uuid, final double defaultMaxHealth) {
         super(server, name, location, uuid, defaultMaxHealth);
     }
 
@@ -52,13 +51,13 @@ public abstract class MokkitAgeable extends MokkitCreature implements Ageable {
     }
 
     @Override
-    public boolean canBreed() {
+    public void setAge(final int age) {
         // TODO
         throw new UnsupportedMockException();
     }
 
     @Override
-    public void setAge(final int age) {
+    public boolean canBreed() {
         // TODO
         throw new UnsupportedMockException();
     }

@@ -29,8 +29,7 @@ public class CancelledByEventException extends RuntimeException {
     /**
      * The event that cancelled the action.
      */
-    private @Getter
-    final Event cancelledEvent;
+    private @Getter final Event cancelledEvent;
 
     /**
      * Constructor.

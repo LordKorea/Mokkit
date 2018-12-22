@@ -42,11 +42,13 @@ public class MokkitBukkitScheduler implements BukkitScheduler {
      */
     private final PriorityQueue<MokkitBukkitTask> schedulerQueue =
             new PriorityQueue<>(Comparator.comparingLong(MokkitBukkitTask::getTargetTick));
+
     /**
      * The current tick.
      */
     private @Getter
     long currentTick = 0L;
+
     /**
      * The next task ID.
      */

@@ -22,7 +22,7 @@ import de.fuchspfoten.mokkit.internal.exception.UnsupportedMockException;
 import lombok.NonNull;
 import org.bukkit.Location;
 import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Villager;
+import org.bukkit.entity.Villager.Profession;
 import org.bukkit.entity.Zombie;
 
 import java.util.UUID;
@@ -76,18 +76,6 @@ public class MokkitZombie extends MokkitMonster implements Zombie {
     }
 
     @Override
-    public Villager.Profession getVillagerProfession() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setVillagerProfession(final Villager.Profession profession) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
     public boolean isVillager() {
         // TODO
         throw new UnsupportedMockException();
@@ -95,6 +83,18 @@ public class MokkitZombie extends MokkitMonster implements Zombie {
 
     @Override
     public void setVillager(final boolean flag) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public Profession getVillagerProfession() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void setVillagerProfession(final Profession profession) {
         // TODO
         throw new UnsupportedMockException();
     }

@@ -55,13 +55,13 @@ public class MokkitCreeper extends MokkitMonster implements Creeper {
     }
 
     @Override
-    public int getExplosionRadius() {
+    public void setPowered(final boolean value) {
         // TODO
         throw new UnsupportedMockException();
     }
 
     @Override
-    public void setPowered(final boolean value) {
+    public int getExplosionRadius() {
         // TODO
         throw new UnsupportedMockException();
     }
@@ -83,6 +83,4 @@ public class MokkitCreeper extends MokkitMonster implements Creeper {
         // TODO
         throw new UnsupportedMockException();
     }
-
-
 }

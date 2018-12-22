@@ -38,9 +38,10 @@ import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
-import org.bukkit.event.inventory.InventoryType;
+import org.bukkit.event.inventory.InventoryType.SlotType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryView;
+import org.bukkit.inventory.InventoryView.Property;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.MainHand;
 import org.bukkit.inventory.Merchant;
@@ -61,28 +62,22 @@ public abstract class MokkitHumanEntity extends MokkitLivingEntity implements Hu
     /**
      * The inventory of the human entity.
      */
-    private @Getter
-    final PlayerInventory inventory = new MokkitPlayerInventory(this);
+    private @Getter final PlayerInventory inventory = new MokkitPlayerInventory(this);
 
     /**
      * The game mode of the human entity.
      */
-    private @Getter
-    @Setter
-    GameMode gameMode = GameMode.SURVIVAL;
+    private @Getter @Setter GameMode gameMode = GameMode.SURVIVAL;
 
     /**
      * The currently opened inventory.
      */
-    private @Getter
-    InventoryView openInventory;
+    private @Getter InventoryView openInventory;
 
     /**
      * The item on the cursor.
      */
-    private @Getter
-    @Setter
-    ItemStack itemOnCursor;
+    private @Getter @Setter ItemStack itemOnCursor;
 
     /**
      * Constructor.
@@ -92,8 +87,8 @@ public abstract class MokkitHumanEntity extends MokkitLivingEntity implements Hu
      * @param location The location the entity is at.
      * @param uuid     The UUID of the entity.
      */
-    public MokkitHumanEntity(final @NonNull MokkitServer server, final @NonNull String name,
-                             final @NonNull Location location, final @NonNull UUID uuid) {
+    protected MokkitHumanEntity(final @NonNull MokkitServer server, final @NonNull String name,
+                                final @NonNull Location location, final @NonNull UUID uuid) {
         super(server, name, location, uuid, 20.0);
     }
 
@@ -101,12 +96,12 @@ public abstract class MokkitHumanEntity extends MokkitLivingEntity implements Hu
      * Consumes an item from the main hand.
      */
     protected void consumeItemInMainHand() {
-        final ItemStack nextItem = getInventory().getItemInMainHand();
+        final ItemStack nextItem = inventory.getItemInMainHand();
         if (nextItem.getAmount() == 1) {
-            getInventory().setItemInMainHand(null);
+            inventory.setItemInMainHand(null);
         } else {
             nextItem.setAmount(nextItem.getAmount() - 1);
-            getInventory().setItemInMainHand(nextItem);
+            inventory.setItemInMainHand(nextItem);
         }
     }
 
@@ -123,7 +118,7 @@ public abstract class MokkitHumanEntity extends MokkitLivingEntity implements Hu
     }
 
     @Override
-    public boolean setWindowProperty(final InventoryView.Property prop, final int value) {
+    public boolean setWindowProperty(final Property prop, final int value) {
         // TODO
         throw new UnsupportedMockException();
     }
@@ -184,12 +179,12 @@ public abstract class MokkitHumanEntity extends MokkitLivingEntity implements Hu
 
     @Override
     public ItemStack getItemInHand() {
-        return getInventory().getItemInMainHand();
+        return inventory.getItemInMainHand();
     }
 
     @Override
     public void setItemInHand(final ItemStack item) {
-        getInventory().setItemInMainHand(item);
+        inventory.setItemInMainHand(item);
     }
 
     @Override
@@ -277,6 +272,7 @@ public abstract class MokkitHumanEntity extends MokkitLivingEntity implements Hu
     /**
      * The class of the control object.
      */
+    @SuppressWarnings("ClassNameSameAsAncestorName")
     public class Mokkit extends MokkitLivingEntity.Mokkit {
 
         /**
@@ -292,16 +288,16 @@ public abstract class MokkitHumanEntity extends MokkitLivingEntity implements Hu
             }
             assert 0 <= slot && slot < openInventory.getBottomInventory().getSize() : "invalid slot " + slot;
 
-            final boolean armor = 36 <= slot && slot <= 39;
-            final boolean offHand = slot == 40;
             final boolean hotbar = slot < 9;
             final int rawSlot;
             if (hotbar) {
                 rawSlot = slot + 27;
             } else {
+                final boolean armor = 36 <= slot && slot <= 39;
                 if (armor) {
                     rawSlot = 44 - slot;
                 } else {
+                    final boolean offHand = slot == 40;
                     if (offHand) {
                         rawSlot = slot + 5;
                     } else {
@@ -341,18 +337,19 @@ public abstract class MokkitHumanEntity extends MokkitLivingEntity implements Hu
 
             final boolean isBottom = slot >= openInventory.getTopInventory().getSize();
             final int convertedSlot = openInventory.convertSlot(slot);
-            final Inventory inventory = isBottom ? openInventory.getBottomInventory() : openInventory.getTopInventory();
+            final Inventory theInventory = isBottom ? openInventory.getBottomInventory()
+                    : openInventory.getTopInventory();
 
-            final InventoryType.SlotType slotType;
+            final SlotType slotType;
             if (isBottom && slot < 5) {
                 // Player crafting.
-                slotType = (slot == 0) ? InventoryType.SlotType.RESULT : InventoryType.SlotType.CRAFTING;
+                slotType = (slot == 0) ? SlotType.RESULT : SlotType.CRAFTING;
             } else {
-                slotType = ((MokkitInventory) inventory).getSlotType(convertedSlot);
+                slotType = ((MokkitInventory) theInventory).getSlotType(convertedSlot);
             }
 
             final ItemStack cursor = openInventory.getCursor();
-            final ItemStack current = inventory.getItem(convertedSlot);
+            final ItemStack current = theInventory.getItem(convertedSlot);
             final boolean hasItem = current != null;
             final boolean hasCursor = cursor != null;
             final InventoryAction action;
@@ -410,16 +407,16 @@ public abstract class MokkitHumanEntity extends MokkitLivingEntity implements Hu
                 case NOTHING:
                     break;
                 case PICKUP_ALL:
-                    openInventory.setCursor(inventory.getItem(convertedSlot));
-                    inventory.setItem(convertedSlot, null);
+                    openInventory.setCursor(theInventory.getItem(convertedSlot));
+                    theInventory.setItem(convertedSlot, null);
                     break;
                 case SWAP_WITH_CURSOR:
                     final ItemStack tmp = openInventory.getCursor();
-                    openInventory.setCursor(inventory.getItem(convertedSlot));
-                    inventory.setItem(convertedSlot, tmp);
+                    openInventory.setCursor(theInventory.getItem(convertedSlot));
+                    theInventory.setItem(convertedSlot, tmp);
                     break;
                 case PLACE_ALL:
-                    inventory.setItem(convertedSlot, openInventory.getCursor());
+                    theInventory.setItem(convertedSlot, openInventory.getCursor());
                     openInventory.setCursor(null);
                     break;
                 case PLACE_SOME:
@@ -439,6 +436,7 @@ public abstract class MokkitHumanEntity extends MokkitLivingEntity implements Hu
                 case CLONE_STACK:
                 case COLLECT_TO_CURSOR:*/
                 case UNKNOWN:
+                default:
                     throw new UnsupportedMockException();
             }
         }
