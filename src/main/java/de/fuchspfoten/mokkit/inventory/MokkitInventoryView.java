@@ -34,20 +34,28 @@ public class MokkitInventoryView extends InventoryView {
     /**
      * The top inventory in the view.
      */
-    private @NonNull @Getter final Inventory topInventory;
+    private @NonNull
+    @Getter
+    final Inventory topInventory;
 
     /**
      * The bottom inventory in the view.
      */
-    private @NonNull @Getter final Inventory bottomInventory;
+    private @NonNull
+    @Getter
+    final Inventory bottomInventory;
 
     /**
      * The player viewing the view.
      */
-    private @NonNull @Getter final HumanEntity player;
+    private @NonNull
+    @Getter
+    final HumanEntity player;
 
     /**
      * The type of the view.
      */
-    private @NonNull @Getter final InventoryType type;
+    private @NonNull
+    @Getter
+    final InventoryType type;
 }

@@ -38,29 +38,114 @@ import java.util.concurrent.Future;
 public class MokkitBukkitScheduler implements BukkitScheduler {
 
     /**
+     * The scheduler's queue.
+     */
+    private final PriorityQueue<MokkitBukkitTask> schedulerQueue =
+            new PriorityQueue<>(Comparator.comparingLong(MokkitBukkitTask::getTargetTick));
+    /**
      * The current tick.
      */
-    private @Getter long currentTick = 0L;
-
+    private @Getter
+    long currentTick = 0L;
     /**
      * The next task ID.
      */
     private int taskId = 0;
 
     /**
-     * The scheduler's queue.
+     * Runs a tick.
      */
-    private final PriorityQueue<MokkitBukkitTask> schedulerQueue =
-            new PriorityQueue<>(Comparator.comparingLong(MokkitBukkitTask::getTargetTick));
+    public void tick() {
+        // Run the tasks.
+        do {
+            final MokkitBukkitTask nextTask = schedulerQueue.peek();
+            if (nextTask == null) {
+                // No tasks.
+                break;
+            }
 
-    @Override
-    public <T> Future<T> callSyncMethod(final Plugin plugin, final Callable<T> task) {
-        // TODO
-        throw new UnsupportedMockException();
+            if (nextTask.getTargetTick() > currentTick) {
+                // No tasks for the current tick.
+                break;
+            }
+
+            // Remove the task.
+            schedulerQueue.poll();
+            if (nextTask.isCancelled()) {
+                // Task is cancelled.
+                continue;
+            }
+
+            // Run the task.
+            nextTask.getRunnable().run();
+        } while (true);
+
+        currentTick++;
     }
 
     @Override
-    public void cancelAllTasks() {
+    public int scheduleSyncDelayedTask(final @NonNull Plugin plugin, final @NonNull Runnable task, final long delay) {
+        final MokkitBukkitTask internTask = new MokkitBukkitTask(currentTick + delay, task, taskId, plugin,
+                true);
+        schedulerQueue.add(internTask);
+        return taskId++;
+    }
+
+    @Override
+    public int scheduleSyncDelayedTask(final @NonNull Plugin plugin, final @NonNull BukkitRunnable task,
+                                       final long delay) {
+        return scheduleSyncDelayedTask(plugin, (Runnable) task, delay);
+    }
+
+    @Override
+    public int scheduleSyncDelayedTask(final @NonNull Plugin plugin, final @NonNull Runnable task) {
+        return scheduleSyncDelayedTask(plugin, task, -1);
+    }
+
+    @Override
+    public int scheduleSyncDelayedTask(final @NonNull Plugin plugin, final @NonNull BukkitRunnable task) {
+        return scheduleSyncDelayedTask(plugin, (Runnable) task);
+    }
+
+    @Override
+    public int scheduleSyncRepeatingTask(final @NonNull Plugin plugin, final @NonNull Runnable task, final long delay,
+                                         final long period) {
+        return scheduleSyncDelayedTask(plugin, new Runnable() {
+            @Override
+            public void run() {
+                task.run();
+                scheduleSyncDelayedTask(plugin, this, period);
+            }
+        }, delay);
+    }
+
+    @Override
+    public int scheduleSyncRepeatingTask(final @NonNull Plugin plugin, final @NonNull BukkitRunnable task,
+                                         final long delay, final long period) {
+        return scheduleSyncRepeatingTask(plugin, (Runnable) task, delay, period);
+    }
+
+    @Override
+    public int scheduleAsyncDelayedTask(final @NonNull Plugin plugin, final @NonNull Runnable task, final long delay) {
+        // Just do it in sync.
+        return scheduleSyncDelayedTask(plugin, task, delay);
+    }
+
+    @Override
+    public int scheduleAsyncDelayedTask(final @NonNull Plugin plugin, final @NonNull Runnable task) {
+        // Just do it in sync.
+        return scheduleSyncDelayedTask(plugin, task);
+    }
+
+    @Override
+    public int scheduleAsyncRepeatingTask(final @NonNull Plugin plugin, final @NonNull Runnable task, final long delay,
+                                          final long period) {
+        // Just do it in sync.
+        return scheduleSyncRepeatingTask(plugin, task, delay, period);
+    }
+
+    @Override
+    public <T> Future<T> callSyncMethod(final Plugin plugin, final Callable<T> task) {
         // TODO
         throw new UnsupportedMockException();
     }
@@ -78,13 +163,7 @@ public class MokkitBukkitScheduler implements BukkitScheduler {
     }
 
     @Override
-    public List<BukkitWorker> getActiveWorkers() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public List<BukkitTask> getPendingTasks() {
+    public void cancelAllTasks() {
         // TODO
         throw new UnsupportedMockException();
     }
@@ -97,6 +176,18 @@ public class MokkitBukkitScheduler implements BukkitScheduler {
 
     @Override
     public boolean isQueued(final int taskId) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public List<BukkitWorker> getActiveWorkers() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public List<BukkitTask> getPendingTasks() {
         // TODO
         throw new UnsupportedMockException();
     }
@@ -180,97 +271,5 @@ public class MokkitBukkitScheduler implements BukkitScheduler {
                                                  final long period) throws IllegalArgumentException {
         // TODO
         throw new UnsupportedMockException();
-    }
-
-    @Override
-    public int scheduleAsyncDelayedTask(final @NonNull Plugin plugin, final @NonNull Runnable task, final long delay) {
-        // Just do it in sync.
-        return scheduleSyncDelayedTask(plugin, task, delay);
-    }
-
-    @Override
-    public int scheduleAsyncDelayedTask(final @NonNull Plugin plugin, final @NonNull Runnable task) {
-        // Just do it in sync.
-        return scheduleSyncDelayedTask(plugin, task);
-    }
-
-    @Override
-    public int scheduleAsyncRepeatingTask(final @NonNull Plugin plugin, final @NonNull Runnable task, final long delay,
-                                          final long period) {
-        // Just do it in sync.
-        return scheduleSyncRepeatingTask(plugin, task, delay, period);
-    }
-
-    @Override
-    public int scheduleSyncDelayedTask(final @NonNull Plugin plugin, final @NonNull Runnable task, final long delay) {
-        final MokkitBukkitTask internTask = new MokkitBukkitTask(currentTick + delay, task, taskId, plugin,
-                true);
-        schedulerQueue.add(internTask);
-        return taskId++;
-    }
-
-    @Override
-    public int scheduleSyncDelayedTask(final @NonNull Plugin plugin, final @NonNull BukkitRunnable task,
-                                       final long delay) {
-        return scheduleSyncDelayedTask(plugin, (Runnable) task, delay);
-    }
-
-    @Override
-    public int scheduleSyncDelayedTask(final @NonNull Plugin plugin, final @NonNull Runnable task) {
-        return scheduleSyncDelayedTask(plugin, task, -1);
-    }
-
-    @Override
-    public int scheduleSyncDelayedTask(final @NonNull Plugin plugin, final @NonNull BukkitRunnable task) {
-        return scheduleSyncDelayedTask(plugin, (Runnable) task);
-    }
-
-    @Override
-    public int scheduleSyncRepeatingTask(final @NonNull Plugin plugin, final @NonNull Runnable task, final long delay,
-                                         final long period) {
-        return scheduleSyncDelayedTask(plugin, new Runnable() {
-            @Override
-            public void run() {
-                task.run();
-                scheduleSyncDelayedTask(plugin, this, period);
-            }
-        }, delay);
-    }
-
-    @Override
-    public int scheduleSyncRepeatingTask(final @NonNull Plugin plugin, final @NonNull BukkitRunnable task,
-                                         final long delay, final long period) {
-        return scheduleSyncRepeatingTask(plugin, (Runnable) task, delay, period);
-    }
-
-    /**
-     * Runs a tick.
-     */
-    public void tick() {
-        // Run the tasks.
-        do {
-            final MokkitBukkitTask nextTask = schedulerQueue.peek();
-            if (nextTask == null) {
-                // No tasks.
-                break;
-            }
-
-            if (nextTask.getTargetTick() > currentTick) {
-                // No tasks for the current tick.
-                break;
-            }
-
-            // Remove the task.
-            schedulerQueue.poll();
-            if (nextTask.isCancelled()) {
-                // Task is cancelled.
-                continue;
-            }
-
-            // Run the task.
-            nextTask.getRunnable().run();
-        } while (true);
-
-        currentTick++;
     }
 }

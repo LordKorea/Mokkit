@@ -46,13 +46,13 @@ public abstract class MokkitAgeable extends MokkitCreature implements Ageable {
     }
 
     @Override
-    public boolean canBreed() {
+    public int getAge() {
         // TODO
         throw new UnsupportedMockException();
     }
 
     @Override
-    public int getAge() {
+    public boolean canBreed() {
         // TODO
         throw new UnsupportedMockException();
     }
@@ -62,6 +62,7 @@ public abstract class MokkitAgeable extends MokkitCreature implements Ageable {
         // TODO
         throw new UnsupportedMockException();
     }
+
 
     @Override
     public boolean getAgeLock() {

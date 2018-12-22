@@ -56,12 +56,6 @@ public class MokkitLlama extends MokkitChestedHorse implements Llama {
     }
 
     @Override
-    public LlamaInventory getInventory() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
     public int getStrength() {
         // TODO
         throw new UnsupportedMockException();
@@ -69,6 +63,12 @@ public class MokkitLlama extends MokkitChestedHorse implements Llama {
 
     @Override
     public void setStrength(final int strength) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public LlamaInventory getInventory() {
         // TODO
         throw new UnsupportedMockException();
     }

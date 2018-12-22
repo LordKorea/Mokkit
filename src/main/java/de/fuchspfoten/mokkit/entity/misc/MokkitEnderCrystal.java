@@ -49,23 +49,6 @@ public class MokkitEnderCrystal extends MokkitEntity implements EnderCrystal {
     }
 
     @Override
-    public Location getBeamTarget() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setBeamTarget(final Location location) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public EntityType getType() {
-        return EntityType.ENDER_CRYSTAL;
-    }
-
-    @Override
     public boolean isShowingBottom() {
         // TODO
         throw new UnsupportedMockException();
@@ -73,6 +56,18 @@ public class MokkitEnderCrystal extends MokkitEntity implements EnderCrystal {
 
     @Override
     public void setShowingBottom(final boolean showing) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public Location getBeamTarget() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void setBeamTarget(final Location location) {
         // TODO
         throw new UnsupportedMockException();
     }
@@ -96,5 +91,10 @@ public class MokkitEnderCrystal extends MokkitEntity implements EnderCrystal {
         // TODO perform the explosion.
 
         return dmg;
+    }
+
+    @Override
+    public EntityType getType() {
+        return EntityType.ENDER_CRYSTAL;
     }
 }

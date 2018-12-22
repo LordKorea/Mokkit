@@ -32,17 +32,22 @@ import org.bukkit.inventory.meta.ItemMeta;
 public class MokkitItemFactory implements ItemFactory {
 
     @Override
-    public ItemMeta asMetaFor(final @NonNull ItemMeta meta, final @NonNull ItemStack stack)
-            throws IllegalArgumentException {
+    public ItemMeta getItemMeta(final @NonNull Material material) {
         // TODO: subclasses?
-        return meta;
+        return new MokkitItemMeta();
     }
 
     @Override
-    public ItemMeta asMetaFor(final @NonNull ItemMeta meta, final @NonNull Material material)
+    public boolean isApplicable(final ItemMeta meta, final ItemStack stack) throws IllegalArgumentException {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public boolean isApplicable(final @NonNull ItemMeta meta, final @NonNull Material material)
             throws IllegalArgumentException {
         // TODO: subclasses?
-        return meta;
+        return true;
     }
 
     @Override
@@ -60,27 +65,22 @@ public class MokkitItemFactory implements ItemFactory {
     }
 
     @Override
+    public ItemMeta asMetaFor(final @NonNull ItemMeta meta, final @NonNull ItemStack stack)
+            throws IllegalArgumentException {
+        // TODO: subclasses?
+        return meta;
+    }
+
+    @Override
+    public ItemMeta asMetaFor(final @NonNull ItemMeta meta, final @NonNull Material material)
+            throws IllegalArgumentException {
+        // TODO: subclasses?
+        return meta;
+    }
+
+    @Override
     public Color getDefaultLeatherColor() {
         // TODO
         throw new UnsupportedMockException();
-    }
-
-    @Override
-    public ItemMeta getItemMeta(final @NonNull Material material) {
-        // TODO: subclasses?
-        return new MokkitItemMeta();
-    }
-
-    @Override
-    public boolean isApplicable(final ItemMeta meta, final ItemStack stack) throws IllegalArgumentException {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public boolean isApplicable(final @NonNull ItemMeta meta, final @NonNull Material material)
-            throws IllegalArgumentException {
-        // TODO: subclasses?
-        return true;
     }
 }

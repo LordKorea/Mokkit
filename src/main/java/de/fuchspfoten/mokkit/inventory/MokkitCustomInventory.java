@@ -19,6 +19,7 @@ package de.fuchspfoten.mokkit.inventory;
 
 import lombok.NonNull;
 import org.bukkit.event.inventory.InventoryType;
+import org.bukkit.event.inventory.InventoryType.SlotType;
 import org.bukkit.inventory.InventoryHolder;
 
 /**
@@ -38,7 +39,7 @@ public class MokkitCustomInventory extends MokkitInventory {
     }
 
     @Override
-    public InventoryType.SlotType getSlotType(final int slot) {
-        return InventoryType.SlotType.CONTAINER;
+    public SlotType getSlotType(final int slot) {
+        return SlotType.CONTAINER;
     }
 }

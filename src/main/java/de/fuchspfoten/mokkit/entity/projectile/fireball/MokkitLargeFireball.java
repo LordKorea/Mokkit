@@ -45,11 +45,6 @@ public class MokkitLargeFireball extends MokkitFireball implements LargeFireball
     }
 
     @Override
-    public EntityType getType() {
-        return EntityType.FIREBALL;
-    }
-
-    @Override
     public double onDamaged(final @NonNull Entity damager, final double damage) {
         final double dmg = super.onDamaged(damager, damage);
 
@@ -57,5 +52,10 @@ public class MokkitLargeFireball extends MokkitFireball implements LargeFireball
         final Vector newVelo = getLocation().toVector().subtract(damager.getLocation().toVector());
         setVelocity(newVelo.normalize().multiply(getVelocity().length()));
         return dmg;
+    }
+
+    @Override
+    public EntityType getType() {
+        return EntityType.FIREBALL;
     }
 }

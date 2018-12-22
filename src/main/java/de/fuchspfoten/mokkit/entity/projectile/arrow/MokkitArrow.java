@@ -68,12 +68,6 @@ public class MokkitArrow extends MokkitProjectile implements Arrow {
     }
 
     @Override
-    public Block getAttachedBlock() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
     public int getKnockbackStrength() {
         // TODO
         throw new UnsupportedMockException();
@@ -81,6 +75,30 @@ public class MokkitArrow extends MokkitProjectile implements Arrow {
 
     @Override
     public void setKnockbackStrength(final int knockbackStrength) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public boolean isCritical() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void setCritical(final boolean critical) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public boolean isInBlock() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public Block getAttachedBlock() {
         // TODO
         throw new UnsupportedMockException();
     }
@@ -103,19 +121,7 @@ public class MokkitArrow extends MokkitProjectile implements Arrow {
     }
 
     @Override
-    public boolean isCritical() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setCritical(final boolean critical) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public boolean isInBlock() {
+    public Arrow.Spigot spigot() {
         // TODO
         throw new UnsupportedMockException();
     }
@@ -123,12 +129,6 @@ public class MokkitArrow extends MokkitProjectile implements Arrow {
     @Override
     public Mokkit mokkit() {
         return mokkit;
-    }
-
-    @Override
-    public Arrow.Spigot spigot() {
-        // TODO
-        throw new UnsupportedMockException();
     }
 
     /**

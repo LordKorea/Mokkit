@@ -44,7 +44,9 @@ public abstract class MokkitProjectile extends MokkitEntity implements Projectil
     /**
      * The shooter of this projectile.
      */
-    private @Getter @Setter ProjectileSource shooter;
+    private @Getter
+    @Setter
+    ProjectileSource shooter;
 
     /**
      * Constructor.
@@ -65,6 +67,12 @@ public abstract class MokkitProjectile extends MokkitEntity implements Projectil
         throw new UnsupportedMockException();
     }
 
+    @Override
+    public void setBounce(final boolean doesBounce) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
     /**
      * Getter for the control object.
      *
@@ -73,12 +81,6 @@ public abstract class MokkitProjectile extends MokkitEntity implements Projectil
     @Override
     public Mokkit mokkit() {
         return mokkit;
-    }
-
-    @Override
-    public void setBounce(final boolean doesBounce) {
-        // TODO
-        throw new UnsupportedMockException();
     }
 
     /**

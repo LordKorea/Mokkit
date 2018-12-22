@@ -35,7 +35,9 @@ public abstract class MokkitCreature extends MokkitLivingEntity implements Creat
     /**
      * The target of this entity.
      */
-    private @Getter @Setter LivingEntity target;
+    private @Getter
+    @Setter
+    LivingEntity target;
 
     /**
      * Constructor.

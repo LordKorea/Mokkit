@@ -50,63 +50,6 @@ public class ProtectionDomainFilteringResourceLoader extends ClassLoader {
                 + associatedPlugin.getSimpleName() + " is " + pathPrefix);
     }
 
-    @Override
-    public void clearAssertionStatus() {
-        throw new UnsupportedOperationException("Mock class loader can only provide resources!");
-    }
-
-    @Override
-    public URL getResource(final String name) {
-        try {
-            final Enumeration<URL> candidates = getResources(name);
-            if (!candidates.hasMoreElements()) {
-                return null;
-            }
-            return candidates.nextElement();
-        } catch (final IOException ex) {
-            throw new InternalException("could not get resources", ex);
-        }
-    }
-
-    @Override
-    public InputStream getResourceAsStream(final String name) {
-        try {
-            final URL resUrl = getResource(name);
-            if (resUrl != null) {
-                return resUrl.openStream();
-            }
-            return null;
-        } catch (final IOException ex) {
-            throw new InternalException("could not open resource", ex);
-        }
-    }
-
-    @Override
-    public Enumeration<URL> getResources(final String name) throws IOException {
-        final Enumeration<URL> unfiltered = getParent().getResources(name);
-        return new FilterURLEnumeration(unfiltered);
-    }
-
-    @Override
-    public Class<?> loadClass(final String name) {
-        throw new UnsupportedOperationException("Mock class loader can only provide resources!");
-    }
-
-    @Override
-    public void setClassAssertionStatus(final String className, final boolean enabled) {
-        throw new UnsupportedOperationException("Mock class loader can only provide resources!");
-    }
-
-    @Override
-    public void setDefaultAssertionStatus(final boolean enabled) {
-        throw new UnsupportedOperationException("Mock class loader can only provide resources!");
-    }
-
-    @Override
-    public void setPackageAssertionStatus(final String packageName, final boolean enabled) {
-        throw new UnsupportedOperationException("Mock class loader can only provide resources!");
-    }
-
     /**
      * Strips jar: and file: protocols from the URL.
      *
@@ -126,6 +69,63 @@ public class ProtectionDomainFilteringResourceLoader extends ClassLoader {
         return repr;
     }
 
+    @Override
+    public Class<?> loadClass(final String name) {
+        throw new UnsupportedOperationException("Mock class loader can only provide resources!");
+    }
+
+    @Override
+    public URL getResource(final String name) {
+        try {
+            final Enumeration<URL> candidates = getResources(name);
+            if (!candidates.hasMoreElements()) {
+                return null;
+            }
+            return candidates.nextElement();
+        } catch (final IOException ex) {
+            throw new InternalException("could not get resources", ex);
+        }
+    }
+
+    @Override
+    public Enumeration<URL> getResources(final String name) throws IOException {
+        final Enumeration<URL> unfiltered = getParent().getResources(name);
+        return new FilterURLEnumeration(unfiltered);
+    }
+
+    @Override
+    public InputStream getResourceAsStream(final String name) {
+        try {
+            final URL resUrl = getResource(name);
+            if (resUrl != null) {
+                return resUrl.openStream();
+            }
+            return null;
+        } catch (final IOException ex) {
+            throw new InternalException("could not open resource", ex);
+        }
+    }
+
+    @Override
+    public void setDefaultAssertionStatus(final boolean enabled) {
+        throw new UnsupportedOperationException("Mock class loader can only provide resources!");
+    }
+
+    @Override
+    public void setPackageAssertionStatus(final String packageName, final boolean enabled) {
+        throw new UnsupportedOperationException("Mock class loader can only provide resources!");
+    }
+
+    @Override
+    public void setClassAssertionStatus(final String className, final boolean enabled) {
+        throw new UnsupportedOperationException("Mock class loader can only provide resources!");
+    }
+
+    @Override
+    public void clearAssertionStatus() {
+        throw new UnsupportedOperationException("Mock class loader can only provide resources!");
+    }
+
     /**
      * A URL enumeration that filters.
      */
@@ -141,26 +141,6 @@ public class ProtectionDomainFilteringResourceLoader extends ClassLoader {
          * The next element.
          */
         private URL nextElement;
-
-        @Override
-        public boolean hasMoreElements() {
-            if (nextElement != null) {
-                return true;
-            }
-
-            // Cache the next element, if possible.
-            fetchNextElement();
-            return nextElement != null;
-        }
-
-        @Override
-        public URL nextElement() {
-            hasMoreElements();
-            if (nextElement != null) {
-                return nextElement;
-            }
-            throw new NoSuchElementException();
-        }
 
         /**
          * Fetches the next element that matches for the protection domain.
@@ -180,6 +160,26 @@ public class ProtectionDomainFilteringResourceLoader extends ClassLoader {
                     return;
                 }
             }
+        }
+
+        @Override
+        public boolean hasMoreElements() {
+            if (nextElement != null) {
+                return true;
+            }
+
+            // Cache the next element, if possible.
+            fetchNextElement();
+            return nextElement != null;
+        }
+
+        @Override
+        public URL nextElement() {
+            hasMoreElements();
+            if (nextElement != null) {
+                return nextElement;
+            }
+            throw new NoSuchElementException();
         }
     }
 }

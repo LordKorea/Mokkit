@@ -267,7 +267,8 @@ public class MokkitWorld implements World, Tickable {
     /**
      * The name of the world.
      */
-    private @Getter final String name;
+    private @Getter
+    final String name;
 
     /**
      * The loaded chunks of the world.
@@ -290,110 +291,6 @@ public class MokkitWorld implements World, Tickable {
     }
 
     @Override
-    public boolean canGenerateStructures() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public boolean createExplosion(final double x, final double y, final double z, final float power) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public boolean createExplosion(final double x, final double y, final double z, final float power,
-                                   final boolean setFire) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public boolean createExplosion(final double x, final double y, final double z, final float power,
-                                   final boolean setFire, final boolean breakBlocks) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public boolean createExplosion(final Location loc, final float power) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public boolean createExplosion(final Location loc, final float power, final boolean setFire) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public Item dropItem(final Location location, final ItemStack item) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public Item dropItemNaturally(final Location location, final ItemStack item) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public boolean generateTree(final Location location, final TreeType type) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public boolean generateTree(final Location loc, final TreeType type, final BlockChangeDelegate delegate) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public boolean getAllowAnimals() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public boolean getAllowMonsters() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public int getAmbientSpawnLimit() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setAmbientSpawnLimit(final int limit) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public int getAnimalSpawnLimit() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setAnimalSpawnLimit(final int limit) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public Biome getBiome(final int x, final int z) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
     public Block getBlockAt(final int x, final int y, final int z) {
         assert 0 <= y && y < getMaxHeight() : "invalid y position " + y;
         final Chunk chunk = getChunkAt(x >> 4, z >> 4);
@@ -405,6 +302,12 @@ public class MokkitWorld implements World, Tickable {
     @Override
     public Block getBlockAt(final @NonNull Location location) {
         return getBlockAt(location.getBlockX(), location.getBlockY(), location.getBlockZ());
+    }
+
+    @Override
+    public boolean canGenerateStructures() {
+        // TODO
+        throw new UnsupportedMockException();
     }
 
     @Override
@@ -420,8 +323,27 @@ public class MokkitWorld implements World, Tickable {
     }
 
     @Override
-    public Chunk getChunkAt(final @NonNull Location location) {
-        return getChunkAt(location.getBlockX() >> 4, location.getBlockZ() >> 4);
+    public int getHighestBlockYAt(final int x, final int z) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public int getHighestBlockYAt(final Location location) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public Block getHighestBlockAt(final int x, final int z) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public Block getHighestBlockAt(final Location location) {
+        // TODO
+        throw new UnsupportedMockException();
     }
 
     @Override
@@ -434,31 +356,97 @@ public class MokkitWorld implements World, Tickable {
     }
 
     @Override
+    public Chunk getChunkAt(final @NonNull Location location) {
+        return getChunkAt(location.getBlockX() >> 4, location.getBlockZ() >> 4);
+    }
+
+    @Override
     public Chunk getChunkAt(final @NonNull Block block) {
         return getChunkAt(block.getLocation());
     }
 
     @Override
-    public Difficulty getDifficulty() {
+    public boolean isChunkLoaded(final Chunk chunk) {
         // TODO
         throw new UnsupportedMockException();
     }
 
     @Override
-    public void setDifficulty(final Difficulty difficulty) {
+    public Chunk[] getLoadedChunks() {
         // TODO
         throw new UnsupportedMockException();
     }
 
     @Override
-    public ChunkSnapshot getEmptyChunkSnapshot(final int x, final int z, final boolean includeBiome,
-                                               final boolean includeBiomeTempRain) {
+    public void loadChunk(final Chunk chunk) {
         // TODO
         throw new UnsupportedMockException();
     }
 
     @Override
-    public List<Entity> getEntities() {
+    public boolean isChunkLoaded(final int x, final int z) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public int getAmbientSpawnLimit() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public boolean isChunkInUse(final int x, final int z) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+    @Override
+    public void loadChunk(final int x, final int z) {
+        loadChunk(x, z, true);
+    }
+
+    @Override
+    public void setAmbientSpawnLimit(final int limit) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public boolean unloadChunk(final Chunk chunk) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+    @Override
+    public boolean unloadChunk(final int x, final int z) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public int getAnimalSpawnLimit() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public boolean unloadChunk(final int x, final int z, final boolean save) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+    @Override
+    public boolean unloadChunk(final int x, final int z, final boolean save, final boolean safe) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void setAnimalSpawnLimit(final int limit) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public boolean unloadChunkRequest(final int x, final int z) {
         // TODO
         throw new UnsupportedMockException();
     }
@@ -480,11 +468,100 @@ public class MokkitWorld implements World, Tickable {
     }
 
     @Override
-    public <T extends Entity> Collection<T> getEntitiesByClass(final @NonNull Class<T> cls) {
-        return entities.stream()
-                .filter(e -> cls.isAssignableFrom(e.getClass()))
-                .map(cls::cast)
-                .collect(Collectors.toList());
+    public boolean unloadChunkRequest(final int x, final int z, final boolean safe) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public boolean regenerateChunk(final int x, final int z) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public boolean refreshChunk(final int x, final int z) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public Item dropItem(final Location location, final ItemStack item) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public Item dropItemNaturally(final Location location, final ItemStack item) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public Arrow spawnArrow(final @NonNull Location location, final @NonNull Vector direction, final float speed,
+                            final float spread) {
+        return spawnArrow(location, direction, speed, spread, Arrow.class);
+    }
+
+    @Override
+    public <T extends Arrow> T spawnArrow(final @NonNull Location location, final @NonNull Vector direction,
+                                          final float speed, final float spread, final @NonNull Class<T> clazz) {
+        return spawn(location, clazz, arrow -> {
+            arrow.setVelocity(direction.normalize().multiply(speed));
+            // TODO spread?
+        });
+    }
+
+    @Override
+    public boolean generateTree(final Location location, final TreeType type) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public Difficulty getDifficulty() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public boolean generateTree(final Location loc, final TreeType type, final BlockChangeDelegate delegate) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+    @Override
+    public Entity spawnEntity(final @NonNull Location loc, final @NonNull EntityType type) {
+        return spawn(loc, type.getEntityClass());
+    }
+
+    @Override
+    public void setDifficulty(final Difficulty difficulty) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public LightningStrike strikeLightning(final Location loc) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public LightningStrike strikeLightningEffect(final Location loc) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public List<Entity> getEntities() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public List<LivingEntity> getLivingEntities() {
+        // TODO
+        throw new UnsupportedMockException();
     }
 
     @SafeVarargs
@@ -498,7 +575,73 @@ public class MokkitWorld implements World, Tickable {
     }
 
     @Override
-    public Environment getEnvironment() {
+    public <T extends Entity> Collection<T> getEntitiesByClass(final @NonNull Class<T> cls) {
+        return entities.stream()
+                .filter(e -> cls.isAssignableFrom(e.getClass()))
+                .map(cls::cast)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public Collection<Entity> getEntitiesByClasses(final @NonNull Class<?>... classes) {
+        final Collection<Entity> results = new LinkedList<>();
+        for (final Class<?> clazz : classes) {
+            if (Entity.class.isAssignableFrom(clazz)) {
+                //noinspection unchecked clazz must extend Entity.
+                results.addAll(getEntitiesByClass((Class<? extends Entity>) clazz));
+            }
+        }
+        return results;
+    }
+
+    @Override
+    public List<Player> getPlayers() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public UUID getUID() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+    @Override
+    public Location getSpawnLocation() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public String getGameRuleValue(final String rule) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public boolean setSpawnLocation(final Location location) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+    @Override
+    public boolean setSpawnLocation(final int x, final int y, final int z) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public String[] getGameRules() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public long getTime() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void setTime(final long time) {
         // TODO
         throw new UnsupportedMockException();
     }
@@ -516,102 +659,7 @@ public class MokkitWorld implements World, Tickable {
     }
 
     @Override
-    public String getGameRuleValue(final String rule) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public String[] getGameRules() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public ChunkGenerator getGenerator() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public Block getHighestBlockAt(final int x, final int z) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public Block getHighestBlockAt(final Location location) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public int getHighestBlockYAt(final int x, final int z) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public int getHighestBlockYAt(final Location location) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public double getHumidity(final int x, final int z) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public boolean getKeepSpawnInMemory() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setKeepSpawnInMemory(final boolean keepLoaded) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public Set<String> getListeningPluginChannels() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public List<LivingEntity> getLivingEntities() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public Chunk[] getLoadedChunks() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public int getMaxHeight() {
-        return 256;
-    }
-
-    @Override
-    public List<MetadataValue> getMetadata(final String metadataKey) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public int getMonsterSpawnLimit() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setMonsterSpawnLimit(final int limit) {
+    public boolean hasStorm() {
         // TODO
         throw new UnsupportedMockException();
     }
@@ -631,115 +679,7 @@ public class MokkitWorld implements World, Tickable {
     }
 
     @Override
-    public boolean getPVP() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setPVP(final boolean pvp) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public List<Player> getPlayers() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public List<BlockPopulator> getPopulators() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public int getSeaLevel() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public long getSeed() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public Location getSpawnLocation() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public double getTemperature(final int x, final int z) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public int getThunderDuration() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setThunderDuration(final int duration) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public long getTicksPerAnimalSpawns() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setTicksPerAnimalSpawns(final int ticksPerAnimalSpawns) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public long getTicksPerMonsterSpawns() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setTicksPerMonsterSpawns(final int ticksPerMonsterSpawns) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public long getTime() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setTime(final long time) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public UUID getUID() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public int getWaterAnimalSpawnLimit() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setWaterAnimalSpawnLimit(final int limit) {
+    public void setStorm(final boolean hasStorm) {
         // TODO
         throw new UnsupportedMockException();
     }
@@ -757,72 +697,6 @@ public class MokkitWorld implements World, Tickable {
     }
 
     @Override
-    public WorldBorder getWorldBorder() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public File getWorldFolder() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public WorldType getWorldType() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public boolean hasMetadata(final String metadataKey) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public boolean hasStorm() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public boolean isAutoSave() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setAutoSave(final boolean value) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public boolean isChunkInUse(final int x, final int z) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public boolean isChunkLoaded(final Chunk chunk) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public boolean isChunkLoaded(final int x, final int z) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public boolean isGameRule(final String rule) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
     public boolean isThundering() {
         // TODO
         throw new UnsupportedMockException();
@@ -835,24 +709,243 @@ public class MokkitWorld implements World, Tickable {
     }
 
     @Override
-    public void loadChunk(final int x, final int z) {
-        loadChunk(x, z, true);
+    public int getThunderDuration() {
+        // TODO
+        throw new UnsupportedMockException();
     }
 
     @Override
-    public Collection<Entity> getEntitiesByClasses(final @NonNull Class<?>... classes) {
-        final Collection<Entity> results = new LinkedList<>();
-        for (final Class<?> clazz : classes) {
-            if (Entity.class.isAssignableFrom(clazz)) {
-                //noinspection unchecked clazz must extend Entity.
-                results.addAll(getEntitiesByClass((Class<? extends Entity>) clazz));
-            }
-        }
-        return results;
+    public void setThunderDuration(final int duration) {
+        // TODO
+        throw new UnsupportedMockException();
     }
 
     @Override
-    public void loadChunk(final Chunk chunk) {
+    public boolean createExplosion(final double x, final double y, final double z, final float power) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+    @Override
+    public boolean createExplosion(final double x, final double y, final double z, final float power,
+                                   final boolean setFire) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public int getMonsterSpawnLimit() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public boolean createExplosion(final double x, final double y, final double z, final float power,
+                                   final boolean setFire, final boolean breakBlocks) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+    @Override
+    public boolean createExplosion(final Location loc, final float power) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void setMonsterSpawnLimit(final int limit) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public boolean createExplosion(final Location loc, final float power, final boolean setFire) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public Environment getEnvironment() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public long getSeed() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public boolean getPVP() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void setPVP(final boolean pvp) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public ChunkGenerator getGenerator() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void save() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public List<BlockPopulator> getPopulators() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public <T extends Entity> T spawn(final @NonNull Location location, final @NonNull Class<T> clazz)
+            throws IllegalArgumentException {
+        return spawn(location, clazz, t -> {
+        });
+    }
+
+    @Override
+    public FallingBlock spawnFallingBlock(final Location location,
+                                          final MaterialData data) throws IllegalArgumentException {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public FallingBlock spawnFallingBlock(final Location location, final Material material,
+                                          final byte data) throws IllegalArgumentException {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public FallingBlock spawnFallingBlock(final Location location, final int blockId,
+                                          final byte blockData) throws IllegalArgumentException {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void playEffect(final Location location, final Effect effect, final int data) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public long getTicksPerAnimalSpawns() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public ChunkSnapshot getEmptyChunkSnapshot(final int x, final int z, final boolean includeBiome,
+                                               final boolean includeBiomeTempRain) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void setSpawnFlags(final boolean allowMonsters, final boolean allowAnimals) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void setTicksPerAnimalSpawns(final int ticksPerAnimalSpawns) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public boolean getAllowAnimals() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public boolean getAllowMonsters() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public long getTicksPerMonsterSpawns() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public Biome getBiome(final int x, final int z) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void setBiome(final int x, final int z, final Biome bio) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void setTicksPerMonsterSpawns(final int ticksPerMonsterSpawns) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public double getTemperature(final int x, final int z) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public double getHumidity(final int x, final int z) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public int getMaxHeight() {
+        return 256;
+    }
+
+    @Override
+    public int getSeaLevel() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+    @Override
+    public boolean getKeepSpawnInMemory() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public int getWaterAnimalSpawnLimit() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void setKeepSpawnInMemory(final boolean keepLoaded) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+    @Override
+    public boolean isAutoSave() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void setWaterAnimalSpawnLimit(final int limit) {
         // TODO
         throw new UnsupportedMockException();
     }
@@ -965,7 +1058,60 @@ public class MokkitWorld implements World, Tickable {
     }
 
     @Override
-    public void playEffect(final Location location, final Effect effect, final int data) {
+    public void setAutoSave(final boolean value) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void sendPluginMessage(final Plugin source, final String channel, final byte[] message) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public Set<String> getListeningPluginChannels() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public WorldBorder getWorldBorder() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void setMetadata(final String metadataKey, final MetadataValue newMetadataValue) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public List<MetadataValue> getMetadata(final String metadataKey) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public File getWorldFolder() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public boolean hasMetadata(final String metadataKey) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+    @Override
+    public void removeMetadata(final String metadataKey, final Plugin owningPlugin) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public WorldType getWorldType() {
         // TODO
         throw new UnsupportedMockException();
     }
@@ -987,6 +1133,27 @@ public class MokkitWorld implements World, Tickable {
         // TODO
         throw new UnsupportedMockException();
     }
+
+    /**
+     * The class for the control object.
+     */
+    public class Mokkit implements TickListener {
+
+        @Override
+        public void tick(final long tick) {
+            assert tick >= 0 : "invalid tick " + tick;
+            final Collection<Entity> toTick = new ArrayList<>(entities);
+            toTick.stream().filter(x -> x instanceof Tickable).map(x -> (Tickable) x).forEach(x -> x.tick(tick));
+        }
+    }
+
+
+    @Override
+    public boolean isGameRule(final String rule) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
 
     @Override
     public void playSound(final Location location, final Sound sound, final float volume, final float pitch) {
@@ -1014,84 +1181,7 @@ public class MokkitWorld implements World, Tickable {
         throw new UnsupportedMockException();
     }
 
-    @Override
-    public boolean refreshChunk(final int x, final int z) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
 
-    @Override
-    public boolean regenerateChunk(final int x, final int z) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void removeMetadata(final String metadataKey, final Plugin owningPlugin) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void save() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void sendPluginMessage(final Plugin source, final String channel, final byte[] message) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setBiome(final int x, final int z, final Biome bio) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public boolean setGameRuleValue(final String rule, final String value) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setMetadata(final String metadataKey, final MetadataValue newMetadataValue) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setSpawnFlags(final boolean allowMonsters, final boolean allowAnimals) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public boolean setSpawnLocation(final Location location) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public boolean setSpawnLocation(final int x, final int y, final int z) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setStorm(final boolean hasStorm) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public <T extends Entity> T spawn(final @NonNull Location location, final @NonNull Class<T> clazz)
-            throws IllegalArgumentException {
-        return spawn(location, clazz, t -> {
-        });
-    }
 
     /**
      * Fetch the control object.
@@ -1103,46 +1193,13 @@ public class MokkitWorld implements World, Tickable {
         return mokkit;
     }
 
-    @Override
-    public Arrow spawnArrow(final @NonNull Location location, final @NonNull Vector direction, final float speed,
-                            final float spread) {
-        return spawnArrow(location, direction, speed, spread, Arrow.class);
-    }
 
     @Override
-    public <T extends Arrow> T spawnArrow(final @NonNull Location location, final @NonNull Vector direction,
-                                          final float speed, final float spread, final @NonNull Class<T> clazz) {
-        return spawn(location, clazz, arrow -> {
-            arrow.setVelocity(direction.normalize().multiply(speed));
-            // TODO spread?
-        });
-    }
-
-    @Override
-    public Entity spawnEntity(final @NonNull Location loc, final @NonNull EntityType type) {
-        return spawn(loc, type.getEntityClass());
-    }
-
-    @Override
-    public FallingBlock spawnFallingBlock(final Location location,
-                                          final MaterialData data) throws IllegalArgumentException {
+    public boolean setGameRuleValue(final String rule, final String value) {
         // TODO
         throw new UnsupportedMockException();
     }
 
-    @Override
-    public FallingBlock spawnFallingBlock(final Location location, final Material material,
-                                          final byte data) throws IllegalArgumentException {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public FallingBlock spawnFallingBlock(final Location location, final int blockId,
-                                          final byte blockData) throws IllegalArgumentException {
-        // TODO
-        throw new UnsupportedMockException();
-    }
 
     @Override
     public void spawnParticle(final Particle particle, final Location location, final int count) {
@@ -1235,64 +1292,5 @@ public class MokkitWorld implements World, Tickable {
         throw new UnsupportedMockException();
     }
 
-    @Override
-    public LightningStrike strikeLightning(final Location loc) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
 
-    @Override
-    public LightningStrike strikeLightningEffect(final Location loc) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public boolean unloadChunk(final Chunk chunk) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public boolean unloadChunk(final int x, final int z) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public boolean unloadChunk(final int x, final int z, final boolean save) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public boolean unloadChunk(final int x, final int z, final boolean save, final boolean safe) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public boolean unloadChunkRequest(final int x, final int z) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public boolean unloadChunkRequest(final int x, final int z, final boolean safe) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    /**
-     * The class for the control object.
-     */
-    public class Mokkit implements TickListener {
-
-        @Override
-        public void tick(final long tick) {
-            assert tick >= 0 : "invalid tick " + tick;
-            final Collection<Entity> toTick = new ArrayList<>(entities);
-            toTick.stream().filter(x -> x instanceof Tickable).map(x -> (Tickable) x).forEach(x -> x.tick(tick));
-        }
-    }
 }

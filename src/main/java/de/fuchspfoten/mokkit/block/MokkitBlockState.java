@@ -41,12 +41,15 @@ public class MokkitBlockState implements BlockState {
     /**
      * The backing block.
      */
-    private @Getter final Block block;
+    private @Getter
+    final Block block;
 
     /**
      * The data of the block state.
      */
-    private @Getter @Setter MaterialData data;
+    private @Getter
+    @Setter
+    MaterialData data;
 
     /**
      * Constructor.
@@ -59,48 +62,6 @@ public class MokkitBlockState implements BlockState {
     }
 
     @Override
-    public Chunk getChunk() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public byte getLightLevel() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public Location getLocation() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public Location getLocation(final Location loc) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public List<MetadataValue> getMetadata(final String metadataKey) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public byte getRawData() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setRawData(final byte data) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
     public Material getType() {
         return getData().getItemType();
     }
@@ -108,59 +69,6 @@ public class MokkitBlockState implements BlockState {
     @Override
     public void setType(final @NonNull Material type) {
         this.data = type.getNewData((byte) 0);
-    }
-
-    @Override
-    public int getTypeId() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public World getWorld() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public int getX() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public int getY() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public int getZ() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public boolean hasMetadata(final String metadataKey) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public boolean isPlaced() {
-        return block != null;
-    }
-
-    @Override
-    public void removeMetadata(final String metadataKey, final Plugin owningPlugin) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setMetadata(final String metadataKey, final MetadataValue newMetadataValue) {
-        // TODO
-        throw new UnsupportedMockException();
     }
 
     @Override
@@ -194,5 +102,100 @@ public class MokkitBlockState implements BlockState {
         // Update the block.
         block.setTypeIdAndData(data.getItemType().getId(), data.getData(), applyPhysics);
         return true;
+    }
+
+    @Override
+    public byte getRawData() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void setRawData(final byte data) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public boolean isPlaced() {
+        return block != null;
+    }
+
+    @Override
+    public int getTypeId() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public byte getLightLevel() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public World getWorld() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public int getX() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public int getY() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public int getZ() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public Location getLocation() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public Location getLocation(final Location loc) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public Chunk getChunk() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void setMetadata(final String metadataKey, final MetadataValue newMetadataValue) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public List<MetadataValue> getMetadata(final String metadataKey) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public boolean hasMetadata(final String metadataKey) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void removeMetadata(final String metadataKey, final Plugin owningPlugin) {
+        // TODO
+        throw new UnsupportedMockException();
     }
 }

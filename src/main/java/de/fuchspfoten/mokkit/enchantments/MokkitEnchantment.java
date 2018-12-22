@@ -79,7 +79,8 @@ public final class MokkitEnchantment extends Enchantment {
     /**
      * The name of the enchantment.
      */
-    private @Getter final String name;
+    private @Getter
+    final String name;
 
     /**
      * Constructor.
@@ -90,24 +91,6 @@ public final class MokkitEnchantment extends Enchantment {
     private MokkitEnchantment(final int id, final @NonNull String name) {
         super(id);
         this.name = name;
-    }
-
-    @Override
-    public boolean canEnchantItem(final ItemStack item) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public boolean conflictsWith(final Enchantment other) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public EnchantmentTarget getItemTarget() {
-        // TODO
-        throw new UnsupportedMockException();
     }
 
     @Override
@@ -122,13 +105,31 @@ public final class MokkitEnchantment extends Enchantment {
     }
 
     @Override
-    public boolean isCursed() {
+    public EnchantmentTarget getItemTarget() {
         // TODO
         throw new UnsupportedMockException();
     }
 
     @Override
     public boolean isTreasure() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public boolean isCursed() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public boolean conflictsWith(final Enchantment other) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public boolean canEnchantItem(final ItemStack item) {
         // TODO
         throw new UnsupportedMockException();
     }

@@ -32,32 +32,40 @@ public class MokkitBukkitTask implements BukkitTask {
     /**
      * The target tick.
      */
-    private @Getter final long targetTick;
+    private @Getter
+    final long targetTick;
 
     /**
      * The task's runnable.
      */
-    private @NonNull @Getter final Runnable runnable;
+    private @NonNull
+    @Getter
+    final Runnable runnable;
 
     /**
      * The task's ID.
      */
-    private @Getter final int taskId;
+    private @Getter
+    final int taskId;
 
     /**
      * The task's owner.
      */
-    private @NonNull @Getter final Plugin owner;
+    private @NonNull
+    @Getter
+    final Plugin owner;
 
     /**
      * Whether the task is running sync or not.
      */
-    private @Getter final boolean sync;
+    private @Getter
+    final boolean sync;
 
     /**
      * Whether the task is cancelled or not.
      */
-    private @Getter boolean cancelled;
+    private @Getter
+    boolean cancelled;
 
     @Override
     public void cancel() {

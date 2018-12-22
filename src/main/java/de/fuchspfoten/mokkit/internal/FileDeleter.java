@@ -51,14 +51,6 @@ public final class FileDeleter extends Thread {
         super();
     }
 
-    @Override
-    public void run() {
-        System.err.println("Running scheduled file deletion.");
-        for (final File file : scheduledForDeletion) {
-            delete(file);
-        }
-    }
-
     /**
      * Deletes a file recursively.
      *
@@ -75,5 +67,13 @@ public final class FileDeleter extends Thread {
             }
         }
         file.delete();
+    }
+
+    @Override
+    public void run() {
+        System.err.println("Running scheduled file deletion.");
+        for (final File file : scheduledForDeletion) {
+            delete(file);
+        }
     }
 }

@@ -33,10 +33,12 @@ public class MokkitChunkCoordinate {
     /**
      * The x coordinate.
      */
-    private @Getter final int x;
+    private @Getter
+    final int x;
 
     /**
      * The z coordinate.
      */
-    private @Getter final int z;
+    private @Getter
+    final int z;
 }

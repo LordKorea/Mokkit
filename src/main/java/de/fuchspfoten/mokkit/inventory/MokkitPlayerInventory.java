@@ -23,6 +23,7 @@ import lombok.NonNull;
 import lombok.Setter;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.event.inventory.InventoryType;
+import org.bukkit.event.inventory.InventoryType.SlotType;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
@@ -37,7 +38,9 @@ public class MokkitPlayerInventory extends MokkitInventory implements PlayerInve
     /**
      * The slot of the item currently being held.
      */
-    private @Getter @Setter int heldItemSlot = 0;
+    private @Getter
+    @Setter
+    int heldItemSlot = 0;
 
     /**
      * Constructor.
@@ -51,12 +54,6 @@ public class MokkitPlayerInventory extends MokkitInventory implements PlayerInve
     }
 
     @Override
-    public int clear(final int id, final int data) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
     public ItemStack[] getArmorContents() {
         final ItemStack[] result = new ItemStack[4];
         Arrays.setAll(result, i -> contents[36 + i]);
@@ -67,30 +64,6 @@ public class MokkitPlayerInventory extends MokkitInventory implements PlayerInve
     public void setArmorContents(final @NonNull ItemStack[] items) {
         assert items.length == 4 : "invalid array length";
         System.arraycopy(items, 0, contents, 36, 4);
-    }
-
-    @Override
-    public ItemStack getBoots() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setBoots(final ItemStack boots) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public ItemStack getChestplate() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setChestplate(final ItemStack chestplate) {
-        // TODO
-        throw new UnsupportedMockException();
     }
 
     @Override
@@ -111,13 +84,52 @@ public class MokkitPlayerInventory extends MokkitInventory implements PlayerInve
     }
 
     @Override
-    public void setHelmet(final ItemStack helmet) {
+    public ItemStack getChestplate() {
         // TODO
         throw new UnsupportedMockException();
     }
 
     @Override
-    public HumanEntity getHolder() {
+    public void setChestplate(final ItemStack chestplate) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public ItemStack getLeggings() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public ItemStack getBoots() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void setBoots(final ItemStack boots) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public ItemStack getItemInMainHand() {
+        return getItem(heldItemSlot);
+    }
+
+    @Override
+    public void setItemInMainHand(final ItemStack item) {
+        setItem(heldItemSlot, item);
+    }
+
+    @Override
+    public ItemStack getItemInOffHand() {
+        return getItem(40);
+    }
+
+    @Override
+    public void setItemInOffHand(final ItemStack item) {
         // TODO
         throw new UnsupportedMockException();
     }
@@ -135,28 +147,7 @@ public class MokkitPlayerInventory extends MokkitInventory implements PlayerInve
     }
 
     @Override
-    public ItemStack getItemInMainHand() {
-        return getItem(getHeldItemSlot());
-    }
-
-    @Override
-    public void setItemInMainHand(final ItemStack item) {
-        setItem(getHeldItemSlot(), item);
-    }
-
-    @Override
-    public ItemStack getItemInOffHand() {
-        return getItem(40);
-    }
-
-    @Override
-    public void setItemInOffHand(final ItemStack item) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public ItemStack getLeggings() {
+    public int clear(final int id, final int data) {
         // TODO
         throw new UnsupportedMockException();
     }
@@ -168,13 +159,25 @@ public class MokkitPlayerInventory extends MokkitInventory implements PlayerInve
     }
 
     @Override
-    public InventoryType.SlotType getSlotType(final int slot) {
+    public void setHelmet(final ItemStack helmet) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public SlotType getSlotType(final int slot) {
         if (slot < 8) {
-            return InventoryType.SlotType.QUICKBAR;
+            return SlotType.QUICKBAR;
         }
         if (slot >= 36 && slot <= 39) {
-            return InventoryType.SlotType.ARMOR;
+            return SlotType.ARMOR;
         }
-        return InventoryType.SlotType.CONTAINER;
+        return SlotType.CONTAINER;
+    }
+
+    @Override
+    public HumanEntity getHolder() {
+        // TODO
+        throw new UnsupportedMockException();
     }
 }

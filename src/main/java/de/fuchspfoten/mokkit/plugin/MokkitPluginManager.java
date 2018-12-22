@@ -68,21 +68,6 @@ import java.util.stream.Collectors;
 public class MokkitPluginManager implements PluginManager {
 
     /**
-     * The server.
-     */
-    private final Server server;
-
-    /**
-     * The plugin loader.
-     */
-    private final JavaPluginLoader pluginLoader;
-
-    /**
-     * The plugins that are loaded.
-     */
-    private final Map<String, JavaPlugin> pluginMap = new HashMap<>();
-
-    /**
      * Retrieves the plugin.yml file of the given plugin main class.
      *
      * @param source The main class.
@@ -105,6 +90,23 @@ public class MokkitPluginManager implements PluginManager {
     }
 
     /**
+     * The server.
+     */
+    private final Server server;
+    /**
+     * The plugin loader.
+     */
+    private final JavaPluginLoader pluginLoader;
+    /**
+     * The plugins that are loaded.
+     */
+    private final Map<String, JavaPlugin> pluginMap = new HashMap<>();
+    /**
+     * The commands that exist.
+     */
+    private final Collection<PluginCommand> commandList = new ArrayList<>();
+
+    /**
      * Constructor.
      *
      * @param server The server.
@@ -112,57 +114,6 @@ public class MokkitPluginManager implements PluginManager {
     public MokkitPluginManager(final @NonNull Server server) {
         this.server = server;
         pluginLoader = new JavaPluginLoader(server);
-    }
-
-    @Override
-    public void addPermission(final Permission perm) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void callEvent(final @NonNull Event event) throws IllegalStateException {
-        final HandlerList handlerList = event.getHandlers();
-        for (final RegisteredListener listener : handlerList.getRegisteredListeners()) {
-            try {
-                listener.callEvent(event);
-            } catch (final EventException ex) {
-                FailureException.failIfNotMock("Exception in event handler", ex);
-            }
-        }
-    }
-
-    @Override
-    public void clearPlugins() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void disablePlugin(final @NonNull Plugin plugin) {
-        if (plugin.isEnabled()) {
-            assert plugin instanceof JavaPlugin;
-            callEvent(new PluginDisableEvent(plugin));
-            ReflectionHelper.invokeMethod(JavaPlugin.class, (JavaPlugin) plugin, "setEnabled",
-                    new Class[]{boolean.class}, new Object[]{false});
-        }
-    }
-
-    @Override
-    public void disablePlugins() {
-        for (final Plugin plugin : pluginMap.values()) {
-            disablePlugin(plugin);
-        }
-    }
-
-    @Override
-    public void enablePlugin(final @NonNull Plugin plugin) {
-        if (!plugin.isEnabled()) {
-            assert plugin instanceof JavaPlugin;
-            ReflectionHelper.invokeMethod(JavaPlugin.class, (JavaPlugin) plugin, "setEnabled",
-                    new Class[]{boolean.class}, new Object[]{true});
-            callEvent(new PluginEnableEvent(plugin));
-        }
     }
 
     /**
@@ -173,160 +124,6 @@ public class MokkitPluginManager implements PluginManager {
      */
     public PluginCommand getCommand(final @NonNull String name) {
         return commandList.stream().filter(x -> x.getName().equals(name)).findAny().orElse(null);
-    }
-
-    @Override
-    public Set<Permissible> getDefaultPermSubscriptions(final boolean op) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public Set<Permission> getDefaultPermissions(final boolean op) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public Permission getPermission(final String name) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public Set<Permissible> getPermissionSubscriptions(final String permission) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public Set<Permission> getPermissions() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public Plugin getPlugin(final String name) {
-        return pluginMap.get(name);
-    }
-
-    @Override
-    public Plugin[] getPlugins() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public boolean isPluginEnabled(final @NonNull Plugin plugin) {
-        return plugin.isEnabled();
-    }
-
-    @Override
-    public boolean isPluginEnabled(final @NonNull String name) {
-        return getPlugin(name).isEnabled();
-    }
-    /**
-     * The commands that exist.
-     */
-    private final Collection<PluginCommand> commandList = new ArrayList<>();
-
-    @Override
-    public Plugin loadPlugin(final File file) throws UnknownDependencyException {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public Plugin[] loadPlugins(final File directory) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void recalculatePermissionDefaults(final Permission perm) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void registerEvent(final Class<? extends Event> event, final Listener listener, final EventPriority priority,
-                              final EventExecutor executor, final Plugin plugin) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void registerEvent(final Class<? extends Event> event, final Listener listener, final EventPriority priority,
-                              final EventExecutor executor, final Plugin plugin, final boolean ignoreCancelled) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void registerEvents(final @NonNull Listener listener, final @NonNull Plugin plugin) {
-        for (final Method method : listener.getClass().getMethods()) {
-            final EventHandler annot = method.getAnnotation(EventHandler.class);
-            if (annot != null) {
-                if (method.getParameterCount() != 1) {
-                    throw new IllegalStateException("Invalid event handler " + method);
-                }
-                final Class<?> event = method.getParameterTypes()[0];
-                final HandlerList handlerList = (HandlerList) ReflectionHelper.invokeStaticInheritedMethod(event,
-                        "getHandlerList", new Class[0], new Object[0]);
-                final RegisteredListener entry = new RegisteredListener(listener,
-                        new MokkitEventExecutor(event, method), annot.priority(), plugin, annot.ignoreCancelled());
-                handlerList.register(entry);
-            }
-        }
-        HandlerList.bakeAll();
-    }
-
-    @Override
-    public void registerInterface(final Class<? extends PluginLoader> loader) throws IllegalArgumentException {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void removePermission(final Permission perm) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void removePermission(final String name) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void subscribeToDefaultPerms(final boolean op, final Permissible permissible) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void subscribeToPermission(final String permission, final Permissible permissible) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void unsubscribeFromDefaultPerms(final boolean op, final Permissible permissible) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void unsubscribeFromPermission(final String permission, final Permissible permissible) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public boolean useTimings() {
-        // TODO
-        throw new UnsupportedMockException();
     }
 
     /**
@@ -407,5 +204,206 @@ public class MokkitPluginManager implements PluginManager {
                 commandList.add(cmd);
             }
         }
+    }
+
+    @Override
+    public void registerInterface(final Class<? extends PluginLoader> loader) throws IllegalArgumentException {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public Plugin getPlugin(final String name) {
+        return pluginMap.get(name);
+    }
+
+    @Override
+    public Plugin[] getPlugins() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public boolean isPluginEnabled(final @NonNull String name) {
+        return getPlugin(name).isEnabled();
+    }
+
+    @Override
+    public boolean isPluginEnabled(final @NonNull Plugin plugin) {
+        return plugin.isEnabled();
+    }
+
+    @Override
+    public Plugin loadPlugin(final File file) throws UnknownDependencyException {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public Plugin[] loadPlugins(final File directory) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void disablePlugins() {
+        for (final Plugin plugin : pluginMap.values()) {
+            disablePlugin(plugin);
+        }
+    }
+
+    @Override
+    public void clearPlugins() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void callEvent(final @NonNull Event event) throws IllegalStateException {
+        final HandlerList handlerList = event.getHandlers();
+        for (final RegisteredListener listener : handlerList.getRegisteredListeners()) {
+            try {
+                listener.callEvent(event);
+            } catch (final EventException ex) {
+                FailureException.failIfNotMock("Exception in event handler", ex);
+            }
+        }
+    }
+
+    @Override
+    public void registerEvents(final @NonNull Listener listener, final @NonNull Plugin plugin) {
+        for (final Method method : listener.getClass().getMethods()) {
+            final EventHandler annot = method.getAnnotation(EventHandler.class);
+            if (annot != null) {
+                if (method.getParameterCount() != 1) {
+                    throw new IllegalStateException("Invalid event handler " + method);
+                }
+                final Class<?> event = method.getParameterTypes()[0];
+                final HandlerList handlerList = (HandlerList) ReflectionHelper.invokeStaticInheritedMethod(event,
+                        "getHandlerList", new Class[0], new Object[0]);
+                final RegisteredListener entry = new RegisteredListener(listener,
+                        new MokkitEventExecutor(event, method), annot.priority(), plugin, annot.ignoreCancelled());
+                handlerList.register(entry);
+            }
+        }
+        HandlerList.bakeAll();
+    }
+
+    @Override
+    public void registerEvent(final Class<? extends Event> event, final Listener listener, final EventPriority priority,
+                              final EventExecutor executor, final Plugin plugin) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void registerEvent(final Class<? extends Event> event, final Listener listener, final EventPriority priority,
+                              final EventExecutor executor, final Plugin plugin, final boolean ignoreCancelled) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void enablePlugin(final @NonNull Plugin plugin) {
+        if (!plugin.isEnabled()) {
+            assert plugin instanceof JavaPlugin;
+            ReflectionHelper.invokeMethod(JavaPlugin.class, (JavaPlugin) plugin, "setEnabled",
+                    new Class[]{boolean.class}, new Object[]{true});
+            callEvent(new PluginEnableEvent(plugin));
+        }
+    }
+
+    @Override
+    public void disablePlugin(final @NonNull Plugin plugin) {
+        if (plugin.isEnabled()) {
+            assert plugin instanceof JavaPlugin;
+            callEvent(new PluginDisableEvent(plugin));
+            ReflectionHelper.invokeMethod(JavaPlugin.class, (JavaPlugin) plugin, "setEnabled",
+                    new Class[]{boolean.class}, new Object[]{false});
+        }
+    }
+
+    @Override
+    public Permission getPermission(final String name) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void addPermission(final Permission perm) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void removePermission(final Permission perm) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void removePermission(final String name) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public Set<Permission> getDefaultPermissions(final boolean op) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void recalculatePermissionDefaults(final Permission perm) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void subscribeToPermission(final String permission, final Permissible permissible) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void unsubscribeFromPermission(final String permission, final Permissible permissible) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public Set<Permissible> getPermissionSubscriptions(final String permission) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void subscribeToDefaultPerms(final boolean op, final Permissible permissible) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void unsubscribeFromDefaultPerms(final boolean op, final Permissible permissible) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public Set<Permissible> getDefaultPermSubscriptions(final boolean op) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public Set<Permission> getPermissions() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public boolean useTimings() {
+        // TODO
+        throw new UnsupportedMockException();
     }
 }

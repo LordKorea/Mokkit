@@ -56,12 +56,6 @@ public class MokkitHorse extends MokkitAbstractHorse implements Horse {
     }
 
     @Override
-    public HorseInventory getInventory() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
     public Style getStyle() {
         // TODO
         throw new UnsupportedMockException();
@@ -74,11 +68,6 @@ public class MokkitHorse extends MokkitAbstractHorse implements Horse {
     }
 
     @Override
-    public EntityType getType() {
-        return EntityType.HORSE;
-    }
-
-    @Override
     public boolean isCarryingChest() {
         // TODO
         throw new UnsupportedMockException();
@@ -88,5 +77,16 @@ public class MokkitHorse extends MokkitAbstractHorse implements Horse {
     public void setCarryingChest(final boolean chest) {
         // TODO
         throw new UnsupportedMockException();
+    }
+
+    @Override
+    public HorseInventory getInventory() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public EntityType getType() {
+        return EntityType.HORSE;
     }
 }

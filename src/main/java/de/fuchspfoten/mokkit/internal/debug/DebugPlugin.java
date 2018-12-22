@@ -43,24 +43,6 @@ public class DebugPlugin extends JavaPlugin implements Listener {
      */
     private UUID orwell;
 
-    /**
-     * Issues a debug action.
-     *
-     * @param issuer The player that issues the action.
-     */
-    @SuppressWarnings("TypeMayBeWeakened")
-    private void debugAction(final Player issuer) {
-        issuer.getWorld().spawn(issuer.getLocation(), Pig.class);
-    }
-
-    @Override
-    public void onEnable() {
-        getServer().getPluginManager().registerEvents(this, this);
-        getServer().getScheduler().scheduleSyncRepeatingTask(this, () -> Bukkit.broadcastMessage(
-                "§cYou are running a plugin that ONLY EXISTS FOR DEVELOPING MOKKIT. IF YOU ARE NOT A DEVELOPER, YOU "
-                        + "MIGHT BE DOING SOMETHING BAD."), 60 * 20L, 600 * 20L);
-    }
-
     @EventHandler(priority = EventPriority.MONITOR)
     public void onEntityDamageByEntity(final EntityDamageByEntityEvent event) {
         report("%1$s -> %2$s (%3$f)", event.getDamager().getType().name(), event.getEntity().getType().name(),
@@ -75,6 +57,33 @@ public class DebugPlugin extends JavaPlugin implements Listener {
     @EventHandler(priority = EventPriority.MONITOR)
     public void onEntityExplode(final EntityExplodeEvent event) {
         report("%1$s explodes", event.getEntity().getType().name());
+    }
+
+    /**
+     * Issues a debug action.
+     *
+     * @param issuer The player that issues the action.
+     */
+    @SuppressWarnings("TypeMayBeWeakened")
+    private void debugAction(final Player issuer) {
+        issuer.getWorld().spawn(issuer.getLocation(), Pig.class);
+    }
+
+    /**
+     * Reports a message.
+     *
+     * @param fmt  The message format.
+     * @param data The formatting arguments.
+     */
+    private void report(final String fmt, final Object... data) {
+        final String msg = String.format(fmt, data);
+        if (orwell != null) {
+            final Player orwellPlayer = Bukkit.getPlayer(orwell);
+            if (orwellPlayer != null && orwellPlayer.isOnline()) {
+                orwellPlayer.sendMessage(msg);
+            }
+        }
+        getLogger().info(msg);
     }
 
     @Override
@@ -98,20 +107,11 @@ public class DebugPlugin extends JavaPlugin implements Listener {
         return true;
     }
 
-    /**
-     * Reports a message.
-     *
-     * @param fmt  The message format.
-     * @param data The formatting arguments.
-     */
-    private void report(final String fmt, final Object... data) {
-        final String msg = String.format(fmt, data);
-        if (orwell != null) {
-            final Player orwellPlayer = Bukkit.getPlayer(orwell);
-            if (orwellPlayer != null && orwellPlayer.isOnline()) {
-                orwellPlayer.sendMessage(msg);
-            }
-        }
-        getLogger().info(msg);
+    @Override
+    public void onEnable() {
+        getServer().getPluginManager().registerEvents(this, this);
+        getServer().getScheduler().scheduleSyncRepeatingTask(this, () -> Bukkit.broadcastMessage(
+                "§cYou are running a plugin that ONLY EXISTS FOR DEVELOPING MOKKIT. IF YOU ARE NOT A DEVELOPER, YOU "
+                        + "MIGHT BE DOING SOMETHING BAD."), 60 * 20L, 600 * 20L);
     }
 }

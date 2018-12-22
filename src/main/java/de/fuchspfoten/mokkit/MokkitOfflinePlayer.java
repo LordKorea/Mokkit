@@ -36,7 +36,8 @@ public class MokkitOfflinePlayer implements OfflinePlayer {
     /**
      * The UUID of the player.
      */
-    private @Getter final UUID uniqueId;
+    private @Getter
+    final UUID uniqueId;
 
     /**
      * Constructor.
@@ -48,9 +49,42 @@ public class MokkitOfflinePlayer implements OfflinePlayer {
     }
 
     @Override
-    public Location getBedSpawnLocation() {
+    public boolean isOnline() {
+        return Bukkit.getPlayer(uniqueId) != null;
+    }
+
+    @Override
+    public String getName() {
+        if (isOnline()) {
+            return getPlayer().getName();
+        }
+        return null;
+    }
+
+    @Override
+    public boolean isBanned() {
         // TODO
         throw new UnsupportedMockException();
+    }
+
+    @Override
+    public boolean isWhitelisted() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void setWhitelisted(final boolean value) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public Player getPlayer() {
+        if (isOnline()) {
+            return Bukkit.getPlayer(uniqueId);
+        }
+        return null;
     }
 
     @Override
@@ -66,36 +100,15 @@ public class MokkitOfflinePlayer implements OfflinePlayer {
     }
 
     @Override
-    public String getName() {
-        if (isOnline()) {
-            return getPlayer().getName();
-        }
-        return null;
-    }
-
-    @Override
-    public boolean isOnline() {
-        return Bukkit.getPlayer(uniqueId) != null;
-    }
-
-    @Override
     public boolean hasPlayedBefore() {
         // TODO
         throw new UnsupportedMockException();
     }
 
     @Override
-    public boolean isBanned() {
+    public Location getBedSpawnLocation() {
         // TODO
         throw new UnsupportedMockException();
-    }
-
-    @Override
-    public Player getPlayer() {
-        if (isOnline()) {
-            return Bukkit.getPlayer(uniqueId);
-        }
-        return null;
     }
 
     @Override
@@ -106,18 +119,6 @@ public class MokkitOfflinePlayer implements OfflinePlayer {
 
     @Override
     public void setOp(final boolean value) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public boolean isWhitelisted() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setWhitelisted(final boolean value) {
         // TODO
         throw new UnsupportedMockException();
     }

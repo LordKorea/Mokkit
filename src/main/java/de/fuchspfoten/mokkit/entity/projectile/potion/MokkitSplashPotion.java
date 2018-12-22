@@ -69,11 +69,6 @@ public class MokkitSplashPotion extends MokkitThrownPotion implements SplashPoti
      */
     public class Mokkit extends MokkitThrownPotion.Mokkit {
 
-        @Override
-        public void hitTarget(final @NonNull Entity target) {
-            splash();
-        }
-
         /**
          * Causes the potion to splash.
          */
@@ -104,6 +99,11 @@ public class MokkitSplashPotion extends MokkitThrownPotion implements SplashPoti
             }
 
             remove();
+        }
+
+        @Override
+        public void hitTarget(final @NonNull Entity target) {
+            splash();
         }
     }
 }

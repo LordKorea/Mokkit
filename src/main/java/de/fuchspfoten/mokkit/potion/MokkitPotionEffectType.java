@@ -102,22 +102,26 @@ public final class MokkitPotionEffectType extends PotionEffectType {
     /**
      * The duration modifier.
      */
-    private @Getter final double durationModifier;
+    private @Getter
+    final double durationModifier;
 
     /**
      * The name.
      */
-    private @Getter final String name;
+    private @Getter
+    final String name;
 
     /**
      * Whether or not the potion effect type is instant.
      */
-    private @Getter final boolean instant;
+    private @Getter
+    final boolean instant;
 
     /**
      * The color of this effect type.
      */
-    private @Getter final Color color;
+    private @Getter
+    final Color color;
 
     /**
      * Constructor.

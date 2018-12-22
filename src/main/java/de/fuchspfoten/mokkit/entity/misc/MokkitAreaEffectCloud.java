@@ -55,61 +55,68 @@ public class MokkitAreaEffectCloud extends MokkitEntity implements AreaEffectClo
      * The control object.
      */
     private final Mokkit mokkit = new Mokkit();
-
-    /**
-     * The duration this cloud will live for.
-     */
-    private @Getter @Setter int duration = 600;
-
-    /**
-     * The target-individual wait time before effects apply to targets.
-     */
-    private @Getter @Setter int waitTime = 0;
-
-    /**
-     * The per entity cooldown time needed after an application.
-     */
-    private @Getter @Setter int reapplicationDelay = 5;
-
-    /**
-     * The amount that is subtracted from the duration on use.
-     */
-    private @Getter @Setter int durationOnUse = 0;
-
-    /**
-     * The radius of the cloud.
-     */
-    private @Getter @Setter float radius = 3.0f;
-
-    /**
-     * The amount that is subtracted from the radius on use.
-     */
-    private @Getter @Setter float radiusOnUse = 0.5f;
-
-    /**
-     * The amount that is subtracted from the radius per tick.
-     */
-    private @Getter @Setter float radiusPerTick = 3.0f / 600.0f;
-
-    /**
-     * The source that created this cloud.
-     */
-    private @Getter @Setter ProjectileSource source;
-
-    /**
-     * The underlying potion.
-     */
-    private @Getter @Setter PotionData basePotionData;
-
     /**
      * The custom potion effects of this cloud.
      */
     private final Set<PotionEffect> customEffects = new HashSet<>();
-
     /**
      * The ticks in which the effects were last applied to the given entities.
      */
     private final Map<LivingEntity, Long> lastAppliedTick = new HashMap<>();
+    /**
+     * The duration this cloud will live for.
+     */
+    private @Getter
+    @Setter
+    int duration = 600;
+    /**
+     * The target-individual wait time before effects apply to targets.
+     */
+    private @Getter
+    @Setter
+    int waitTime = 0;
+    /**
+     * The per entity cooldown time needed after an application.
+     */
+    private @Getter
+    @Setter
+    int reapplicationDelay = 5;
+    /**
+     * The amount that is subtracted from the duration on use.
+     */
+    private @Getter
+    @Setter
+    int durationOnUse = 0;
+    /**
+     * The radius of the cloud.
+     */
+    private @Getter
+    @Setter
+    float radius = 3.0f;
+    /**
+     * The amount that is subtracted from the radius on use.
+     */
+    private @Getter
+    @Setter
+    float radiusOnUse = 0.5f;
+    /**
+     * The amount that is subtracted from the radius per tick.
+     */
+    private @Getter
+    @Setter
+    float radiusPerTick = 3.0f / 600.0f;
+    /**
+     * The source that created this cloud.
+     */
+    private @Getter
+    @Setter
+    ProjectileSource source;
+    /**
+     * The underlying potion.
+     */
+    private @Getter
+    @Setter
+    PotionData basePotionData;
 
     /**
      * Constructor.
@@ -124,9 +131,41 @@ public class MokkitAreaEffectCloud extends MokkitEntity implements AreaEffectClo
     }
 
     @Override
+    public Particle getParticle() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void setParticle(final Particle particle) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public boolean hasCustomEffects() {
+        return !customEffects.isEmpty();
+    }
+
+    @Override
+    public List<PotionEffect> getCustomEffects() {
+        return new ArrayList<>(customEffects);
+    }
+
+    @Override
     public boolean addCustomEffect(final PotionEffect effect, final boolean overwrite) {
         // TODO
         throw new UnsupportedMockException();
+    }
+
+    @Override
+    public boolean removeCustomEffect(final @NonNull PotionEffectType type) {
+        return customEffects.removeIf(e -> e.getType().equals(type));
+    }
+
+    @Override
+    public boolean hasCustomEffect(final @NonNull PotionEffectType type) {
+        return customEffects.stream().anyMatch(e -> e.getType().equals(type));
     }
 
     @Override
@@ -147,35 +186,8 @@ public class MokkitAreaEffectCloud extends MokkitEntity implements AreaEffectClo
     }
 
     @Override
-    public List<PotionEffect> getCustomEffects() {
-        return new ArrayList<>(customEffects);
-    }
-
-    @Override
-    public Particle getParticle() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setParticle(final Particle particle) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
     public EntityType getType() {
         return EntityType.AREA_EFFECT_CLOUD;
-    }
-
-    @Override
-    public boolean hasCustomEffect(final @NonNull PotionEffectType type) {
-        return customEffects.stream().anyMatch(e -> e.getType().equals(type));
-    }
-
-    @Override
-    public boolean hasCustomEffects() {
-        return !customEffects.isEmpty();
     }
 
     /**
@@ -186,11 +198,6 @@ public class MokkitAreaEffectCloud extends MokkitEntity implements AreaEffectClo
     @Override
     public Mokkit mokkit() {
         return mokkit;
-    }
-
-    @Override
-    public boolean removeCustomEffect(final @NonNull PotionEffectType type) {
-        return customEffects.removeIf(e -> e.getType().equals(type));
     }
 
     /**

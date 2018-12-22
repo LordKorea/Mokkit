@@ -64,18 +64,6 @@ public class MokkitZombie extends MokkitMonster implements Zombie {
     }
 
     @Override
-    public Villager.Profession getVillagerProfession() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setVillagerProfession(final Villager.Profession profession) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
     public boolean isBaby() {
         // TODO
         throw new UnsupportedMockException();
@@ -83,6 +71,18 @@ public class MokkitZombie extends MokkitMonster implements Zombie {
 
     @Override
     public void setBaby(final boolean flag) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public Villager.Profession getVillagerProfession() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void setVillagerProfession(final Villager.Profession profession) {
         // TODO
         throw new UnsupportedMockException();
     }
@@ -98,4 +98,6 @@ public class MokkitZombie extends MokkitMonster implements Zombie {
         // TODO
         throw new UnsupportedMockException();
     }
+
+
 }

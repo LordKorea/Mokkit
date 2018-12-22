@@ -45,6 +45,23 @@ public class MokkitBoat extends MokkitVehicle implements Boat {
     }
 
     @Override
+    public EntityType getType() {
+        return EntityType.BOAT;
+    }
+
+    @Override
+    public TreeSpecies getWoodType() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void setWoodType(final TreeSpecies species) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
     public double getMaxSpeed() {
         // TODO
         throw new UnsupportedMockException();
@@ -69,11 +86,6 @@ public class MokkitBoat extends MokkitVehicle implements Boat {
     }
 
     @Override
-    public EntityType getType() {
-        return EntityType.BOAT;
-    }
-
-    @Override
     public double getUnoccupiedDeceleration() {
         // TODO
         throw new UnsupportedMockException();
@@ -81,18 +93,6 @@ public class MokkitBoat extends MokkitVehicle implements Boat {
 
     @Override
     public void setUnoccupiedDeceleration(final double rate) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public TreeSpecies getWoodType() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setWoodType(final TreeSpecies species) {
         // TODO
         throw new UnsupportedMockException();
     }

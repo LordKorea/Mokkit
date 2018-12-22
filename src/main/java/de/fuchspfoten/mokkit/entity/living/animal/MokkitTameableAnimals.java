@@ -54,6 +54,18 @@ public abstract class MokkitTameableAnimals extends MokkitAnimals implements Tam
     }
 
     @Override
+    public boolean isTamed() {
+        return ownerUUID != null;
+    }
+
+    @Override
+    public void setTamed(final boolean tame) {
+        if (!isTamed()) {
+            ownerUUID = UUID.randomUUID();
+        }
+    }
+
+    @Override
     public AnimalTamer getOwner() {
         if (!isTamed()) {
             return null;
@@ -69,17 +81,5 @@ public abstract class MokkitTameableAnimals extends MokkitAnimals implements Tam
     @Override
     public void setOwner(final @NonNull AnimalTamer tamer) {
         ownerUUID = tamer.getUniqueId();
-    }
-
-    @Override
-    public boolean isTamed() {
-        return ownerUUID != null;
-    }
-
-    @Override
-    public void setTamed(final boolean tame) {
-        if (!isTamed()) {
-            ownerUUID = UUID.randomUUID();
-        }
     }
 }

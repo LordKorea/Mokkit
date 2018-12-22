@@ -46,13 +46,13 @@ public class MokkitArmorStand extends MokkitLivingEntity implements ArmorStand {
     }
 
     @Override
-    public EulerAngle getBodyPose() {
+    public ItemStack getItemInHand() {
         // TODO
         throw new UnsupportedMockException();
     }
 
     @Override
-    public void setBodyPose(final EulerAngle pose) {
+    public void setItemInHand(final ItemStack item) {
         // TODO
         throw new UnsupportedMockException();
     }
@@ -70,6 +70,18 @@ public class MokkitArmorStand extends MokkitLivingEntity implements ArmorStand {
     }
 
     @Override
+    public ItemStack getLeggings() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void setLeggings(final ItemStack item) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
     public ItemStack getChestplate() {
         // TODO
         throw new UnsupportedMockException();
@@ -77,18 +89,6 @@ public class MokkitArmorStand extends MokkitLivingEntity implements ArmorStand {
 
     @Override
     public void setChestplate(final ItemStack item) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public EulerAngle getHeadPose() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setHeadPose(final EulerAngle pose) {
         // TODO
         throw new UnsupportedMockException();
     }
@@ -106,13 +106,13 @@ public class MokkitArmorStand extends MokkitLivingEntity implements ArmorStand {
     }
 
     @Override
-    public ItemStack getItemInHand() {
+    public EulerAngle getBodyPose() {
         // TODO
         throw new UnsupportedMockException();
     }
 
     @Override
-    public void setItemInHand(final ItemStack item) {
+    public void setBodyPose(final EulerAngle pose) {
         // TODO
         throw new UnsupportedMockException();
     }
@@ -130,30 +130,6 @@ public class MokkitArmorStand extends MokkitLivingEntity implements ArmorStand {
     }
 
     @Override
-    public EulerAngle getLeftLegPose() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setLeftLegPose(final EulerAngle pose) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public ItemStack getLeggings() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setLeggings(final ItemStack item) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
     public EulerAngle getRightArmPose() {
         // TODO
         throw new UnsupportedMockException();
@@ -161,6 +137,18 @@ public class MokkitArmorStand extends MokkitLivingEntity implements ArmorStand {
 
     @Override
     public void setRightArmPose(final EulerAngle pose) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public EulerAngle getLeftLegPose() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void setLeftLegPose(final EulerAngle pose) {
         // TODO
         throw new UnsupportedMockException();
     }
@@ -178,12 +166,13 @@ public class MokkitArmorStand extends MokkitLivingEntity implements ArmorStand {
     }
 
     @Override
-    public EntityType getType() {
-        return EntityType.ARMOR_STAND;
+    public EulerAngle getHeadPose() {
+        // TODO
+        throw new UnsupportedMockException();
     }
 
     @Override
-    public boolean hasArms() {
+    public void setHeadPose(final EulerAngle pose) {
         // TODO
         throw new UnsupportedMockException();
     }
@@ -195,25 +184,7 @@ public class MokkitArmorStand extends MokkitLivingEntity implements ArmorStand {
     }
 
     @Override
-    public boolean isMarker() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setMarker(final boolean marker) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public boolean isSmall() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setSmall(final boolean small) {
+    public void setBasePlate(final boolean basePlate) {
         // TODO
         throw new UnsupportedMockException();
     }
@@ -231,14 +202,43 @@ public class MokkitArmorStand extends MokkitLivingEntity implements ArmorStand {
     }
 
     @Override
+    public boolean hasArms() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
     public void setArms(final boolean arms) {
         // TODO
         throw new UnsupportedMockException();
     }
 
     @Override
-    public void setBasePlate(final boolean basePlate) {
+    public boolean isSmall() {
         // TODO
         throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void setSmall(final boolean small) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public boolean isMarker() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void setMarker(final boolean marker) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public EntityType getType() {
+        return EntityType.ARMOR_STAND;
     }
 }

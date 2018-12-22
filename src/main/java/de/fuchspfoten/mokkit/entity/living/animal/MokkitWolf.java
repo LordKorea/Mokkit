@@ -44,18 +44,6 @@ public class MokkitWolf extends MokkitTameableAnimals implements Wolf {
     }
 
     @Override
-    public DyeColor getCollarColor() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setCollarColor(final DyeColor color) {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
     public EntityType getType() {
         return EntityType.WOLF;
     }
@@ -68,6 +56,18 @@ public class MokkitWolf extends MokkitTameableAnimals implements Wolf {
 
     @Override
     public void setAngry(final boolean angry) {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public DyeColor getCollarColor() {
+        // TODO
+        throw new UnsupportedMockException();
+    }
+
+    @Override
+    public void setCollarColor(final DyeColor color) {
         // TODO
         throw new UnsupportedMockException();
     }

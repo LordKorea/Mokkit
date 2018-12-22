@@ -56,13 +56,13 @@ public class MokkitCommandMinecart extends MokkitMinecart implements CommandMine
     }
 
     @Override
-    public EntityType getType() {
-        return EntityType.MINECART_COMMAND;
-    }
-
-    @Override
     public void setName(final String name) {
         // TODO
         throw new UnsupportedMockException();
+    }
+
+    @Override
+    public EntityType getType() {
+        return EntityType.MINECART_COMMAND;
     }
 }
