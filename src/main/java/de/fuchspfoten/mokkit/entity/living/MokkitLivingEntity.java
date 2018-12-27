@@ -102,7 +102,7 @@ public abstract class MokkitLivingEntity extends MokkitEntity implements LivingE
     }
 
     @Override
-    public void damage(final double amount, final @NonNull Entity source) {
+    public void damage(final double amount, final Entity source) {
         // TODO what do we do with the source?
         health -= amount;
         if (isDead()) {
