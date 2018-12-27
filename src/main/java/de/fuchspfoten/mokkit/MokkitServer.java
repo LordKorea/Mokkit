@@ -89,6 +89,7 @@ import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 /**
  * @see org.bukkit.Server
@@ -134,6 +135,12 @@ public class MokkitServer implements Server {
      * The item factory.
      */
     private @Getter final ItemFactory itemFactory = new MokkitItemFactory();
+
+    /**
+     * The registered recipes.
+     * TODO: Default recipes?
+     */
+    private final Collection<Recipe> recipes = new ArrayList<>();
 
     /**
      * The mokkit control object.
@@ -412,26 +419,22 @@ public class MokkitServer implements Server {
 
     @Override
     public boolean addRecipe(final Recipe recipe) {
-        // TODO
-        throw new UnsupportedMockException();
+        return recipes.add(recipe);
     }
 
     @Override
     public List<Recipe> getRecipesFor(final ItemStack result) {
-        // TODO
-        throw new UnsupportedMockException();
+        return recipes.stream().filter(r -> r.getResult().isSimilar(result)).collect(Collectors.toList());
     }
 
     @Override
     public Iterator<Recipe> recipeIterator() {
-        // TODO
-        throw new UnsupportedMockException();
+        return recipes.iterator();
     }
 
     @Override
     public void clearRecipes() {
-        // TODO
-        throw new UnsupportedMockException();
+        recipes.clear();
     }
 
     @Override
