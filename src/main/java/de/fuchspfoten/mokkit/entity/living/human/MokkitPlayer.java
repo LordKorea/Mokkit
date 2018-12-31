@@ -41,6 +41,7 @@ import org.bukkit.block.BlockFace;
 import org.bukkit.block.BlockState;
 import org.bukkit.conversations.Conversation;
 import org.bukkit.conversations.ConversationAbandonedEvent;
+import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Painting;
@@ -50,6 +51,7 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockDamageEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.hanging.HangingPlaceEvent;
+import org.bukkit.event.player.PlayerArmorStandManipulateEvent;
 import org.bukkit.event.player.PlayerBucketEmptyEvent;
 import org.bukkit.event.player.PlayerBucketFillEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
@@ -317,6 +319,76 @@ public class MokkitPlayer extends MokkitHumanEntity implements Player {
             }
 
             // TODO use hand?
+        }
+
+        /**
+         * Manipulates an armor stand.
+         *
+         * @param who  The armor stand.
+         * @param slot The clicked slot.
+         */
+        public void manipulateArmorStand(final @NonNull ArmorStand who, final @NonNull EquipmentSlot slot)
+                throws CancelledByEventException {
+            final ItemStack armorStandItem;
+            switch (slot) {
+                case HAND:
+                    armorStandItem = who.getItemInHand();
+                    break;
+                case FEET:
+                    armorStandItem = who.getBoots();
+                    break;
+                case LEGS:
+                    armorStandItem = who.getLeggings();
+                    break;
+                case CHEST:
+                    armorStandItem = who.getChestplate();
+                    break;
+                case HEAD:
+                    armorStandItem = who.getHelmet();
+                    break;
+                case OFF_HAND:
+                    throw new IllegalArgumentException("armor stand can not have item in off hand");
+                default:
+                    throw new IllegalArgumentException("invalid equipment slot");
+            }
+            final PlayerArmorStandManipulateEvent event = new PlayerArmorStandManipulateEvent(MokkitPlayer.this,
+                    who, getInventory().getItemInMainHand(), armorStandItem, slot);
+            getServer().getPluginManager().callEvent(event);
+            if (event.isCancelled()) {
+                throw new CancelledByEventException(event);
+            }
+
+            // Re-fetch possibly changed item and swap.
+            // TODO: Change if setting item works! (e.g. no blocks as chestplate)
+            final ItemStack newPlayerItem = getInventory().getItemInMainHand();
+            final ItemStack tmp;
+            switch (slot) {
+                case HAND:
+                    tmp = who.getItemInHand();
+                    who.setItemInHand(newPlayerItem);
+                    break;
+                case FEET:
+                    tmp = who.getBoots();
+                    who.setBoots(newPlayerItem);
+                    break;
+                case LEGS:
+                    tmp = who.getLeggings();
+                    who.setLeggings(newPlayerItem);
+                    break;
+                case CHEST:
+                    tmp = who.getChestplate();
+                    who.setChestplate(newPlayerItem);
+                    break;
+                case HEAD:
+                    tmp = who.getHelmet();
+                    who.setHelmet(newPlayerItem);
+                    break;
+                case OFF_HAND:
+                    throw new IllegalArgumentException("armor stand can not have item in off hand");
+                default:
+                    throw new IllegalArgumentException("invalid equipment slot");
+            }
+            getInventory().setItemInMainHand(tmp);
         }
 
         /**

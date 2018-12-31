@@ -19,7 +19,9 @@ package de.fuchspfoten.mokkit.entity.living;
 
 import de.fuchspfoten.mokkit.MokkitServer;
 import de.fuchspfoten.mokkit.internal.exception.UnsupportedMockException;
+import lombok.Getter;
 import lombok.NonNull;
+import lombok.Setter;
 import org.bukkit.Location;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.EntityType;
@@ -34,6 +36,11 @@ import java.util.UUID;
 public class MokkitArmorStand extends MokkitLivingEntity implements ArmorStand {
 
     /**
+     * The item the armor stand is holding.
+     */
+    private @Getter @Setter ItemStack itemInHand;
+
+    /**
      * Constructor.
      *
      * @param server   The server this entity is in.
@@ -43,18 +50,6 @@ public class MokkitArmorStand extends MokkitLivingEntity implements ArmorStand {
     public MokkitArmorStand(final @NonNull MokkitServer server, final @NonNull Location location,
                             final @NonNull UUID uuid) {
         super(server, "ArmorStand", location, uuid, 2.0);
-    }
-
-    @Override
-    public ItemStack getItemInHand() {
-        // TODO
-        throw new UnsupportedMockException();
-    }
-
-    @Override
-    public void setItemInHand(final ItemStack item) {
-        // TODO
-        throw new UnsupportedMockException();
     }
 
     @Override
