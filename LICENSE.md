@@ -20,7 +20,7 @@ https://github.com/rzwitserloot/lombok/blob/master/LICENSE
 
 # License of Mokkit
 
-`Mokkit Copyright (C) 2018 Kaworu, Fuchspfoten.de`
+`Mokkit Copyright (C) 2018-2019 LordKorea`
 
 This program is licensed under the GNU GPLv3.
 
